@@ -1,0 +1,115 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chuang1230"><meta name="renderer" content="webkit"><meta name="copyright" content="chuang1230"><meta name="keywords" content="chuang1230 's blog"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>身份证信息识别 · Mr.Zhang's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/2.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Chuang Ye</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">身份证信息识别</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2019-01-17</span></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p><img src="/2019/01/17/2019.1.17/1.png" alt="思路"><br>近几年来，模式识别理论以及图像处理技术的发展为利用光学图像实现的证件识别行业奠定了理论基础，而电子技术的发展带来低成本、小体积的摄像头在移动终端的普遍应用为快速、便捷、低成本的证件识别提供了技术平台。基于光学摄像头图像处理处理以及模式识别理论的光学字符识别（OCR）在社会生活的各个行业得到了广泛的应用。光学字符识别在文字的录入方面具有速度快、效率高、错误少、成本低等优势。在光学字符识别的基础上发展起来的证件识别作为一种新兴的技术也在社会生活的各个方面得到了应用。随着国家信息化建设的发展，身份证作为我国公民的重要身份凭证，其识别与管理也成为了国内大量学者关注的热点问题。随着网络技术和数据库技术的发展，身份证识别的结果可以大大方便公安机关的业务管理工作，如身份证真伪的识别、犯罪份子追踪等。基于图像处理技术和模式识别的身份证识别系统可以广泛应用于海关、酒店登记、机场、公民身份核查、流动人口管理、追缉罪犯等业务中，具有广阔的应用前景和现实意义。<br><a id="more"></a></p>
+<h2 id="图像预处理"><a href="#图像预处理" class="headerlink" title="图像预处理"></a>图像预处理</h2><h3 id="灰度化"><a href="#灰度化" class="headerlink" title="灰度化"></a>灰度化</h3><p>身份证图像样本一般是通过扫描仪等设备获取到的彩色图像。由于彩色图像包含大量的颜色信息,在计算机处理时也会占用大量资源,降低了运行速度,而且实际采集的图像由于光照影响,使得整幅图偏暗或偏亮,没有灰度层次感。因此在对身份证图像进行识别时常将彩色图像转变为灰度图像,以加快处理速度,然后对其进行图像预处理。图片灰度化处理就是将指定图片每个像素点的RGB三个分量通过一定的方法计算出该像素点的灰度值，使图像只含亮度而不含色彩信息。通常灰度化采用的公式有两种：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Gray=(R+G+B)/3;</span><br><span class="line">Gray=0.299R+0.587G+0.114B;</span><br></pre></td></tr></table></figure></p>
+<p>本项目使用的是第二种。</p>
+<h3 id="二值化"><a href="#二值化" class="headerlink" title="二值化"></a>二值化</h3><p>经过非均匀校正和图像灰度化的身份证图像减小了非均匀光照和图像色彩对文字识别的影响。身份证上的信息主要为文字，文字的主要特征为结构特征。结构特征是独立与图像灰度的一种特征量，因此身份证图像还需要经过二值化处理。用二值的数字信号表示的字符图像灰度信号被称作字符图形数字信号二值化。灰度图像的二值化要求有效从图像中区分字符像素。传统印刷字体图像的二值化要求一方面要求尽量保持原始字符的结构特征，另一方面要求二值化后的字符之间不能有空白。传统印刷字符的背景比较单一且平滑，背景与字符之间可以利用简单的全局阈值的方法区分。而我国身份证由于背景存在纹理，并且存在持证人的照片，简单的全局阈值无法将包含身份信息的字符有效区分出来。因此需要考虑全局和局部阈值相结合的办法。<br><img src="/2019/01/17/2019.1.17/3.png" alt="二值化的身份证"></p>
+<hr>
+<h2 id="获得身份上各个区域"><a href="#获得身份上各个区域" class="headerlink" title="获得身份上各个区域"></a>获得身份上各个区域</h2><h3 id="字符区域"><a href="#字符区域" class="headerlink" title="字符区域"></a>字符区域</h3><p>二值图像即只有黑白两种颜色组成的图像，一般的白色为内容，黑色为背景。腐蚀是删除对象边界某些像素，既是让白色的区域瘦一圈；而膨胀则是给图像中的对象边界添加像素，即让白色的区域胖上一圈。而这个“圈”的大小，则是由参数来指定的。在本项目中的腐蚀膨胀这一步主要是将得到的二值图中的黑色块进行放大。即连接图片中相邻黑色像素点的元素。通过腐蚀可以把身份证上的身份证号码连接在一起形成一个矩形区域。然后进行轮廓提取，把每个大的区域找出来，除去小的区域，这样就可以定位得到身份证上各个的区域各部分的子图像。<br><img src="/2019/01/17/2019.1.17/4.png" alt="腐蚀化的身份证"></p>
+<h3 id="图片区域"><a href="#图片区域" class="headerlink" title="图片区域"></a>图片区域</h3><p>上面获得子图像中并没有获得身份证上的大头照，本文使用基于AdaBoost算法实现的人脸识别来获得大头照。首先使用Harr-like特征表示人脸，使用“积分图”实现特征数值的快速计算；也就是在一个 20<em>20 的图片提取一些简单的特征（称为Harr特征）。<br><img src="/2019/01/17/2019.1.17/6.png" alt="Harr特征"><br>Harr特征的计算方法是将白色区域内的像素和减去黑色区域，因此在人脸与非人脸图片的相同位置上，值的大小是不一样的，这些特征可以用来区分人脸和分人脸。通过对矩形区域黑色和白色像素的计算可以识别出，前两个图为人脸，而最后一个图为非人脸。使用数千张切割好的人脸图片，和上万张背景图片作为训练样本。训练图片一般归一到 20</em>20 的大小。在这样大小的图片中，可供使用的 haar 特征数在 1 万个左右，使用AdaBoost算法挑选出一些最能代表人脸的矩形特征(弱分类器)，按照加权投票的方式将弱分类器构造为一个强分类器。将训练得到的若干强分类器串联组成一个级联结构的层叠分类器，级联结构能有效地提高分类器的检测速度。</p>
+<hr>
+<h2 id="身份证号码区域的数字提取"><a href="#身份证号码区域的数字提取" class="headerlink" title="身份证号码区域的数字提取"></a>身份证号码区域的数字提取</h2><p>身份证号码是由1-10（存在部分人群的身份证号码最后一位是X），从网上下载的到一个公开的数据，每个数字都有50张这样的图片，这些数据将用来训练。计算数字字符的特征向量，也即梯度分布特征+灰度分布部分训练数据得到一个1<em>72的特征向量，由calcGradientFeat函数实现。最后把训练矩阵和标签矩阵，保存到xml文件。在上面的步骤中已经获得身份证号码区域，分辨率缩放至300</em>20大小之后获得身份证号码区域的矩阵对象，然后用光照直方图处理身份证区域的图像，最后获得纯粹的字符矩阵。利用opencv自带的CvANN_MLP &amp;ann进行神经网模型的构建和训练。把训练矩阵和标签矩阵输入到构建的神经网络模型中，把经过神经网络模型后得到的字符特征向量分类得到由整数vector容易存储的矩阵，最后通过迭代器的方式输出容器对象的值。<br><img src="/2019/01/17/2019.1.17/12.png" alt="分类后的身份证号码区域"></p>
+<hr>
+<h2 id="身份证出生日期和性别区域的信息获取"><a href="#身份证出生日期和性别区域的信息获取" class="headerlink" title="身份证出生日期和性别区域的信息获取"></a>身份证出生日期和性别区域的信息获取</h2><p>从得到的身份证号码文本中进行编辑。根据下面的身份证号码特征进行划分和提取。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">15位身份证号码：第7、8位为出生年份(两位数)，第9、10位为出生月份，第11、12位代表出生日期，第15位代表性别，奇数为男，偶数为女。  </span><br><span class="line">18位身份证号码：第7、8、9、10位为出生年份(四位数)，第11、第12位为出生月份，第13、14位代表出生日期，第17位代表性别，奇数为男，偶数为女。</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="调用百度OCR识别文字区域"><a href="#调用百度OCR识别文字区域" class="headerlink" title="调用百度OCR识别文字区域"></a>调用百度OCR识别文字区域</h2><p>在百度AI上获得API Key和Secret Key，通过API Key和Secret Key获取的access_token。对每个区域的照片进行base64编码，并去掉图片头，再通过urlencode变成一个字符串，最后发送请求。（每天可以免费500次）<br><img src="/2019/01/17/2019.1.17/14.png" alt="转换编码处理后的请求数据"></p>
+<hr>
+<h2 id="最终的是实验结果"><a href="#最终的是实验结果" class="headerlink" title="最终的是实验结果"></a>最终的是实验结果</h2><p><img src="/2019/01/17/2019.1.17/15.png" alt="实验结果"></p>
+</article><!-- lincense--><div class="post-paginator"><a class="nextSlogan" href="/2019/01/15/2019.1.15.3/" title="Echarts的demo实现"><span>NextPost ></span><br><span class="nextTitle">Echarts的demo实现</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#图像预处理"><span class="toc-number">1.</span> <span class="toc-text">图像预处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#灰度化"><span class="toc-number">1.1.</span> <span class="toc-text">灰度化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二值化"><span class="toc-number">1.2.</span> <span class="toc-text">二值化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获得身份上各个区域"><span class="toc-number">2.</span> <span class="toc-text">获得身份上各个区域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符区域"><span class="toc-number">2.1.</span> <span class="toc-text">字符区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图片区域"><span class="toc-number">2.2.</span> <span class="toc-text">图片区域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#身份证号码区域的数字提取"><span class="toc-number">3.</span> <span class="toc-text">身份证号码区域的数字提取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#身份证出生日期和性别区域的信息获取"><span class="toc-number">4.</span> <span class="toc-text">身份证出生日期和性别区域的信息获取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调用百度OCR识别文字区域"><span class="toc-number">5.</span> <span class="toc-text">调用百度OCR识别文字区域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最终的是实验结果"><span class="toc-number">6.</span> <span class="toc-text">最终的是实验结果</span></a></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
