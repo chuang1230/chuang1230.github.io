@@ -1,0 +1,153 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chuang1230"><meta name="renderer" content="webkit"><meta name="copyright" content="chuang1230"><meta name="keywords" content="chuang1230 's blog"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>VPS · Mr.Zhang's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/2.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/2.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Chuang Ye</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">VPS</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2019-04-16</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="ssr"> ssr</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">618</span> | Reading time: <span class="post-count">2</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p><img src="/2019/04/16/ssr/1.jpg" alt="我超凶的"></p>
+<h2 id="vultr服务器"><a href="#vultr服务器" class="headerlink" title="vultr服务器"></a>vultr服务器</h2><p>点击 <a href="https://www.vultr.com/" target="_blank" rel="noopener">https://www.vultr.com/</a>  进入官网注册。<br><a id="more"></a></p>
+<p>首先需要充值一定的钱，建议先冲$10【换算成rmb大概60多元】就可试一试【支持支付宝和微信支付】<br>。</p>
+<p><img src="/2019/04/16/ssr/vultr-3.png" alt=""></p>
+<p>选择服务器所在区域，自己决定，不喜欢的话后面可以重新实例。</p>
+<p><img src="/2019/04/16/ssr/vultr-1.png" alt=""></p>
+<p>选择系统，建议选择cenlos 6*64【网上大神说的】，买$5元一个月就够了。其他都是默认就好，直接生产，需要1几分钟加载。</p>
+<p><img src="/2019/04/16/ssr/vultr-2.png" alt=""></p>
+<p>加载完成后就会有如下界面</p>
+<p><img src="/2019/04/16/ssr/vultr-4.png" alt=""></p>
+<p>点击图中的小齿轮，进去后要服务器的详细信息。</p>
+<h2 id="vps的部署"><a href="#vps的部署" class="headerlink" title="vps的部署"></a>vps的部署</h2><h3 id="wget的安装"><a href="#wget的安装" class="headerlink" title="wget的安装"></a>wget的安装</h3><p>如果已经安装，则跳过此步骤<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install wget</span><br></pre></td></tr></table></figure></p>
+<h3 id="ssr的安装与配置"><a href="#ssr的安装与配置" class="headerlink" title="ssr的安装与配置"></a>ssr的安装与配置</h3><h4 id="命令行的安装"><a href="#命令行的安装" class="headerlink" title="命令行的安装"></a>命令行的安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>出现下图管理界面，输入1选择安装ssr</p>
+<p><img src="/2019/04/16/ssr/ssr-1.png" alt=""></p>
+<p>之后会弹出端口和密码的设置，自行设置【这里无图演示，嘻嘻嘻】</p>
+<p>加密方式选择aes-256-cfb</p>
+<p><img src="/2019/04/16/ssr/ssr-2.png" alt=""></p>
+<p>协议插件选择auth_sha1_v4</p>
+<p><img src="/2019/04/16/ssr/ssr-3.png" alt=""></p>
+<p>混淆插件选择tlsl.2_ticket_auth</p>
+<p><img src="/2019/04/16/ssr/ssr-4.png" alt=""></p>
+<p>设备数限制，端口限速等自己设置，不设置也可以，反正自己用，直接回车设置默认值</p>
+<p><img src="/2019/04/16/ssr/ssr-5.png" alt=""></p>
+<p>之后就选择YES就开始正式部署，完成可以看到你的VPS所有信息</p>
+<p>若要修改账号信息,直接输入快捷管理命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash ssr.sh</span><br></pre></td></tr></table></figure></p>
+<h2 id="谷歌BBR加速"><a href="#谷歌BBR加速" class="headerlink" title="谷歌BBR加速"></a>谷歌BBR加速</h2><p>vultr的服务器是KVM框架，谷歌的BBR支持</p>
+<p>brr的安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -N --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; ./bbr.sh</span><br></pre></td></tr></table></figure></p>
+<p>然后会弹出任意键后继续，弹出是否重启，确认就好，如果无法重启，请手动重启<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo reboot</span><br></pre></td></tr></table></figure></p>
+<h2 id="客户端的安装"><a href="#客户端的安装" class="headerlink" title="客户端的安装"></a>客户端的安装</h2><p>自行到如下github网站的releases找到对应版本安装；ios和mac版的需要自行去github上找，一定有大神有的！</p>
+<h3 id="ssr-windows"><a href="#ssr-windows" class="headerlink" title="ssr-windows"></a>ssr-windows</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/shadowsocksrr/shadowsocksr-csharp</span><br></pre></td></tr></table></figure>
+<h3 id="ssr-android"><a href="#ssr-android" class="headerlink" title="ssr-android"></a>ssr-android</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/shadowsocksrr/shadowsocksr-android</span><br></pre></td></tr></table></figure>
+<h3 id="v2ray【本人使用】"><a href="#v2ray【本人使用】" class="headerlink" title="v2ray【本人使用】"></a>v2ray【本人使用】</h3><p>注意V2ray支持VMess和Shadowsocks协议的，所以ssr也可以在v2ray中使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.v2ray.com/</span><br></pre></td></tr></table></figure></p>
+<p>可能需要翻墙才访问这个网站，如若想要直接下载，参考下图的地址即可</p>
+<p><img src="/2019/04/16/ssr/v2ray-1.png" alt=""></p>
+<h2 id="客户端的配置"><a href="#客户端的配置" class="headerlink" title="客户端的配置"></a>客户端的配置</h2><p>1.打开客户端</p>
+<p>2.复制ssr的链接直接导入即可，或者扫码导入</p>
+<p>3.设置为PAC 自动代理（推荐），不需要浏览器插件就可以分网站使用代理</p>
+</article><!-- lincense--><div class="post-paginator"><a class="nextSlogan" href="/2019/04/15/netease的安装与卸载/" title="ubuntu14.4下netease-cloud-music的安装与卸载"><span>NextPost ></span><br><span class="nextTitle">ubuntu14.4下netease-cloud-music的安装与卸载</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
+  id: 'VPS',
+  owner: 'chuang1230',
+  repo: 'chuang1230.github.io',
+  oauth: {
+    client_id: 'a5c48ac5d5cc94c1ddcb',
+    client_secret: 'c828a290f6cea734f3c3f05992b798d262e1f1f2',
+  },
+})
+gitment.render('container')</script></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by Chuang Ye</span></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + 'true';
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
