@@ -1,0 +1,141 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chuang1230"><meta name="renderer" content="webkit"><meta name="copyright" content="chuang1230"><meta name="keywords" content="chuang1230 's blog"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>重复度计算 · Mr.Zhang's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/2.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/2.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Chuang Ye</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">重复度计算</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2019-07-14</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="python"> python</a><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="excel"> excel</a><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="数据分析"> 数据分析</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">858</span> | Reading time: <span class="post-count">3</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p><img src="/2019/07/14/2019.7.14/1.jpg" alt="诗咏真系好靓"></p>
+<p>【需求：比较6个商业项目的品牌重合度】</p>
+<p>一开始接到时就有几个想法，现在实现了一下，看看哪种的效率高点？</p>
+ <a id="more"></a>
+<h2 id="总体思路"><a href="#总体思路" class="headerlink" title="总体思路"></a>总体思路</h2><p>1、用python来实现【5分钟搞定！】<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把品牌放进列表中，用set函数去除重复的品牌，再去求项目品牌的交集，最后用项目品牌的交集除以项目品牌的并集，得出重合率</span><br></pre></td></tr></table></figure></p>
+<p>2、用Excel的函数实现【这种方法最后花了一个早上才搞定6个项目，我哭了！】<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用WPS自带的删除重复项去除重复品牌;</span><br><span class="line">判断是否重合：IF(COUNTIF(A:A,B1)=1,&quot;1&quot;,&quot;没有重合&quot;)，即拿B1跟A列做对比，如果相同的个数为1，则显示1，否则就显示没有重合 ;</span><br><span class="line">重合品牌的数量：COUNTIF(C$2:C$31,1)计算该列的1出现的次数；</span><br><span class="line">重合度计算： （A项目和B项目品牌的交集 / A项目和B项目品牌的并集）*100% ;</span><br></pre></td></tr></table></figure></p>
+<p>​    </p>
+<h2 id="实现一：python实现"><a href="#实现一：python实现" class="headerlink" title="实现一：python实现"></a>实现一：python实现</h2><p><img src="/2019/07/14/2019.7.14/2.png" alt=""></p>
+<h3 id="读取excel中的数据"><a href="#读取excel中的数据" class="headerlink" title="读取excel中的数据"></a>读取excel中的数据</h3><h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p>使用xlrd库读取excel中的数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开excel</span></span><br><span class="line">data1 = xlrd.open_workbook(<span class="string">'重合度python实现.xlsx'</span>)</span><br><span class="line"><span class="comment"># sheet数</span></span><br><span class="line">table = data1.sheets()[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># 行数</span></span><br><span class="line">nrows = table.nrows </span><br><span class="line"><span class="comment"># 列数</span></span><br><span class="line">ncols = table.ncols</span><br><span class="line"></span><br><span class="line">all = []</span><br><span class="line"><span class="comment">#读取每一列的数据</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(ncols):</span><br><span class="line">    col_values = table.col_values(i)</span><br><span class="line">    <span class="comment"># 去除空元素</span></span><br><span class="line">    k = [j <span class="keyword">for</span> j <span class="keyword">in</span> col_values <span class="keyword">if</span> j != <span class="string">''</span>]</span><br><span class="line">    <span class="comment"># 去除项目名（非品牌数据）</span></span><br><span class="line">    k.remove(k[<span class="number">0</span>])</span><br><span class="line">    all.append(k)</span><br></pre></td></tr></table></figure>
+<h4 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;Apple Store&apos;, &apos;H&amp;M&apos;, &apos;JINS&apos;, &apos;煮葉&apos;, ......]</span><br></pre></td></tr></table></figure>
+<h3 id="重合度计算"><a href="#重合度计算" class="headerlink" title="重合度计算"></a>重合度计算</h3><h4 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h4><p>用set函数去除列表中的重复数据，利用set的union函数求并集，同时也可以用set的intersection函数求交集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">contact_ratio</span><span class="params">(Lista, Listb)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 交集</span></span><br><span class="line">    k1 = [i <span class="keyword">for</span> i <span class="keyword">in</span> Lista <span class="keyword">if</span> i <span class="keyword">in</span> Listb]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 并集</span></span><br><span class="line">    k2 = list(set(Lista).union(set(Listb)))</span><br><span class="line"></span><br><span class="line">    result = len(k1)/len(k2)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> k1,k2,result</span><br></pre></td></tr></table></figure>
+<h4 id="All-Codes"><a href="#All-Codes" class="headerlink" title="All_Codes"></a>All_Codes</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">contact_ratio</span><span class="params">(Lista, Listb)</span>:</span></span><br><span class="line">    k1 = [i <span class="keyword">for</span> i <span class="keyword">in</span> Lista <span class="keyword">if</span> i <span class="keyword">in</span> Listb]</span><br><span class="line">    k2 = list(set(Lista).union(set(Listb)))</span><br><span class="line">    result = len(k1)/len(k2)</span><br><span class="line">    <span class="keyword">return</span> k1, k2, result</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    data1 = xlrd.open_workbook(<span class="string">'重合度python实现.xlsx'</span>)</span><br><span class="line">    table = data1.sheets()[<span class="number">0</span>]</span><br><span class="line">    nrows = table.nrows</span><br><span class="line">    ncols = table.ncols</span><br><span class="line">    all = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(ncols):</span><br><span class="line">        col_values = table.col_values(i)</span><br><span class="line">        k = [j <span class="keyword">for</span> j <span class="keyword">in</span> col_values <span class="keyword">if</span> j != <span class="string">''</span>]</span><br><span class="line">        k.remove(k[<span class="number">0</span>])</span><br><span class="line">        all.append(k)</span><br><span class="line">    A, B, C =contact_ratio(all[<span class="number">0</span>], all[<span class="number">1</span>])</span><br><span class="line">    print(<span class="string">"交集="</span>, A)</span><br><span class="line">    print(<span class="string">"并集="</span>, B)</span><br><span class="line">    print(<span class="string">"重合度="</span>, format(C, <span class="string">'0.13%'</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="Result-1"><a href="#Result-1" class="headerlink" title="Result"></a>Result</h4><p><img src="/2019/07/14/2019.7.14/3.png" alt=""></p>
+<h2 id="实现二：excel实现"><a href="#实现二：excel实现" class="headerlink" title="实现二：excel实现"></a>实现二：excel实现</h2><h4 id="删除重复项"><a href="#删除重复项" class="headerlink" title="删除重复项"></a>删除重复项</h4><p><img src="/2019/07/14/2019.7.14/4.png" alt=""></p>
+<h4 id="判断是否重合"><a href="#判断是否重合" class="headerlink" title="判断是否重合"></a>判断是否重合</h4><p>使用excel的公式 IF(COUNTIF(A:A,B1)=1,”1”,”没有重合”)；</p>
+<p>公式解析：拿B1单元格跟A列的数据做对比，如果相同的个数为1，则显示1，否则就显示没有重合 ;如果没有做第一步的去重的话，COUNTIF函数可能返回会2，3 …等大于1的结果，影响IF函数的结果；</p>
+<p>具体情况具体分析：这里第一行的数据是项目的名字，所以具体的使用公式是IF(COUNTIF(B$2:B$804,A2)=1,”1”,”没有重合”)，然后用十字下拉即可</p>
+<p><img src="/2019/07/14/2019.7.14/5.png" alt=""></p>
+<h4 id="重合品牌的数量"><a href="#重合品牌的数量" class="headerlink" title="重合品牌的数量"></a>重合品牌的数量</h4><p>COUNTIF(C$2:C$31,1)计算前面判断是否重合公司那一列的1出现的次数，这里既是两个项目品牌的交集</p>
+<p><img src="/2019/07/14/2019.7.14/6.png" alt=""></p>
+<h4 id="重合度计算："><a href="#重合度计算：" class="headerlink" title="重合度计算："></a>重合度计算：</h4><p>（A项目和B项目品牌的交集 / A项目和B项目品牌的并集）*100%</p>
+<p>具体情况具体分析：A项目和B项目品牌的并集 = A项目品牌的数量+ B项目品牌 - A项目和B项目品牌的交集</p>
+<p><img src="/2019/07/14/2019.7.14/7.png" alt=""></p>
+<h4 id="Excel的实现文件"><a href="#Excel的实现文件" class="headerlink" title="Excel的实现文件"></a>Excel的实现文件</h4><p>顺便放上<a href="http://lc-jujabo3e.cn-n1.lcfile.com/2a701c82d52afbc636db/%E9%87%8D%E5%90%88%E5%BA%A6python%E5%AE%9E%E7%8E%B0.xlsx" target="_blank" rel="noopener">重合度python实现</a>这个文件吧</p>
+</article><!-- lincense--><div class="post-paginator"><a class="prevSlogan" href="/2019/07/14/2019.7.14.1/" title="Python调用百度OCR"><span>< PreviousPost</span><br><span class="prevTitle">Python调用百度OCR</span></a><a class="nextSlogan" href="/2019/06/30/2019.6.30/" title="Endgame"><span>NextPost ></span><br><span class="nextTitle">Endgame</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
+  id: '重复度计算',
+  owner: 'chuang1230',
+  repo: 'chuang1230.github.io',
+  oauth: {
+    client_id: 'a5c48ac5d5cc94c1ddcb',
+    client_secret: 'c828a290f6cea734f3c3f05992b798d262e1f1f2',
+  },
+})
+gitment.render('container')</script></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by Chuang Ye</span></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + 'true';
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
