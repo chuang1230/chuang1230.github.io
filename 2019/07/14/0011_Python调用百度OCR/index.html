@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="Chinese"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chuang1230"><meta name="renderer" content="webkit"><meta name="copyright" content="chuang1230"><meta name="keywords" content="chuang1230 's blog"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Python调用百度OCR · Mr.Zhang's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/2.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 7.3.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/2.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Mr.Zhang</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">Python调用百度OCR</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2025-02-14</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="python"> python</a><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="OCR"> OCR</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">919</span> | Reading time: <span class="post-count">4</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/1.jpg" class title="你要记住这句话">
+
+<p>字母+数字的文字识别现在自己还是可以做到的，但是中文的文字识别就很难了。所以平时遇到这种需求时，直接调用大厂的文字识别OCR效率更高点。<br> <span id="more"></span></p>
+<p>这里调用百度的OCR主要实现的是对网络上一些表格图片进行文字识别。</p>
+<img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/test1.png" class title="之后要识别的图片">
+
+
+<h3 id="在百度云开放平台创建应用"><a href="#在百度云开放平台创建应用" class="headerlink" title="在百度云开放平台创建应用"></a>在百度云开放平台创建应用</h3><img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/3.png" class title="百度官方使用说明">
+
+<h5 id="获取API-KEY和Secret-Key"><a href="#获取API-KEY和Secret-Key" class="headerlink" title="获取API KEY和Secret Key"></a>获取API KEY和Secret Key</h5><p>进入<a href="https://ai.baidu.com/tech/OCR">百度AI开放平台</a>的文字识别板块，然后创建应用，获得API KEY和Secret Key；</p>
+<img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/2.png" class>
+
+<h3 id="授权字符串Access-Token"><a href="#授权字符串Access-Token" class="headerlink" title="授权字符串Access Token"></a>授权字符串Access Token</h3><p>Token是使用API的第一步！Access Token就是在每次向服务器发送的请求里面加上这个你个人专属的密码，这个密码由别人API的创建者决定；有可能一个token会十分复杂不过这个部分还好，基本每个开发者都会写说明文档来介绍如何使用。</p>
+<h5 id="code"><a href="#code" class="headerlink" title="code"></a>code</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import ssl, sys</span><br><span class="line"></span><br><span class="line"># 官网host解析</span><br><span class="line"># client_id 为官网获取的AK， client_secret 为官网获取的SK</span><br><span class="line">host = &#x27;https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&amp;client_id=【官网获取的AK】&amp;client_secret=【官网获取的SK】&#x27;</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    &#x27;Content-Type&#x27;: &#x27;application/json;charset=UTF-8&#x27;</span><br><span class="line">&#125;</span><br><span class="line">res = requests.get(url=host, headers=headers).json()</span><br><span class="line">print(res[&#x27;access_token&#x27;])</span><br></pre></td></tr></table></figure>
+
+<p>把获取到access_token保存一下，注意：百度OCR获取的access_token有效期为30天，需要每30天进行定期更换；</p>
+<h3 id="开始调用表格文字识别API（异步接口）"><a href="#开始调用表格文字识别API（异步接口）" class="headerlink" title="开始调用表格文字识别API（异步接口）"></a>开始调用表格文字识别API（异步接口）</h3><h5 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import base64</span><br><span class="line">import ssl, sys</span><br><span class="line"></span><br><span class="line">url = &#x27;https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/request&#x27;</span><br><span class="line"></span><br><span class="line">data = &#123;&#125;</span><br><span class="line"></span><br><span class="line"># 上面获得access_token</span><br><span class="line">data[&#x27;access_token&#x27;] = &#x27;&#x27;</span><br><span class="line"></span><br><span class="line"># 读取图片</span><br><span class="line">file = open(&#x27;test1.png&#x27;, &#x27;rb&#x27;)</span><br><span class="line">image = file.read()</span><br><span class="line">file.close()</span><br><span class="line"></span><br><span class="line"># 进行编码</span><br><span class="line">data[&#x27;image&#x27;] = base64.b64encode(image)</span><br><span class="line"></span><br><span class="line">#写自己API KEY</span><br><span class="line">headers = &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">res = requests.post(url=url, headers=headers, data=data)</span><br><span class="line"></span><br><span class="line">print(res.json())</span><br></pre></td></tr></table></figure>
+
+<h5 id="请求URL"><a href="#请求URL" class="headerlink" title="请求URL"></a>请求URL</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/request</span><br></pre></td></tr></table></figure>
+
+<h5 id="Headers说明"><a href="#Headers说明" class="headerlink" title="Headers说明"></a>Headers说明</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">headers = &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,</span><br><span class="line">    &quot;apikey&quot;: &quot;&quot;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h5><p>百度OCR对图片的要求是需要base64编码、去掉编码头后再进行urlencode</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[&#x27;image&#x27;] = base64.b64encode(image)</span><br></pre></td></tr></table></figure>
+<p>还有access_token</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[&#x27;access_token&#x27;] = &#x27;**************&#x27;</span><br></pre></td></tr></table></figure>
+<h5 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h5><p>这里是返回的参数</p>
+<img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/4.png" class>
+
+<h3 id="调用接口获取结果"><a href="#调用接口获取结果" class="headerlink" title="调用接口获取结果"></a>调用接口获取结果</h3><h5 id="code-2"><a href="#code-2" class="headerlink" title="code"></a>code</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import ssl, sys</span><br><span class="line"></span><br><span class="line">url = &#x27;https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/get_request_result&#x27;</span><br><span class="line"></span><br><span class="line">data = &#123;&#125;</span><br><span class="line"></span><br><span class="line"># 上面获得access_token</span><br><span class="line">data[&#x27;access_token&#x27;] = &#x27;&#x27;</span><br><span class="line"></span><br><span class="line"># 上面获得request_id</span><br><span class="line">data[&#x27;request_id&#x27;] = &#x27;15347521_1068276&#x27;</span><br><span class="line"></span><br><span class="line">#可以获得josn和excel两种结果</span><br><span class="line">data[&#x27;result_type&#x27;] =&#x27;excel&#x27;</span><br><span class="line"></span><br><span class="line">#写自己API KEY</span><br><span class="line">headers = &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,</span><br><span class="line">    &quot;apikey&quot;: &quot;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">res = requests.post(url=url, headers=headers, data=data)</span><br><span class="line"></span><br><span class="line">print(res.json())</span><br></pre></td></tr></table></figure>
+<h5 id="请求URL-1"><a href="#请求URL-1" class="headerlink" title="请求URL"></a>请求URL</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/get_request_result</span><br></pre></td></tr></table></figure>
+
+<h5 id="Headers说明-1"><a href="#Headers说明-1" class="headerlink" title="Headers说明"></a>Headers说明</h5><p>使用获得的API KEY</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">headers = &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,</span><br><span class="line">    &quot;apikey&quot;: &quot;&quot;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="请求参数-1"><a href="#请求参数-1" class="headerlink" title="请求参数"></a>请求参数</h5><p>使用上一步获得的request_id</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[&#x27;request_id&#x27;] = &#x27;15347521_1068276&#x27;</span><br></pre></td></tr></table></figure>
+<p>期望获取结果的类型，取值为“excel”时返回xls文件的地址，取值为“json”时返回json格式的字符串,默认为“excel”</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data[&#x27;result_type&#x27;] =&#x27;excel&#x27;</span><br></pre></td></tr></table></figure>
+<h5 id="Result-1"><a href="#Result-1" class="headerlink" title="Result"></a>Result</h5><p>这里是返回的参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#x27;result&#x27;: &#123;&#x27;result_data&#x27;: &#x27;http://bj.bcebos.com/v1/aip-web/form_ocr/67ACBFCCC3C24A79A7161DC2F3A05D29.xls?authorization=bce-auth-v1%2Ff86a2044998643b5abc89b59158bad6d%2F2019-07-05T09%3A17%3A41Z%2F86400%2F%2F49456aa34ec7ed98e00ebb9cef40a6272fb63354dc25b770326055a4fe237245&#x27;, &#x27;ret_msg&#x27;: &#x27;已完成&#x27;, &#x27;request_id&#x27;: &#x27;15347521_1068276&#x27;, &#x27;percent&#x27;: 100, &#x27;ret_code&#x27;: 3&#125;, &#x27;log_id&#x27;: 15623183058743806&#125;</span><br></pre></td></tr></table></figure>
+<p>最后的url我们点进去下载excel，该<a href="http://lc-jujabo3e.cn-n1.lcfile.com/213a518f3aba56adcd5d/%E5%9B%BE%E7%89%87test1%E8%8E%B7%E5%BE%97%E7%9A%84%E7%BB%93%E6%9E%9C.xls">excel</a>就是我们文字识别的最终结果</p>
+<img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/5.png" class title="result">
+
+
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>稍微修改一下可以做其他图片的文字识别，不同图片文本对于不同的请求URL和参数，需要去自己去官网看文档。最主要的这个OCR也可以做为反爬验证码的识别，有空再搞这个吧</p>
+</article><!-- lincense--><div class="post-paginator"><a class="prevSlogan" href="/2019/07/14/0010_%E9%87%8D%E5%A4%8D%E5%BA%A6%E8%AE%A1%E7%AE%97/" title="重复度计算"><span>< PreviousPost</span><br><span class="prevTitle">重复度计算</span></a><a class="nextSlogan" href="/2019/06/30/0009_Endgame/" title="Endgame"><span>NextPost ></span><br><span class="nextTitle">Endgame</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
+  id: 'Python调用百度OCR',
+  owner: 'chuang1230',
+  repo: 'blog_comments',
+  oauth: {
+    client_id: 'a5c48ac5d5cc94c1ddcb',
+    client_secret: 'c828a290f6cea734f3c3f05992b798d262e1f1f2',
+  },
+})
+gitment.render('container')</script></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + 'true';
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>

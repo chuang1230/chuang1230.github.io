@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="Chinese"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chuang1230"><meta name="renderer" content="webkit"><meta name="copyright" content="chuang1230"><meta name="keywords" content="chuang1230 's blog"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>OH MY JANICE · Mr.Zhang's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/2.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 7.3.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/2.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Mr.Zhang</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">OH MY JANICE</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2025-02-14</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="随笔"> 随笔</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">515</span> | Reading time: <span class="post-count">1</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><img src="/2019/07/21/0017_OH%20MY%20JANICE/1.jpg" class>
+
+
+<span id="more"></span>
+<h1 id="记下心路历程，难得矫情一次"><a href="#记下心路历程，难得矫情一次" class="headerlink" title="记下心路历程，难得矫情一次"></a>记下心路历程，难得矫情一次</h1><h3 id="OMJ-1"><a href="#OMJ-1" class="headerlink" title="OMJ_1"></a>OMJ_1</h3><p>前往演艺中心的路上就发现，身边都是Janice的粉丝，意识到这个世界原来有这么多志同道合的人……</p>
+<h3 id="OMJ-2"><a href="#OMJ-2" class="headerlink" title="OMJ_2"></a>OMJ_2</h3><p>待我仔细观察时，发现好多girls，此时我还没意识到Janice的粉丝是女生为主，只觉得激动，想快点看到Janice……</p>
+<h3 id="OMJ-3"><a href="#OMJ-3" class="headerlink" title="OMJ_3"></a>OMJ_3</h3><p>终于等到开场了，开场show很high，但是大家还是发现了点问题，就是Janice状态不太好……</p>
+<h3 id="OMJ-4"><a href="#OMJ-4" class="headerlink" title="OMJ_4"></a>OMJ_4</h3><p>开完场，Janice就开始跟我们说sorry，自己病了不能给大家带来完美的show，此时我是有点遗憾且心疼的……</p>
+<h3 id="OMJ-5"><a href="#OMJ-5" class="headerlink" title="OMJ_5"></a>OMJ_5</h3><p>“今晚的歌单是专门为你们准备的……”这句话估计是我今晚最感动的一句，也是这句让我恍然大悟，原来我身边的人都是</p>
+<p>带着自己的故事来听Janice的歌，或者是来怀念当年，或者是想起了那个他or她……可是我一个没有故事的人，为什么听</p>
+<p>得那么有感觉呢？……</p>
+<h3 id="OMJ-6"><a href="#OMJ-6" class="headerlink" title="OMJ_6"></a>OMJ_6</h3><p>《心乱如麻》、《就算世界无童话》、《回电我》这一首首Jancie的经典歌她都带病唱完了，全场一直在大合唱，那时我</p>
+<p>们不再是观众，也是这舞台上那个她……</p>
+<h3 id="OMJ-7"><a href="#OMJ-7" class="headerlink" title="OMJ_7"></a>OMJ_7</h3><p>最心疼的是病了还给我们encore，全场都在encore，我的心是矛盾的，我喊不出来;因为一晚下来，她避开了一些难度较高</p>
+<p>且伤喉咙的歌，而且有些歌的高音都唱不上去，应该是喉咙发炎了，真的好心疼她最后还encore了两首歌……</p>
+<h3 id="OMJ-8"><a href="#OMJ-8" class="headerlink" title="OMJ_8"></a>OMJ_8</h3><p>以《大哥》和《就算世界无童话》结束，她实现了她开场对我们所说的话，把我们这帮fans的愿望都一次实现了。这些歌</p>
+<p>都是陪伴我们度过人生某个难关，已经慢漫成为我们的青春，慢慢成为我们前进的动力。</p>
+<h3 id="OMJ-9"><a href="#OMJ-9" class="headerlink" title="OMJ_9"></a>OMJ_9</h3><p>离场，过马路，坐地铁都能听到很多人在默默哼着Janice的歌……</p>
+<video src="http://lc-jujabo3e.cn-n1.lcfile.com/4820025d85b010f49d05/IMG_5975.mp4" type="video/mp4" controls="controls" width="100%" height="80%">
+</video></article><!-- lincense--><div class="post-paginator"><a class="prevSlogan" href="/2025/02/14/0015_save_photo/" title="save_photo"><span>< PreviousPost</span><br><span class="prevTitle">save_photo</span></a><a class="nextSlogan" href="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/" title="Python计算两个经纬度之间的距离"><span>NextPost ></span><br><span class="nextTitle">Python计算两个经纬度之间的距离</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
+  id: 'OH MY JANICE',
+  owner: 'chuang1230',
+  repo: 'blog_comments',
+  oauth: {
+    client_id: 'a5c48ac5d5cc94c1ddcb',
+    client_secret: 'c828a290f6cea734f3c3f05992b798d262e1f1f2',
+  },
+})
+gitment.render('container')</script></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + 'true';
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>

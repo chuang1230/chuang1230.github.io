@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="Chinese"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chuang1230"><meta name="renderer" content="webkit"><meta name="copyright" content="chuang1230"><meta name="keywords" content="chuang1230 's blog"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Mr.Zhang's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/2.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 7.3.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/2.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Mr.Zhang</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1>Mr.Zhang's Blog</h1><h5>Welcome to my Blog!</h5><div class="intro-social"><a class="fa fa-envelope" href="mailto://chuang1chuang@163.com" title="email"></a><a class="fa fa-github" href="//github.com/chuang1230" target="_blank" title="github"></a><a class="fa fa-instagram" href="//www.instagram.com/chuang1chuang" target="_blank" title="instagram"></a></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><section id="recent-posts"><div class="recent-post-item"><div class="post-title"><a class="fa fa-toggle-up stick-top" href="/2019/07/21/0017_OH%20MY%20JANICE/">OH MY JANICE</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-07-20T16:05:20.000Z">2019-07-21</time><i class="fa fa-edit"></i><time datetime="2019-07-20T16:05:20.000Z">2025-02-14</time></div><div class="recent-post-content"><img src="/2019/07/21/0017_OH%20MY%20JANICE/1.jpg" class></div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="随笔"> 随笔</a></div><div class="read-more"><a class="more" href="/2019/07/21/0017_OH%20MY%20JANICE/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2025/02/14/0015_save_photo/">save_photo</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2025-02-14T14:39:43.000Z">2025-02-14</time><i class="fa fa-edit"></i><time datetime="2025-02-14T14:39:43.000Z">2025-02-14</time></div><div class="recent-post-content">在龙场悟道中
+
+
+
+
+</div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="GEM"> GEM</a></div><div class="read-more"><a class="more" href="/2025/02/14/0015_save_photo/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/0016_VPS/">VPS</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-15T16:00:00.000Z">2019-04-16</time><i class="fa fa-edit"></i><time datetime="2019-04-15T16:00:00.000Z">2025-02-14</time></div><div class="recent-post-content"><img src="/2019/04/16/0016_VPS/1.jpg" class title="我超凶的">
+
+
+<h2 id="vultr服务器"><a href="#vultr服务器" class="headerlink" title="vultr服务器"></a>vultr服务器</h2><p>点击 <a href="https://www.vultr.com/">https://www.vultr.com/</a>  进入官网注册。</p></div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="ssr"> ssr</a></div><div class="read-more"><a class="more" href="/2019/04/16/0016_VPS/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/06/30/0009_Endgame/">Endgame</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-06-30T07:07:44.000Z">2019-06-30</time><i class="fa fa-edit"></i><time datetime="2019-06-30T07:07:44.000Z">2025-02-14</time></div><div class="recent-post-content"><img src="/2019/06/30/0009_Endgame/1.jpg" class title="单纯记录一下Avengers"></div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="Avengers"> Avengers</a></div><div class="read-more"><a class="more" href="/2019/06/30/0009_Endgame/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/07/14/0010_%E9%87%8D%E5%A4%8D%E5%BA%A6%E8%AE%A1%E7%AE%97/">重复度计算</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-07-14T04:09:44.000Z">2019-07-14</time><i class="fa fa-edit"></i><time datetime="2019-07-14T04:09:44.000Z">2025-02-14</time></div><div class="recent-post-content"><img src="/2019/07/14/0010_%E9%87%8D%E5%A4%8D%E5%BA%A6%E8%AE%A1%E7%AE%97/1.jpg" class title="诗咏真系好靓">
+
+<p>【需求：比较6个商业项目的品牌重合度】</p>
+<p>一开始接到时就有几个想法，现在实现了一下，看看哪种的效率高点？</p></div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="python excel 数据分析"> python excel 数据分析</a></div><div class="read-more"><a class="more" href="/2019/07/14/0010_%E9%87%8D%E5%A4%8D%E5%BA%A6%E8%AE%A1%E7%AE%97/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/">Python调用百度OCR</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-07-14T04:09:44.000Z">2019-07-14</time><i class="fa fa-edit"></i><time datetime="2019-07-14T04:09:44.000Z">2025-02-14</time></div><div class="recent-post-content"><img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/1.jpg" class title="你要记住这句话">
+
+<p>字母+数字的文字识别现在自己还是可以做到的，但是中文的文字识别就很难了。所以平时遇到这种需求时，直接调用大厂的文字识别OCR效率更高点。<br></p></div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="python"> python</a><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="OCR"> OCR</a></div><div class="read-more"><a class="more" href="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/">Python调用高德API批量获得经纬度</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-07-14T07:07:44.000Z">2019-07-14</time><i class="fa fa-edit"></i><time datetime="2019-07-14T07:07:44.000Z">2025-02-14</time></div><div class="recent-post-content"><img src="/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/1.jpg" class title="希望你把心交给我">
+
+<p>做热力图时发现很多平台都需要经纬度</p></div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="python"> python</a><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="高德API"> 高德API</a><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="经纬度"> 经纬度</a></div><div class="read-more"><a class="more" href="/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/">Python计算两个经纬度之间的距离</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-07-14T10:07:44.000Z">2019-07-14</time><i class="fa fa-edit"></i><time datetime="2019-07-14T10:07:44.000Z">2025-02-14</time></div><div class="recent-post-content"><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/1.jpg" class>
+<p>【需求：计算多个居住地与工作地到本次案例的距离】</p></div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="python"> python</a><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="经纬度"> 经纬度</a></div><div class="read-more"><a class="more" href="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/10/0008_soundex%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/">soundex算法的实现</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-09T16:00:00.000Z">2019-04-10</time><i class="fa fa-edit"></i><time datetime="2019-04-09T16:00:00.000Z">2025-02-14</time></div><div class="recent-post-content"><img src="/2019/04/10/0008_soundex%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/1.jpg" class>
+
+<h2 id="soundex算法"><a href="#soundex算法" class="headerlink" title="soundex算法"></a>soundex算法</h2><p>soundex是一种语音算法，利用英文字的读音计算近似值，值由四个字符构成，第一个字符为英文字母，后三个为数字。在拼音文字中有时会有会念但不能拼出正确字的情形，可用soundex做类似模糊匹配的效果。例如knuth和kant二个字符串，它们的soundex值都是“k530”。</p></div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="python"> python</a></div><div class="read-more"><a class="more" href="/2019/04/10/0008_soundex%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/15/0014_ubuntu14.4%E4%B8%8Bnetease-cloud-music%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BD/">ubuntu14.4下netease-cloud-music的安装与卸载</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-14T16:00:00.000Z">2019-04-15</time><i class="fa fa-edit"></i><time datetime="2019-04-14T16:00:00.000Z">2019-04-28</time></div><div class="recent-post-content"><h2 id="安装包的下载"><a href="#安装包的下载" class="headerlink" title="安装包的下载"></a>安装包的下载</h2><p>重新打开浏览器，copy链接就可以自动下载安装包</p>
+<p>Ubuntu 14.04 64</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s1.music.126.net/download/pc/netease-cloud-music_1.0.0_amd64_ubuntu14.04.deb</span><br></pre></td></tr></table></figure></div><div class="recent-post-tags"><a class="post-tag fa fa-tag" href="javascript:void(0)" date-tags="linux"> linux</a></div><div class="read-more"><a class="more" href="/2019/04/15/0014_ubuntu14.4%E4%B8%8Bnetease-cloud-music%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BD/#more">ReadMore</a></div><hr></div></section><nav class="cxo-page-nav"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a></nav></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + 'true';
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
