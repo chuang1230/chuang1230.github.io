@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="Chinese"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chuang1230"><meta name="renderer" content="webkit"><meta name="copyright" content="chuang1230"><meta name="keywords" content="chuang1230 's blog"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>save_photo · Mr.Zhang's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/2.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+<!DOCTYPE html><html lang="Chinese"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chuang1230"><meta name="renderer" content="webkit"><meta name="copyright" content="chuang1230"><meta name="keywords" content="chuang1230 's blog"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>sql和hive的总结小记 · Mr.Zhang's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/2.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
   "use strict";
   // rel=preload support test
   if( !w.loadCSS ){
@@ -97,17 +97,41 @@
   }
 }( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 7.3.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/2.png"></div><!--.profile-saying
   i.fa.fa-comment
-  .saying--><div class="cxo-profile-inner"><div class="profile-name">Mr.Zhang</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">save_photo</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2025-02-16</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="GEM"> GEM</a><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="随笔"> 随笔</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">47</span> | Reading time: <span class="post-count">1</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>最近生活状态：在龙场悟道中……</p>
-<iframe frameborder="yes" border="0" marginwidth="0" marginheight="0" allow="autoplay" width="950" height="100" src="https://i.y.qq.com/n2/m/outchain/player/index.html?songid=370870476&songtype=0">
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Mr.Zhang</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">sql和hive的总结小记</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2025-02-16</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="hive"> hive</a><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="sql"> sql</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">242</span> | Reading time: <span class="post-count">1</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><iframe frameborder="yes" border="0" marginwidth="0" marginheight="0" allow="autoplay" width="950" height="100" src="https://i.y.qq.com/n2/m/outchain/player/index.html?songid=353767251&songtype=0">
 </iframe>
 
-<p>工作时间发现写了很多MD基本都是敏感信息，以后就转娱乐博客，记录一下生活好了。</p>
-<img src="/2025/02/14/0015_save_photo/1.jpg" class>
-<img src="/2025/02/14/0015_save_photo/2.jpg" class>
-<img src="/2025/02/14/0015_save_photo/3.jpg" class>
-<img src="/2025/02/14/0015_save_photo/4.jpg" class>
-</article><!-- lincense--><div class="post-paginator"><a class="prevSlogan" href="/2025/02/16/0018_%E9%A3%8E%E6%8E%A7%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93%E5%B0%8F%E8%AE%B0/" title="风控个人总结小记"><span>< PreviousPost</span><br><span class="prevTitle">风控个人总结小记</span></a><a class="nextSlogan" href="/2019/07/21/0017_OH%20MY%20JANICE/" title="OH MY JANICE"><span>NextPost ></span><br><span class="nextTitle">OH MY JANICE</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
-  id: 'save_photo',
+<h3 id="sql执行顺序"><a href="#sql执行顺序" class="headerlink" title="sql执行顺序"></a>sql执行顺序</h3><p>1、FROM &#x2F; JOIN	确定数据源并连接表</p>
+<p>2、WHERE	    过滤行</p>
+<p>3、GROUP BY	    分组</p>
+<p>4、HAVING	    过滤分组</p>
+<p>5、SELECT	    选择列并计算表达式</p>
+<p>6、DISTINCT	    去重</p>
+<p>7、ORDER BY	    排序</p>
+<p>8、LIMIT	    分页</p>
+<h3 id="hive数据类型"><a href="#hive数据类型" class="headerlink" title="hive数据类型"></a>hive数据类型</h3><p>1、decimal数字类型，精度为38位数字，用法decimal（精度，小数位数），精度包含小数位数</p>
+<p>（1）向上取整</p>
+<p>ceil（double a） </p>
+<p>（2）向下取整</p>
+<p>floor（double a） </p>
+<p>2、</p>
+<p>（1）获取当前时间 </p>
+<p>CURRENT_DATE – 2021-08-09</p>
+<p>（2）获取当前日期</p>
+<p>CURRENT_TIMESTAMP – 2021-08-09 20:13:30.024</p>
+<p>（3）日期差值：datediff(结束日期，开始日期)</p>
+<p>DATEDIFF(CURRENT_DATE,’2021-08-01’) – 8 </p>
+<p>（4）日期加减：date_add(时间，增加天数)</p>
+<p>DATE_ADD(‘2021-08-01’,-30) – 2021-07-02</p>
+<p>（5）获取当月第一天</p>
+<p>TRUNC(CURRENT_DATE,’MM’) – 2021-08-01 </p>
+<p>（6）获取当年第一天</p>
+<p>TRUNC(CURRENT_DATE, ‘YY’) – 2021-01-01 </p>
+<p>（7）获取当月最后一天</p>
+<p>LAST_DAY(CURRENT_DATE) – 2021-08-31</p>
+<p>（8）返回当前时间的下一个指定星期对应的日期</p>
+<p>NEXT_DAY(CURRENT_DATE,’MO’) – 2021-08-16 </p>
+</article><!-- lincense--><div class="post-paginator"><a class="nextSlogan" href="/2025/02/16/0018_%E9%A3%8E%E6%8E%A7%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93%E5%B0%8F%E8%AE%B0/" title="风控个人总结小记"><span>NextPost ></span><br><span class="nextTitle">风控个人总结小记</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
+  id: 'sql和hive的总结小记',
   owner: 'chuang1230',
   repo: 'blog_comments',
   oauth: {
