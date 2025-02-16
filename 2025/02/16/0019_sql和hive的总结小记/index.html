@@ -100,36 +100,32 @@
   .saying--><div class="cxo-profile-inner"><div class="profile-name">Mr.Zhang</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">sql和hive的总结小记</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2025-02-16</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="hive"> hive</a><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="sql"> sql</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">242</span> | Reading time: <span class="post-count">1</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><iframe frameborder="yes" border="0" marginwidth="0" marginheight="0" allow="autoplay" width="950" height="100" src="https://i.y.qq.com/n2/m/outchain/player/index.html?songid=353767251&songtype=0">
 </iframe>
 
-<h3 id="sql执行顺序"><a href="#sql执行顺序" class="headerlink" title="sql执行顺序"></a>sql执行顺序</h3><p>1、FROM &#x2F; JOIN	确定数据源并连接表</p>
-<p>2、WHERE	    过滤行</p>
-<p>3、GROUP BY	    分组</p>
-<p>4、HAVING	    过滤分组</p>
-<p>5、SELECT	    选择列并计算表达式</p>
-<p>6、DISTINCT	    去重</p>
-<p>7、ORDER BY	    排序</p>
-<p>8、LIMIT	    分页</p>
-<h3 id="hive数据类型"><a href="#hive数据类型" class="headerlink" title="hive数据类型"></a>hive数据类型</h3><p>1、decimal数字类型，精度为38位数字，用法decimal（精度，小数位数），精度包含小数位数</p>
-<p>（1）向上取整</p>
-<p>ceil（double a） </p>
-<p>（2）向下取整</p>
-<p>floor（double a） </p>
-<p>2、</p>
-<p>（1）获取当前时间 </p>
-<p>CURRENT_DATE – 2021-08-09</p>
-<p>（2）获取当前日期</p>
-<p>CURRENT_TIMESTAMP – 2021-08-09 20:13:30.024</p>
-<p>（3）日期差值：datediff(结束日期，开始日期)</p>
-<p>DATEDIFF(CURRENT_DATE,’2021-08-01’) – 8 </p>
-<p>（4）日期加减：date_add(时间，增加天数)</p>
-<p>DATE_ADD(‘2021-08-01’,-30) – 2021-07-02</p>
-<p>（5）获取当月第一天</p>
-<p>TRUNC(CURRENT_DATE,’MM’) – 2021-08-01 </p>
-<p>（6）获取当年第一天</p>
-<p>TRUNC(CURRENT_DATE, ‘YY’) – 2021-01-01 </p>
-<p>（7）获取当月最后一天</p>
-<p>LAST_DAY(CURRENT_DATE) – 2021-08-31</p>
-<p>（8）返回当前时间的下一个指定星期对应的日期</p>
-<p>NEXT_DAY(CURRENT_DATE,’MO’) – 2021-08-16 </p>
+<h3 id="sql执行顺序"><a href="#sql执行顺序" class="headerlink" title="sql执行顺序"></a>sql执行顺序</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FROM / JOIN 确定数据源并连接表</span><br><span class="line">WHERE       过滤行</span><br><span class="line">GROUP BY    分组</span><br><span class="line">HAVING	    过滤分组</span><br><span class="line">SELECT	    选择列并计算表达式</span><br><span class="line">DISTINCT    去重</span><br><span class="line">ORDER BY    排序</span><br><span class="line">LIMIT	    分页</span><br></pre></td></tr></table></figure>
+<h3 id="hive函数"><a href="#hive函数" class="headerlink" title="hive函数"></a>hive函数</h3><p>向上取整 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceil（double a） --  ceil(9.1) 10</span><br></pre></td></tr></table></figure>
+<p>向下取整 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">floor（double a）  -- floor(9.9) 9</span><br></pre></td></tr></table></figure>
+<p>四舍五入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">round（double a，int n） -- round(9.56,1) 9.6</span><br></pre></td></tr></table></figure>
+<p>获取当前时间 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CURRENT_DATE -- 2021-08-09</span><br></pre></td></tr></table></figure>
+<p>获取当前日期 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CURRENT_TIMESTAMP -- 2021-08-09 20:13:30.024</span><br></pre></td></tr></table></figure>
+<p>日期差值：datediff(结束日期，开始日期)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DATEDIFF(CURRENT_DATE,<span class="string">&#x27;2021-08-01&#x27;</span>) -- 8 </span><br></pre></td></tr></table></figure>
+<p>日期加减：date_add(时间，增加天数)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DATE_ADD(<span class="string">&#x27;2021-08-01&#x27;</span>,-30) -- 2021-07-02</span><br></pre></td></tr></table></figure>
+<p>获取当月第一天</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TRUNC(CURRENT_DATE,<span class="string">&#x27;MM&#x27;</span>) -- 2021-08-01 </span><br></pre></td></tr></table></figure>
+<p>获取当年第一天</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TRUNC(CURRENT_DATE, <span class="string">&#x27;YY&#x27;</span>) -- 2021-01-01 </span><br></pre></td></tr></table></figure>
+<p>获取当月最后一天</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LAST_DAY(CURRENT_DATE) -- 2021-08-31</span><br></pre></td></tr></table></figure>
+<p>返回当前时间的下一个指定星期对应的日期</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NEXT_DAY(CURRENT_DATE,<span class="string">&#x27;MO&#x27;</span>) -- 2021-08-16 </span><br></pre></td></tr></table></figure>
+<p>显性类型转换</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CAST（value AS <span class="built_in">type</span>） -- CAST(<span class="string">&#x27;10&#x27;</span> AS INT )</span><br></pre></td></tr></table></figure>
+<p>未完……</p>
 </article><!-- lincense--><div class="post-paginator"><a class="nextSlogan" href="/2025/02/16/0018_%E9%A3%8E%E6%8E%A7%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93%E5%B0%8F%E8%AE%B0/" title="风控个人总结小记"><span>NextPost ></span><br><span class="nextTitle">风控个人总结小记</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
   id: 'sql和hive的总结小记',
   owner: 'chuang1230',
