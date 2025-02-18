@@ -97,11 +97,88 @@
   }
 }( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 7.3.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/2.png"></div><!--.profile-saying
   i.fa.fa-comment
-  .saying--><div class="cxo-profile-inner"><div class="profile-name">Mr.Zhang</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">sql和hive的总结小记</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2025-02-16</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="hive"> hive</a><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="sql"> sql</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">242</span> | Reading time: <span class="post-count">1</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><iframe frameborder="yes" border="0" marginwidth="0" marginheight="0" allow="autoplay" width="950" height="100" src="https://i.y.qq.com/n2/m/outchain/player/index.html?songid=353767251&songtype=0">
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">Mr.Zhang</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">sql和hive的总结小记</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2025-02-18</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="hive"> hive</a><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="sql"> sql</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">2k</span> | Reading time: <span class="post-count">7</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><iframe frameborder="yes" border="0" marginwidth="0" marginheight="0" allow="autoplay" width="950" height="100" src="https://i.y.qq.com/n2/m/outchain/player/index.html?songid=353767251&songtype=0">
 </iframe>
 
-<h3 id="sql执行顺序"><a href="#sql执行顺序" class="headerlink" title="sql执行顺序"></a>sql执行顺序</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FROM / JOIN 确定数据源并连接表</span><br><span class="line">WHERE       过滤行</span><br><span class="line">GROUP BY    分组</span><br><span class="line">HAVING	    过滤分组</span><br><span class="line">SELECT	    选择列并计算表达式</span><br><span class="line">DISTINCT    去重</span><br><span class="line">ORDER BY    排序</span><br><span class="line">LIMIT	    分页</span><br></pre></td></tr></table></figure>
-<h3 id="hive函数"><a href="#hive函数" class="headerlink" title="hive函数"></a>hive函数</h3><p>向上取整 </p>
+<h3 id="sql执行顺序"><a href="#sql执行顺序" class="headerlink" title="sql执行顺序"></a>sql执行顺序</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FROM / JOIN 确定数据源并连接表 特殊LATERAL VIEW explode()也在这个阶段完成</span><br><span class="line">WHERE       过滤行</span><br><span class="line">GROUP BY    分组</span><br><span class="line">HAVING	    过滤分组</span><br><span class="line">SELECT	    选择列并计算表达式</span><br><span class="line">DISTINCT    去重</span><br><span class="line">ORDER BY    排序</span><br><span class="line">LIMIT	    分页</span><br></pre></td></tr></table></figure>
+<h3 id="WITH-AS语句"><a href="#WITH-AS语句" class="headerlink" title="WITH AS语句"></a>WITH AS语句</h3><p>WITH AS语句在SQL中用于定义临时的结果集，称为公用表表达式（Common Table Expression，CTE）。这种结构在编写复杂的查询时非常有用，因为它允许你将查询分解成更易于管理和维护的小部分。</p>
+<p>WITH AS语句定义的临时结果集在整个查询中只存在一次，且仅在该查询内有效。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WITH CTE_Name AS ( -- 你的子查询 ) SELECT * FROM bzwh321;</span><br></pre></td></tr></table></figure>
+<p>使用场景</p>
+<p>提高可读性：将复杂的子查询分解成多个逻辑部分，每个部分用CTE表示，使得整个查询更容易理解。</p>
+<p>避免重复的子查询：如果你在查询中多次使用同一个子查询，可以将其放入CTE中，从而减少代码重复。</p>
+<p>递归查询：在某些情况下，比如处理层级数据或递归关系时，CTE可以用来执行递归查询。</p>
+<h3 id="SQL函数梯度"><a href="#SQL函数梯度" class="headerlink" title="SQL函数梯度"></a>SQL函数梯度</h3><p>第一梯队：OVER、LATERAL VIEW、LAG、时间函数</p>
+<p>第二梯队：ROW_NUMBER、CASE WHEN、JSON_EXTRACT、GROUPING SETS</p>
+<p>第三梯队：字符串处理、数据类型转化、空值处理、模糊匹配等相关内容</p>
+<h3 id="LAG-LEAD开窗函数"><a href="#LAG-LEAD开窗函数" class="headerlink" title="LAG&#x2F;LEAD开窗函数"></a>LAG&#x2F;LEAD开窗函数</h3><h4 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h4><p>SQL中的LEAD和LAG函数是窗口函数，用于访问结果集中当前行之前或之后的行的数据。</p>
+<p>这两个函数在计算变化率、差异、或者构建特定于时间序列的数据特征。</p>
+<p>LEAD用于访问当前行之后的行中数据，简单来做就是把一列数据“往上推”，而LAG相反，是把数据往下推。</p>
+<p><img src="/img_1.png" alt="img_1.png"></p>
+<p>执行下列语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT Date,</span><br><span class="line">       Sales,</span><br><span class="line">       LEAD(Sales, 1) OVER (ORDER BY Date) AS weihe</span><br><span class="line">FROM sales;</span><br></pre></td></tr></table></figure>
+<p>得到的结果为：</p>
+<p><img src="/img_2.png" alt="img_2.png"></p>
+<p>这个函数的命令就好像是，要求数据表中的某一列，先拿出来，然后上移或者下移几行，然后再拼回去。这样使得一行内有两列数据，可以对比明天和今天的数据变化。</p>
+<p>这两个函数的完整参数包括：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LAG(expression [,offset [,default]]) OVER ( [partition_by_clause] order_by_clause)</span><br><span class="line">LEAD(expression [,offset [,default]]) OVER ( [partition_by_clause] order_by_clause)</span><br></pre></td></tr></table></figure>
+<p>参数：</p>
+<p>expression: 需要检索的列。</p>
+<p>offset: 相对于当前行向上查找的行数，默认为1。</p>
+<p>default: 如果向上偏移超出了范围，则返回的默认值，默认为NULL。</p>
+<p>partition_by_clause: 将数据分成不同的段进行独立计算。</p>
+<p>order_by_clause: 定义窗口内数据的排序方式。</p>
+<h4 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h4><ol>
+<li>计算变化和变化率</li>
+</ol>
+<p>可以使用LAG或LEAD来计算当前值与之前&#x2F;之后某个值之间的差异或变化率。这对于经济学数据、股票价格、销售数据等领域特别有用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT Date,</span><br><span class="line">       Sales,</span><br><span class="line">       Sales - LAG(Sales) OVER (ORDER BY Date) AS SalesChange,</span><br><span class="line">       (Sales - LAG(Sales) OVER (ORDER BY Date)) / LAG(Sales) OVER (ORDER BY Date) * 100 AS SalesChangeRate</span><br><span class="line">FROM sales;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>时间序列平滑</li>
+</ol>
+<p>使用LEAD和LAG可以创建简单的移动平均或滑动窗口平均，有助于平滑短期波动并识别长期趋势。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT Date,</span><br><span class="line">       Sales,</span><br><span class="line">       (LAG(Sales, 1) OVER (ORDER BY Date) + Sales + LEAD(Sales, 1) OVER (ORDER BY Date)) / 3 AS MovingAverage</span><br><span class="line">FROM sales;</span><br></pre></td></tr></table></figure>
+<p>对于更复杂的分析，可能需要考虑更宽的时间窗口，比如比较当前值与前后5天的平均值等。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT Date,</span><br><span class="line">       Sales,</span><br><span class="line">       (LAG(Sales, 5) OVER (ORDER BY Date) + ... + LEAD(Sales, 5) OVER (ORDER BY Date)) / 11 AS ExtendedWindowAverage</span><br><span class="line">FROM sales;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>寻找序列中的特定模式</li>
+</ol>
+<p>可以通过比较当前行与之前&#x2F;之后的行来识别数据中的特定模式或趋势，如连续增长、连续下降或周期性模式。</p>
+<ol start="4">
+<li>数据修正和异常检测</li>
+</ol>
+<p>通过比较相邻的值，可以发现可能的数据录入错误或异常值。例如，如果一天的销售额与前后相差极大，可能需要进一步审查。</p>
+<ol start="5">
+<li>时间窗口的扩展分析</li>
+</ol>
+<p>对于更复杂的分析，可能需要考虑更宽的时间窗口，比如比较当前值与前后5天的平均值等。</p>
+<h3 id="ROWS-BETWEEN-控制窗口函数的范围"><a href="#ROWS-BETWEEN-控制窗口函数的范围" class="headerlink" title="ROWS BETWEEN 控制窗口函数的范围"></a>ROWS BETWEEN 控制窗口函数的范围</h3><p>使用rows between可以根据自己的需求任意的控制窗口函数的范围</p>
+<p>UNBOUNDED ：不受控的，无限的；</p>
+<p>PRECEDING ： 在…之前；</p>
+<p>FOLLOWING： 在…之后；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rows between …… and ……</span><br><span class="line">unbounded preceding 前面所有行</span><br><span class="line">unbounded following 后面所有行</span><br><span class="line">current row 当前行</span><br><span class="line">n following  后面n行</span><br><span class="line">n preceding  前面n行</span><br></pre></td></tr></table></figure>
+<p>rows between 例子<br>当前行与后面所有行的累加（分区内）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(sales_volume) over(partition by id rows between current row and unbounded following) sum_sales</span><br></pre></td></tr></table></figure>
+<p>前一行的值+当前行的值+后一行的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(id) over(partition by category rows between 1 preceding and 1 following) rank from t</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="range-between-按照列值限制窗口大小（在非条件表达式中等同于rows）"><a href="#range-between-按照列值限制窗口大小（在非条件表达式中等同于rows）" class="headerlink" title="range between 按照列值限制窗口大小（在非条件表达式中等同于rows）"></a>range between 按照列值限制窗口大小（在非条件表达式中等同于rows）</h3><p>rows表示 行，就是前n行，后n行</p>
+<p>而range表示的是 具体的值，比这个值小n的行，比这个值大n的行</p>
+<p>range between是以当前值为锚点进行计算</p>
+<p>如果当前值为10的话就取前后的值在6到17之间的数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">range between 4 preceding AND 7 following</span><br></pre></td></tr></table></figure>
+<h3 id="列转行-行转列"><a href="#列转行-行转列" class="headerlink" title="列转行&#x2F;行转列"></a>列转行&#x2F;行转列</h3><h4 id="列转行常用LATERAL-VIEW"><a href="#列转行常用LATERAL-VIEW" class="headerlink" title="列转行常用LATERAL VIEW"></a>列转行常用LATERAL VIEW</h4><p>在Hive中，LATERAL VIEW与explode()函数经常一起使用，用于将一个数组类型的列展开成多行，<br>这在处理如JSON数组等复杂数据类型时特别有用（因为很多数据格式是储存在json内，例如埋点数据，日期数据等）<br><img src="/img.png" alt="img.png"></p>
+<p>我们的目标是将每个产品的月份销售情况数组展开为单独的行，以便于分析每个月的销售情况：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SELECT product_id, month_sales.month, month_sales.sales</span><br><span class="line">FROM sales_table</span><br><span class="line">LATERAL VIEW explode(month_sales_array) t AS month_sales;</span><br><span class="line">--语法解释</span><br><span class="line">--sales_table 是原始数据表。</span><br><span class="line">--product_id 是产品ID列。</span><br><span class="line">--month_sales_array 是包含月份销售情况的数组列。</span><br><span class="line">--explode() 函数用于将数组中的每个元素转换为一行。</span><br><span class="line">--LATERAL VIEW 与explode()结合使用，用于将复杂的列（如数组）展开成行。</span><br></pre></td></tr></table></figure>
+<p>注意，这里的LATERAL VIEW explode（）函数写在FROM的后面，如果你需要筛选字段，需要把WHERE写在LATERAL VIEW后面，这个是一个很特别的运行顺序，因为LATERAL VIEW是在FROM阶段被处理的，他需要先从原始表中生成额外的行，进而才能被WHERE筛选，确保所有生成的行都被考虑在内。</p>
+<p>备注：这也意味着，你可以通过这个被展开的新的字段month_sales进行筛选，因为他已经被展开了。</p>
+<p>注意事项：</p>
+<p>数据类型匹配： 使用explode()之前，确保字段确实是数组或map等可以展开的复杂数据类型。</p>
+<p>NULL值处理： 如果explode()作用于包含NULL的列，它不会为NULL生成行。这可能会影响到结果集的行数，特别是在统计或聚合操作中需要注意这一点。</p>
+<p>性能考虑： 因为explode()会显著增加行数（尤其是在处理大数组时），所以在大数据集上使用时需要注意查询性能和资源消耗。</p>
+<h4 id="行转列-常用case-when函数"><a href="#行转列-常用case-when函数" class="headerlink" title="行转列 常用case when函数"></a>行转列 常用case when函数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CASE </span><br><span class="line">    WHEN 条件1 THEN 结果1</span><br><span class="line">    WHEN 条件2 THEN 结果2</span><br><span class="line">    ...</span><br><span class="line">    ELSE 除上述情况以外的结果</span><br><span class="line">END</span><br></pre></td></tr></table></figure>
+<h3 id="hive使用频繁的函数"><a href="#hive使用频繁的函数" class="headerlink" title="hive使用频繁的函数"></a>hive使用频繁的函数</h3><p>向上取整 </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceil（double a） --  ceil(9.1) 10</span><br></pre></td></tr></table></figure>
 <p>向下取整 </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">floor（double a）  -- floor(9.9) 9</span><br></pre></td></tr></table></figure>
