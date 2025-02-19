@@ -1,108 +1,397 @@
-<!DOCTYPE html><html lang="Chinese"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chuang1230"><meta name="renderer" content="webkit"><meta name="copyright" content="chuang1230"><meta name="keywords" content="chuang1230 's blog"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Echarts的demo实现 · Mr.Zhang's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/2.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
-  "use strict";
-  // rel=preload support test
-  if( !w.loadCSS ){
-    w.loadCSS = function(){};
-  }
-  // define on the loadCSS obj
-  var rp = loadCSS.relpreload = {};
-  // rel=preload feature support test
-  // runs once and returns a function for compat purposes
-  rp.support = (function(){
-    var ret;
-    try {
-      ret = w.document.createElement( "link" ).relList.supports( "preload" );
-    } catch (e) {
-      ret = false;
-    }
-    return function(){
-      return ret;
-    };
-  })();
+<!DOCTYPE html>
+<html lang="Chinese">
 
-  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
-  // then change that media back to its intended value on load
-  rp.bindMediaToggle = function( link ){
-    // remember existing media attr for ultimate state, or default to 'all'
-    var finalMedia = link.media || "all";
-
-    function enableStylesheet(){
-      link.media = finalMedia;
-    }
-
-    // bind load handlers to enable media
-    if( link.addEventListener ){
-      link.addEventListener( "load", enableStylesheet );
-    } else if( link.attachEvent ){
-      link.attachEvent( "onload", enableStylesheet );
-    }
-
-    // Set rel and non-applicable media type to start an async request
-    // note: timeout allows this to happen async to let rendering continue in IE
-    setTimeout(function(){
-      link.rel = "stylesheet";
-      link.media = "only x";
-    });
-    // also enable media after 3 seconds,
-    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
-    setTimeout( enableStylesheet, 3000 );
-  };
-
-  // loop through link elements in DOM
-  rp.poly = function(){
-    // double check this to prevent external calls from running
-    if( rp.support() ){
-      return;
-    }
-    var links = w.document.getElementsByTagName( "link" );
-    for( var i = 0; i < links.length; i++ ){
-      var link = links[ i ];
-      // qualify links to those with rel=preload and as=style attrs
-      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
-        // prevent rerunning on link
-        link.setAttribute( "data-loadcss", true );
-        // bind listeners to toggle media back
-        rp.bindMediaToggle( link );
-      }
-    }
-  };
-
-  // if unsupported, run the polyfill
-  if( !rp.support() ){
-    // run once at least
-    rp.poly();
-
-    // rerun poly on an interval until onload
-    var run = w.setInterval( rp.poly, 500 );
-    if( w.addEventListener ){
-      w.addEventListener( "load", function(){
-        rp.poly();
-        w.clearInterval( run );
-      } );
-    } else if( w.attachEvent ){
-      w.attachEvent( "onload", function(){
-        rp.poly();
-        w.clearInterval( run );
-      } );
-    }
-  }
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了            &#x2F;&#x2F; 基于准备好的dom，初始化echarts实例         var myChart &#x3D; echarts.init(document.getElementById(&#39;echarts9386&#39;));         &#x2F;&#x2F; 指定图表的配置项和数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Echarts的demo实现">
+<meta property="og:url" content="http://yoursite.com/2019/01/15/0003_Echarts%E7%9A%84demo%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="chuang1230 &#39;s blog">
+<meta property="og:description" content="【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了            &#x2F;&#x2F; 基于准备好的dom，初始化echarts实例         var myChart &#x3D; echarts.init(document.getElementById(&#39;echarts9386&#39;));         &#x2F;&#x2F; 指定图表的配置项和数据">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-01-15T07:07:44.000Z">
+<meta property="article:modified_time" content="2025-02-19T18:09:18.593Z">
+<meta property="article:author" content="chuang1230">
+<meta property="article:tag" content="数据可视化">
+<meta name="twitter:card" content="summary">
 
 
-  // commonjs
-  if( typeof exports !== "undefined" ){
-    exports.loadCSS = loadCSS;
-  }
-  else {
-    w.loadCSS = loadCSS;
-  }
-}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 7.3.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/2.png"></div><!--.profile-saying
-  i.fa.fa-comment
-  .saying--><div class="cxo-profile-inner"><div class="profile-name">Mr.Zhang</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">Echarts的demo实现</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2025-02-14</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="Echarts"> Echarts</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">1.6k</span> | Reading time: <span class="post-count">8</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><p>【一个简单的echarts-demo的实现】</p>
-<div id="echarts765" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<title >Echarts的demo实现</title>
+
+<!-- Favicon -->
+
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"yoursite.com","author":"chuang1230","root":"/","typed_text":null,"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2019 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner"},"covers":["https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/ba61-bfb8a60ec14ed76d34726896fb54757a.jpg","https://n.sinaimg.cn/sinakd20116/214/w2048h1366/20240512/f5d6-f665a2e6963d4c43db9c5f23729d54c6.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/1c67-5b602d68c986bb517be9054edc7a357a.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/4bce-3649b31b7f757f0cdc9f2fec59c93666.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/b5f9-599865ca3fe095fcb1f27df3cca48e1e.jpg"],"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-02-20 02:09:18"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.4" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+    
+        <div class="trm-logo-text">
+            Kenzo<span>‘s blog</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    archives
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/categories/" target="">
+                    分类
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/tags/" target="">
+                    标签
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner video cover -->
+    <video autoplay="autoplay" loop muted playsinline webkit-playinginline class="trm-banner-cover">
+        <source src="https://cdn.moji.com/websrc/video/summer20190515.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+        Your browser does not support HTML5 video.
+    </video>
+    <!-- banner video cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            Echarts的demo实现
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2019
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/1.png">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        Kenzo
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/chuang1230" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="/chuang1chuang@163.com" title="email" rel="nofollow" target="_blank">
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    
+        <a href="/www.instagram.com/chuang1chuang" title="ins" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-instagram"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                地址:
+            </div>
+            <div class="trm-label trm-label-light">
+                星辰大海
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                年龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                90后
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                学校:
+            </div>
+            <div class="trm-label trm-label-light">
+                地外行星爆破学院
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                爱好:
+            </div>
+            <div class="trm-label trm-label-light">
+                粤语歌爱好者
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:chuang1chuang@163.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            01/15
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            15:07
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            Kenzo
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了</p>
+<div id="echarts9386" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts765'));
+        var myChart = echarts.init(document.getElementById('echarts9386'));
         // 指定图表的配置项和数据
         var option = {
 	 tooltip : {
@@ -191,19 +480,286 @@
 <h3 id="对require进行编写"><a href="#对require进行编写" class="headerlink" title="对require进行编写"></a>对require进行编写</h3><h4 id="导入其他有用的模块（都在js文件夹下"><a href="#导入其他有用的模块（都在js文件夹下" class="headerlink" title="导入其他有用的模块（都在js文件夹下)"></a>导入其他有用的模块（都在js文件夹下)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">require(</span><br><span class="line">			[</span><br><span class="line">				<span class="string">&#x27;echarts&#x27;</span>,</span><br><span class="line">				<span class="string">&#x27;echarts/chart/bar&#x27;</span>,</span><br><span class="line">				<span class="string">&#x27;echarts/chart/line&#x27;</span>,</span><br><span class="line">				<span class="string">&#x27;echarts/chart/map&#x27;</span>,</span><br><span class="line">				<span class="string">&#x27;echarts/chart/force&#x27;</span>,</span><br><span class="line">				<span class="string">&#x27;echarts/chart/chord&#x27;</span></span><br><span class="line">			],</span><br><span class="line">			......//这里省略的代码在下面步骤</span><br><span class="line">		)</span><br></pre></td></tr></table></figure>
 
 <h4 id="编辑图表代码（附上全部代码，具体修改见fuction）"><a href="#编辑图表代码（附上全部代码，具体修改见fuction）" class="headerlink" title="编辑图表代码（附上全部代码，具体修改见fuction）"></a>编辑图表代码（附上全部代码，具体修改见fuction）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;<span class="built_in">head</span>&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">&quot;utf-8&quot;</span>&gt;</span><br><span class="line">    &lt;title&gt;ECharts&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;P&gt;SDGYASDGSAJD ASDAS &lt;/P&gt;</span><br><span class="line">    &lt;!-- 1 为ECharts准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div <span class="built_in">id</span>=<span class="string">&quot;main&quot;</span> style=<span class="string">&quot;width: 600px;height:400px;&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;!-- 2 引入jquery（要在echarts.js前面 --&gt;</span><br><span class="line">    &lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">    &lt;!-- 3 引入echarts.js--&gt;</span><br><span class="line">	&lt;script src=<span class="string">&quot;js/echarts.js&quot;</span>&gt;&lt;/script&gt;&lt;!-- echarts 新版本不支持force图，只能导入这个本地的（旧版）包--&gt;</span><br><span class="line">    &lt;!--&lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js&quot;</span>&gt;&lt;/script&gt;--&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- step4 编写js--&gt;</span><br><span class="line">	&lt;!--在这里引入主题文件--&gt;</span><br><span class="line">	&lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">		&lt;!-- step4-1 引入js文件夹，并命名为 echarts--&gt;</span><br><span class="line">		require.config(&#123;</span><br><span class="line">			paths: &#123;</span><br><span class="line">				echarts: <span class="string">&#x27;js&#x27;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">		&lt;!-- step4-2 将代码写在require里面--&gt;</span><br><span class="line">		require(</span><br><span class="line">			&lt;!-- step4-2-1 导入其他有用的模块（都在js文件夹下）--&gt;</span><br><span class="line">			[</span><br><span class="line">				<span class="string">&#x27;echarts&#x27;</span>,</span><br><span class="line">				<span class="string">&#x27;echarts/chart/bar&#x27;</span>,</span><br><span class="line">				<span class="string">&#x27;echarts/chart/line&#x27;</span>,</span><br><span class="line">				<span class="string">&#x27;echarts/chart/map&#x27;</span>,</span><br><span class="line">				<span class="string">&#x27;echarts/chart/force&#x27;</span>,</span><br><span class="line">				<span class="string">&#x27;echarts/chart/chord&#x27;</span></span><br><span class="line">			],</span><br><span class="line">			&lt;!-- step4-2-2 编辑图表代码--&gt;</span><br><span class="line">			<span class="keyword">function</span> (ec) &#123;</span><br><span class="line">				&lt;!--step4-2-2-1 设置数据--&gt;</span><br><span class="line">				var option=&#123;</span><br><span class="line">								//------------------------------------------</span><br><span class="line">								//此处以下是在官网上调试好的数据代码</span><br><span class="line">								title : &#123;</span><br><span class="line">									text: <span class="string">&#x27;标题&#x27;</span>,</span><br><span class="line">									subtext: <span class="string">&#x27;副标题&#x27;</span>,</span><br><span class="line">									x:<span class="string">&#x27;right&#x27;</span>,</span><br><span class="line">									y:<span class="string">&#x27;bottom&#x27;</span></span><br><span class="line">								&#125;,</span><br><span class="line">								tooltip : &#123;</span><br><span class="line">									trigger: <span class="string">&#x27;item&#x27;</span>,</span><br><span class="line">									formatter: <span class="string">&#x27;&#123;a&#125; : &#123;b&#125;&#x27;</span></span><br><span class="line">								&#125;,</span><br><span class="line">								toolbox: &#123;</span><br><span class="line">									show : <span class="literal">true</span>,</span><br><span class="line">									feature : &#123;</span><br><span class="line">										restore : &#123;show: <span class="literal">true</span>&#125;,</span><br><span class="line">										magicType: &#123;show: <span class="literal">true</span>, <span class="built_in">type</span>: [<span class="string">&#x27;force&#x27;</span>, <span class="string">&#x27;chord&#x27;</span>]&#125;,</span><br><span class="line">										saveAsImage : &#123;show: <span class="literal">true</span>&#125;</span><br><span class="line">									&#125;</span><br><span class="line">								&#125;,</span><br><span class="line">								legend: &#123;</span><br><span class="line">									x: <span class="string">&#x27;left&#x27;</span>,</span><br><span class="line">									data:[<span class="string">&#x27;家人&#x27;</span>,<span class="string">&#x27;朋友&#x27;</span>]</span><br><span class="line">								&#125;,</span><br><span class="line">								series : [</span><br><span class="line">									&#123;</span><br><span class="line">										<span class="built_in">type</span>:<span class="string">&#x27;force&#x27;</span>,</span><br><span class="line">										name : <span class="string">&quot;人物关系&quot;</span>,</span><br><span class="line">										ribbonType: <span class="literal">false</span>,</span><br><span class="line">										categories : [</span><br><span class="line">											&#123;</span><br><span class="line">												name: <span class="string">&#x27;人物&#x27;</span></span><br><span class="line">											&#125;,</span><br><span class="line">											&#123;</span><br><span class="line">												name: <span class="string">&#x27;家人&#x27;</span></span><br><span class="line">											&#125;,</span><br><span class="line">											&#123;</span><br><span class="line">												name:<span class="string">&#x27;朋友&#x27;</span></span><br><span class="line">											&#125;</span><br><span class="line">										],</span><br><span class="line">										itemStyle: &#123;</span><br><span class="line">											normal: &#123;</span><br><span class="line">												label: &#123;</span><br><span class="line">													show: <span class="literal">true</span>,</span><br><span class="line">													textStyle: &#123;</span><br><span class="line">														color: <span class="string">&#x27;#333&#x27;</span></span><br><span class="line">													&#125;</span><br><span class="line">												&#125;,</span><br><span class="line">												nodeStyle : &#123;</span><br><span class="line">													brushType : <span class="string">&#x27;both&#x27;</span>,</span><br><span class="line">													borderColor : <span class="string">&#x27;rgba(255,215,0,0.4)&#x27;</span>,</span><br><span class="line">													borderWidth : 1</span><br><span class="line">												&#125;,</span><br><span class="line">												linkStyle: &#123;</span><br><span class="line">													<span class="built_in">type</span>: <span class="string">&#x27;curve&#x27;</span></span><br><span class="line">												&#125;</span><br><span class="line">											&#125;,</span><br><span class="line">											emphasis: &#123;</span><br><span class="line">												label: &#123;</span><br><span class="line">													show: <span class="literal">false</span></span><br><span class="line">													// textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE</span><br><span class="line">												&#125;,</span><br><span class="line">												nodeStyle : &#123;</span><br><span class="line">													//r: 30</span><br><span class="line">												&#125;,</span><br><span class="line">												linkStyle : &#123;&#125;</span><br><span class="line">											&#125;</span><br><span class="line">										&#125;,</span><br><span class="line">										useWorker: <span class="literal">false</span>,</span><br><span class="line">										minRadius : 15,</span><br><span class="line">										maxRadius : 25,</span><br><span class="line">										gravity: 1.1,</span><br><span class="line">										scaling: 1.1,</span><br><span class="line">										roam: <span class="string">&#x27;move&#x27;</span>,</span><br><span class="line">										nodes:[</span><br><span class="line">											&#123;category:0, name: <span class="string">&#x27;乔布斯&#x27;</span>, value : 10, label: <span class="string">&#x27;乔布斯\n（主要）&#x27;</span>&#125;,</span><br><span class="line">											&#123;category:1, name: <span class="string">&#x27;丽萨-乔布斯&#x27;</span>,value : 2&#125;,</span><br><span class="line">											&#123;category:1, name: <span class="string">&#x27;保罗-乔布斯&#x27;</span>,value : 3&#125;,</span><br><span class="line">											&#123;category:1, name: <span class="string">&#x27;克拉拉-乔布斯&#x27;</span>,value : 3&#125;,</span><br><span class="line">											&#123;category:1, name: <span class="string">&#x27;劳伦-鲍威尔&#x27;</span>,value : 7&#125;,</span><br><span class="line">											&#123;category:2, name: <span class="string">&#x27;史蒂夫-沃兹尼艾克&#x27;</span>,value : 5&#125;,</span><br><span class="line">											&#123;category:2, name: <span class="string">&#x27;奥巴马&#x27;</span>,value : 8&#125;,</span><br><span class="line">											&#123;category:2, name: <span class="string">&#x27;比尔-盖茨&#x27;</span>,value : 9&#125;,</span><br><span class="line">											&#123;category:2, name: <span class="string">&#x27;乔纳森-艾夫&#x27;</span>,value : 4&#125;,</span><br><span class="line">											&#123;category:2, name: <span class="string">&#x27;蒂姆-库克&#x27;</span>,value : 4&#125;,</span><br><span class="line">											&#123;category:2, name: <span class="string">&#x27;龙-韦恩&#x27;</span>,value : 1&#125;,</span><br><span class="line">										],</span><br><span class="line">										links : [</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;丽萨-乔布斯&#x27;</span>, target : <span class="string">&#x27;乔布斯&#x27;</span>, weight : 1, name: <span class="string">&#x27;女儿&#x27;</span>&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;保罗-乔布斯&#x27;</span>, target : <span class="string">&#x27;乔布斯&#x27;</span>, weight : 2, name: <span class="string">&#x27;父亲&#x27;</span>&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;克拉拉-乔布斯&#x27;</span>, target : <span class="string">&#x27;乔布斯&#x27;</span>, weight : 1, name: <span class="string">&#x27;母亲&#x27;</span>&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;劳伦-鲍威尔&#x27;</span>, target : <span class="string">&#x27;乔布斯&#x27;</span>, weight : 2&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;史蒂夫-沃兹尼艾克&#x27;</span>, target : <span class="string">&#x27;乔布斯&#x27;</span>, weight : 3, name: <span class="string">&#x27;合伙人&#x27;</span>&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;奥巴马&#x27;</span>, target : <span class="string">&#x27;乔布斯&#x27;</span>, weight : 1&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;比尔-盖茨&#x27;</span>, target : <span class="string">&#x27;乔布斯&#x27;</span>, weight : 6, name: <span class="string">&#x27;竞争对手&#x27;</span>&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;乔纳森-艾夫&#x27;</span>, target : <span class="string">&#x27;乔布斯&#x27;</span>, weight : 1, name: <span class="string">&#x27;爱将&#x27;</span>&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;蒂姆-库克&#x27;</span>, target : <span class="string">&#x27;乔布斯&#x27;</span>, weight : 1&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;龙-韦恩&#x27;</span>, target : <span class="string">&#x27;乔布斯&#x27;</span>, weight : 1&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;克拉拉-乔布斯&#x27;</span>, target : <span class="string">&#x27;保罗-乔布斯&#x27;</span>, weight : 1&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;奥巴马&#x27;</span>, target : <span class="string">&#x27;保罗-乔布斯&#x27;</span>, weight : 1&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;奥巴马&#x27;</span>, target : <span class="string">&#x27;克拉拉-乔布斯&#x27;</span>, weight : 1&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;奥巴马&#x27;</span>, target : <span class="string">&#x27;劳伦-鲍威尔&#x27;</span>, weight : 1&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;奥巴马&#x27;</span>, target : <span class="string">&#x27;史蒂夫-沃兹尼艾克&#x27;</span>, weight : 1&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;比尔-盖茨&#x27;</span>, target : <span class="string">&#x27;奥巴马&#x27;</span>, weight : 6&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;比尔-盖茨&#x27;</span>, target : <span class="string">&#x27;克拉拉-乔布斯&#x27;</span>, weight : 1&#125;,</span><br><span class="line">											&#123;<span class="built_in">source</span> : <span class="string">&#x27;蒂姆-库克&#x27;</span>, target : <span class="string">&#x27;奥巴马&#x27;</span>, weight : 1&#125;</span><br><span class="line">										]</span><br><span class="line">									&#125;</span><br><span class="line">								]</span><br><span class="line">								//此处以上是官网上调试好的数据代码</span><br><span class="line">								//------------------------------------------</span><br><span class="line">							&#125;</span><br><span class="line">				</span><br><span class="line">				&lt;!--step4-2-2-2 初始化echarts，并且引入主题<span class="string">&#x27;chalk&#x27;</span>--&gt;</span><br><span class="line">				var myChart2 = ec.init(document.getElementById(<span class="string">&#x27;main&#x27;</span>),<span class="string">&#x27;chalk&#x27;</span>); //,<span class="string">&#x27;macarons&#x27;</span>主题</span><br><span class="line">				&lt;!--step4-2-2-3 为myChart设置数据--&gt;</span><br><span class="line">				myChart2.setOption(option);</span><br><span class="line">		</span><br><span class="line">			&#125;</span><br><span class="line">		);</span><br><span class="line">	</span><br><span class="line">	&lt;/script&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</article><!-- lincense--><div class="post-paginator"><a class="prevSlogan" href="/2019/01/15/0002_%20Index%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C/" title="Index日常工作"><span>< PreviousPost</span><br><span class="prevTitle">Index日常工作</span></a><a class="nextSlogan" href="/2019/01/15/0004_%E7%BE%8E%E5%89%A7%E8%B5%84%E6%BA%90%E8%BD%AC%E5%88%B0%E7%99%BE%E5%BA%A6%E4%BA%91/" title="美剧资源转到百度云"><span>NextPost ></span><br><span class="nextTitle">美剧资源转到百度云</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
-  id: 'Echarts的demo实现',
-  owner: 'chuang1230',
-  repo: 'blog_comments',
-  oauth: {
-    client_id: 'a5c48ac5d5cc94c1ddcb',
-    client_secret: 'c828a290f6cea734f3c3f05992b798d262e1f1f2',
-  },
-})
-gitment.render('container')</script></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span><script>var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?" + 'true';
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();</script></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2019/01/15/0002_%20Index%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%8A%80%E6%9C%AF/">
+                    技术
+                </a>
+            </div>
+            <h5>
+                <a href="/2019/01/15/0002_%20Index%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C/" class="trm-anima-link">
+                    Index日常工作
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>19/01/15</li>
+                <li>15:07</li>
+                
+                    <li>229</li>
+                
+                
+                    <li>1</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2019/01/15/0004_%E7%BE%8E%E5%89%A7%E8%B5%84%E6%BA%90%E8%BD%AC%E5%88%B0%E7%99%BE%E5%BA%A6%E4%BA%91/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E5%A8%B1%E4%B9%90/">
+                    娱乐
+                </a>
+            </div>
+            <h5>
+                <a href="/2019/01/15/0004_%E7%BE%8E%E5%89%A7%E8%B5%84%E6%BA%90%E8%BD%AC%E5%88%B0%E7%99%BE%E5%BA%A6%E4%BA%91/" class="trm-anima-link">
+                    美剧资源转到百度云
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>19/01/15</li>
+                <li>14:39</li>
+                
+                    <li>451</li>
+                
+                
+                    <li>2</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.4
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="为ECharts准备一个具备大小（宽高）的Dom"><a rel="nofollow" class="trm-toc-link" href="#为ECharts准备一个具备大小（宽高）的Dom"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">为ECharts准备一个具备大小（宽高）的Dom</span></a></li><li class="trm-toc-item trm-toc-level-2" title="引入jquery"><a rel="nofollow" class="trm-toc-link" href="#引入jquery"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">引入jquery</span></a></li><li class="trm-toc-item trm-toc-level-2" title="引入echarts.js"><a rel="nofollow" class="trm-toc-link" href="#引入echarts-js"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">引入echarts.js</span></a></li><li class="trm-toc-item trm-toc-level-2" title="在script标签中编写具体代码"><a rel="nofollow" class="trm-toc-link" href="#在script标签中编写具体代码"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">在script标签中编写具体代码</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="对require.config进行编写"><a rel="nofollow" class="trm-toc-link" href="#对require-config进行编写"><span class="trm-toc-number">4.1.</span> <span class="trm-toc-text">对require.config进行编写</span></a></li><li class="trm-toc-item trm-toc-level-3" title="对require进行编写"><a rel="nofollow" class="trm-toc-link" href="#对require进行编写"><span class="trm-toc-number">4.2.</span> <span class="trm-toc-text">对require进行编写</span></a></li></ol></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.4"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+			<script src="/js/plugins/danmu.js?v=2.2.4"></script>
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.4"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>

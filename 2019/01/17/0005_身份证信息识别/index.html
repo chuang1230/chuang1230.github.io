@@ -1,103 +1,401 @@
-<!DOCTYPE html><html lang="Chinese"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="chuang1230"><meta name="renderer" content="webkit"><meta name="copyright" content="chuang1230"><meta name="keywords" content="chuang1230 's blog"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>身份证信息识别 · Mr.Zhang's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/2.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
-  "use strict";
-  // rel=preload support test
-  if( !w.loadCSS ){
-    w.loadCSS = function(){};
-  }
-  // define on the loadCSS obj
-  var rp = loadCSS.relpreload = {};
-  // rel=preload feature support test
-  // runs once and returns a function for compat purposes
-  rp.support = (function(){
-    var ret;
-    try {
-      ret = w.document.createElement( "link" ).relList.supports( "preload" );
-    } catch (e) {
-      ret = false;
-    }
-    return function(){
-      return ret;
-    };
-  })();
+<!DOCTYPE html>
+<html lang="Chinese">
 
-  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
-  // then change that media back to its intended value on load
-  rp.bindMediaToggle = function( link ){
-    // remember existing media attr for ultimate state, or default to 'all'
-    var finalMedia = link.media || "all";
-
-    function enableStylesheet(){
-      link.media = finalMedia;
-    }
-
-    // bind load handlers to enable media
-    if( link.addEventListener ){
-      link.addEventListener( "load", enableStylesheet );
-    } else if( link.attachEvent ){
-      link.attachEvent( "onload", enableStylesheet );
-    }
-
-    // Set rel and non-applicable media type to start an async request
-    // note: timeout allows this to happen async to let rendering continue in IE
-    setTimeout(function(){
-      link.rel = "stylesheet";
-      link.media = "only x";
-    });
-    // also enable media after 3 seconds,
-    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
-    setTimeout( enableStylesheet, 3000 );
-  };
-
-  // loop through link elements in DOM
-  rp.poly = function(){
-    // double check this to prevent external calls from running
-    if( rp.support() ){
-      return;
-    }
-    var links = w.document.getElementsByTagName( "link" );
-    for( var i = 0; i < links.length; i++ ){
-      var link = links[ i ];
-      // qualify links to those with rel=preload and as=style attrs
-      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
-        // prevent rerunning on link
-        link.setAttribute( "data-loadcss", true );
-        // bind listeners to toggle media back
-        rp.bindMediaToggle( link );
-      }
-    }
-  };
-
-  // if unsupported, run the polyfill
-  if( !rp.support() ){
-    // run once at least
-    rp.poly();
-
-    // rerun poly on an interval until onload
-    var run = w.setInterval( rp.poly, 500 );
-    if( w.addEventListener ){
-      w.addEventListener( "load", function(){
-        rp.poly();
-        w.clearInterval( run );
-      } );
-    } else if( w.attachEvent ){
-      w.attachEvent( "onload", function(){
-        rp.poly();
-        w.clearInterval( run );
-      } );
-    }
-  }
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="近几年来，模式识别理论以及图像处理技术的发展为利用光学图像实现的证件识别行业奠定了理论基础，而电子技术的发展带来低成本、小体积的摄像头在移动终端的普遍应用为快速、便捷、低成本的证件识别提供了技术平台。基于光学摄像头图像处理处理以及模式识别理论的光学字符识别（OCR）在社会生活的各个行业得到了广泛的应用。光学字符识别在文字的录入方面具有速度快、效率高、错误少、成本低等优势。在光学字符识别的基础上发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="身份证信息识别">
+<meta property="og:url" content="http://yoursite.com/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/index.html">
+<meta property="og:site_name" content="chuang1230 &#39;s blog">
+<meta property="og:description" content="近几年来，模式识别理论以及图像处理技术的发展为利用光学图像实现的证件识别行业奠定了理论基础，而电子技术的发展带来低成本、小体积的摄像头在移动终端的普遍应用为快速、便捷、低成本的证件识别提供了技术平台。基于光学摄像头图像处理处理以及模式识别理论的光学字符识别（OCR）在社会生活的各个行业得到了广泛的应用。光学字符识别在文字的录入方面具有速度快、效率高、错误少、成本低等优势。在光学字符识别的基础上发">
+<meta property="og:locale">
+<meta property="og:image" content="http://yoursite.com/img/404.jpg">
+<meta property="og:image" content="http://yoursite.com/img/404.jpg">
+<meta property="og:image" content="http://yoursite.com/img/404.jpg">
+<meta property="og:image" content="http://yoursite.com/img/404.jpg">
+<meta property="og:image" content="http://yoursite.com/img/404.jpg">
+<meta property="og:image" content="http://yoursite.com/img/404.jpg">
+<meta property="og:image" content="http://yoursite.com/img/404.jpg">
+<meta property="article:published_time" content="2019-01-17T07:07:44.000Z">
+<meta property="article:modified_time" content="2025-02-19T18:09:39.456Z">
+<meta property="article:author" content="chuang1230">
+<meta property="article:tag" content="Project">
+<meta property="article:tag" content="CV">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/img/404.jpg">
 
 
-  // commonjs
-  if( typeof exports !== "undefined" ){
-    exports.loadCSS = loadCSS;
-  }
-  else {
-    w.loadCSS = loadCSS;
-  }
-}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><meta name="generator" content="Hexo 7.3.0"></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/2.png"></div><!--.profile-saying
-  i.fa.fa-comment
-  .saying--><div class="cxo-profile-inner"><div class="profile-name">Mr.Zhang</div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Zhang's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">身份证信息识别</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-edit"></i><span>2025-02-14</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="Project"> Project</a></span></div><div class="post-intro-read"><span> Word count: <span class="post-count">2.1k</span> | Reading time: <span class="post-count">7</span>min</span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/1.png" class title="思路">
+<title >身份证信息识别</title>
+
+<!-- Favicon -->
+
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"yoursite.com","author":"chuang1230","root":"/","typed_text":null,"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2019 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner"},"covers":["https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/ba61-bfb8a60ec14ed76d34726896fb54757a.jpg","https://n.sinaimg.cn/sinakd20116/214/w2048h1366/20240512/f5d6-f665a2e6963d4c43db9c5f23729d54c6.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/1c67-5b602d68c986bb517be9054edc7a357a.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/4bce-3649b31b7f757f0cdc9f2fec59c93666.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/b5f9-599865ca3fe095fcb1f27df3cca48e1e.jpg"],"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-02-20 02:09:39"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.4" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+    
+        <div class="trm-logo-text">
+            Kenzo<span>‘s blog</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    archives
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/categories/" target="">
+                    分类
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/tags/" target="">
+                    标签
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner video cover -->
+    <video autoplay="autoplay" loop muted playsinline webkit-playinginline class="trm-banner-cover">
+        <source src="https://cdn.moji.com/websrc/video/summer20190515.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+        Your browser does not support HTML5 video.
+    </video>
+    <!-- banner video cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            身份证信息识别
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2019
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/1.png">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        Kenzo
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/chuang1230" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="/chuang1chuang@163.com" title="email" rel="nofollow" target="_blank">
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    
+        <a href="/www.instagram.com/chuang1chuang" title="ins" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-instagram"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                地址:
+            </div>
+            <div class="trm-label trm-label-light">
+                星辰大海
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                年龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                90后
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                学校:
+            </div>
+            <div class="trm-label trm-label-light">
+                地外行星爆破学院
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                爱好:
+            </div>
+            <div class="trm-label trm-label-light">
+                粤语歌爱好者
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:chuang1chuang@163.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            01/17
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            15:07
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            Kenzo
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/1.png" class title="思路"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
 <p>近几年来，模式识别理论以及图像处理技术的发展为利用光学图像实现的证件识别行业奠定了理论基础，而电子技术的发展带来低成本、小体积的摄像头在移动终端的普遍应用为快速、便捷、低成本的证件识别提供了技术平台。基于光学摄像头图像处理处理以及模式识别理论的光学字符识别（OCR）在社会生活的各个行业得到了广泛的应用。光学字符识别在文字的录入方面具有速度快、效率高、错误少、成本低等优势。在光学字符识别的基础上发展起来的证件识别作为一种新兴的技术也在社会生活的各个方面得到了应用。随着国家信息化建设的发展，身份证作为我国公民的重要身份凭证，其识别与管理也成为了国内大量学者关注的热点问题。随着网络技术和数据库技术的发展，身份证识别的结果可以大大方便公安机关的业务管理工作，如身份证真伪的识别、犯罪份子追踪等。基于图像处理技术和模式识别的身份证识别系统可以广泛应用于海关、酒店登记、机场、公民身份核查、流动人口管理、追缉罪犯等业务中，具有广阔的应用前景和现实意义。</p>
 <span id="more"></span>
 
@@ -107,20 +405,20 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Gray=(R+G+B)/3;</span><br><span class="line">Gray=0.299R+0.587G+0.114B;</span><br></pre></td></tr></table></figure>
 <p>本项目使用的是第二种。</p>
 <h3 id="二值化"><a href="#二值化" class="headerlink" title="二值化"></a>二值化</h3><p>经过非均匀校正和图像灰度化的身份证图像减小了非均匀光照和图像色彩对文字识别的影响。身份证上的信息主要为文字，文字的主要特征为结构特征。结构特征是独立与图像灰度的一种特征量，因此身份证图像还需要经过二值化处理。用二值的数字信号表示的字符图像灰度信号被称作字符图形数字信号二值化。灰度图像的二值化要求有效从图像中区分字符像素。传统印刷字体图像的二值化要求一方面要求尽量保持原始字符的结构特征，另一方面要求二值化后的字符之间不能有空白。传统印刷字符的背景比较单一且平滑，背景与字符之间可以利用简单的全局阈值的方法区分。而我国身份证由于背景存在纹理，并且存在持证人的照片，简单的全局阈值无法将包含身份信息的字符有效区分出来。因此需要考虑全局和局部阈值相结合的办法。</p>
-<img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/3.png" class title="二值化的身份证">
+<img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/3.png" class title="二值化的身份证"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
 
 
 <hr>
 <h2 id="获得身份上各个区域"><a href="#获得身份上各个区域" class="headerlink" title="获得身份上各个区域"></a>获得身份上各个区域</h2><h3 id="字符区域"><a href="#字符区域" class="headerlink" title="字符区域"></a>字符区域</h3><p>二值图像即只有黑白两种颜色组成的图像，一般的白色为内容，黑色为背景。腐蚀是删除对象边界某些像素，既是让白色的区域瘦一圈；而膨胀则是给图像中的对象边界添加像素，即让白色的区域胖上一圈。而这个“圈”的大小，则是由参数来指定的。在本项目中的腐蚀膨胀这一步主要是将得到的二值图中的黑色块进行放大。即连接图片中相邻黑色像素点的元素。通过腐蚀可以把身份证上的身份证号码连接在一起形成一个矩形区域。然后进行轮廓提取，把每个大的区域找出来，除去小的区域，这样就可以定位得到身份证上各个的区域各部分的子图像。</p>
-<img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/4.png" class title="腐蚀化的身份证">
+<img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/4.png" class title="腐蚀化的身份证"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
 
 
 <h3 id="图片区域"><a href="#图片区域" class="headerlink" title="图片区域"></a>图片区域</h3><p>上面获得子图像中并没有获得身份证上的大头照，本文使用基于AdaBoost算法实现的人脸识别来获得大头照。首先使用Harr-like特征表示人脸，使用“积分图”实现特征数值的快速计算；也就是在一个 20*20 的图片提取一些简单的特征（称为Harr特征）。</p>
-<img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/6.png" class title="Harr特征">
+<img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/6.png" class title="Harr特征"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
 <p>Harr特征的计算方法是将白色区域内的像素和减去黑色区域，因此在人脸与非人脸图片的相同位置上，值的大小是不一样的，这些特征可以用来区分人脸和分人脸。通过对矩形区域黑色和白色像素的计算可以识别出，前两个图为人脸，而最后一个图为非人脸。使用数千张切割好的人脸图片，和上万张背景图片作为训练样本。训练图片一般归一到 20*20 的大小。在这样大小的图片中，可供使用的 haar 特征数在 1 万个左右，使用AdaBoost算法挑选出一些最能代表人脸的矩形特征(弱分类器)，按照加权投票的方式将弱分类器构造为一个强分类器。将训练得到的若干强分类器串联组成一个级联结构的层叠分类器，级联结构能有效地提高分类器的检测速度。</p>
 <hr>
 <h2 id="身份证号码区域的数字提取"><a href="#身份证号码区域的数字提取" class="headerlink" title="身份证号码区域的数字提取"></a>身份证号码区域的数字提取</h2><p>身份证号码是由1-10（存在部分人群的身份证号码最后一位是X），从网上下载的到一个公开的数据，每个数字都有50张这样的图片，这些数据将用来训练。计算数字字符的特征向量，也即梯度分布特征+灰度分布部分训练数据得到一个1<em>72的特征向量，由calcGradientFeat函数实现。最后把训练矩阵和标签矩阵，保存到xml文件。在上面的步骤中已经获得身份证号码区域，分辨率缩放至300</em>20大小之后获得身份证号码区域的矩阵对象，然后用光照直方图处理身份证区域的图像，最后获得纯粹的字符矩阵。利用opencv自带的CvANN_MLP &amp;ann进行神经网模型的构建和训练。把训练矩阵和标签矩阵输入到构建的神经网络模型中，把经过神经网络模型后得到的字符特征向量分类得到由整数vector容易存储的矩阵，最后通过迭代器的方式输出容器对象的值。</p>
-<img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/12.png" class title="分类后的身份证号码区域">
+<img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/12.png" class title="分类后的身份证号码区域"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
 
 
 <hr>
@@ -131,27 +429,294 @@
 
 <hr>
 <h2 id="调用百度OCR识别文字区域"><a href="#调用百度OCR识别文字区域" class="headerlink" title="调用百度OCR识别文字区域"></a>调用百度OCR识别文字区域</h2><p>在百度AI上获得API Key和Secret Key，通过API Key和Secret Key获取的access_token。对每个区域的照片进行base64编码，并去掉图片头，再通过urlencode变成一个字符串，最后发送请求。（每天可以免费500次）</p>
-<img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/14.png" class title="转换编码处理后的请求数据">
+<img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/14.png" class title="转换编码处理后的请求数据"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
 
 <hr>
-<h2 id="最终的是实验结果"><a href="#最终的是实验结果" class="headerlink" title="最终的是实验结果"></a>最终的是实验结果</h2><img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/15.png" class title="实验结果">
+<h2 id="最终的是实验结果"><a href="#最终的是实验结果" class="headerlink" title="最终的是实验结果"></a>最终的是实验结果</h2><img src="/2019/01/17/0005_%E8%BA%AB%E4%BB%BD%E8%AF%81%E4%BF%A1%E6%81%AF%E8%AF%86%E5%88%AB/15.png" class title="实验结果"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
 
 
 
 
-</article><!-- lincense--><div class="post-paginator"><a class="prevSlogan" href="/2019/02/22/0006_%E5%9C%A8Hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90/" title="在Hexo博客中添加音乐"><span>< PreviousPost</span><br><span class="prevTitle">在Hexo博客中添加音乐</span></a><a class="nextSlogan" href="/2019/01/15/0002_%20Index%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C/" title="Index日常工作"><span>NextPost ></span><br><span class="nextTitle">Index日常工作</span></a><div class="clear"></div></div><div id="comment"><div id="container"></div><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>var gitment = new Gitment({
-  id: '身份证信息识别',
-  owner: 'chuang1230',
-  repo: 'blog_comments',
-  oauth: {
-    client_id: 'a5c48ac5d5cc94c1ddcb',
-    client_secret: 'c828a290f6cea734f3c3f05992b798d262e1f1f2',
-  },
-})
-gitment.render('container')</script></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span><script>var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?" + 'true';
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();</script></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2019/02/22/0006_%E5%9C%A8Hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%8A%80%E6%9C%AF/">
+                    技术
+                </a>
+            </div>
+            <h5>
+                <a href="/2019/02/22/0006_%E5%9C%A8Hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90/" class="trm-anima-link">
+                    在Hexo博客中添加音乐
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>19/02/22</li>
+                <li>15:39</li>
+                
+                    <li>649</li>
+                
+                
+                    <li>3</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2019/01/15/0002_%20Index%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%8A%80%E6%9C%AF/">
+                    技术
+                </a>
+            </div>
+            <h5>
+                <a href="/2019/01/15/0002_%20Index%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C/" class="trm-anima-link">
+                    Index日常工作
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>19/01/15</li>
+                <li>15:07</li>
+                
+                    <li>229</li>
+                
+                
+                    <li>1</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.4
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="图像预处理"><a rel="nofollow" class="trm-toc-link" href="#图像预处理"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">图像预处理</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="灰度化"><a rel="nofollow" class="trm-toc-link" href="#灰度化"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">灰度化</span></a></li><li class="trm-toc-item trm-toc-level-3" title="二值化"><a rel="nofollow" class="trm-toc-link" href="#二值化"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">二值化</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="获得身份上各个区域"><a rel="nofollow" class="trm-toc-link" href="#获得身份上各个区域"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">获得身份上各个区域</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="字符区域"><a rel="nofollow" class="trm-toc-link" href="#字符区域"><span class="trm-toc-number">2.1.</span> <span class="trm-toc-text">字符区域</span></a></li><li class="trm-toc-item trm-toc-level-3" title="图片区域"><a rel="nofollow" class="trm-toc-link" href="#图片区域"><span class="trm-toc-number">2.2.</span> <span class="trm-toc-text">图片区域</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="身份证号码区域的数字提取"><a rel="nofollow" class="trm-toc-link" href="#身份证号码区域的数字提取"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">身份证号码区域的数字提取</span></a></li><li class="trm-toc-item trm-toc-level-2" title="身份证出生日期和性别区域的信息获取"><a rel="nofollow" class="trm-toc-link" href="#身份证出生日期和性别区域的信息获取"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">身份证出生日期和性别区域的信息获取</span></a></li><li class="trm-toc-item trm-toc-level-2" title="调用百度OCR识别文字区域"><a rel="nofollow" class="trm-toc-link" href="#调用百度OCR识别文字区域"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">调用百度OCR识别文字区域</span></a></li><li class="trm-toc-item trm-toc-level-2" title="最终的是实验结果"><a rel="nofollow" class="trm-toc-link" href="#最终的是实验结果"><span class="trm-toc-number">6.</span> <span class="trm-toc-text">最终的是实验结果</span></a></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.4"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+			<script src="/js/plugins/danmu.js?v=2.2.4"></script>
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.4"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>
