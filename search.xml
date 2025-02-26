@@ -57,11 +57,11 @@
     <title>Echarts的demo实现</title>
     <url>/2019/01/15/0003_Echarts%E7%9A%84demo%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了</p>
-<div id="echarts6512" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<div id="echarts9271" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts6512'));
+        var myChart = echarts.init(document.getElementById('echarts9271'));
         // 指定图表的配置项和数据
         var option = {
 	 tooltip : {
@@ -262,10 +262,10 @@
 
 <p>效果如下：</p>
 
-        <div id="aplayer-RHzJNvyK" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"></div>
+        <div id="aplayer-EZfiWZVY" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"></div>
 			  <script>
 				  var options = {"narrow":false,"autoplay":true,"showlrc":3,"mode":"random","music":[{"title":"岩石里的花","author":"邓紫棋","url":"http://192.168.127.151/cache/3/05/streamoc.music.tc.qq.com/f16436618361cfecc79153b3ba1db01a/M800101A9o5D1EWzyd.mp3?vkey=22981DFD3050B42FAB4296D2E56960739E671E4B24A1F2247633AF232692011F5FC6F16E87CF59F9A26E6DBD50592C9FCE4C15A033F29612&guid=MS&fromtag=8&uin=0","pic":"http://lc-vslfihiq.cn-n1.lcfile.com/9facbadc02822c7cf86c.png","lrc":""},{"title":"睡皇后","author":"邓紫棋","url":"http://lc-vslfihiq.cn-n1.lcfile.com/38e7079c52024b425a12.mp3","pic":"http://lc-vslfihiq.cn-n1.lcfile.com/5910fa54d1d1eb90c1cf.png","lrc":""},{"title":"倒数","author":"邓紫棋","url":"http://lc-vslfihiq.cn-n1.lcfile.com/ee98d8bf7cf6311dc37d.mp3","pic":"http://lc-vslfihiq.cn-n1.lcfile.com/f48f7bc8811115acce16.jpg","lrc":""}]};
-				  options.element = document.getElementById("aplayer-RHzJNvyK");
+				  options.element = document.getElementById("aplayer-EZfiWZVY");
 				  var ap = new APlayer(options);
 			    window.aplayers || (window.aplayers = []);
 				  window.aplayers.push(ap);
@@ -301,35 +301,6 @@
       </tags>
   </entry>
   <entry>
-    <title>soundex算法的实现</title>
-    <url>/2019/04/10/0008_soundex%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/04/10/0008_soundex%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/1.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-
-<h2 id="soundex算法"><a href="#soundex算法" class="headerlink" title="soundex算法"></a>soundex算法</h2><p>soundex是一种语音算法，利用英文字的读音计算近似值，值由四个字符构成，第一个字符为英文字母，后三个为数字。在拼音文字中有时会有会念但不能拼出正确字的情形，可用soundex做类似模糊匹配的效果。例如knuth和kant二个字符串，它们的soundex值都是“k530”。</p>
-<span id="more"></span>
-<h2 id="算法基本思路"><a href="#算法基本思路" class="headerlink" title="算法基本思路"></a>算法基本思路</h2><p>1.保留第一个字母，去掉第一个字母之后的所有的a, e, i, o, u, y, h, w；</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">word=word.lower() #转换为小写</span><br><span class="line">word1=word[1:]    #获取第一个字母后的切片</span><br><span class="line">word1 = re.sub(&#x27;[aeiouyhw]&#x27;,&#x27;&#x27;,word1) #去除元音字母</span><br></pre></td></tr></table></figure>
-
-<p>2.将英文字按以下规则替换（除第一个字符外）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b f p v -&gt; 1</span><br><span class="line">c g j k q s x z -&gt; 2</span><br><span class="line">d t -&gt; 3</span><br><span class="line">l -&gt; 4</span><br><span class="line">m n -&gt; 5</span><br><span class="line">r -&gt; 6</span><br></pre></td></tr></table></figure>
-
-<p>3.对于相邻的重复的数字只保留一个，即相邻的两个被替换为同一个数字的字母只保留一个；</p>
-<p>4.保留第一个字母后的三位数字，若不足三位则以0补足。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#去除重复</span><br><span class="line">for i in range(1,len(result)):</span><br><span class="line">  if i&lt;=3:</span><br><span class="line">    result1+=result[i]</span><br><span class="line">if len(result)-1&lt;3:</span><br><span class="line">  time=3-(len(result)-1)</span><br><span class="line">  #补0</span><br><span class="line">  for i in range(0,time):</span><br><span class="line">    result1+=&#x27;0&#x27;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Python的实现"><a href="#Python的实现" class="headerlink" title="Python的实现"></a>Python的实现</h2><p>完整代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import re</span><br><span class="line">def soundex(word):</span><br><span class="line">    word=word.lower()</span><br><span class="line">    result=word[0]</span><br><span class="line">    word1=word[1:]</span><br><span class="line">    word1 = re.sub(&#x27;[aeiouyhw]&#x27;,&#x27;&#x27;,word1)</span><br><span class="line">    for char in word1:</span><br><span class="line">        if char==&#x27;b&#x27; or char==&#x27;f&#x27; or char==&#x27;p&#x27;or char==&#x27;v&#x27;:</span><br><span class="line">            result+=&#x27;1&#x27;</span><br><span class="line">        elif char==&#x27;c&#x27; or char==&#x27;g&#x27; or char==&#x27;j&#x27; or char==&#x27;k&#x27; or char==&#x27;q&#x27; or char==&#x27;s&#x27; or char==&#x27;x&#x27; or char==&#x27;z&#x27;:</span><br><span class="line">            result+=&#x27;2&#x27;</span><br><span class="line">        elif char==&#x27;d&#x27; or char==&#x27;t&#x27;:</span><br><span class="line">            result+=&#x27;3&#x27;</span><br><span class="line">        elif char==&#x27;l&#x27;:</span><br><span class="line">            result+=&#x27;4&#x27;</span><br><span class="line">        elif char==&#x27;m&#x27; or char==&#x27;n&#x27;:</span><br><span class="line">            result+=&#x27;5&#x27;</span><br><span class="line">        elif char==&#x27;r&#x27;:</span><br><span class="line">            result+=&#x27;6&#x27;</span><br><span class="line">    print(&#x27;first_changed_without_control:&#x27;,result)</span><br><span class="line">    result1=result[0]</span><br><span class="line">    for i in range(1,len(result)):</span><br><span class="line">        if i&lt;=3:</span><br><span class="line">            result1+=result[i]</span><br><span class="line">    if len(result)-1&lt;3:</span><br><span class="line">        time=3-(len(result)-1)</span><br><span class="line">        for i in range(0,time):</span><br><span class="line">            result1+=&#x27;0&#x27;</span><br><span class="line">    print(&#x27;second_changed_with_control:  &#x27;,result1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    #乱打的测试</span><br><span class="line">    soundex(&#x27;kdsadasnh&#x27;)</span><br><span class="line">    soundex(&#x27;dsaddas&#x27;)</span><br><span class="line">    #正常测试</span><br><span class="line">    soundex(&#x27;Knuth&#x27;)</span><br><span class="line">    soundex(&#x27;Kant&#x27;)</span><br><span class="line">    soundex(&#x27;Jarovski&#x27;)</span><br></pre></td></tr></table></figure>
-<p>结果</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">first_changed_without_control: k32325</span><br><span class="line">second_changed_with_control:   k323</span><br><span class="line">first_changed_without_control: d2332</span><br><span class="line">second_changed_with_control:   d233</span><br><span class="line">first_changed_without_control: k53</span><br><span class="line">second_changed_with_control:   k530</span><br><span class="line">first_changed_without_control: k53</span><br><span class="line">second_changed_with_control:   k530</span><br><span class="line">first_changed_without_control: j6122</span><br><span class="line">second_changed_with_control:   j612</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Endgame</title>
     <url>/2019/06/30/0009_Endgame/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/06/30/0009_Endgame/1.jpg" class title="单纯记录一下Avengers"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
@@ -362,6 +333,35 @@
       </categories>
       <tags>
         <tag>日常</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>soundex算法的实现</title>
+    <url>/2019/04/10/0008_soundex%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/04/10/0008_soundex%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/1.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+<h2 id="soundex算法"><a href="#soundex算法" class="headerlink" title="soundex算法"></a>soundex算法</h2><p>soundex是一种语音算法，利用英文字的读音计算近似值，值由四个字符构成，第一个字符为英文字母，后三个为数字。在拼音文字中有时会有会念但不能拼出正确字的情形，可用soundex做类似模糊匹配的效果。例如knuth和kant二个字符串，它们的soundex值都是“k530”。</p>
+<span id="more"></span>
+<h2 id="算法基本思路"><a href="#算法基本思路" class="headerlink" title="算法基本思路"></a>算法基本思路</h2><p>1.保留第一个字母，去掉第一个字母之后的所有的a, e, i, o, u, y, h, w；</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">word=word.lower() #转换为小写</span><br><span class="line">word1=word[1:]    #获取第一个字母后的切片</span><br><span class="line">word1 = re.sub(&#x27;[aeiouyhw]&#x27;,&#x27;&#x27;,word1) #去除元音字母</span><br></pre></td></tr></table></figure>
+
+<p>2.将英文字按以下规则替换（除第一个字符外）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b f p v -&gt; 1</span><br><span class="line">c g j k q s x z -&gt; 2</span><br><span class="line">d t -&gt; 3</span><br><span class="line">l -&gt; 4</span><br><span class="line">m n -&gt; 5</span><br><span class="line">r -&gt; 6</span><br></pre></td></tr></table></figure>
+
+<p>3.对于相邻的重复的数字只保留一个，即相邻的两个被替换为同一个数字的字母只保留一个；</p>
+<p>4.保留第一个字母后的三位数字，若不足三位则以0补足。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#去除重复</span><br><span class="line">for i in range(1,len(result)):</span><br><span class="line">  if i&lt;=3:</span><br><span class="line">    result1+=result[i]</span><br><span class="line">if len(result)-1&lt;3:</span><br><span class="line">  time=3-(len(result)-1)</span><br><span class="line">  #补0</span><br><span class="line">  for i in range(0,time):</span><br><span class="line">    result1+=&#x27;0&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Python的实现"><a href="#Python的实现" class="headerlink" title="Python的实现"></a>Python的实现</h2><p>完整代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import re</span><br><span class="line">def soundex(word):</span><br><span class="line">    word=word.lower()</span><br><span class="line">    result=word[0]</span><br><span class="line">    word1=word[1:]</span><br><span class="line">    word1 = re.sub(&#x27;[aeiouyhw]&#x27;,&#x27;&#x27;,word1)</span><br><span class="line">    for char in word1:</span><br><span class="line">        if char==&#x27;b&#x27; or char==&#x27;f&#x27; or char==&#x27;p&#x27;or char==&#x27;v&#x27;:</span><br><span class="line">            result+=&#x27;1&#x27;</span><br><span class="line">        elif char==&#x27;c&#x27; or char==&#x27;g&#x27; or char==&#x27;j&#x27; or char==&#x27;k&#x27; or char==&#x27;q&#x27; or char==&#x27;s&#x27; or char==&#x27;x&#x27; or char==&#x27;z&#x27;:</span><br><span class="line">            result+=&#x27;2&#x27;</span><br><span class="line">        elif char==&#x27;d&#x27; or char==&#x27;t&#x27;:</span><br><span class="line">            result+=&#x27;3&#x27;</span><br><span class="line">        elif char==&#x27;l&#x27;:</span><br><span class="line">            result+=&#x27;4&#x27;</span><br><span class="line">        elif char==&#x27;m&#x27; or char==&#x27;n&#x27;:</span><br><span class="line">            result+=&#x27;5&#x27;</span><br><span class="line">        elif char==&#x27;r&#x27;:</span><br><span class="line">            result+=&#x27;6&#x27;</span><br><span class="line">    print(&#x27;first_changed_without_control:&#x27;,result)</span><br><span class="line">    result1=result[0]</span><br><span class="line">    for i in range(1,len(result)):</span><br><span class="line">        if i&lt;=3:</span><br><span class="line">            result1+=result[i]</span><br><span class="line">    if len(result)-1&lt;3:</span><br><span class="line">        time=3-(len(result)-1)</span><br><span class="line">        for i in range(0,time):</span><br><span class="line">            result1+=&#x27;0&#x27;</span><br><span class="line">    print(&#x27;second_changed_with_control:  &#x27;,result1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    #乱打的测试</span><br><span class="line">    soundex(&#x27;kdsadasnh&#x27;)</span><br><span class="line">    soundex(&#x27;dsaddas&#x27;)</span><br><span class="line">    #正常测试</span><br><span class="line">    soundex(&#x27;Knuth&#x27;)</span><br><span class="line">    soundex(&#x27;Kant&#x27;)</span><br><span class="line">    soundex(&#x27;Jarovski&#x27;)</span><br></pre></td></tr></table></figure>
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">first_changed_without_control: k32325</span><br><span class="line">second_changed_with_control:   k323</span><br><span class="line">first_changed_without_control: d2332</span><br><span class="line">second_changed_with_control:   d233</span><br><span class="line">first_changed_without_control: k53</span><br><span class="line">second_changed_with_control:   k530</span><br><span class="line">first_changed_without_control: k53</span><br><span class="line">second_changed_with_control:   k530</span><br><span class="line">first_changed_without_control: j6122</span><br><span class="line">second_changed_with_control:   j612</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -426,6 +426,35 @@
       </tags>
   </entry>
   <entry>
+    <title>Python计算两个经纬度之间的距离</title>
+    <url>/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/1.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+<p>【需求：计算多个居住地与工作地到本次案例的距离】</p>
+<span id="more"></span>
+
+<h3 id="读取经纬度地址的数据"><a href="#读取经纬度地址的数据" class="headerlink" title="读取经纬度地址的数据"></a>读取经纬度地址的数据</h3><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/2.png" class title="Excel中的数据"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+<p>这一步把excel中经纬度数据存储到列表中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def read_excel():</span><br><span class="line">    ExcelFile=xlrd.open_workbook(r&#x27;E:\\python_pratice\\July6_project\\dizhi_zhuan_jingweidu_juli_jisuan\\2.xlsx&#x27;)</span><br><span class="line">    #print (ExcelFile.sheet_names())</span><br><span class="line">    sheet = ExcelFile.sheet_by_index(0)</span><br><span class="line">    address = sheet.col_values(0)</span><br><span class="line">    jingweidu=sheet.col_values(1)</span><br><span class="line">    for i in range(0,len(jingweidu)):</span><br><span class="line">        print(i)</span><br><span class="line">        s1=sheet.cell(i, 1).value</span><br><span class="line">        print(s1)</span><br><span class="line">        B.append(s1)</span><br></pre></td></tr></table></figure>
+
+<h3 id="计算两个经纬度之间的距离"><a href="#计算两个经纬度之间的距离" class="headerlink" title="计算两个经纬度之间的距离"></a>计算两个经纬度之间的距离</h3><p>计算经纬度之间的距离有多种方法，比如Great-Circle距离（基于球面余弦公式）和基于Haversine公式 等。这些方法考虑的要点都很多，实际应用计算保留几位小数的情况下可以使用以下我使用的方法，要想十分精确，那就请</p>
+<img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/4.png" class title="出门右转，Google一下"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+<h4 id="基于Haversine公式计算距离"><a href="#基于Haversine公式计算距离" class="headerlink" title="基于Haversine公式计算距离"></a>基于Haversine公式计算距离</h4><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/3.jpg" class title="经纬度计算距离公式"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+<h4 id="公式解析"><a href="#公式解析" class="headerlink" title="公式解析"></a>公式解析</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Lung1 Lat1表示A点经纬度， Lung2 Lat2表示B点经纬度；</span><br><span class="line">a=Lat1-Lat2 为两点纬度之差 b=Lung1-Lung2 为两点经度之差；</span><br><span class="line">6378.137为地球半径，单位为千米；</span><br><span class="line">计算出来的结果单位为千米，若将半径改为米为单位则计算的结果单位为米</span><br><span class="line">计算精度与谷歌地图的距离精度差不多，相差范围在0.2米以下</span><br></pre></td></tr></table></figure>
+<h4 id="code"><a href="#code" class="headerlink" title="code"></a>code</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def distance_calc_two(startloc , endloc):</span><br><span class="line">    startloc = startloc + &#x27;,&#x27; + endloc</span><br><span class="line"></span><br><span class="line">    # 将十进制度数转化为弧度</span><br><span class="line">    lon1 , lat1 ,lon2 , lat2 = map(radians,[float(i) for i in startloc.split(&#x27;,&#x27;)])</span><br><span class="line">    </span><br><span class="line">    # haversine公式</span><br><span class="line">    dlon = lon2 - lon1</span><br><span class="line">    dlat = lat2 - lat1</span><br><span class="line">    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2</span><br><span class="line">    c = 2 * asin(sqrt(a))</span><br><span class="line">    </span><br><span class="line">    # 地球平均半径</span><br><span class="line">    r = 6371</span><br><span class="line">    finally_result = str(&#x27;%.3f&#x27;%(r * c))</span><br><span class="line">    distance.append(finally_result)</span><br><span class="line">    print(finally_result + u&#x27;公里&#x27;)</span><br></pre></td></tr></table></figure>
+<p>startloc和endloc这两个参数为起点与终点的经纬度，之后将经纬度转为弧度，方便之后的计算，最后就是实现haversine公式。</p>
+<p>注意：这里r的取值也可以精确到6378.137，视自己情况而定。</p>
+<h3 id="All-Codes"><a href="#All-Codes" class="headerlink" title="All Codes"></a>All Codes</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from math import radians,sin,cos,asin,sqrt</span><br><span class="line">import xlrd</span><br><span class="line"></span><br><span class="line">distance=[]</span><br><span class="line">B=[]</span><br><span class="line">def distance_calc_two(startloc , endloc):</span><br><span class="line">    startloc = startloc + &#x27;,&#x27; + endloc</span><br><span class="line">    lon1 , lat1 ,lon2 , lat2 = map(radians,[float(i) for i in startloc.split(&#x27;,&#x27;)])</span><br><span class="line">    #print(lon1,lat1,lon2,lat2)</span><br><span class="line">    dlon = lon2 - lon1</span><br><span class="line">    dlat = lat2 - lat1</span><br><span class="line">    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2</span><br><span class="line">    c = 2 * asin(sqrt(a))</span><br><span class="line">    r = 6371</span><br><span class="line">    finally_result = str(&#x27;%.3f&#x27;%(r * c))</span><br><span class="line">    distance.append(finally_result)</span><br><span class="line"></span><br><span class="line">def read_excel():</span><br><span class="line">    ExcelFile=xlrd.open_workbook(r&#x27;E:\\python_pratice\\July6_project\\dizhi_zhuan_jingweidu_juli_jisuan\\2.xlsx&#x27;)</span><br><span class="line">    sheet = ExcelFile.sheet_by_index(0)</span><br><span class="line">    address = sheet.col_values(0)</span><br><span class="line">    jingweidu=sheet.col_values(1)</span><br><span class="line">    for i in range(0,len(jingweidu)):</span><br><span class="line">        s1=sheet.cell(i, 1).value</span><br><span class="line">        B.append(s1)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    startloc=&#x27;114.504952,38.045749&#x27;</span><br><span class="line">    read_excel()</span><br><span class="line">    for i in B:</span><br><span class="line">        distance_calc_two(startloc,i)</span><br><span class="line">    print(distance)</span><br><span class="line">    with open(&#x27;3.txt&#x27;,&#x27;w&#x27;) as f:</span><br><span class="line">        for i in distance:</span><br><span class="line">            f.write(i+&#x27;\n&#x27;)</span><br></pre></td></tr></table></figure>
+<p>最后结果如下：</p>
+<img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/5.png" class title="result"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>经纬度</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python调用百度OCR</title>
     <url>/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/1.jpg" class title="你要记住这句话"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
@@ -484,67 +513,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Python调用高德API批量获得经纬度</title>
-    <url>/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/1.jpg" class title="希望你把心交给我"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-
-<p>做热力图时发现很多平台都需要经纬度 <span id="more"></span>，话不多说，开始搬砖。</p>
-<h3 id="在高德开放平台创建应用"><a href="#在高德开放平台创建应用" class="headerlink" title="在高德开放平台创建应用"></a>在高德开放平台创建应用</h3><p>进入<a href="https://lbs.amap.com/api/webservice/guide/api/georegeo">高德开放平台的接口文档</a>仔细研究其需要的请求参数等信息</p>
-<img src="/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/3.png" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-
-<h5 id="获取Key"><a href="#获取Key" class="headerlink" title="获取Key"></a>获取Key</h5><p>进入<a href="https://lbs.amap.com/">高德开放平台</a>的控制台，然后创建应用，获得Web服务API类型的Key；</p>
-<img src="/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/4.png" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-
-<h3 id="在高德开放平台创建应用-1"><a href="#在高德开放平台创建应用-1" class="headerlink" title="在高德开放平台创建应用"></a>在高德开放平台创建应用</h3><h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def get_location(address, i):</span><br><span class="line">    print(i)</span><br><span class="line">    url = &quot;http://restapi.amap.com/v3/geocode/geo&quot;</span><br><span class="line">    data = &#123;</span><br><span class="line">        &#x27;key&#x27;: &#x27;&#x27;,</span><br><span class="line">        &#x27;address&#x27;: address</span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(url, data=data).json()</span><br></pre></td></tr></table></figure>
-
-<h5 id="请求URL"><a href="#请求URL" class="headerlink" title="请求URL"></a>请求URL</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://restapi.amap.com/v3/geocode/geo</span><br></pre></td></tr></table></figure>
-
-<h5 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h5><p>key和address这两项是必须要填的，其他参数请看接口文档。address的规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦，如：北京市朝阳区阜通东大街6号。如果需要解析多个地址的话，请用”|”进行间隔，并且将 batch 参数设置为 true，最多支持 10 个地址进进行”|”分割形式的请求。这里一次只解析一个。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data = &#123;</span><br><span class="line">        &#x27;key&#x27;: &#x27;&#x27;,</span><br><span class="line">        &#x27;address&#x27;: address</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="返回参数"><a href="#返回参数" class="headerlink" title="返回参数"></a>返回参数</h5><p>得到的数据是Json格式的，经纬度在geocodes的location中可以找到</p>
-<img src="/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/5.png" class title="result"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-
-<h3 id="All-Codes"><a href="#All-Codes" class="headerlink" title="All Codes"></a>All Codes</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import json</span><br><span class="line">import codecs</span><br><span class="line">from openpyxl import Workbook</span><br><span class="line"></span><br><span class="line"># 把获得数据写入excel</span><br><span class="line">wb = Workbook()</span><br><span class="line">sheet = wb.active</span><br><span class="line">sheet.title = &quot;qiang&quot;</span><br><span class="line"></span><br><span class="line">def get_location(address, i):</span><br><span class="line">    print(i)</span><br><span class="line">    # 请求url</span><br><span class="line">    url = &quot;http://restapi.amap.com/v3/geocode/geo&quot;</span><br><span class="line"></span><br><span class="line">    # 请求数据</span><br><span class="line">    data = &#123;</span><br><span class="line">        &#x27;key&#x27;: &#x27;&#x27;,</span><br><span class="line">        &#x27;address&#x27;: address</span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(url, data=data).json()</span><br><span class="line">    sheet[&quot;A&#123;0&#125;&quot;.format(i)].value = address.strip(&#x27;\n&#x27;)</span><br><span class="line">    print(r)</span><br><span class="line"></span><br><span class="line">    # 只把json中需要的数据写入excel</span><br><span class="line">    if r[&#x27;status&#x27;] == &#x27;1&#x27;:</span><br><span class="line">        if len(r[&#x27;geocodes&#x27;]) &gt; 0:</span><br><span class="line">            GPS = r[&#x27;geocodes&#x27;][0][&#x27;location&#x27;]</span><br><span class="line">            sheet[&quot;B&#123;0&#125;&quot;.format(i)].value = GPS</span><br><span class="line">            sheet[&quot;C&#123;0&#125;&quot;.format(i)].value = r[&#x27;geocodes&#x27;][0][&#x27;formatted_address&#x27;]</span><br><span class="line">        else:</span><br><span class="line">            sheet[&quot;B&#123;0&#125;&quot;.format(i)].value = &#x27;[]&#x27;</span><br><span class="line">    else:</span><br><span class="line">       sheet[&quot;B&#123;0&#125;&quot;.format(i)].value = &#x27;未找到&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 获得地址</span><br><span class="line">f = codecs.open(r&quot;sjz2.txt&quot;, &quot;r&quot;)</span><br><span class="line"></span><br><span class="line">i = 0</span><br><span class="line">while True:</span><br><span class="line">    line = f.readline()</span><br><span class="line">    i = i + 1</span><br><span class="line">    if not line:</span><br><span class="line">        f.close()</span><br><span class="line">        wb.save(r&quot;sjz2.xlsx&quot;)</span><br><span class="line">        break</span><br><span class="line">    get_location(line, i)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>高德API</tag>
-        <tag>经纬度</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python计算两个经纬度之间的距离</title>
-    <url>/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/1.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-<p>【需求：计算多个居住地与工作地到本次案例的距离】</p>
-<span id="more"></span>
-
-<h3 id="读取经纬度地址的数据"><a href="#读取经纬度地址的数据" class="headerlink" title="读取经纬度地址的数据"></a>读取经纬度地址的数据</h3><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/2.png" class title="Excel中的数据"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-<p>这一步把excel中经纬度数据存储到列表中</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def read_excel():</span><br><span class="line">    ExcelFile=xlrd.open_workbook(r&#x27;E:\\python_pratice\\July6_project\\dizhi_zhuan_jingweidu_juli_jisuan\\2.xlsx&#x27;)</span><br><span class="line">    #print (ExcelFile.sheet_names())</span><br><span class="line">    sheet = ExcelFile.sheet_by_index(0)</span><br><span class="line">    address = sheet.col_values(0)</span><br><span class="line">    jingweidu=sheet.col_values(1)</span><br><span class="line">    for i in range(0,len(jingweidu)):</span><br><span class="line">        print(i)</span><br><span class="line">        s1=sheet.cell(i, 1).value</span><br><span class="line">        print(s1)</span><br><span class="line">        B.append(s1)</span><br></pre></td></tr></table></figure>
-
-<h3 id="计算两个经纬度之间的距离"><a href="#计算两个经纬度之间的距离" class="headerlink" title="计算两个经纬度之间的距离"></a>计算两个经纬度之间的距离</h3><p>计算经纬度之间的距离有多种方法，比如Great-Circle距离（基于球面余弦公式）和基于Haversine公式 等。这些方法考虑的要点都很多，实际应用计算保留几位小数的情况下可以使用以下我使用的方法，要想十分精确，那就请</p>
-<img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/4.png" class title="出门右转，Google一下"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-<h4 id="基于Haversine公式计算距离"><a href="#基于Haversine公式计算距离" class="headerlink" title="基于Haversine公式计算距离"></a>基于Haversine公式计算距离</h4><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/3.jpg" class title="经纬度计算距离公式"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-<h4 id="公式解析"><a href="#公式解析" class="headerlink" title="公式解析"></a>公式解析</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Lung1 Lat1表示A点经纬度， Lung2 Lat2表示B点经纬度；</span><br><span class="line">a=Lat1-Lat2 为两点纬度之差 b=Lung1-Lung2 为两点经度之差；</span><br><span class="line">6378.137为地球半径，单位为千米；</span><br><span class="line">计算出来的结果单位为千米，若将半径改为米为单位则计算的结果单位为米</span><br><span class="line">计算精度与谷歌地图的距离精度差不多，相差范围在0.2米以下</span><br></pre></td></tr></table></figure>
-<h4 id="code"><a href="#code" class="headerlink" title="code"></a>code</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def distance_calc_two(startloc , endloc):</span><br><span class="line">    startloc = startloc + &#x27;,&#x27; + endloc</span><br><span class="line"></span><br><span class="line">    # 将十进制度数转化为弧度</span><br><span class="line">    lon1 , lat1 ,lon2 , lat2 = map(radians,[float(i) for i in startloc.split(&#x27;,&#x27;)])</span><br><span class="line">    </span><br><span class="line">    # haversine公式</span><br><span class="line">    dlon = lon2 - lon1</span><br><span class="line">    dlat = lat2 - lat1</span><br><span class="line">    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2</span><br><span class="line">    c = 2 * asin(sqrt(a))</span><br><span class="line">    </span><br><span class="line">    # 地球平均半径</span><br><span class="line">    r = 6371</span><br><span class="line">    finally_result = str(&#x27;%.3f&#x27;%(r * c))</span><br><span class="line">    distance.append(finally_result)</span><br><span class="line">    print(finally_result + u&#x27;公里&#x27;)</span><br></pre></td></tr></table></figure>
-<p>startloc和endloc这两个参数为起点与终点的经纬度，之后将经纬度转为弧度，方便之后的计算，最后就是实现haversine公式。</p>
-<p>注意：这里r的取值也可以精确到6378.137，视自己情况而定。</p>
-<h3 id="All-Codes"><a href="#All-Codes" class="headerlink" title="All Codes"></a>All Codes</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from math import radians,sin,cos,asin,sqrt</span><br><span class="line">import xlrd</span><br><span class="line"></span><br><span class="line">distance=[]</span><br><span class="line">B=[]</span><br><span class="line">def distance_calc_two(startloc , endloc):</span><br><span class="line">    startloc = startloc + &#x27;,&#x27; + endloc</span><br><span class="line">    lon1 , lat1 ,lon2 , lat2 = map(radians,[float(i) for i in startloc.split(&#x27;,&#x27;)])</span><br><span class="line">    #print(lon1,lat1,lon2,lat2)</span><br><span class="line">    dlon = lon2 - lon1</span><br><span class="line">    dlat = lat2 - lat1</span><br><span class="line">    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2</span><br><span class="line">    c = 2 * asin(sqrt(a))</span><br><span class="line">    r = 6371</span><br><span class="line">    finally_result = str(&#x27;%.3f&#x27;%(r * c))</span><br><span class="line">    distance.append(finally_result)</span><br><span class="line"></span><br><span class="line">def read_excel():</span><br><span class="line">    ExcelFile=xlrd.open_workbook(r&#x27;E:\\python_pratice\\July6_project\\dizhi_zhuan_jingweidu_juli_jisuan\\2.xlsx&#x27;)</span><br><span class="line">    sheet = ExcelFile.sheet_by_index(0)</span><br><span class="line">    address = sheet.col_values(0)</span><br><span class="line">    jingweidu=sheet.col_values(1)</span><br><span class="line">    for i in range(0,len(jingweidu)):</span><br><span class="line">        s1=sheet.cell(i, 1).value</span><br><span class="line">        B.append(s1)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    startloc=&#x27;114.504952,38.045749&#x27;</span><br><span class="line">    read_excel()</span><br><span class="line">    for i in B:</span><br><span class="line">        distance_calc_two(startloc,i)</span><br><span class="line">    print(distance)</span><br><span class="line">    with open(&#x27;3.txt&#x27;,&#x27;w&#x27;) as f:</span><br><span class="line">        for i in distance:</span><br><span class="line">            f.write(i+&#x27;\n&#x27;)</span><br></pre></td></tr></table></figure>
-<p>最后结果如下：</p>
-<img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/5.png" class title="result"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>经纬度</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ubuntu14.4下netease-cloud-music的安装与卸载</title>
     <url>/2019/04/15/0014_ubuntu14.4%E4%B8%8Bnetease-cloud-music%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BD/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="安装包的下载"><a href="#安装包的下载" class="headerlink" title="安装包的下载"></a>安装包的下载</h2><p>重新打开浏览器，copy链接就可以自动下载安装包</p>
@@ -577,6 +545,38 @@
       </categories>
       <tags>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python调用高德API批量获得经纬度</title>
+    <url>/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/1.jpg" class title="希望你把心交给我"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+<p>做热力图时发现很多平台都需要经纬度 <span id="more"></span>，话不多说，开始搬砖。</p>
+<h3 id="在高德开放平台创建应用"><a href="#在高德开放平台创建应用" class="headerlink" title="在高德开放平台创建应用"></a>在高德开放平台创建应用</h3><p>进入<a href="https://lbs.amap.com/api/webservice/guide/api/georegeo">高德开放平台的接口文档</a>仔细研究其需要的请求参数等信息</p>
+<img src="/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/3.png" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+<h5 id="获取Key"><a href="#获取Key" class="headerlink" title="获取Key"></a>获取Key</h5><p>进入<a href="https://lbs.amap.com/">高德开放平台</a>的控制台，然后创建应用，获得Web服务API类型的Key；</p>
+<img src="/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/4.png" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+<h3 id="在高德开放平台创建应用-1"><a href="#在高德开放平台创建应用-1" class="headerlink" title="在高德开放平台创建应用"></a>在高德开放平台创建应用</h3><h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def get_location(address, i):</span><br><span class="line">    print(i)</span><br><span class="line">    url = &quot;http://restapi.amap.com/v3/geocode/geo&quot;</span><br><span class="line">    data = &#123;</span><br><span class="line">        &#x27;key&#x27;: &#x27;&#x27;,</span><br><span class="line">        &#x27;address&#x27;: address</span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(url, data=data).json()</span><br></pre></td></tr></table></figure>
+
+<h5 id="请求URL"><a href="#请求URL" class="headerlink" title="请求URL"></a>请求URL</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://restapi.amap.com/v3/geocode/geo</span><br></pre></td></tr></table></figure>
+
+<h5 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h5><p>key和address这两项是必须要填的，其他参数请看接口文档。address的规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦，如：北京市朝阳区阜通东大街6号。如果需要解析多个地址的话，请用”|”进行间隔，并且将 batch 参数设置为 true，最多支持 10 个地址进进行”|”分割形式的请求。这里一次只解析一个。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data = &#123;</span><br><span class="line">        &#x27;key&#x27;: &#x27;&#x27;,</span><br><span class="line">        &#x27;address&#x27;: address</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="返回参数"><a href="#返回参数" class="headerlink" title="返回参数"></a>返回参数</h5><p>得到的数据是Json格式的，经纬度在geocodes的location中可以找到</p>
+<img src="/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/5.png" class title="result"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+<h3 id="All-Codes"><a href="#All-Codes" class="headerlink" title="All Codes"></a>All Codes</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import json</span><br><span class="line">import codecs</span><br><span class="line">from openpyxl import Workbook</span><br><span class="line"></span><br><span class="line"># 把获得数据写入excel</span><br><span class="line">wb = Workbook()</span><br><span class="line">sheet = wb.active</span><br><span class="line">sheet.title = &quot;qiang&quot;</span><br><span class="line"></span><br><span class="line">def get_location(address, i):</span><br><span class="line">    print(i)</span><br><span class="line">    # 请求url</span><br><span class="line">    url = &quot;http://restapi.amap.com/v3/geocode/geo&quot;</span><br><span class="line"></span><br><span class="line">    # 请求数据</span><br><span class="line">    data = &#123;</span><br><span class="line">        &#x27;key&#x27;: &#x27;&#x27;,</span><br><span class="line">        &#x27;address&#x27;: address</span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(url, data=data).json()</span><br><span class="line">    sheet[&quot;A&#123;0&#125;&quot;.format(i)].value = address.strip(&#x27;\n&#x27;)</span><br><span class="line">    print(r)</span><br><span class="line"></span><br><span class="line">    # 只把json中需要的数据写入excel</span><br><span class="line">    if r[&#x27;status&#x27;] == &#x27;1&#x27;:</span><br><span class="line">        if len(r[&#x27;geocodes&#x27;]) &gt; 0:</span><br><span class="line">            GPS = r[&#x27;geocodes&#x27;][0][&#x27;location&#x27;]</span><br><span class="line">            sheet[&quot;B&#123;0&#125;&quot;.format(i)].value = GPS</span><br><span class="line">            sheet[&quot;C&#123;0&#125;&quot;.format(i)].value = r[&#x27;geocodes&#x27;][0][&#x27;formatted_address&#x27;]</span><br><span class="line">        else:</span><br><span class="line">            sheet[&quot;B&#123;0&#125;&quot;.format(i)].value = &#x27;[]&#x27;</span><br><span class="line">    else:</span><br><span class="line">       sheet[&quot;B&#123;0&#125;&quot;.format(i)].value = &#x27;未找到&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 获得地址</span><br><span class="line">f = codecs.open(r&quot;sjz2.txt&quot;, &quot;r&quot;)</span><br><span class="line"></span><br><span class="line">i = 0</span><br><span class="line">while True:</span><br><span class="line">    line = f.readline()</span><br><span class="line">    i = i + 1</span><br><span class="line">    if not line:</span><br><span class="line">        f.close()</span><br><span class="line">        wb.save(r&quot;sjz2.xlsx&quot;)</span><br><span class="line">        break</span><br><span class="line">    get_location(line, i)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>经纬度</tag>
+        <tag>高德API</tag>
       </tags>
   </entry>
   <entry>
@@ -966,39 +966,6 @@
       </tags>
   </entry>
   <entry>
-    <title>经营分析总结小记</title>
-    <url>/2025/02/24/0022-%E7%BB%8F%E8%90%A5%E5%88%86%E6%9E%90%E6%80%BB%E7%BB%93%E5%B0%8F%E8%AE%B0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="个人对经分与商分的看法"><a href="#个人对经分与商分的看法" class="headerlink" title="个人对经分与商分的看法"></a>个人对经分与商分的看法</h1><p>经分和商分的工作内容个人感觉基本一致只是侧重不同；</p>
-<p>商分更关注运营侧的指标异动、趋势探究、经营复盘、类目分析等等，对损益类的指标关注有但是没有经分多。</p>
-<p>经分对财务和损益指标做的更细一点 工作内容上也更宏观,一般都对整个事业部的结果负责;一般工作流程是定规划、常跟进、 做解读、 能优化 。</p>
-<h1 id="经分-（收入-成本-规模-利润）"><a href="#经分-（收入-成本-规模-利润）" class="headerlink" title="经分-（收入+成本+规模+利润）"></a>经分-（收入+成本+规模+利润）</h1><h2 id="收入的四种模式（C端）"><a href="#收入的四种模式（C端）" class="headerlink" title="收入的四种模式（C端）"></a>收入的四种模式（C端）</h2><p> 1、流量收入（类似广告）</p>
-<p>与其他三种收入区别在于<strong>是否发生交易行为</strong></p>
-<p>cpc 单次点击成本 &#x3D; 广告流量 * 转化率 * 单次点击价格</p>
-<p>cpm &#x3D; 广告流量(前端展示就收费)*每千次展示可以获得广告收入</p>
-<p> 2、手续费收入（平台佣金）</p>
-<p>收入 &#x3D; gmv * 佣金率</p>
-<p> 3、产供销收入（含供应链供应商） </p>
-<p>产品生产、供应、销售都是一家企业，比如shein </p>
-<p>收入 &#x3D; 流量 * 进店转化率 * 下单转化率 * 客单价</p>
-<p> 4、增值服务收入（会员）</p>
-<p>收入 &#x3D; 流量 * 转化率 * arppu</p>
-<h2 id="成本"><a href="#成本" class="headerlink" title="成本"></a>成本</h2><p>1、主营业务成本收入</p>
-<p>推广成本 、 维护成本 、 其他业务成本</p>
-<p>2、行政及其他收入 （一般不分析这部分）</p>
-<p>3、其实也可以分为固定成本和变动成本，<strong>重点关注变动成本</strong>，这部分是核心，比如某类面向c端的产品，当它生产量级越大，其成本就会下降。</p>
-<h2 id="规模（用户规模和资金规模）"><a href="#规模（用户规模和资金规模）" class="headerlink" title="规模（用户规模和资金规模）"></a>规模（用户规模和资金规模）</h2><p>看<strong>公司发展阶段</strong>来侧重于规模指标，常用新增用户、活跃用户、付费用户等。  </p>
-<h2 id="利润两种计算方式"><a href="#利润两种计算方式" class="headerlink" title="利润两种计算方式"></a>利润两种计算方式</h2><p>毛利润 &#x3D; 收入 - 成本 </p>
-<p>净利润 &#x3D; 收入 - （销售、管理、运营等）费用 - 所得税</p>
-<p>注意：毛利润 &gt;&gt; 净利润，毛利润是净利润的基础，一般经营分析是在缴纳税前的。</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>经营分析</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ML和统计学basic</title>
     <url>/2025/02/22/0021_ML_basic/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h2><p>1、基本定义</p>
@@ -1061,6 +1028,136 @@
       <tags>
         <tag>ML</tag>
         <tag>统计学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>经营分析总结小记</title>
+    <url>/2025/02/24/0022_%E7%BB%8F%E8%90%A5%E5%88%86%E6%9E%90%E6%80%BB%E7%BB%93%E5%B0%8F%E8%AE%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="个人对经分与商分的看法"><a href="#个人对经分与商分的看法" class="headerlink" title="个人对经分与商分的看法"></a>个人对经分与商分的看法</h1><p>经分和商分的工作内容个人感觉基本一致只是侧重不同；</p>
+<p>商分更关注运营侧的指标异动、趋势探究、经营复盘、类目分析等等，对损益类的指标关注有但是没有经分多。</p>
+<p>经分对财务和损益指标做的更细一点 工作内容上也更宏观,一般都对整个事业部的结果负责;一般工作流程是定规划、常跟进、 做解读、 能优化 。</p>
+<h1 id="经分-（收入-成本-规模-利润）"><a href="#经分-（收入-成本-规模-利润）" class="headerlink" title="经分-（收入+成本+规模+利润）"></a>经分-（收入+成本+规模+利润）</h1><h2 id="收入的四种模式（C端）"><a href="#收入的四种模式（C端）" class="headerlink" title="收入的四种模式（C端）"></a>收入的四种模式（C端）</h2><p> 1、流量收入（类似广告）</p>
+<p>与其他三种收入区别在于<strong>是否发生交易行为</strong></p>
+<p>cpc 单次点击成本 &#x3D; 广告流量 * 转化率 * 单次点击价格</p>
+<p>cpm &#x3D; 广告流量(前端展示就收费)*每千次展示可以获得广告收入</p>
+<p> 2、手续费收入（平台佣金）</p>
+<p>收入 &#x3D; gmv * 佣金率</p>
+<p> 3、产供销收入（含供应链供应商） </p>
+<p>产品生产、供应、销售都是一家企业，比如shein </p>
+<p>收入 &#x3D; 流量 * 进店转化率 * 下单转化率 * 客单价</p>
+<p> 4、增值服务收入（会员）</p>
+<p>收入 &#x3D; 流量 * 转化率 * arppu</p>
+<h2 id="成本"><a href="#成本" class="headerlink" title="成本"></a>成本</h2><p>1、主营业务成本收入</p>
+<p>推广成本 、 维护成本 、 其他业务成本</p>
+<p>2、行政及其他收入 （一般不分析这部分）</p>
+<p>3、其实也可以分为固定成本和变动成本，<strong>重点关注变动成本</strong>，这部分是核心，比如某类面向c端的产品，当它生产量级越大，其成本就会下降。</p>
+<h2 id="规模（用户规模和资金规模）"><a href="#规模（用户规模和资金规模）" class="headerlink" title="规模（用户规模和资金规模）"></a>规模（用户规模和资金规模）</h2><p>看<strong>公司发展阶段</strong>来侧重于规模指标，常用新增用户、活跃用户、付费用户等。  </p>
+<h2 id="利润两种计算方式"><a href="#利润两种计算方式" class="headerlink" title="利润两种计算方式"></a>利润两种计算方式</h2><p>毛利润 &#x3D; 收入 - 成本 </p>
+<p>净利润 &#x3D; 收入 - （销售、管理、运营等）费用 - 所得税</p>
+<p>注意：毛利润 &gt;&gt; 净利润，毛利润是净利润的基础，一般经营分析是在缴纳税前的。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>经营分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用sklearn进行特征工程</title>
+    <url>/2025/02/26/0023_sklearn%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="数据使用说明"><a href="#数据使用说明" class="headerlink" title="数据使用说明"></a>数据使用说明</h1><p>1、数据集说明</p>
+<p>IRIS 数据集由 Fisher 在 1936 年整理，包含 4 个特征（Sepal.Length（花萼长度）、Sepal.Width（花萼宽度）、Petal.Length（花瓣长度）、Petal.Width（花瓣宽度）），</p>
+<p>特征值都为正浮点数，单位为厘米。</p>
+<p>目标值为鸢尾花的分类（Iris Setosa（山鸢尾）、Iris Versicolour（杂色鸢尾），Iris Virginica（维吉尼亚鸢尾））。</p>
+<p>2、所是使用到的py库</p>
+<img src="/2025/02/26/0023_sklearn%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/img.png" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+<p>具体源引用如下</p>
+<p><a href="https://scikit-learn.org/stable/modules/preprocessing.html#non-linear-transformation">https://scikit-learn.org/stable/modules/preprocessing.html#non-linear-transformation</a></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>sklearn</tag>
+        <tag>ml</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据仓库</title>
+    <url>/2025/02/26/0024_%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>MySQL、Hive、Teradata和GaussDB是面向不同场景设计的数据库系统，其核心差异和SQL查询注意事项如下：</p>
+<hr>
+<h3 id="一、核心差异对比"><a href="#一、核心差异对比" class="headerlink" title="一、核心差异对比"></a>一、核心差异对比</h3><h4 id="1-定位与适用场景"><a href="#1-定位与适用场景" class="headerlink" title="1. 定位与适用场景"></a>1. <strong>定位与适用场景</strong></h4><ul>
+<li><strong>MySQL</strong>：关系型数据库（RDBMS），适用于OLTP场景（如交易系统），支持ACID事务，但扩展性有限。</li>
+<li><strong>Hive</strong>：基于Hadoop的数据仓库（OLAP），面向大数据批量分析，延迟较高，不支持事务。</li>
+<li><strong>Teradata</strong>：传统MPP架构数据仓库，擅长复杂分析型查询（如金融、电信行业），但硬件成本高，云原生支持较弱。</li>
+<li><strong>GaussDB (for MySQL)</strong>：华为分布式数据库，兼容MySQL协议，支持OLTP&#x2F;OLAP混合负载，计算存储分离架构，适合云原生高并发场景。</li>
+</ul>
+<h4 id="2-架构与扩展性"><a href="#2-架构与扩展性" class="headerlink" title="2. 架构与扩展性"></a>2. <strong>架构与扩展性</strong></h4><ul>
+<li><strong>MySQL</strong>：单机或主从架构，扩展依赖分库分表（如ShardingSphere）。</li>
+<li><strong>Hive</strong>：依赖HDFS和MapReduce，横向扩展性强，但实时性差。</li>
+<li><strong>Teradata</strong>：基于共享存储的MPP架构，节点间依赖高速网络，扩展需专用硬件。</li>
+<li><strong>GaussDB</strong>：分布式架构（计算与存储分离），支持秒级弹性扩容（1写15读），跨AZ部署。</li>
+</ul>
+<h4 id="3-SQL兼容性与优化"><a href="#3-SQL兼容性与优化" class="headerlink" title="3. SQL兼容性与优化"></a>3. <strong>SQL兼容性与优化</strong></h4><ul>
+<li><strong>MySQL</strong>：完整SQL标准支持，索引优化成熟（如B+树、覆盖索引）。</li>
+<li><strong>Hive</strong>：类SQL语法（HQL），部分功能受限（如非等值连接需改写），执行依赖MapReduce&#x2F;Tez。</li>
+<li><strong>Teradata</strong>：支持ANSI SQL，优化器针对复杂查询（如多表JOIN）有独特优化，但语法细节差异较大。</li>
+<li><strong>GaussDB</strong>：深度兼容MySQL语法，支持分布式优化（如Limit Offset下推、智能缓存），性能可达MySQL的7倍。</li>
+</ul>
+<h4 id="4-成本与生态"><a href="#4-成本与生态" class="headerlink" title="4. 成本与生态"></a>4. <strong>成本与生态</strong></h4><ul>
+<li><strong>MySQL</strong>：开源免费（社区版），但企业版需付费；生态完善。</li>
+<li><strong>Hive</strong>：开源，依赖Hadoop生态（如Spark、HBase），适合大数据栈集成。</li>
+<li><strong>Teradata</strong>：商业授权费用高昂，适合预算充足的行业。</li>
+<li><strong>GaussDB</strong>：按需付费，支持混合云部署，与华为云服务深度集成。</li>
+</ul>
+<hr>
+<h3 id="二、分布式SQL查询注意事项"><a href="#二、分布式SQL查询注意事项" class="headerlink" title="二、分布式SQL查询注意事项"></a>二、分布式SQL查询注意事项</h3><h4 id="1-事务与一致性"><a href="#1-事务与一致性" class="headerlink" title="1. 事务与一致性"></a>1. <strong>事务与一致性</strong></h4><ul>
+<li><strong>MySQL&#x2F;GaussDB</strong>：支持分布式事务（如XA协议），需注意锁冲突和隔离级别（如GaussDB的全局一致性）。</li>
+<li><strong>Hive</strong>：无事务支持，需通过批处理保证数据一致性。</li>
+<li><strong>Teradata</strong>：强一致性设计，但需避免跨节点大事务导致的性能瓶颈。</li>
+</ul>
+<h4 id="2-性能优化"><a href="#2-性能优化" class="headerlink" title="2. 性能优化"></a>2. <strong>性能优化</strong></h4><ul>
+<li><strong>索引策略</strong>：<ul>
+<li>MySQL&#x2F;GaussDB：合理设计组合索引，避免全表扫描。</li>
+<li>Hive：分区和分桶优化（如按日期分区），减少数据扫描量。</li>
+<li>Teradata：利用主索引（Primary Index）实现数据均匀分布。</li>
+</ul>
+</li>
+<li><strong>查询改写</strong>：<ul>
+<li>Hive：避免复杂子查询，优先使用MAPJOIN处理小表关联。</li>
+<li>GaussDB：启用Limit Offset下推，减少回表开销（如<code>SELECT * FROM table LIMIT 1000000,10</code>）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-数据类型与函数差异"><a href="#3-数据类型与函数差异" class="headerlink" title="3. 数据类型与函数差异"></a>3. <strong>数据类型与函数差异</strong></h4><ul>
+<li><strong>字符串处理</strong>：Hive严格区分大小写（<code>&#39;Bigdata&#39; != &#39;bigdata&#39;</code>），MySQL默认不区分。</li>
+<li><strong>数值运算</strong>：Hive中整数除法返回DECIMAL（如<code>10/3=3.333</code>），而MySQL返回FLOAT；GaussDB支持<code>DIV</code>运算符返回整数。</li>
+</ul>
+<h4 id="4-分布式特性适配"><a href="#4-分布式特性适配" class="headerlink" title="4. 分布式特性适配"></a>4. <strong>分布式特性适配</strong></h4><ul>
+<li><strong>数据分布</strong>：<ul>
+<li>GaussDB&#x2F;Teradata：需指定分布键（如用户ID），避免数据倾斜。</li>
+<li>Hive：依赖HDFS分块，需优化文件大小（如128MB&#x2F;块）。</li>
+</ul>
+</li>
+<li><strong>执行计划</strong>：<ul>
+<li>GaussDB：利用全局执行计划优化器，避免跨节点网络开销。</li>
+<li>Hive：通过<code>EXPLAIN</code>分析MapReduce阶段，优化Job并行度。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Hive</tag>
+        <tag>MySQL</tag>
+        <tag>Teradata</tag>
+        <tag>GaussDB</tag>
       </tags>
   </entry>
 </search>

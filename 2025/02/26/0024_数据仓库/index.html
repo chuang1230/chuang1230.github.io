@@ -7,16 +7,24 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta property="og:type" content="website">
-<meta property="og:title" content="chuang1230 &#39;s blog">
-<meta property="og:url" content="http://yoursite.com/tags/GEM/index.html">
+<meta name="description" content="MySQL、Hive、Teradata和GaussDB是面向不同场景设计的数据库系统，其核心差异和SQL查询注意事项如下：  一、核心差异对比1. 定位与适用场景 MySQL：关系型数据库（RDBMS），适用于OLTP场景（如交易系统），支持ACID事务，但扩展性有限。 Hive：基于Hadoop的数据仓库（OLAP），面向大数据批量分析，延迟较高，不支持事务。 Teradata：传统MPP架构数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据仓库">
+<meta property="og:url" content="http://yoursite.com/2025/02/26/0024_%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/index.html">
 <meta property="og:site_name" content="chuang1230 &#39;s blog">
+<meta property="og:description" content="MySQL、Hive、Teradata和GaussDB是面向不同场景设计的数据库系统，其核心差异和SQL查询注意事项如下：  一、核心差异对比1. 定位与适用场景 MySQL：关系型数据库（RDBMS），适用于OLTP场景（如交易系统），支持ACID事务，但扩展性有限。 Hive：基于Hadoop的数据仓库（OLAP），面向大数据批量分析，延迟较高，不支持事务。 Teradata：传统MPP架构数">
 <meta property="og:locale">
+<meta property="article:published_time" content="2025-02-26T09:14:02.000Z">
+<meta property="article:modified_time" content="2025-02-26T10:46:52.503Z">
 <meta property="article:author" content="chuang1230">
+<meta property="article:tag" content="Hive">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="Teradata">
+<meta property="article:tag" content="GaussDB">
 <meta name="twitter:card" content="summary">
 
 
-<title >chuang1230 's blog</title>
+<title >数据仓库</title>
 
 <!-- Favicon -->
 
@@ -51,7 +59,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"yoursite.com","author":"chuang1230","root":"/","typed_text":null,"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2019 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner"},"covers":["https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/ba61-bfb8a60ec14ed76d34726896fb54757a.jpg","https://n.sinaimg.cn/sinakd20116/214/w2048h1366/20240512/f5d6-f665a2e6963d4c43db9c5f23729d54c6.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/1c67-5b602d68c986bb517be9054edc7a357a.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/4bce-3649b31b7f757f0cdc9f2fec59c93666.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/b5f9-599865ca3fe095fcb1f27df3cca48e1e.jpg","https://n.sinaimg.cn/sinakd20116/125/w2048h2077/20240512/b55b-fe315d48cdd215c58f867bfa49634d5e.jpg","https://n.sinaimg.cn/sinakd20116/96/w2048h2048/20240512/ceff-fc4a862b068fd7cc2a1749a188a03ee3.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0b9a-39ad42895574b30d0ea55593ae023721.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/dc01-8caacc0d788b4eb94f78876aaa50016c.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/f509-74c59f9a1a91057c603a1bd75bbb4e99.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0dbd-e4b5b3602b9d2a8ddd4fa4d3b40b23f5.jpg","https://n.sinaimg.cn/sinakd20116/672/w2048h1024/20240512/747e-957b40c2a68be3e244b94861c877ec80.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/82cc-cd9923e94dc4e4a1be8ec31366823cc2.jpg","http://k.sinaimg.cn/n/sinakd20116/384/w2048h1536/20240512/2c70-8d6e2d36445c123b3705e5716a02f7d3.jpg/w700d1q75cms.jpg?by=cms_fixed_width"],"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":false,"isHome":false,"postUpdate":"2025-02-26 18:48:47"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-02-26 18:46:52"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.4" id="trm-switch-style">
@@ -225,10 +233,10 @@
                     <!-- banner title -->
                     <div class="trm-banner-text ">
                         <div class="trm-label trm-mb-20">
-                            The article archive
+                            NEWS LETTER
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            云间连下榻，<br>天上接行杯。
+                            数据仓库
                         </h1>
 
                         
@@ -238,7 +246,7 @@
                                 </li>
                                 <li>
                                     <span>
-                                        tags
+                                        2025
                                     </span>
                                 </li>
                             </ul>
@@ -359,75 +367,143 @@
             
             <div class="trm-page-content col-lg-8">
                 <div id="trm-content" class="trm-content">
-                    <div class="row">
-    <div class="col-lg-12">
-        <div class="trm-card">
-            <div style="padding: 0 20px;">
-                
-                    <ul class="trm-tag-list" itemprop="keywords"><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/CV/" rel="tag">CV</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/GEM/" rel="tag">GEM</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/GaussDB/" rel="tag">GaussDB</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/Hive/" rel="tag">Hive</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a><span class="tag-list-count">2</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/OCR/" rel="tag">OCR</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/Teradata/" rel="tag">Teradata</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">2</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/hive/" rel="tag">hive</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/index/" rel="tag">index</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/ml/" rel="tag">ml</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">5</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/python-excel-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag">python excel 数据分析</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/sklearn/" rel="tag">sklearn</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/sql/" rel="tag">sql</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/tool/" rel="tag">tool</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">2</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%A8%E6%8A%A5/" rel="tag">周报</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/" rel="tag">数据可视化</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8/" rel="tag">日常</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8%E8%BF%90%E7%BB%B4/" rel="tag">日常运维</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%8F%E7%BA%AC%E5%BA%A6/" rel="tag">经纬度</a><span class="tag-list-count">2</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%8F%E8%90%A5%E5%88%86%E6%9E%90/" rel="tag">经营分析</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/" rel="tag">统计学</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%91%E8%9E%8D%E9%A3%8E%E6%8E%A7/" rel="tag">金融风控</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">2</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E4%B9%90/" rel="tag">音乐</a><span class="tag-list-count">1</span></li><li class="trm-tag-list-item"><a class="tag-list-link" href="/tags/%E9%AB%98%E5%BE%B7API/" rel="tag">高德API</a><span class="tag-list-count">1</span></li></ul>
-                
-            </div>
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            02/26
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            17:14
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            Kenzo
         </div>
     </div>
 </div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>MySQL、Hive、Teradata和GaussDB是面向不同场景设计的数据库系统，其核心差异和SQL查询注意事项如下：</p>
+<hr>
+<h3 id="一、核心差异对比"><a href="#一、核心差异对比" class="headerlink" title="一、核心差异对比"></a>一、核心差异对比</h3><h4 id="1-定位与适用场景"><a href="#1-定位与适用场景" class="headerlink" title="1. 定位与适用场景"></a>1. <strong>定位与适用场景</strong></h4><ul>
+<li><strong>MySQL</strong>：关系型数据库（RDBMS），适用于OLTP场景（如交易系统），支持ACID事务，但扩展性有限。</li>
+<li><strong>Hive</strong>：基于Hadoop的数据仓库（OLAP），面向大数据批量分析，延迟较高，不支持事务。</li>
+<li><strong>Teradata</strong>：传统MPP架构数据仓库，擅长复杂分析型查询（如金融、电信行业），但硬件成本高，云原生支持较弱。</li>
+<li><strong>GaussDB (for MySQL)</strong>：华为分布式数据库，兼容MySQL协议，支持OLTP&#x2F;OLAP混合负载，计算存储分离架构，适合云原生高并发场景。</li>
+</ul>
+<h4 id="2-架构与扩展性"><a href="#2-架构与扩展性" class="headerlink" title="2. 架构与扩展性"></a>2. <strong>架构与扩展性</strong></h4><ul>
+<li><strong>MySQL</strong>：单机或主从架构，扩展依赖分库分表（如ShardingSphere）。</li>
+<li><strong>Hive</strong>：依赖HDFS和MapReduce，横向扩展性强，但实时性差。</li>
+<li><strong>Teradata</strong>：基于共享存储的MPP架构，节点间依赖高速网络，扩展需专用硬件。</li>
+<li><strong>GaussDB</strong>：分布式架构（计算与存储分离），支持秒级弹性扩容（1写15读），跨AZ部署。</li>
+</ul>
+<h4 id="3-SQL兼容性与优化"><a href="#3-SQL兼容性与优化" class="headerlink" title="3. SQL兼容性与优化"></a>3. <strong>SQL兼容性与优化</strong></h4><ul>
+<li><strong>MySQL</strong>：完整SQL标准支持，索引优化成熟（如B+树、覆盖索引）。</li>
+<li><strong>Hive</strong>：类SQL语法（HQL），部分功能受限（如非等值连接需改写），执行依赖MapReduce&#x2F;Tez。</li>
+<li><strong>Teradata</strong>：支持ANSI SQL，优化器针对复杂查询（如多表JOIN）有独特优化，但语法细节差异较大。</li>
+<li><strong>GaussDB</strong>：深度兼容MySQL语法，支持分布式优化（如Limit Offset下推、智能缓存），性能可达MySQL的7倍。</li>
+</ul>
+<h4 id="4-成本与生态"><a href="#4-成本与生态" class="headerlink" title="4. 成本与生态"></a>4. <strong>成本与生态</strong></h4><ul>
+<li><strong>MySQL</strong>：开源免费（社区版），但企业版需付费；生态完善。</li>
+<li><strong>Hive</strong>：开源，依赖Hadoop生态（如Spark、HBase），适合大数据栈集成。</li>
+<li><strong>Teradata</strong>：商业授权费用高昂，适合预算充足的行业。</li>
+<li><strong>GaussDB</strong>：按需付费，支持混合云部署，与华为云服务深度集成。</li>
+</ul>
+<hr>
+<h3 id="二、分布式SQL查询注意事项"><a href="#二、分布式SQL查询注意事项" class="headerlink" title="二、分布式SQL查询注意事项"></a>二、分布式SQL查询注意事项</h3><h4 id="1-事务与一致性"><a href="#1-事务与一致性" class="headerlink" title="1. 事务与一致性"></a>1. <strong>事务与一致性</strong></h4><ul>
+<li><strong>MySQL&#x2F;GaussDB</strong>：支持分布式事务（如XA协议），需注意锁冲突和隔离级别（如GaussDB的全局一致性）。</li>
+<li><strong>Hive</strong>：无事务支持，需通过批处理保证数据一致性。</li>
+<li><strong>Teradata</strong>：强一致性设计，但需避免跨节点大事务导致的性能瓶颈。</li>
+</ul>
+<h4 id="2-性能优化"><a href="#2-性能优化" class="headerlink" title="2. 性能优化"></a>2. <strong>性能优化</strong></h4><ul>
+<li><strong>索引策略</strong>：<ul>
+<li>MySQL&#x2F;GaussDB：合理设计组合索引，避免全表扫描。</li>
+<li>Hive：分区和分桶优化（如按日期分区），减少数据扫描量。</li>
+<li>Teradata：利用主索引（Primary Index）实现数据均匀分布。</li>
+</ul>
+</li>
+<li><strong>查询改写</strong>：<ul>
+<li>Hive：避免复杂子查询，优先使用MAPJOIN处理小表关联。</li>
+<li>GaussDB：启用Limit Offset下推，减少回表开销（如<code>SELECT * FROM table LIMIT 1000000,10</code>）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-数据类型与函数差异"><a href="#3-数据类型与函数差异" class="headerlink" title="3. 数据类型与函数差异"></a>3. <strong>数据类型与函数差异</strong></h4><ul>
+<li><strong>字符串处理</strong>：Hive严格区分大小写（<code>&#39;Bigdata&#39; != &#39;bigdata&#39;</code>），MySQL默认不区分。</li>
+<li><strong>数值运算</strong>：Hive中整数除法返回DECIMAL（如<code>10/3=3.333</code>），而MySQL返回FLOAT；GaussDB支持<code>DIV</code>运算符返回整数。</li>
+</ul>
+<h4 id="4-分布式特性适配"><a href="#4-分布式特性适配" class="headerlink" title="4. 分布式特性适配"></a>4. <strong>分布式特性适配</strong></h4><ul>
+<li><strong>数据分布</strong>：<ul>
+<li>GaussDB&#x2F;Teradata：需指定分布键（如用户ID），避免数据倾斜。</li>
+<li>Hive：依赖HDFS分块，需优化文件大小（如128MB&#x2F;块）。</li>
+</ul>
+</li>
+<li><strong>执行计划</strong>：<ul>
+<li>GaussDB：利用全局执行计划优化器，避免跨节点网络开销。</li>
+<li>Hive：通过<code>EXPLAIN</code>分析MapReduce阶段，优化Job并行度。</li>
+</ul>
+</li>
+</ul>
 
-<!-- history -->
+</article>
+    
+    
 
-<div class="row">
+</div>
+<div class="trm-post-next-prev row">
     <div class="col-lg-12">
         <!-- title -->
         <h5 class="trm-title-with-divider">
-            
-                GEM
-            
-            <span data-number="01"></span>
+            其他文章
+            <span data-number="02"></span>
         </h5>
     </div>
-    <div class="col-lg-12">
-        <!-- timeline -->
-        <div class="trm-timeline">
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2025/02/26/0023_sklearn%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/" class="trm-cover-frame trm-anima-link">
             
-            <div class="trm-timeline-item trm-scroll-animation">
-                <div class="trm-timeline-mark-light"></div>
-                <div class="trm-timeline-mark"></div>
-                <div class="trm-timeline-content more">
-                    
-                        <div class="trm-card-header">
-                            <div class="trm-left-side">
-                                <h6>
-                                    <a href="/2025/02/14/0015_save_photo/" class="trm-anima-link">
-                                        save_photo
-                                    </a>
-                                </h6>
-                                <div class="trm-text-sm trm-accent-color trm-mt-15">
-                                    <ul class="trm-card-data trm-label ">
-                                        <li class="trm-accent-color">02/14</li>
-                                        <li class="trm-accent-color">22:39</li>
-                                        
-                                        <li>47</li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    
-                </div>
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%8A%80%E6%9C%AF/">
+                    技术
+                </a>
             </div>
-            
+            <h5>
+                <a href="/2025/02/26/0023_sklearn%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/" class="trm-anima-link">
+                    使用sklearn进行特征工程
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>25/02/26</li>
+                <li>15:12</li>
+                
+                    <li>123</li>
+                
+                
+                    <li>1</li>
+                
+            </ul>
         </div>
-        <!-- timeline end -->
     </div>
 </div>
+    
+</div>
 
-<!-- history end -->
-
-
-    <div class="trm-pagination">
-        <span class="page-number current">1</span>
-    </div>
-
-
+    
 
 
 
@@ -471,9 +547,29 @@
 
             
 
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-3" title="一、核心差异对比"><a rel="nofollow" class="trm-toc-link" href="#一、核心差异对比"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">一、核心差异对比</span></a></li><li class="trm-toc-item trm-toc-level-3" title="二、分布式SQL查询注意事项"><a rel="nofollow" class="trm-toc-link" href="#二、分布式SQL查询注意事项"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">二、分布式SQL查询注意事项</span></a></li></ol>
+      </div>
+    </div>
+
             
 <div class="trm-fixed-container">
     
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
     
     
         <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
@@ -552,6 +648,10 @@
     
 
     <!-- 评论插件 -->
+    
+        
+
+        
     
 
 		
