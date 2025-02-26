@@ -7,16 +7,16 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta name="description" content="数据使用说明1、数据集说明 IRIS 数据集由 Fisher 在 1936 年整理，包含 4 个特征（Sepal.Length（花萼长度）、Sepal.Width（花萼宽度）、Petal.Length（花瓣长度）、Petal.Width（花瓣宽度））， 特征值都为正浮点数，单位为厘米。 目标值为鸢尾花的分类（Iris Setosa（山鸢尾）、Iris Versicolour（杂色鸢尾），Iris">
+<meta name="description" content="数据使用说明1、IRIS数据集由Fisher在 1936 年整理；特征值都为正浮点数，单位为厘米。    英文名 定义    Sepal.Length 花萼长度   Sepal.Width 花萼宽度   Petal.Length 花瓣长度   Petal.Width 花瓣长度   目标值为鸢尾花的分类【Iris Setosa山鸢尾、Iris Versicolour杂色鸢尾、Iris Virgini">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用sklearn进行特征工程">
 <meta property="og:url" content="http://yoursite.com/2025/02/26/0023_sklearn%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/index.html">
 <meta property="og:site_name" content="chuang1230 &#39;s blog">
-<meta property="og:description" content="数据使用说明1、数据集说明 IRIS 数据集由 Fisher 在 1936 年整理，包含 4 个特征（Sepal.Length（花萼长度）、Sepal.Width（花萼宽度）、Petal.Length（花瓣长度）、Petal.Width（花瓣宽度））， 特征值都为正浮点数，单位为厘米。 目标值为鸢尾花的分类（Iris Setosa（山鸢尾）、Iris Versicolour（杂色鸢尾），Iris">
+<meta property="og:description" content="数据使用说明1、IRIS数据集由Fisher在 1936 年整理；特征值都为正浮点数，单位为厘米。    英文名 定义    Sepal.Length 花萼长度   Sepal.Width 花萼宽度   Petal.Length 花瓣长度   Petal.Width 花瓣长度   目标值为鸢尾花的分类【Iris Setosa山鸢尾、Iris Versicolour杂色鸢尾、Iris Virgini">
 <meta property="og:locale">
 <meta property="og:image" content="http://yoursite.com/img/404.jpg">
 <meta property="article:published_time" content="2025-02-26T07:12:37.000Z">
-<meta property="article:modified_time" content="2025-02-26T10:50:03.535Z">
+<meta property="article:modified_time" content="2025-02-26T13:52:53.485Z">
 <meta property="article:author" content="chuang1230">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="sklearn">
@@ -60,7 +60,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"yoursite.com","author":"chuang1230","root":"/","typed_text":null,"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2019 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner"},"covers":["https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/ba61-bfb8a60ec14ed76d34726896fb54757a.jpg","https://n.sinaimg.cn/sinakd20116/214/w2048h1366/20240512/f5d6-f665a2e6963d4c43db9c5f23729d54c6.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/1c67-5b602d68c986bb517be9054edc7a357a.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/4bce-3649b31b7f757f0cdc9f2fec59c93666.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/b5f9-599865ca3fe095fcb1f27df3cca48e1e.jpg","https://n.sinaimg.cn/sinakd20116/125/w2048h2077/20240512/b55b-fe315d48cdd215c58f867bfa49634d5e.jpg","https://n.sinaimg.cn/sinakd20116/96/w2048h2048/20240512/ceff-fc4a862b068fd7cc2a1749a188a03ee3.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0b9a-39ad42895574b30d0ea55593ae023721.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/dc01-8caacc0d788b4eb94f78876aaa50016c.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/f509-74c59f9a1a91057c603a1bd75bbb4e99.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0dbd-e4b5b3602b9d2a8ddd4fa4d3b40b23f5.jpg","https://n.sinaimg.cn/sinakd20116/672/w2048h1024/20240512/747e-957b40c2a68be3e244b94861c877ec80.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/82cc-cd9923e94dc4e4a1be8ec31366823cc2.jpg","http://k.sinaimg.cn/n/sinakd20116/384/w2048h1536/20240512/2c70-8d6e2d36445c123b3705e5716a02f7d3.jpg/w700d1q75cms.jpg?by=cms_fixed_width"],"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-02-26 18:50:03"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-02-26 21:52:53"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.4" id="trm-switch-style">
@@ -390,14 +390,38 @@
 </div>
 <div class="trm-card ">
     <article id="article-container" class="trm-publication">
-    <h1 id="数据使用说明"><a href="#数据使用说明" class="headerlink" title="数据使用说明"></a>数据使用说明</h1><p>1、数据集说明</p>
-<p>IRIS 数据集由 Fisher 在 1936 年整理，包含 4 个特征（Sepal.Length（花萼长度）、Sepal.Width（花萼宽度）、Petal.Length（花瓣长度）、Petal.Width（花瓣宽度））， 特征值都为正浮点数，单位为厘米。</p>
-<p>目标值为鸢尾花的分类（Iris Setosa（山鸢尾）、Iris Versicolour（杂色鸢尾），Iris Virginica（维吉尼亚鸢尾））。</p>
+    <h1 id="数据使用说明"><a href="#数据使用说明" class="headerlink" title="数据使用说明"></a>数据使用说明</h1><p>1、IRIS数据集由Fisher在 1936 年整理；特征值都为正浮点数，单位为厘米。</p>
+<table>
+<thead>
+<tr>
+<th align="center">英文名</th>
+<th align="center">定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Sepal.Length</td>
+<td align="center">花萼长度</td>
+</tr>
+<tr>
+<td align="center">Sepal.Width</td>
+<td align="center">花萼宽度</td>
+</tr>
+<tr>
+<td align="center">Petal.Length</td>
+<td align="center">花瓣长度</td>
+</tr>
+<tr>
+<td align="center">Petal.Width</td>
+<td align="center">花瓣长度</td>
+</tr>
+</tbody></table>
+<p>目标值为鸢尾花的分类【Iris Setosa山鸢尾、Iris Versicolour杂色鸢尾、Iris Virginica维吉尼亚鸢尾】。</p>
 <p>2、所是使用到的py库</p>
 <img src="/2025/02/26/0023_sklearn%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/img.png" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
 
 <p>具体源引用如下</p>
 <p><a href="https://scikit-learn.org/stable/modules/preprocessing.html#non-linear-transformation">https://scikit-learn.org/stable/modules/preprocessing.html#non-linear-transformation</a></p>
+<iframe src="../0023_sklearn特征工程/sklean_pra.html" width="650" height="900"></iframe> 
 
 </article>
     
@@ -430,7 +454,7 @@
             </div>
             <h5>
                 <a href="/2025/02/26/0024_%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" class="trm-anima-link">
-                    数据仓库
+                    数据库和数据仓库
                 </a>
             </h5>
             <div class="trm-divider trm-mb-20 trm-mt-20"></div>
@@ -438,10 +462,10 @@
                 <li>25/02/26</li>
                 <li>17:14</li>
                 
-                    <li>841</li>
+                    <li>1.4k</li>
                 
                 
-                    <li>3</li>
+                    <li>4</li>
                 
             </ul>
         </div>

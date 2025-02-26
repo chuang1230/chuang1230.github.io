@@ -7,24 +7,27 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta name="description" content="MySQL、Hive、Teradata和GaussDB是面向不同场景设计的数据库系统，其核心差异和SQL查询注意事项如下：  一、核心差异对比1. 定位与适用场景 MySQL：关系型数据库（RDBMS），适用于OLTP场景（如交易系统），支持ACID事务，但扩展性有限。 Hive：基于Hadoop的数据仓库（OLAP），面向大数据批量分析，延迟较高，不支持事务。 Teradata：传统MPP架构数">
+<meta name="description" content="数据仓库 数据仓库是面向主题的、集成的、非易失的和时变的数据集合，用以支持管理决策。  数据仓库与数据库的区别 数据库与数据仓库的区别实际讲的是 OLTP 与 OLAP 的区别。  操作型处理，叫联机事务处理 OLTP（On-Line Transaction Processing，），也可以称面向交易的处理系统，它是针对具体业务在数据库联机的日常操作，通常对少数记录进行查询、修改。用户较为关心操作">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据仓库">
+<meta property="og:title" content="数据库和数据仓库">
 <meta property="og:url" content="http://yoursite.com/2025/02/26/0024_%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/index.html">
 <meta property="og:site_name" content="chuang1230 &#39;s blog">
-<meta property="og:description" content="MySQL、Hive、Teradata和GaussDB是面向不同场景设计的数据库系统，其核心差异和SQL查询注意事项如下：  一、核心差异对比1. 定位与适用场景 MySQL：关系型数据库（RDBMS），适用于OLTP场景（如交易系统），支持ACID事务，但扩展性有限。 Hive：基于Hadoop的数据仓库（OLAP），面向大数据批量分析，延迟较高，不支持事务。 Teradata：传统MPP架构数">
+<meta property="og:description" content="数据仓库 数据仓库是面向主题的、集成的、非易失的和时变的数据集合，用以支持管理决策。  数据仓库与数据库的区别 数据库与数据仓库的区别实际讲的是 OLTP 与 OLAP 的区别。  操作型处理，叫联机事务处理 OLTP（On-Line Transaction Processing，），也可以称面向交易的处理系统，它是针对具体业务在数据库联机的日常操作，通常对少数记录进行查询、修改。用户较为关心操作">
 <meta property="og:locale">
+<meta property="og:image" content="http://yoursite.com/img/404.jpg">
 <meta property="article:published_time" content="2025-02-26T09:14:02.000Z">
-<meta property="article:modified_time" content="2025-02-26T10:46:52.503Z">
+<meta property="article:modified_time" content="2025-02-26T13:33:51.772Z">
 <meta property="article:author" content="chuang1230">
 <meta property="article:tag" content="Hive">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="Teradata">
 <meta property="article:tag" content="GaussDB">
+<meta property="article:tag" content="数据仓库">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/img/404.jpg">
 
 
-<title >数据仓库</title>
+<title >数据库和数据仓库</title>
 
 <!-- Favicon -->
 
@@ -59,7 +62,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"yoursite.com","author":"chuang1230","root":"/","typed_text":null,"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2019 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner"},"covers":["https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/ba61-bfb8a60ec14ed76d34726896fb54757a.jpg","https://n.sinaimg.cn/sinakd20116/214/w2048h1366/20240512/f5d6-f665a2e6963d4c43db9c5f23729d54c6.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/1c67-5b602d68c986bb517be9054edc7a357a.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/4bce-3649b31b7f757f0cdc9f2fec59c93666.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/b5f9-599865ca3fe095fcb1f27df3cca48e1e.jpg","https://n.sinaimg.cn/sinakd20116/125/w2048h2077/20240512/b55b-fe315d48cdd215c58f867bfa49634d5e.jpg","https://n.sinaimg.cn/sinakd20116/96/w2048h2048/20240512/ceff-fc4a862b068fd7cc2a1749a188a03ee3.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0b9a-39ad42895574b30d0ea55593ae023721.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/dc01-8caacc0d788b4eb94f78876aaa50016c.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/f509-74c59f9a1a91057c603a1bd75bbb4e99.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0dbd-e4b5b3602b9d2a8ddd4fa4d3b40b23f5.jpg","https://n.sinaimg.cn/sinakd20116/672/w2048h1024/20240512/747e-957b40c2a68be3e244b94861c877ec80.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/82cc-cd9923e94dc4e4a1be8ec31366823cc2.jpg","http://k.sinaimg.cn/n/sinakd20116/384/w2048h1536/20240512/2c70-8d6e2d36445c123b3705e5716a02f7d3.jpg/w700d1q75cms.jpg?by=cms_fixed_width"],"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-02-26 18:46:52"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-02-26 21:33:51"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.4" id="trm-switch-style">
@@ -236,7 +239,7 @@
                             NEWS LETTER
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            数据仓库
+                            数据库和数据仓库
                         </h1>
 
                         
@@ -389,62 +392,95 @@
 </div>
 <div class="trm-card ">
     <article id="article-container" class="trm-publication">
-    <p>MySQL、Hive、Teradata和GaussDB是面向不同场景设计的数据库系统，其核心差异和SQL查询注意事项如下：</p>
-<hr>
-<h3 id="一、核心差异对比"><a href="#一、核心差异对比" class="headerlink" title="一、核心差异对比"></a>一、核心差异对比</h3><h4 id="1-定位与适用场景"><a href="#1-定位与适用场景" class="headerlink" title="1. 定位与适用场景"></a>1. <strong>定位与适用场景</strong></h4><ul>
-<li><strong>MySQL</strong>：关系型数据库（RDBMS），适用于OLTP场景（如交易系统），支持ACID事务，但扩展性有限。</li>
-<li><strong>Hive</strong>：基于Hadoop的数据仓库（OLAP），面向大数据批量分析，延迟较高，不支持事务。</li>
-<li><strong>Teradata</strong>：传统MPP架构数据仓库，擅长复杂分析型查询（如金融、电信行业），但硬件成本高，云原生支持较弱。</li>
-<li><strong>GaussDB (for MySQL)</strong>：华为分布式数据库，兼容MySQL协议，支持OLTP&#x2F;OLAP混合负载，计算存储分离架构，适合云原生高并发场景。</li>
+    <h1 id="数据仓库"><a href="#数据仓库" class="headerlink" title="数据仓库"></a>数据仓库</h1><ul>
+<li>数据仓库是面向主题的、集成的、非易失的和时变的数据集合，用以支持管理决策。</li>
 </ul>
-<h4 id="2-架构与扩展性"><a href="#2-架构与扩展性" class="headerlink" title="2. 架构与扩展性"></a>2. <strong>架构与扩展性</strong></h4><ul>
-<li><strong>MySQL</strong>：单机或主从架构，扩展依赖分库分表（如ShardingSphere）。</li>
-<li><strong>Hive</strong>：依赖HDFS和MapReduce，横向扩展性强，但实时性差。</li>
-<li><strong>Teradata</strong>：基于共享存储的MPP架构，节点间依赖高速网络，扩展需专用硬件。</li>
-<li><strong>GaussDB</strong>：分布式架构（计算与存储分离），支持秒级弹性扩容（1写15读），跨AZ部署。</li>
+<h2 id="数据仓库与数据库的区别"><a href="#数据仓库与数据库的区别" class="headerlink" title="数据仓库与数据库的区别"></a>数据仓库与数据库的区别</h2><ul>
+<li><p>数据库与数据仓库的区别实际讲的是 OLTP 与 OLAP 的区别。</p>
+<ul>
+<li><p>操作型处理，叫联机事务处理 OLTP（On-Line Transaction Processing，），也可以称面向交易的处理系统，它是针对具体业务在数据库联机的日常操作，通常对少数记录进行查询、修改。用户较为关心操作的响应时间、数据的安全性、完整性和并发支持的用户数等问题。传统的数据库系统作为数据管理的主要手段，主要用于操作型处理，像Mysql，Oracle等关系型数据库一般属于OLTP。</p>
+</li>
+<li><p>分析型处理，叫联机分析处理 OLAP（On-Line Analytical Processing）一般针对某些主题的历史数据进行分析，支持管理决策。</p>
+</li>
 </ul>
-<h4 id="3-SQL兼容性与优化"><a href="#3-SQL兼容性与优化" class="headerlink" title="3. SQL兼容性与优化"></a>3. <strong>SQL兼容性与优化</strong></h4><ul>
-<li><strong>MySQL</strong>：完整SQL标准支持，索引优化成熟（如B+树、覆盖索引）。</li>
-<li><strong>Hive</strong>：类SQL语法（HQL），部分功能受限（如非等值连接需改写），执行依赖MapReduce&#x2F;Tez。</li>
-<li><strong>Teradata</strong>：支持ANSI SQL，优化器针对复杂查询（如多表JOIN）有独特优化，但语法细节差异较大。</li>
-<li><strong>GaussDB</strong>：深度兼容MySQL语法，支持分布式优化（如Limit Offset下推、智能缓存），性能可达MySQL的7倍。</li>
+</li>
+<li><p>数据库是面向事务的设计，数据仓库是面向主题设计的。</p>
+</li>
+<li><p>数据库一般存储业务数据，数据仓库存储的一般是历史数据。</p>
+</li>
+<li><p>数据库是为捕获数据而设计，数据仓库是为分析数据而设计。</p>
+</li>
+<li><p>数据仓库，是在数据库已经大量存在的情况下，为了进一步挖掘数据资源、为了决策需要而产生的，它决不是所谓的“大型数据库”。</p>
+</li>
 </ul>
-<h4 id="4-成本与生态"><a href="#4-成本与生态" class="headerlink" title="4. 成本与生态"></a>4. <strong>成本与生态</strong></h4><ul>
-<li><strong>MySQL</strong>：开源免费（社区版），但企业版需付费；生态完善。</li>
-<li><strong>Hive</strong>：开源，依赖Hadoop生态（如Spark、HBase），适合大数据栈集成。</li>
-<li><strong>Teradata</strong>：商业授权费用高昂，适合预算充足的行业。</li>
-<li><strong>GaussDB</strong>：按需付费，支持混合云部署，与华为云服务深度集成。</li>
+<h2 id="数据仓库架构"><a href="#数据仓库架构" class="headerlink" title="数据仓库架构"></a>数据仓库架构</h2><img src="/2025/02/26/0024_%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/1.webp" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+
+<h2 id="元数据管理"><a href="#元数据管理" class="headerlink" title="元数据管理"></a>元数据管理</h2><ul>
+<li>元数据（Meta Date），主要记录数据仓库中模型的定义、各层级间的映射关系、监控数据仓库的数据状态及ETL的任务运行状态。</li>
 </ul>
-<hr>
-<h3 id="二、分布式SQL查询注意事项"><a href="#二、分布式SQL查询注意事项" class="headerlink" title="二、分布式SQL查询注意事项"></a>二、分布式SQL查询注意事项</h3><h4 id="1-事务与一致性"><a href="#1-事务与一致性" class="headerlink" title="1. 事务与一致性"></a>1. <strong>事务与一致性</strong></h4><ul>
-<li><strong>MySQL&#x2F;GaussDB</strong>：支持分布式事务（如XA协议），需注意锁冲突和隔离级别（如GaussDB的全局一致性）。</li>
-<li><strong>Hive</strong>：无事务支持，需通过批处理保证数据一致性。</li>
-<li><strong>Teradata</strong>：强一致性设计，但需避免跨节点大事务导致的性能瓶颈。</li>
+<h2 id="ETL"><a href="#ETL" class="headerlink" title="ETL"></a>ETL</h2><ul>
+<li><p>ETL分为 抽取Extra, 转化Transfer, 装载Load；</p>
+</li>
+<li><p>数据仓库从各数据源获取数据及在数据仓库内的数据转换和流动都可以认为是ETL;</p>
+</li>
+<li><p>数据仓库日常的管理和维护工作的大部分精力就是保持ETL的正常和稳定;</p>
+</li>
 </ul>
-<h4 id="2-性能优化"><a href="#2-性能优化" class="headerlink" title="2. 性能优化"></a>2. <strong>性能优化</strong></h4><ul>
-<li><strong>索引策略</strong>：<ul>
+<h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><p>我接触过的数据库有 MySQL、Hive、Teradata和GaussDB，这些都是面向不同场景设计的数据库系统，其核心差异和SQL查询注意事项如下：</p>
+<h2 id="核心差异对比"><a href="#核心差异对比" class="headerlink" title="核心差异对比"></a>核心差异对比</h2><h3 id="定位与适用场景"><a href="#定位与适用场景" class="headerlink" title="定位与适用场景"></a>定位与适用场景</h3><ul>
+<li>MySQL：关系型数据库（RDBMS），适用于OLTP场景（如交易系统），支持ACID事务，但扩展性有限。</li>
+<li>Hive：基于Hadoop的数据仓库（OLAP），面向大数据批量分析，延迟较高，不支持事务。</li>
+<li>Teradata：传统MPP架构数据仓库，擅长复杂分析型查询（如金融、电信行业），但硬件成本高，云原生支持较弱。</li>
+<li>GaussDB (for MySQL)：华为分布式数据库，兼容MySQL协议，支持OLTP&#x2F;OLAP混合负载，计算存储分离架构，适合云原生高并发场景。</li>
+</ul>
+<h3 id="架构与扩展性"><a href="#架构与扩展性" class="headerlink" title="架构与扩展性"></a>架构与扩展性</h3><ul>
+<li>MySQL：单机或主从架构，扩展依赖分库分表（如ShardingSphere）。</li>
+<li>Hive：依赖HDFS和MapReduce，横向扩展性强，但实时性差。</li>
+<li>Teradata：基于共享存储的MPP架构，节点间依赖高速网络，扩展需专用硬件。</li>
+<li>GaussDB：分布式架构（计算与存储分离），支持秒级弹性扩容（1写15读），跨AZ部署。</li>
+</ul>
+<h3 id="SQL兼容性与优化"><a href="#SQL兼容性与优化" class="headerlink" title="SQL兼容性与优化"></a>SQL兼容性与优化</h3><ul>
+<li>MySQL：完整SQL标准支持，索引优化成熟（如B+树、覆盖索引）。</li>
+<li>Hive：类SQL语法（HQL），部分功能受限（如非等值连接需改写），执行依赖MapReduce&#x2F;Tez。</li>
+<li>Teradata：支持ANSI SQL，优化器针对复杂查询（如多表JOIN）有独特优化，但语法细节差异较大。</li>
+<li>GaussDB：深度兼容MySQL语法，支持分布式优化（如Limit Offset下推、智能缓存），性能可达MySQL的7倍。</li>
+</ul>
+<h3 id="成本与生态"><a href="#成本与生态" class="headerlink" title="成本与生态"></a>成本与生态</h3><ul>
+<li>MySQL：开源免费（社区版），但企业版需付费；生态完善。</li>
+<li>Hive：开源，依赖Hadoop生态（如Spark、HBase），适合大数据栈集成。</li>
+<li>Teradata：商业授权费用高昂，适合预算充足的行业。</li>
+<li>GaussDB：按需付费，支持混合云部署，与华为云服务深度集成。</li>
+</ul>
+<h2 id="分布式SQL查询注意事项"><a href="#分布式SQL查询注意事项" class="headerlink" title="分布式SQL查询注意事项"></a>分布式SQL查询注意事项</h2><h3 id="事务与一致性"><a href="#事务与一致性" class="headerlink" title="事务与一致性"></a>事务与一致性</h3><ul>
+<li>MySQL&#x2F;GaussDB：支持分布式事务（如XA协议），需注意锁冲突和隔离级别（如GaussDB的全局一致性）。</li>
+<li>Hive：无事务支持，需通过批处理保证数据一致性。</li>
+<li>Teradata：强一致性设计，但需避免跨节点大事务导致的性能瓶颈。</li>
+</ul>
+<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><ul>
+<li>索引策略：<ul>
 <li>MySQL&#x2F;GaussDB：合理设计组合索引，避免全表扫描。</li>
 <li>Hive：分区和分桶优化（如按日期分区），减少数据扫描量。</li>
 <li>Teradata：利用主索引（Primary Index）实现数据均匀分布。</li>
 </ul>
 </li>
-<li><strong>查询改写</strong>：<ul>
+<li>查询改写：<ul>
 <li>Hive：避免复杂子查询，优先使用MAPJOIN处理小表关联。</li>
 <li>GaussDB：启用Limit Offset下推，减少回表开销（如<code>SELECT * FROM table LIMIT 1000000,10</code>）。</li>
 </ul>
 </li>
 </ul>
-<h4 id="3-数据类型与函数差异"><a href="#3-数据类型与函数差异" class="headerlink" title="3. 数据类型与函数差异"></a>3. <strong>数据类型与函数差异</strong></h4><ul>
-<li><strong>字符串处理</strong>：Hive严格区分大小写（<code>&#39;Bigdata&#39; != &#39;bigdata&#39;</code>），MySQL默认不区分。</li>
-<li><strong>数值运算</strong>：Hive中整数除法返回DECIMAL（如<code>10/3=3.333</code>），而MySQL返回FLOAT；GaussDB支持<code>DIV</code>运算符返回整数。</li>
+<h3 id="数据类型与函数差异"><a href="#数据类型与函数差异" class="headerlink" title="数据类型与函数差异"></a>数据类型与函数差异</h3><ul>
+<li>字符串处理：Hive严格区分大小写（<code>&#39;Bigdata&#39; != &#39;bigdata&#39;</code>），MySQL默认不区分。</li>
+<li>数值运算：Hive中整数除法返回DECIMAL（如<code>10/3=3.333</code>），而MySQL返回FLOAT；GaussDB支持<code>DIV</code>运算符返回整数。</li>
 </ul>
-<h4 id="4-分布式特性适配"><a href="#4-分布式特性适配" class="headerlink" title="4. 分布式特性适配"></a>4. <strong>分布式特性适配</strong></h4><ul>
-<li><strong>数据分布</strong>：<ul>
+<h3 id="分布式特性适配"><a href="#分布式特性适配" class="headerlink" title="分布式特性适配"></a>分布式特性适配</h3><ul>
+<li>数据分布：<ul>
 <li>GaussDB&#x2F;Teradata：需指定分布键（如用户ID），避免数据倾斜。</li>
 <li>Hive：依赖HDFS分块，需优化文件大小（如128MB&#x2F;块）。</li>
 </ul>
 </li>
-<li><strong>执行计划</strong>：<ul>
+<li>执行计划：<ul>
 <li>GaussDB：利用全局执行计划优化器，避免跨节点网络开销。</li>
 <li>Hive：通过<code>EXPLAIN</code>分析MapReduce阶段，优化Job并行度。</li>
 </ul>
@@ -464,6 +500,41 @@
             <span data-number="02"></span>
         </h5>
     </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2025/02/26/0025-Hive%E5%8E%9F%E7%90%86%E5%8F%8Asql%E4%BC%98%E5%8C%96/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%8A%80%E6%9C%AF/">
+                    技术
+                </a>
+            </div>
+            <h5>
+                <a href="/2025/02/26/0025-Hive%E5%8E%9F%E7%90%86%E5%8F%8Asql%E4%BC%98%E5%8C%96/" class="trm-anima-link">
+                    Hive原理及sql优化
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>25/02/26</li>
+                <li>18:53</li>
+                
+                    <li>0</li>
+                
+                
+                    <li>1</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
     
     
         <div class="col-lg-6">
@@ -491,7 +562,7 @@
                 <li>25/02/26</li>
                 <li>15:12</li>
                 
-                    <li>123</li>
+                    <li>116</li>
                 
                 
                     <li>1</li>
@@ -555,7 +626,7 @@
 				</span>
       </div>
       <div class="trm-post-toc-content">
-        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-3" title="一、核心差异对比"><a rel="nofollow" class="trm-toc-link" href="#一、核心差异对比"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">一、核心差异对比</span></a></li><li class="trm-toc-item trm-toc-level-3" title="二、分布式SQL查询注意事项"><a rel="nofollow" class="trm-toc-link" href="#二、分布式SQL查询注意事项"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">二、分布式SQL查询注意事项</span></a></li></ol>
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-1" title="数据仓库"><a rel="nofollow" class="trm-toc-link" href="#数据仓库"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">数据仓库</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="数据仓库与数据库的区别"><a rel="nofollow" class="trm-toc-link" href="#数据仓库与数据库的区别"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">数据仓库与数据库的区别</span></a></li><li class="trm-toc-item trm-toc-level-2" title="数据仓库架构"><a rel="nofollow" class="trm-toc-link" href="#数据仓库架构"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">数据仓库架构</span></a></li><li class="trm-toc-item trm-toc-level-2" title="元数据管理"><a rel="nofollow" class="trm-toc-link" href="#元数据管理"><span class="trm-toc-number">1.3.</span> <span class="trm-toc-text">元数据管理</span></a></li><li class="trm-toc-item trm-toc-level-2" title="ETL"><a rel="nofollow" class="trm-toc-link" href="#ETL"><span class="trm-toc-number">1.4.</span> <span class="trm-toc-text">ETL</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-1" title="数据库"><a rel="nofollow" class="trm-toc-link" href="#数据库"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">数据库</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="核心差异对比"><a rel="nofollow" class="trm-toc-link" href="#核心差异对比"><span class="trm-toc-number">2.1.</span> <span class="trm-toc-text">核心差异对比</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="定位与适用场景"><a rel="nofollow" class="trm-toc-link" href="#定位与适用场景"><span class="trm-toc-number">2.1.1.</span> <span class="trm-toc-text">定位与适用场景</span></a></li><li class="trm-toc-item trm-toc-level-3" title="架构与扩展性"><a rel="nofollow" class="trm-toc-link" href="#架构与扩展性"><span class="trm-toc-number">2.1.2.</span> <span class="trm-toc-text">架构与扩展性</span></a></li><li class="trm-toc-item trm-toc-level-3" title="SQL兼容性与优化"><a rel="nofollow" class="trm-toc-link" href="#SQL兼容性与优化"><span class="trm-toc-number">2.1.3.</span> <span class="trm-toc-text">SQL兼容性与优化</span></a></li><li class="trm-toc-item trm-toc-level-3" title="成本与生态"><a rel="nofollow" class="trm-toc-link" href="#成本与生态"><span class="trm-toc-number">2.1.4.</span> <span class="trm-toc-text">成本与生态</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="分布式SQL查询注意事项"><a rel="nofollow" class="trm-toc-link" href="#分布式SQL查询注意事项"><span class="trm-toc-number">2.2.</span> <span class="trm-toc-text">分布式SQL查询注意事项</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="事务与一致性"><a rel="nofollow" class="trm-toc-link" href="#事务与一致性"><span class="trm-toc-number">2.2.1.</span> <span class="trm-toc-text">事务与一致性</span></a></li><li class="trm-toc-item trm-toc-level-3" title="性能优化"><a rel="nofollow" class="trm-toc-link" href="#性能优化"><span class="trm-toc-number">2.2.2.</span> <span class="trm-toc-text">性能优化</span></a></li><li class="trm-toc-item trm-toc-level-3" title="数据类型与函数差异"><a rel="nofollow" class="trm-toc-link" href="#数据类型与函数差异"><span class="trm-toc-number">2.2.3.</span> <span class="trm-toc-text">数据类型与函数差异</span></a></li><li class="trm-toc-item trm-toc-level-3" title="分布式特性适配"><a rel="nofollow" class="trm-toc-link" href="#分布式特性适配"><span class="trm-toc-number">2.2.4.</span> <span class="trm-toc-text">分布式特性适配</span></a></li></ol></li></ol></li></ol>
       </div>
     </div>
 
