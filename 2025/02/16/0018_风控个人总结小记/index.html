@@ -7,21 +7,21 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta name="description" content="金融行业数据前提1、金融行业是个极度厌倦风险的行业，需要高解释性和稳定性的规则&#x2F;模型。 2、金融行业数据量特别丰富，运用场景明显且量够。 3、行业数据价值极高，特别是银行业。 信贷风控1、信贷风控包括申请评分卡A卡、贷中行为评分卡B卡、催收评分卡C卡和反欺诈模型； 2、在金融领域追求可解释性情况下，特征工程其实是最重要的；“暴力穷举特征、业务理解特征、特征重要性”3个方法论中反复迭">
+<meta name="description" content="前要金融行业数据特性 金融行业是个极度厌倦风险的行业，需要高解释性和稳定性的规则&#x2F;模型。 金融行业数据量特别丰富，运用场景明显且量够。  行业数据价值极高，特别是银行业。  信贷风控 信贷风控包括申请评分卡A卡、贷中行为评分卡B卡、催收评分卡C卡和反欺诈模型F卡；  在金融领域追求可解释性情况下，特征工程相对来说是最好拔高下限的办法；“暴力穷举特征、业务理解特征、特征重要性”3个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="风控个人总结小记">
+<meta property="og:title" content="风控流程小记">
 <meta property="og:url" content="http://yoursite.com/2025/02/16/0018_%E9%A3%8E%E6%8E%A7%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93%E5%B0%8F%E8%AE%B0/index.html">
 <meta property="og:site_name" content="chuang1230 &#39;s blog">
-<meta property="og:description" content="金融行业数据前提1、金融行业是个极度厌倦风险的行业，需要高解释性和稳定性的规则&#x2F;模型。 2、金融行业数据量特别丰富，运用场景明显且量够。 3、行业数据价值极高，特别是银行业。 信贷风控1、信贷风控包括申请评分卡A卡、贷中行为评分卡B卡、催收评分卡C卡和反欺诈模型； 2、在金融领域追求可解释性情况下，特征工程其实是最重要的；“暴力穷举特征、业务理解特征、特征重要性”3个方法论中反复迭">
+<meta property="og:description" content="前要金融行业数据特性 金融行业是个极度厌倦风险的行业，需要高解释性和稳定性的规则&#x2F;模型。 金融行业数据量特别丰富，运用场景明显且量够。  行业数据价值极高，特别是银行业。  信贷风控 信贷风控包括申请评分卡A卡、贷中行为评分卡B卡、催收评分卡C卡和反欺诈模型F卡；  在金融领域追求可解释性情况下，特征工程相对来说是最好拔高下限的办法；“暴力穷举特征、业务理解特征、特征重要性”3个">
 <meta property="og:locale">
 <meta property="article:published_time" content="2025-02-16T06:19:31.000Z">
-<meta property="article:modified_time" content="2025-02-25T04:09:36.748Z">
+<meta property="article:modified_time" content="2025-03-02T07:21:03.773Z">
 <meta property="article:author" content="chuang1230">
 <meta property="article:tag" content="金融风控">
 <meta name="twitter:card" content="summary">
 
 
-<title >风控个人总结小记</title>
+<title >风控流程小记</title>
 
 <!-- Favicon -->
 
@@ -56,7 +56,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"yoursite.com","author":"chuang1230","root":"/","typed_text":null,"theme_version":"2.2.4","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2019 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner"},"covers":["https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/ba61-bfb8a60ec14ed76d34726896fb54757a.jpg","https://n.sinaimg.cn/sinakd20116/214/w2048h1366/20240512/f5d6-f665a2e6963d4c43db9c5f23729d54c6.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/1c67-5b602d68c986bb517be9054edc7a357a.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/4bce-3649b31b7f757f0cdc9f2fec59c93666.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/b5f9-599865ca3fe095fcb1f27df3cca48e1e.jpg","https://n.sinaimg.cn/sinakd20116/125/w2048h2077/20240512/b55b-fe315d48cdd215c58f867bfa49634d5e.jpg","https://n.sinaimg.cn/sinakd20116/96/w2048h2048/20240512/ceff-fc4a862b068fd7cc2a1749a188a03ee3.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0b9a-39ad42895574b30d0ea55593ae023721.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/dc01-8caacc0d788b4eb94f78876aaa50016c.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/f509-74c59f9a1a91057c603a1bd75bbb4e99.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0dbd-e4b5b3602b9d2a8ddd4fa4d3b40b23f5.jpg","https://n.sinaimg.cn/sinakd20116/672/w2048h1024/20240512/747e-957b40c2a68be3e244b94861c877ec80.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/82cc-cd9923e94dc4e4a1be8ec31366823cc2.jpg","http://k.sinaimg.cn/n/sinakd20116/384/w2048h1536/20240512/2c70-8d6e2d36445c123b3705e5716a02f7d3.jpg/w700d1q75cms.jpg?by=cms_fixed_width"],"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-02-25 12:09:36"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-03-02 15:21:03"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.4" id="trm-switch-style">
@@ -233,7 +233,7 @@
                             NEWS LETTER
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            风控个人总结小记
+                            风控流程小记
                         </h1>
 
                         
@@ -389,49 +389,53 @@
     <iframe frameborder="yes" border="0" marginwidth="0" marginheight="0" allow="autoplay" width="600" height="100" src="https://i.y.qq.com/n2/m/outchain/player/index.html?songid=367894935&songtype=0">
 </iframe>
 
-<h2 id="金融行业数据前提"><a href="#金融行业数据前提" class="headerlink" title="金融行业数据前提"></a>金融行业数据前提</h2><p>1、金融行业是个极度厌倦风险的行业，需要高解释性和稳定性的规则&#x2F;模型。</p>
-<p>2、金融行业数据量特别丰富，运用场景明显且量够。</p>
-<p>3、行业数据价值极高，特别是银行业。</p>
-<h2 id="信贷风控"><a href="#信贷风控" class="headerlink" title="信贷风控"></a>信贷风控</h2><p>1、信贷风控包括申请评分卡A卡、贷中行为评分卡B卡、催收评分卡C卡和反欺诈模型；</p>
-<p>2、在金融领域追求可解释性情况下，特征工程其实是最重要的；“暴力穷举特征、业务理解特征、特征重要性”3个方法论中反复迭代叠加</p>
-<p>3、机器学习、如LR、决策树、随机森林、xgboost等</p>
-<h2 id="实时决策引擎"><a href="#实时决策引擎" class="headerlink" title="实时决策引擎"></a>实时决策引擎</h2><p>脱密列举一下基本操作</p>
-<p>1、比如在手机银行（app）端进行转账，找到实时交易转账表及对应提前加工高的规则</p>
-<p>2、白名单规则先洗一遍 </p>
-<p>3、查看是否实时命中某一规则，命中执行对应操作</p>
-<p>4、可疑客户进入一个设定的观察期中，观察期再次触碰是否增加延长期还是再次执行更高一级操作，如无命中退出观察期还是怎么样具体问题具体分析</p>
-<h2 id="更新迭代"><a href="#更新迭代" class="headerlink" title="更新迭代"></a>更新迭代</h2><p>对手进步你也要更进一步，甚至抢先他们自己更进一步。</p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>1、申请评分卡常用的特征：</p>
-<table>
-<thead>
-<tr>
-<th align="left">大类</th>
-<th align="center">小类</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">个人信息</td>
-<td align="center">学历 性别 收入</td>
-</tr>
-<tr>
-<td align="left">负债信息</td>
-<td align="center">在本金融机构或者其他金融机构负债情况</td>
-</tr>
-<tr>
-<td align="left">消费能力</td>
-<td align="center">商品购买纪录，出境游，奢侈品消费</td>
-</tr>
-<tr>
-<td align="left">历史信用信息</td>
-<td align="center">历史逾期行为</td>
-</tr>
-<tr>
-<td align="left">互联网数据</td>
-<td align="center">人际社交 网络足迹 出行 个人财务</td>
-</tr>
-</tbody></table>
-<p>2、</p>
-<p>未写完……</p>
+
+<h1 id="前要"><a href="#前要" class="headerlink" title="前要"></a>前要</h1><h2 id="金融行业数据特性"><a href="#金融行业数据特性" class="headerlink" title="金融行业数据特性"></a>金融行业数据特性</h2><ul>
+<li>金融行业是个极度厌倦风险的行业，需要高解释性和稳定性的规则&#x2F;模型。</li>
+<li>金融行业数据量特别丰富，运用场景明显且量够。 </li>
+<li>行业数据价值极高，特别是银行业。</li>
+</ul>
+<h2 id="信贷风控"><a href="#信贷风控" class="headerlink" title="信贷风控"></a>信贷风控</h2><ul>
+<li>信贷风控包括申请评分卡A卡、贷中行为评分卡B卡、催收评分卡C卡和反欺诈模型F卡； </li>
+<li>在金融领域追求可解释性情况下，特征工程相对来说是最好拔高下限的办法；“暴力穷举特征、业务理解特征、特征重要性”3个方法论中反复迭代叠加； </li>
+<li>使用特定模型机器学习，如LR、决策树、随机森林、xgboost等；</li>
+</ul>
+<h1 id="A卡"><a href="#A卡" class="headerlink" title="A卡"></a>A卡</h1><ul>
+<li>确立评分目的<ul>
+<li>产品类型为小额无抵押个人，减少损失预测客户的借货讳约风险对公司产品进行风险决策。</li>
+</ul>
+</li>
+<li>模型设计<ul>
+<li>申请评分卡建立之前排除特殊进件(欺诈账户、政策拒绝账户、为激活账户等)以提高模型的预测效果(包括但不限于产品类型、地区、账龄)</li>
+</ul>
+</li>
+<li>数据拉取及清洗。<ul>
+<li>包括运营商数据、设备数据、短信数据、个人征信、个人基本信息等。根据观察期和表现期的定义从数据池中取数，并进行前期的数据清洗和稳定性验证。</li>
+<li>数据清洗包括用户唯一性检查、缺失值检查、异常值检查等。</li>
+<li>稳定性验证主要考察变量在时间序列上的稳定性、衡量指标有PS1、均值&#x2F;方差、IV等。</li>
+</ul>
+</li>
+<li>特征工程<ul>
+<li>主要做特征(包括连续变量、离散变量、时间变量、文本变量等)的外理和筛选。</li>
+<li>另外会基于业务的深入理解做特征构造工作，包括特征交叉，特征转换、对特征进行四则运算等申请评分卡需要对特征进行离散化、归一化处理、再对特征进行降维处理，降维的方法有IV筛选、显著性筛选、相关性筛选等</li>
+</ul>
+</li>
+<li>模型建立和评估<ul>
+<li>选择合适的模型，申请评分卡用逻辑回归；</li>
+<li>模型建好后，需要做模型评估，计算AUC、KS、并对模型做交叉验证来评估泛化能力及模型的稳定性。</li>
+</ul>
+</li>
+<li>模型上线部署<ul>
+<li>在风控后台部署模型规则，对于一些复杂的模型还要将模型文件进行转换，并封装成一个类，用java等其他形式来调用。</li>
+</ul>
+</li>
+<li>模型监控<ul>
+<li>前期主要监控模型整体及变量的稳定性，衡量标准主要是PS)，混淆矩阵。</li>
+<li>每日观察规则的拒绝率与线下的差异。</li>
+<li>后期积累一定线上用户后可评估线上模型的AUC、KS，与线下进行比较，衡量模型的线上实际效果。</li>
+</ul>
+</li>
+</ul>
 
 </article>
     
@@ -572,7 +576,7 @@
 				</span>
       </div>
       <div class="trm-post-toc-content">
-        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="金融行业数据前提"><a rel="nofollow" class="trm-toc-link" href="#金融行业数据前提"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">金融行业数据前提</span></a></li><li class="trm-toc-item trm-toc-level-2" title="信贷风控"><a rel="nofollow" class="trm-toc-link" href="#信贷风控"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">信贷风控</span></a></li><li class="trm-toc-item trm-toc-level-2" title="实时决策引擎"><a rel="nofollow" class="trm-toc-link" href="#实时决策引擎"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">实时决策引擎</span></a></li><li class="trm-toc-item trm-toc-level-2" title="更新迭代"><a rel="nofollow" class="trm-toc-link" href="#更新迭代"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">更新迭代</span></a></li><li class="trm-toc-item trm-toc-level-2" title="其他"><a rel="nofollow" class="trm-toc-link" href="#其他"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">其他</span></a></li></ol>
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-1" title="前要"><a rel="nofollow" class="trm-toc-link" href="#前要"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">前要</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="金融行业数据特性"><a rel="nofollow" class="trm-toc-link" href="#金融行业数据特性"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">金融行业数据特性</span></a></li><li class="trm-toc-item trm-toc-level-2" title="信贷风控"><a rel="nofollow" class="trm-toc-link" href="#信贷风控"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">信贷风控</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-1" title="A卡"><a rel="nofollow" class="trm-toc-link" href="#A卡"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">A卡</span></a></li></ol>
       </div>
     </div>
 
