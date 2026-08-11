@@ -57,11 +57,11 @@
     <title>Echarts的demo实现</title>
     <url>/2019/01/15/0003_Echarts%E7%9A%84demo%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了</p>
-<div id="echarts8663" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<div id="echarts6127" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts8663'));
+        var myChart = echarts.init(document.getElementById('echarts6127'));
         // 指定图表的配置项和数据
         var option = {
 	 tooltip : {
@@ -238,27 +238,6 @@
       </tags>
   </entry>
   <entry>
-    <title>便捷存放</title>
-    <url>/2019/03/22/0007_%E4%BE%BF%E6%8D%B7%E5%AD%98%E6%94%BE/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>【持续补充】<br>【不想带U盘，不想搞ftp，不想搞远程桌面】</p>
- <span id="more"></span>
-
-
-
-<h2 id="截屏-录视频"><a href="#截屏-录视频" class="headerlink" title="截屏+录视频"></a>截屏+录视频</h2><p>实验室电脑都没有截屏，真的是麻烦!<br><a href="http://lc-jujabo3e.cn-n1.lcfile.com/c8166434c297f06bf43e.zip">fscapture85.zip</a></p>
-<h2 id="油猴实用脚本"><a href="#油猴实用脚本" class="headerlink" title="油猴实用脚本"></a>油猴实用脚本</h2><p><a href="http://lc-jujabo3e.cn-n1.lcfile.com/a8d9006ecefcda919abe.zip">tampermokey</a></p>
-<h2 id="OCR"><a href="#OCR" class="headerlink" title="OCR"></a>OCR</h2><p><a href="http://lc-jujabo3e.cn-n1.lcfile.com/fb1c80582428a9de5485.rar">ocr</a></p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><a href="http://lc-jujabo3e.cn-n1.lcfile.com/002b494276d275b02fd7.rar">android</a><br><a href="http://lc-jujabo3e.cn-n1.lcfile.com/56ed13b97cb251a46f7a.zip">window64</a><br><a href="http://lc-jujabo3e.cn-n1.lcfile.com/467d7208031ec613de0c.rar">window_2</a></p>
-<h2 id="学习网站"><a href="#学习网站" class="headerlink" title="学习网站"></a>学习网站</h2><p>1.<a href="https://www.processon.com/">在线作图网站</a><br>2.<a href="https://www.bilibili.com/video/av41572620">数据结构-清华大学邓俊辉</a><br>3.<a href="https://github.com/inferjay/AndroidDevTools#sdk-tools">Android开发</a><br>4.<a href="http://www.ipol.im/">图像处理周刊</a><br>5.<a href="https://github.com/CyC2018/CS-Notes">基础知识</a><br>6.<a href="http://www.pythonchallenge.com/">python挑战</a><br>  做网站上面的题目。如果卡在某一关太久, 可以看答案(google python challenge answer), 做完后看看别人的编码方式和自己有什么区别。</p>
-]]></content>
-      <categories>
-        <category>娱乐</category>
-      </categories>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>在Hexo博客中添加音乐</title>
     <url>/2019/02/22/0006_%E5%9C%A8Hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>【痴迷音乐】</p>
@@ -283,10 +262,10 @@
 
 <p>效果如下：</p>
 
-        <div id="aplayer-KcAypTIB" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"></div>
+        <div id="aplayer-iPNnNosz" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"></div>
 			  <script>
 				  var options = {"narrow":false,"autoplay":true,"showlrc":3,"mode":"random","music":[{"title":"岩石里的花","author":"邓紫棋","url":"http://192.168.127.151/cache/3/05/streamoc.music.tc.qq.com/f16436618361cfecc79153b3ba1db01a/M800101A9o5D1EWzyd.mp3?vkey=22981DFD3050B42FAB4296D2E56960739E671E4B24A1F2247633AF232692011F5FC6F16E87CF59F9A26E6DBD50592C9FCE4C15A033F29612&guid=MS&fromtag=8&uin=0","pic":"http://lc-vslfihiq.cn-n1.lcfile.com/9facbadc02822c7cf86c.png","lrc":""},{"title":"睡皇后","author":"邓紫棋","url":"http://lc-vslfihiq.cn-n1.lcfile.com/38e7079c52024b425a12.mp3","pic":"http://lc-vslfihiq.cn-n1.lcfile.com/5910fa54d1d1eb90c1cf.png","lrc":""},{"title":"倒数","author":"邓紫棋","url":"http://lc-vslfihiq.cn-n1.lcfile.com/ee98d8bf7cf6311dc37d.mp3","pic":"http://lc-vslfihiq.cn-n1.lcfile.com/f48f7bc8811115acce16.jpg","lrc":""}]};
-				  options.element = document.getElementById("aplayer-KcAypTIB");
+				  options.element = document.getElementById("aplayer-iPNnNosz");
 				  var ap = new APlayer(options);
 			    window.aplayers || (window.aplayers = []);
 				  window.aplayers.push(ap);
@@ -298,6 +277,27 @@
         <tag>hexo</tag>
         <tag>博客</tag>
         <tag>音乐</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>便捷存放</title>
+    <url>/2019/03/22/0007_%E4%BE%BF%E6%8D%B7%E5%AD%98%E6%94%BE/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>【持续补充】<br>【不想带U盘，不想搞ftp，不想搞远程桌面】</p>
+ <span id="more"></span>
+
+
+
+<h2 id="截屏-录视频"><a href="#截屏-录视频" class="headerlink" title="截屏+录视频"></a>截屏+录视频</h2><p>实验室电脑都没有截屏，真的是麻烦!<br><a href="http://lc-jujabo3e.cn-n1.lcfile.com/c8166434c297f06bf43e.zip">fscapture85.zip</a></p>
+<h2 id="油猴实用脚本"><a href="#油猴实用脚本" class="headerlink" title="油猴实用脚本"></a>油猴实用脚本</h2><p><a href="http://lc-jujabo3e.cn-n1.lcfile.com/a8d9006ecefcda919abe.zip">tampermokey</a></p>
+<h2 id="OCR"><a href="#OCR" class="headerlink" title="OCR"></a>OCR</h2><p><a href="http://lc-jujabo3e.cn-n1.lcfile.com/fb1c80582428a9de5485.rar">ocr</a></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><a href="http://lc-jujabo3e.cn-n1.lcfile.com/002b494276d275b02fd7.rar">android</a><br><a href="http://lc-jujabo3e.cn-n1.lcfile.com/56ed13b97cb251a46f7a.zip">window64</a><br><a href="http://lc-jujabo3e.cn-n1.lcfile.com/467d7208031ec613de0c.rar">window_2</a></p>
+<h2 id="学习网站"><a href="#学习网站" class="headerlink" title="学习网站"></a>学习网站</h2><p>1.<a href="https://www.processon.com/">在线作图网站</a><br>2.<a href="https://www.bilibili.com/video/av41572620">数据结构-清华大学邓俊辉</a><br>3.<a href="https://github.com/inferjay/AndroidDevTools#sdk-tools">Android开发</a><br>4.<a href="http://www.ipol.im/">图像处理周刊</a><br>5.<a href="https://github.com/CyC2018/CS-Notes">基础知识</a><br>6.<a href="http://www.pythonchallenge.com/">python挑战</a><br>  做网站上面的题目。如果卡在某一关太久, 可以看答案(google python challenge answer), 做完后看看别人的编码方式和自己有什么区别。</p>
+]]></content>
+      <categories>
+        <category>娱乐</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -365,64 +365,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Python调用百度OCR</title>
-    <url>/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/1.jpg" class title="你要记住这句话"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-
-<p>字母+数字的文字识别现在自己还是可以做到的，但是中文的文字识别就很难了。所以平时遇到这种需求时，直接调用大厂的文字识别OCR效率更高点。<br> <span id="more"></span></p>
-<p>这里调用百度的OCR主要实现的是对网络上一些表格图片进行文字识别。</p>
-<img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/test1.png" class title="之后要识别的图片"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-
-
-<h3 id="在百度云开放平台创建应用"><a href="#在百度云开放平台创建应用" class="headerlink" title="在百度云开放平台创建应用"></a>在百度云开放平台创建应用</h3><img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/3.png" class title="百度官方使用说明"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-
-<h5 id="获取API-KEY和Secret-Key"><a href="#获取API-KEY和Secret-Key" class="headerlink" title="获取API KEY和Secret Key"></a>获取API KEY和Secret Key</h5><p>进入<a href="https://ai.baidu.com/tech/OCR">百度AI开放平台</a>的文字识别板块，然后创建应用，获得API KEY和Secret Key；</p>
-<img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/2.png" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-
-<h3 id="授权字符串Access-Token"><a href="#授权字符串Access-Token" class="headerlink" title="授权字符串Access Token"></a>授权字符串Access Token</h3><p>Token是使用API的第一步！Access Token就是在每次向服务器发送的请求里面加上这个你个人专属的密码，这个密码由别人API的创建者决定；有可能一个token会十分复杂不过这个部分还好，基本每个开发者都会写说明文档来介绍如何使用。</p>
-<h5 id="code"><a href="#code" class="headerlink" title="code"></a>code</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import ssl, sys</span><br><span class="line"></span><br><span class="line"># 官网host解析</span><br><span class="line"># client_id 为官网获取的AK， client_secret 为官网获取的SK</span><br><span class="line">host = &#x27;https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&amp;client_id=【官网获取的AK】&amp;client_secret=【官网获取的SK】&#x27;</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    &#x27;Content-Type&#x27;: &#x27;application/json;charset=UTF-8&#x27;</span><br><span class="line">&#125;</span><br><span class="line">res = requests.get(url=host, headers=headers).json()</span><br><span class="line">print(res[&#x27;access_token&#x27;])</span><br></pre></td></tr></table></figure>
-
-<p>把获取到access_token保存一下，注意：百度OCR获取的access_token有效期为30天，需要每30天进行定期更换；</p>
-<h3 id="开始调用表格文字识别API（异步接口）"><a href="#开始调用表格文字识别API（异步接口）" class="headerlink" title="开始调用表格文字识别API（异步接口）"></a>开始调用表格文字识别API（异步接口）</h3><h5 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import base64</span><br><span class="line">import ssl, sys</span><br><span class="line"></span><br><span class="line">url = &#x27;https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/request&#x27;</span><br><span class="line"></span><br><span class="line">data = &#123;&#125;</span><br><span class="line"></span><br><span class="line"># 上面获得access_token</span><br><span class="line">data[&#x27;access_token&#x27;] = &#x27;&#x27;</span><br><span class="line"></span><br><span class="line"># 读取图片</span><br><span class="line">file = open(&#x27;test1.png&#x27;, &#x27;rb&#x27;)</span><br><span class="line">image = file.read()</span><br><span class="line">file.close()</span><br><span class="line"></span><br><span class="line"># 进行编码</span><br><span class="line">data[&#x27;image&#x27;] = base64.b64encode(image)</span><br><span class="line"></span><br><span class="line">#写自己API KEY</span><br><span class="line">headers = &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">res = requests.post(url=url, headers=headers, data=data)</span><br><span class="line"></span><br><span class="line">print(res.json())</span><br></pre></td></tr></table></figure>
-
-<h5 id="请求URL"><a href="#请求URL" class="headerlink" title="请求URL"></a>请求URL</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/request</span><br></pre></td></tr></table></figure>
-
-<h5 id="Headers说明"><a href="#Headers说明" class="headerlink" title="Headers说明"></a>Headers说明</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">headers = &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,</span><br><span class="line">    &quot;apikey&quot;: &quot;&quot;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h5><p>百度OCR对图片的要求是需要base64编码、去掉编码头后再进行urlencode</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data[&#x27;image&#x27;] = base64.b64encode(image)</span><br></pre></td></tr></table></figure>
-<p>还有access_token</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data[&#x27;access_token&#x27;] = &#x27;**************&#x27;</span><br></pre></td></tr></table></figure>
-<h5 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h5><p>这里是返回的参数</p>
-<img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/4.png" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-
-<h3 id="调用接口获取结果"><a href="#调用接口获取结果" class="headerlink" title="调用接口获取结果"></a>调用接口获取结果</h3><h5 id="code-2"><a href="#code-2" class="headerlink" title="code"></a>code</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import ssl, sys</span><br><span class="line"></span><br><span class="line">url = &#x27;https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/get_request_result&#x27;</span><br><span class="line"></span><br><span class="line">data = &#123;&#125;</span><br><span class="line"></span><br><span class="line"># 上面获得access_token</span><br><span class="line">data[&#x27;access_token&#x27;] = &#x27;&#x27;</span><br><span class="line"></span><br><span class="line"># 上面获得request_id</span><br><span class="line">data[&#x27;request_id&#x27;] = &#x27;15347521_1068276&#x27;</span><br><span class="line"></span><br><span class="line">#可以获得josn和excel两种结果</span><br><span class="line">data[&#x27;result_type&#x27;] =&#x27;excel&#x27;</span><br><span class="line"></span><br><span class="line">#写自己API KEY</span><br><span class="line">headers = &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,</span><br><span class="line">    &quot;apikey&quot;: &quot;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">res = requests.post(url=url, headers=headers, data=data)</span><br><span class="line"></span><br><span class="line">print(res.json())</span><br></pre></td></tr></table></figure>
-<h5 id="请求URL-1"><a href="#请求URL-1" class="headerlink" title="请求URL"></a>请求URL</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/get_request_result</span><br></pre></td></tr></table></figure>
-
-<h5 id="Headers说明-1"><a href="#Headers说明-1" class="headerlink" title="Headers说明"></a>Headers说明</h5><p>使用获得的API KEY</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">headers = &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,</span><br><span class="line">    &quot;apikey&quot;: &quot;&quot;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="请求参数-1"><a href="#请求参数-1" class="headerlink" title="请求参数"></a>请求参数</h5><p>使用上一步获得的request_id</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data[&#x27;request_id&#x27;] = &#x27;15347521_1068276&#x27;</span><br></pre></td></tr></table></figure>
-<p>期望获取结果的类型，取值为“excel”时返回xls文件的地址，取值为“json”时返回json格式的字符串,默认为“excel”</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data[&#x27;result_type&#x27;] =&#x27;excel&#x27;</span><br></pre></td></tr></table></figure>
-<h5 id="Result-1"><a href="#Result-1" class="headerlink" title="Result"></a>Result</h5><p>这里是返回的参数</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#x27;result&#x27;: &#123;&#x27;result_data&#x27;: &#x27;http://bj.bcebos.com/v1/aip-web/form_ocr/67ACBFCCC3C24A79A7161DC2F3A05D29.xls?authorization=bce-auth-v1%2Ff86a2044998643b5abc89b59158bad6d%2F2019-07-05T09%3A17%3A41Z%2F86400%2F%2F49456aa34ec7ed98e00ebb9cef40a6272fb63354dc25b770326055a4fe237245&#x27;, &#x27;ret_msg&#x27;: &#x27;已完成&#x27;, &#x27;request_id&#x27;: &#x27;15347521_1068276&#x27;, &#x27;percent&#x27;: 100, &#x27;ret_code&#x27;: 3&#125;, &#x27;log_id&#x27;: 15623183058743806&#125;</span><br></pre></td></tr></table></figure>
-<p>最后的url我们点进去下载excel，该<a href="http://lc-jujabo3e.cn-n1.lcfile.com/213a518f3aba56adcd5d/%E5%9B%BE%E7%89%87test1%E8%8E%B7%E5%BE%97%E7%9A%84%E7%BB%93%E6%9E%9C.xls">excel</a>就是我们文字识别的最终结果</p>
-<img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/5.png" class title="result"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-
-
-<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>稍微修改一下可以做其他图片的文字识别，不同图片文本对于不同的请求URL和参数，需要去自己去官网看文档。最主要的这个OCR也可以做为反爬验证码的识别，有空再搞这个吧</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>OCR</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>重复度计算</title>
     <url>/2019/07/14/0010_%E9%87%8D%E5%A4%8D%E5%BA%A6%E8%AE%A1%E7%AE%97/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/07/14/0010_%E9%87%8D%E5%A4%8D%E5%BA%A6%E8%AE%A1%E7%AE%97/1.jpg" class title="诗咏真系好靓"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
@@ -484,6 +426,64 @@
       </tags>
   </entry>
   <entry>
+    <title>Python调用百度OCR</title>
+    <url>/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/1.jpg" class title="你要记住这句话"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+<p>字母+数字的文字识别现在自己还是可以做到的，但是中文的文字识别就很难了。所以平时遇到这种需求时，直接调用大厂的文字识别OCR效率更高点。<br> <span id="more"></span></p>
+<p>这里调用百度的OCR主要实现的是对网络上一些表格图片进行文字识别。</p>
+<img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/test1.png" class title="之后要识别的图片"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+
+<h3 id="在百度云开放平台创建应用"><a href="#在百度云开放平台创建应用" class="headerlink" title="在百度云开放平台创建应用"></a>在百度云开放平台创建应用</h3><img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/3.png" class title="百度官方使用说明"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+<h5 id="获取API-KEY和Secret-Key"><a href="#获取API-KEY和Secret-Key" class="headerlink" title="获取API KEY和Secret Key"></a>获取API KEY和Secret Key</h5><p>进入<a href="https://ai.baidu.com/tech/OCR">百度AI开放平台</a>的文字识别板块，然后创建应用，获得API KEY和Secret Key；</p>
+<img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/2.png" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+<h3 id="授权字符串Access-Token"><a href="#授权字符串Access-Token" class="headerlink" title="授权字符串Access Token"></a>授权字符串Access Token</h3><p>Token是使用API的第一步！Access Token就是在每次向服务器发送的请求里面加上这个你个人专属的密码，这个密码由别人API的创建者决定；有可能一个token会十分复杂不过这个部分还好，基本每个开发者都会写说明文档来介绍如何使用。</p>
+<h5 id="code"><a href="#code" class="headerlink" title="code"></a>code</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import ssl, sys</span><br><span class="line"></span><br><span class="line"># 官网host解析</span><br><span class="line"># client_id 为官网获取的AK， client_secret 为官网获取的SK</span><br><span class="line">host = &#x27;https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&amp;client_id=【官网获取的AK】&amp;client_secret=【官网获取的SK】&#x27;</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    &#x27;Content-Type&#x27;: &#x27;application/json;charset=UTF-8&#x27;</span><br><span class="line">&#125;</span><br><span class="line">res = requests.get(url=host, headers=headers).json()</span><br><span class="line">print(res[&#x27;access_token&#x27;])</span><br></pre></td></tr></table></figure>
+
+<p>把获取到access_token保存一下，注意：百度OCR获取的access_token有效期为30天，需要每30天进行定期更换；</p>
+<h3 id="开始调用表格文字识别API（异步接口）"><a href="#开始调用表格文字识别API（异步接口）" class="headerlink" title="开始调用表格文字识别API（异步接口）"></a>开始调用表格文字识别API（异步接口）</h3><h5 id="code-1"><a href="#code-1" class="headerlink" title="code"></a>code</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import base64</span><br><span class="line">import ssl, sys</span><br><span class="line"></span><br><span class="line">url = &#x27;https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/request&#x27;</span><br><span class="line"></span><br><span class="line">data = &#123;&#125;</span><br><span class="line"></span><br><span class="line"># 上面获得access_token</span><br><span class="line">data[&#x27;access_token&#x27;] = &#x27;&#x27;</span><br><span class="line"></span><br><span class="line"># 读取图片</span><br><span class="line">file = open(&#x27;test1.png&#x27;, &#x27;rb&#x27;)</span><br><span class="line">image = file.read()</span><br><span class="line">file.close()</span><br><span class="line"></span><br><span class="line"># 进行编码</span><br><span class="line">data[&#x27;image&#x27;] = base64.b64encode(image)</span><br><span class="line"></span><br><span class="line">#写自己API KEY</span><br><span class="line">headers = &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">res = requests.post(url=url, headers=headers, data=data)</span><br><span class="line"></span><br><span class="line">print(res.json())</span><br></pre></td></tr></table></figure>
+
+<h5 id="请求URL"><a href="#请求URL" class="headerlink" title="请求URL"></a>请求URL</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/request</span><br></pre></td></tr></table></figure>
+
+<h5 id="Headers说明"><a href="#Headers说明" class="headerlink" title="Headers说明"></a>Headers说明</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">headers = &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,</span><br><span class="line">    &quot;apikey&quot;: &quot;&quot;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h5><p>百度OCR对图片的要求是需要base64编码、去掉编码头后再进行urlencode</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data[&#x27;image&#x27;] = base64.b64encode(image)</span><br></pre></td></tr></table></figure>
+<p>还有access_token</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data[&#x27;access_token&#x27;] = &#x27;**************&#x27;</span><br></pre></td></tr></table></figure>
+<h5 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h5><p>这里是返回的参数</p>
+<img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/4.png" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+<h3 id="调用接口获取结果"><a href="#调用接口获取结果" class="headerlink" title="调用接口获取结果"></a>调用接口获取结果</h3><h5 id="code-2"><a href="#code-2" class="headerlink" title="code"></a>code</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">import ssl, sys</span><br><span class="line"></span><br><span class="line">url = &#x27;https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/get_request_result&#x27;</span><br><span class="line"></span><br><span class="line">data = &#123;&#125;</span><br><span class="line"></span><br><span class="line"># 上面获得access_token</span><br><span class="line">data[&#x27;access_token&#x27;] = &#x27;&#x27;</span><br><span class="line"></span><br><span class="line"># 上面获得request_id</span><br><span class="line">data[&#x27;request_id&#x27;] = &#x27;15347521_1068276&#x27;</span><br><span class="line"></span><br><span class="line">#可以获得josn和excel两种结果</span><br><span class="line">data[&#x27;result_type&#x27;] =&#x27;excel&#x27;</span><br><span class="line"></span><br><span class="line">#写自己API KEY</span><br><span class="line">headers = &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,</span><br><span class="line">    &quot;apikey&quot;: &quot;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">res = requests.post(url=url, headers=headers, data=data)</span><br><span class="line"></span><br><span class="line">print(res.json())</span><br></pre></td></tr></table></figure>
+<h5 id="请求URL-1"><a href="#请求URL-1" class="headerlink" title="请求URL"></a>请求URL</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://aip.baidubce.com/rest/2.0/solution/v1/form_ocr/get_request_result</span><br></pre></td></tr></table></figure>
+
+<h5 id="Headers说明-1"><a href="#Headers说明-1" class="headerlink" title="Headers说明"></a>Headers说明</h5><p>使用获得的API KEY</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">headers = &#123;</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,</span><br><span class="line">    &quot;apikey&quot;: &quot;&quot;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="请求参数-1"><a href="#请求参数-1" class="headerlink" title="请求参数"></a>请求参数</h5><p>使用上一步获得的request_id</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data[&#x27;request_id&#x27;] = &#x27;15347521_1068276&#x27;</span><br></pre></td></tr></table></figure>
+<p>期望获取结果的类型，取值为“excel”时返回xls文件的地址，取值为“json”时返回json格式的字符串,默认为“excel”</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">data[&#x27;result_type&#x27;] =&#x27;excel&#x27;</span><br></pre></td></tr></table></figure>
+<h5 id="Result-1"><a href="#Result-1" class="headerlink" title="Result"></a>Result</h5><p>这里是返回的参数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;&#x27;result&#x27;: &#123;&#x27;result_data&#x27;: &#x27;http://bj.bcebos.com/v1/aip-web/form_ocr/67ACBFCCC3C24A79A7161DC2F3A05D29.xls?authorization=bce-auth-v1%2Ff86a2044998643b5abc89b59158bad6d%2F2019-07-05T09%3A17%3A41Z%2F86400%2F%2F49456aa34ec7ed98e00ebb9cef40a6272fb63354dc25b770326055a4fe237245&#x27;, &#x27;ret_msg&#x27;: &#x27;已完成&#x27;, &#x27;request_id&#x27;: &#x27;15347521_1068276&#x27;, &#x27;percent&#x27;: 100, &#x27;ret_code&#x27;: 3&#125;, &#x27;log_id&#x27;: 15623183058743806&#125;</span><br></pre></td></tr></table></figure>
+<p>最后的url我们点进去下载excel，该<a href="http://lc-jujabo3e.cn-n1.lcfile.com/213a518f3aba56adcd5d/%E5%9B%BE%E7%89%87test1%E8%8E%B7%E5%BE%97%E7%9A%84%E7%BB%93%E6%9E%9C.xls">excel</a>就是我们文字识别的最终结果</p>
+<img src="/2019/07/14/0011_Python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6OCR/5.png" class title="result"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+
+
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>稍微修改一下可以做其他图片的文字识别，不同图片文本对于不同的请求URL和参数，需要去自己去官网看文档。最主要的这个OCR也可以做为反爬验证码的识别，有空再搞这个吧</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>OCR</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python调用高德API批量获得经纬度</title>
     <url>/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/07/14/0012_Python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7API%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/1.jpg" class title="希望你把心交给我"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
@@ -512,6 +512,35 @@
       <tags>
         <tag>python</tag>
         <tag>高德API</tag>
+        <tag>经纬度</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python计算两个经纬度之间的距离</title>
+    <url>/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/1.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+<p>【需求：计算多个居住地与工作地到本次案例的距离】</p>
+<span id="more"></span>
+
+<h3 id="读取经纬度地址的数据"><a href="#读取经纬度地址的数据" class="headerlink" title="读取经纬度地址的数据"></a>读取经纬度地址的数据</h3><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/2.png" class title="Excel中的数据"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+<p>这一步把excel中经纬度数据存储到列表中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def read_excel():</span><br><span class="line">    ExcelFile=xlrd.open_workbook(r&#x27;E:\\python_pratice\\July6_project\\dizhi_zhuan_jingweidu_juli_jisuan\\2.xlsx&#x27;)</span><br><span class="line">    #print (ExcelFile.sheet_names())</span><br><span class="line">    sheet = ExcelFile.sheet_by_index(0)</span><br><span class="line">    address = sheet.col_values(0)</span><br><span class="line">    jingweidu=sheet.col_values(1)</span><br><span class="line">    for i in range(0,len(jingweidu)):</span><br><span class="line">        print(i)</span><br><span class="line">        s1=sheet.cell(i, 1).value</span><br><span class="line">        print(s1)</span><br><span class="line">        B.append(s1)</span><br></pre></td></tr></table></figure>
+
+<h3 id="计算两个经纬度之间的距离"><a href="#计算两个经纬度之间的距离" class="headerlink" title="计算两个经纬度之间的距离"></a>计算两个经纬度之间的距离</h3><p>计算经纬度之间的距离有多种方法，比如Great-Circle距离（基于球面余弦公式）和基于Haversine公式 等。这些方法考虑的要点都很多，实际应用计算保留几位小数的情况下可以使用以下我使用的方法，要想十分精确，那就请</p>
+<img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/4.png" class title="出门右转，Google一下"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+<h4 id="基于Haversine公式计算距离"><a href="#基于Haversine公式计算距离" class="headerlink" title="基于Haversine公式计算距离"></a>基于Haversine公式计算距离</h4><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/3.jpg" class title="经纬度计算距离公式"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+<h4 id="公式解析"><a href="#公式解析" class="headerlink" title="公式解析"></a>公式解析</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Lung1 Lat1表示A点经纬度， Lung2 Lat2表示B点经纬度；</span><br><span class="line">a=Lat1-Lat2 为两点纬度之差 b=Lung1-Lung2 为两点经度之差；</span><br><span class="line">6378.137为地球半径，单位为千米；</span><br><span class="line">计算出来的结果单位为千米，若将半径改为米为单位则计算的结果单位为米</span><br><span class="line">计算精度与谷歌地图的距离精度差不多，相差范围在0.2米以下</span><br></pre></td></tr></table></figure>
+<h4 id="code"><a href="#code" class="headerlink" title="code"></a>code</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def distance_calc_two(startloc , endloc):</span><br><span class="line">    startloc = startloc + &#x27;,&#x27; + endloc</span><br><span class="line"></span><br><span class="line">    # 将十进制度数转化为弧度</span><br><span class="line">    lon1 , lat1 ,lon2 , lat2 = map(radians,[float(i) for i in startloc.split(&#x27;,&#x27;)])</span><br><span class="line">    </span><br><span class="line">    # haversine公式</span><br><span class="line">    dlon = lon2 - lon1</span><br><span class="line">    dlat = lat2 - lat1</span><br><span class="line">    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2</span><br><span class="line">    c = 2 * asin(sqrt(a))</span><br><span class="line">    </span><br><span class="line">    # 地球平均半径</span><br><span class="line">    r = 6371</span><br><span class="line">    finally_result = str(&#x27;%.3f&#x27;%(r * c))</span><br><span class="line">    distance.append(finally_result)</span><br><span class="line">    print(finally_result + u&#x27;公里&#x27;)</span><br></pre></td></tr></table></figure>
+<p>startloc和endloc这两个参数为起点与终点的经纬度，之后将经纬度转为弧度，方便之后的计算，最后就是实现haversine公式。</p>
+<p>注意：这里r的取值也可以精确到6378.137，视自己情况而定。</p>
+<h3 id="All-Codes"><a href="#All-Codes" class="headerlink" title="All Codes"></a>All Codes</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from math import radians,sin,cos,asin,sqrt</span><br><span class="line">import xlrd</span><br><span class="line"></span><br><span class="line">distance=[]</span><br><span class="line">B=[]</span><br><span class="line">def distance_calc_two(startloc , endloc):</span><br><span class="line">    startloc = startloc + &#x27;,&#x27; + endloc</span><br><span class="line">    lon1 , lat1 ,lon2 , lat2 = map(radians,[float(i) for i in startloc.split(&#x27;,&#x27;)])</span><br><span class="line">    #print(lon1,lat1,lon2,lat2)</span><br><span class="line">    dlon = lon2 - lon1</span><br><span class="line">    dlat = lat2 - lat1</span><br><span class="line">    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2</span><br><span class="line">    c = 2 * asin(sqrt(a))</span><br><span class="line">    r = 6371</span><br><span class="line">    finally_result = str(&#x27;%.3f&#x27;%(r * c))</span><br><span class="line">    distance.append(finally_result)</span><br><span class="line"></span><br><span class="line">def read_excel():</span><br><span class="line">    ExcelFile=xlrd.open_workbook(r&#x27;E:\\python_pratice\\July6_project\\dizhi_zhuan_jingweidu_juli_jisuan\\2.xlsx&#x27;)</span><br><span class="line">    sheet = ExcelFile.sheet_by_index(0)</span><br><span class="line">    address = sheet.col_values(0)</span><br><span class="line">    jingweidu=sheet.col_values(1)</span><br><span class="line">    for i in range(0,len(jingweidu)):</span><br><span class="line">        s1=sheet.cell(i, 1).value</span><br><span class="line">        B.append(s1)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    startloc=&#x27;114.504952,38.045749&#x27;</span><br><span class="line">    read_excel()</span><br><span class="line">    for i in B:</span><br><span class="line">        distance_calc_two(startloc,i)</span><br><span class="line">    print(distance)</span><br><span class="line">    with open(&#x27;3.txt&#x27;,&#x27;w&#x27;) as f:</span><br><span class="line">        for i in distance:</span><br><span class="line">            f.write(i+&#x27;\n&#x27;)</span><br></pre></td></tr></table></figure>
+<p>最后结果如下：</p>
+<img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/5.png" class title="result"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
         <tag>经纬度</tag>
       </tags>
   </entry>
@@ -551,32 +580,24 @@
       </tags>
   </entry>
   <entry>
-    <title>Python计算两个经纬度之间的距离</title>
-    <url>/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/1.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-<p>【需求：计算多个居住地与工作地到本次案例的距离】</p>
-<span id="more"></span>
+    <title>save_photo</title>
+    <url>/2025/02/14/0015_save_photo/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>最近生活状态：在龙场悟道中……</p>
+<iframe frameborder="yes" border="0" marginwidth="0" marginheight="0" allow="autoplay" width="600" height="100" src="https://i.y.qq.com/n2/m/outchain/player/index.html?songid=370870476&songtype=0">
+</iframe>
 
-<h3 id="读取经纬度地址的数据"><a href="#读取经纬度地址的数据" class="headerlink" title="读取经纬度地址的数据"></a>读取经纬度地址的数据</h3><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/2.png" class title="Excel中的数据"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-<p>这一步把excel中经纬度数据存储到列表中</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def read_excel():</span><br><span class="line">    ExcelFile=xlrd.open_workbook(r&#x27;E:\\python_pratice\\July6_project\\dizhi_zhuan_jingweidu_juli_jisuan\\2.xlsx&#x27;)</span><br><span class="line">    #print (ExcelFile.sheet_names())</span><br><span class="line">    sheet = ExcelFile.sheet_by_index(0)</span><br><span class="line">    address = sheet.col_values(0)</span><br><span class="line">    jingweidu=sheet.col_values(1)</span><br><span class="line">    for i in range(0,len(jingweidu)):</span><br><span class="line">        print(i)</span><br><span class="line">        s1=sheet.cell(i, 1).value</span><br><span class="line">        print(s1)</span><br><span class="line">        B.append(s1)</span><br></pre></td></tr></table></figure>
-
-<h3 id="计算两个经纬度之间的距离"><a href="#计算两个经纬度之间的距离" class="headerlink" title="计算两个经纬度之间的距离"></a>计算两个经纬度之间的距离</h3><p>计算经纬度之间的距离有多种方法，比如Great-Circle距离（基于球面余弦公式）和基于Haversine公式 等。这些方法考虑的要点都很多，实际应用计算保留几位小数的情况下可以使用以下我使用的方法，要想十分精确，那就请</p>
-<img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/4.png" class title="出门右转，Google一下"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-<h4 id="基于Haversine公式计算距离"><a href="#基于Haversine公式计算距离" class="headerlink" title="基于Haversine公式计算距离"></a>基于Haversine公式计算距离</h4><img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/3.jpg" class title="经纬度计算距离公式"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-<h4 id="公式解析"><a href="#公式解析" class="headerlink" title="公式解析"></a>公式解析</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Lung1 Lat1表示A点经纬度， Lung2 Lat2表示B点经纬度；</span><br><span class="line">a=Lat1-Lat2 为两点纬度之差 b=Lung1-Lung2 为两点经度之差；</span><br><span class="line">6378.137为地球半径，单位为千米；</span><br><span class="line">计算出来的结果单位为千米，若将半径改为米为单位则计算的结果单位为米</span><br><span class="line">计算精度与谷歌地图的距离精度差不多，相差范围在0.2米以下</span><br></pre></td></tr></table></figure>
-<h4 id="code"><a href="#code" class="headerlink" title="code"></a>code</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def distance_calc_two(startloc , endloc):</span><br><span class="line">    startloc = startloc + &#x27;,&#x27; + endloc</span><br><span class="line"></span><br><span class="line">    # 将十进制度数转化为弧度</span><br><span class="line">    lon1 , lat1 ,lon2 , lat2 = map(radians,[float(i) for i in startloc.split(&#x27;,&#x27;)])</span><br><span class="line">    </span><br><span class="line">    # haversine公式</span><br><span class="line">    dlon = lon2 - lon1</span><br><span class="line">    dlat = lat2 - lat1</span><br><span class="line">    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2</span><br><span class="line">    c = 2 * asin(sqrt(a))</span><br><span class="line">    </span><br><span class="line">    # 地球平均半径</span><br><span class="line">    r = 6371</span><br><span class="line">    finally_result = str(&#x27;%.3f&#x27;%(r * c))</span><br><span class="line">    distance.append(finally_result)</span><br><span class="line">    print(finally_result + u&#x27;公里&#x27;)</span><br></pre></td></tr></table></figure>
-<p>startloc和endloc这两个参数为起点与终点的经纬度，之后将经纬度转为弧度，方便之后的计算，最后就是实现haversine公式。</p>
-<p>注意：这里r的取值也可以精确到6378.137，视自己情况而定。</p>
-<h3 id="All-Codes"><a href="#All-Codes" class="headerlink" title="All Codes"></a>All Codes</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from math import radians,sin,cos,asin,sqrt</span><br><span class="line">import xlrd</span><br><span class="line"></span><br><span class="line">distance=[]</span><br><span class="line">B=[]</span><br><span class="line">def distance_calc_two(startloc , endloc):</span><br><span class="line">    startloc = startloc + &#x27;,&#x27; + endloc</span><br><span class="line">    lon1 , lat1 ,lon2 , lat2 = map(radians,[float(i) for i in startloc.split(&#x27;,&#x27;)])</span><br><span class="line">    #print(lon1,lat1,lon2,lat2)</span><br><span class="line">    dlon = lon2 - lon1</span><br><span class="line">    dlat = lat2 - lat1</span><br><span class="line">    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2</span><br><span class="line">    c = 2 * asin(sqrt(a))</span><br><span class="line">    r = 6371</span><br><span class="line">    finally_result = str(&#x27;%.3f&#x27;%(r * c))</span><br><span class="line">    distance.append(finally_result)</span><br><span class="line"></span><br><span class="line">def read_excel():</span><br><span class="line">    ExcelFile=xlrd.open_workbook(r&#x27;E:\\python_pratice\\July6_project\\dizhi_zhuan_jingweidu_juli_jisuan\\2.xlsx&#x27;)</span><br><span class="line">    sheet = ExcelFile.sheet_by_index(0)</span><br><span class="line">    address = sheet.col_values(0)</span><br><span class="line">    jingweidu=sheet.col_values(1)</span><br><span class="line">    for i in range(0,len(jingweidu)):</span><br><span class="line">        s1=sheet.cell(i, 1).value</span><br><span class="line">        B.append(s1)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    startloc=&#x27;114.504952,38.045749&#x27;</span><br><span class="line">    read_excel()</span><br><span class="line">    for i in B:</span><br><span class="line">        distance_calc_two(startloc,i)</span><br><span class="line">    print(distance)</span><br><span class="line">    with open(&#x27;3.txt&#x27;,&#x27;w&#x27;) as f:</span><br><span class="line">        for i in distance:</span><br><span class="line">            f.write(i+&#x27;\n&#x27;)</span><br></pre></td></tr></table></figure>
-<p>最后结果如下：</p>
-<img src="/2019/07/14/0013_Python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/5.png" class title="result"  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>]]></content>
+<p>工作时间发现写了很多MD基本都是敏感信息，以后就转娱乐博客，记录一下生活好了。</p>
+<img src="/2025/02/14/0015_save_photo/1.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+<img src="/2025/02/14/0015_save_photo/2.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+<img src="/2025/02/14/0015_save_photo/3.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+<img src="/2025/02/14/0015_save_photo/4.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
+]]></content>
       <categories>
-        <category>技术</category>
+        <category>娱乐</category>
       </categories>
       <tags>
-        <tag>python</tag>
-        <tag>经纬度</tag>
+        <tag>GEM</tag>
+        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -745,27 +766,6 @@
       </categories>
       <tags>
         <tag>金融风控</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>save_photo</title>
-    <url>/2025/02/14/0015_save_photo/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>最近生活状态：在龙场悟道中……</p>
-<iframe frameborder="yes" border="0" marginwidth="0" marginheight="0" allow="autoplay" width="600" height="100" src="https://i.y.qq.com/n2/m/outchain/player/index.html?songid=370870476&songtype=0">
-</iframe>
-
-<p>工作时间发现写了很多MD基本都是敏感信息，以后就转娱乐博客，记录一下生活好了。</p>
-<img src="/2025/02/14/0015_save_photo/1.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-<img src="/2025/02/14/0015_save_photo/2.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-<img src="/2025/02/14/0015_save_photo/3.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-<img src="/2025/02/14/0015_save_photo/4.jpg" class  data-tag='post-image' onload='this.onload=null;this.style.opacity=1;' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'>
-]]></content>
-      <categories>
-        <category>娱乐</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-        <tag>GEM</tag>
       </tags>
   </entry>
   <entry>
@@ -1040,6 +1040,39 @@
       </tags>
   </entry>
   <entry>
+    <title>经营分析总结小记</title>
+    <url>/2025/02/24/0022_%E7%BB%8F%E8%90%A5%E5%88%86%E6%9E%90%E6%80%BB%E7%BB%93%E5%B0%8F%E8%AE%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="个人对经分与商分的看法"><a href="#个人对经分与商分的看法" class="headerlink" title="个人对经分与商分的看法"></a>个人对经分与商分的看法</h1><p>经分和商分的工作内容个人感觉基本一致只是侧重不同；</p>
+<p>商分更关注运营侧的指标异动、趋势探究、经营复盘、类目分析等等，对损益类的指标关注有但是没有经分多。</p>
+<p>经分对财务和损益指标做的更细一点 工作内容上也更宏观,一般都对整个事业部的结果负责;一般工作流程是定规划、常跟进、 做解读、 能优化 。</p>
+<h1 id="经分-（收入-成本-规模-利润）"><a href="#经分-（收入-成本-规模-利润）" class="headerlink" title="经分-（收入+成本+规模+利润）"></a>经分-（收入+成本+规模+利润）</h1><h2 id="收入的四种模式（C端）"><a href="#收入的四种模式（C端）" class="headerlink" title="收入的四种模式（C端）"></a>收入的四种模式（C端）</h2><p> 1、流量收入（类似广告）</p>
+<p>与其他三种收入区别在于<strong>是否发生交易行为</strong></p>
+<p>cpc 单次点击成本 &#x3D; 广告流量 * 转化率 * 单次点击价格</p>
+<p>cpm &#x3D; 广告流量(前端展示就收费)*每千次展示可以获得广告收入</p>
+<p> 2、手续费收入（平台佣金）</p>
+<p>收入 &#x3D; gmv * 佣金率</p>
+<p> 3、产供销收入（含供应链供应商） </p>
+<p>产品生产、供应、销售都是一家企业，比如shein </p>
+<p>收入 &#x3D; 流量 * 进店转化率 * 下单转化率 * 客单价</p>
+<p> 4、增值服务收入（会员）</p>
+<p>收入 &#x3D; 流量 * 转化率 * arppu</p>
+<h2 id="成本"><a href="#成本" class="headerlink" title="成本"></a>成本</h2><p>1、主营业务成本收入</p>
+<p>推广成本 、 维护成本 、 其他业务成本</p>
+<p>2、行政及其他收入 （一般不分析这部分）</p>
+<p>3、其实也可以分为固定成本和变动成本，<strong>重点关注变动成本</strong>，这部分是核心，比如某类面向c端的产品，当它生产量级越大，其成本就会下降。</p>
+<h2 id="规模（用户规模和资金规模）"><a href="#规模（用户规模和资金规模）" class="headerlink" title="规模（用户规模和资金规模）"></a>规模（用户规模和资金规模）</h2><p>看<strong>公司发展阶段</strong>来侧重于规模指标，常用新增用户、活跃用户、付费用户等。  </p>
+<h2 id="利润两种计算方式"><a href="#利润两种计算方式" class="headerlink" title="利润两种计算方式"></a>利润两种计算方式</h2><p>毛利润 &#x3D; 收入 - 成本 </p>
+<p>净利润 &#x3D; 收入 - （销售、管理、运营等）费用 - 所得税</p>
+<p>注意：毛利润 &gt;&gt; 净利润，毛利润是净利润的基础，一般经营分析是在缴纳税前的。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>经营分析</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用sklearn进行特征工程</title>
     <url>/2025/02/26/0023_sklearn%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="前要"><a href="#前要" class="headerlink" title="前要"></a>前要</h1><p>数据和特征决定了机器学习的上限，模型和算法只是逼近这个上限而已！</p>
@@ -1130,39 +1163,6 @@
         <tag>python</tag>
         <tag>sklearn</tag>
         <tag>ml</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>经营分析总结小记</title>
-    <url>/2025/02/24/0022_%E7%BB%8F%E8%90%A5%E5%88%86%E6%9E%90%E6%80%BB%E7%BB%93%E5%B0%8F%E8%AE%B0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="个人对经分与商分的看法"><a href="#个人对经分与商分的看法" class="headerlink" title="个人对经分与商分的看法"></a>个人对经分与商分的看法</h1><p>经分和商分的工作内容个人感觉基本一致只是侧重不同；</p>
-<p>商分更关注运营侧的指标异动、趋势探究、经营复盘、类目分析等等，对损益类的指标关注有但是没有经分多。</p>
-<p>经分对财务和损益指标做的更细一点 工作内容上也更宏观,一般都对整个事业部的结果负责;一般工作流程是定规划、常跟进、 做解读、 能优化 。</p>
-<h1 id="经分-（收入-成本-规模-利润）"><a href="#经分-（收入-成本-规模-利润）" class="headerlink" title="经分-（收入+成本+规模+利润）"></a>经分-（收入+成本+规模+利润）</h1><h2 id="收入的四种模式（C端）"><a href="#收入的四种模式（C端）" class="headerlink" title="收入的四种模式（C端）"></a>收入的四种模式（C端）</h2><p> 1、流量收入（类似广告）</p>
-<p>与其他三种收入区别在于<strong>是否发生交易行为</strong></p>
-<p>cpc 单次点击成本 &#x3D; 广告流量 * 转化率 * 单次点击价格</p>
-<p>cpm &#x3D; 广告流量(前端展示就收费)*每千次展示可以获得广告收入</p>
-<p> 2、手续费收入（平台佣金）</p>
-<p>收入 &#x3D; gmv * 佣金率</p>
-<p> 3、产供销收入（含供应链供应商） </p>
-<p>产品生产、供应、销售都是一家企业，比如shein </p>
-<p>收入 &#x3D; 流量 * 进店转化率 * 下单转化率 * 客单价</p>
-<p> 4、增值服务收入（会员）</p>
-<p>收入 &#x3D; 流量 * 转化率 * arppu</p>
-<h2 id="成本"><a href="#成本" class="headerlink" title="成本"></a>成本</h2><p>1、主营业务成本收入</p>
-<p>推广成本 、 维护成本 、 其他业务成本</p>
-<p>2、行政及其他收入 （一般不分析这部分）</p>
-<p>3、其实也可以分为固定成本和变动成本，<strong>重点关注变动成本</strong>，这部分是核心，比如某类面向c端的产品，当它生产量级越大，其成本就会下降。</p>
-<h2 id="规模（用户规模和资金规模）"><a href="#规模（用户规模和资金规模）" class="headerlink" title="规模（用户规模和资金规模）"></a>规模（用户规模和资金规模）</h2><p>看<strong>公司发展阶段</strong>来侧重于规模指标，常用新增用户、活跃用户、付费用户等。  </p>
-<h2 id="利润两种计算方式"><a href="#利润两种计算方式" class="headerlink" title="利润两种计算方式"></a>利润两种计算方式</h2><p>毛利润 &#x3D; 收入 - 成本 </p>
-<p>净利润 &#x3D; 收入 - （销售、管理、运营等）费用 - 所得税</p>
-<p>注意：毛利润 &gt;&gt; 净利润，毛利润是净利润的基础，一般经营分析是在缴纳税前的。</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>经营分析</tag>
       </tags>
   </entry>
   <entry>
@@ -1323,6 +1323,222 @@
       </categories>
       <tags>
         <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Codex使用遇到问题_保持更新</title>
+    <url>/2026/08/04/0026-Codex%E4%BD%BF%E7%94%A8%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98-%E4%BF%9D%E6%8C%81%E6%9B%B4%E6%96%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="01-需要使用电话短信验证"><a href="#01-需要使用电话短信验证" class="headerlink" title="01-需要使用电话短信验证"></a>01-需要使用电话短信验证</h2><p>  网页端正常使用codex，但是下载好的客户端弹出需要电话短信验证。</p>
+<p>  经过了解是codex黑产账号过多做的限制，限制目前只做到首次验证，暂时没有二次验证，可考虑接码平台或者买个外网固定电话，本人穷 + 接码平台很大概率后续毁号，所以直接救助各位大佬。</p>
+<p>  解决方法如下：</p>
+<p>1.在github上搜索<a href="https://github.com/zhishile/codex-auth-helper">codex-auth-helper</a>并下载zip。</p>
+<p>2.在chrome中的扩展程序中导入刚下载并解压后的zip，找到extension文件夹。导入成功后记得在网页端点击固定。</p>
+<p>3.点击chrome中的codex-auth-helper扩展程序，导出身份信息会下载一份auth.json文件。</p>
+<p>4.找到“C:\Users\chuang1chuang.codex”中，将auth.json文件复制（覆盖）到文件夹。</p>
+<p>5.如上述还不行的话，在任务管理器结束codex程序，并把.codex文件夹退出，重新进入即可。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>AI基础概念-保持更新</title>
+    <url>/2026/04/02/0027-AI%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5-%E4%BF%9D%E6%8C%81%E6%9B%B4%E6%96%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="大模型完整核心技术体系梳理"><a href="#大模型完整核心技术体系梳理" class="headerlink" title="大模型完整核心技术体系梳理"></a>大模型完整核心技术体系梳理</h1><h2 id="一、底层引擎：大语言模型-LM"><a href="#一、底层引擎：大语言模型-LM" class="headerlink" title="一、底层引擎：大语言模型(LM)"></a>一、底层引擎：大语言模型(LM)</h2><h3 id="核心定义与架构"><a href="#核心定义与架构" class="headerlink" title="核心定义与架构"></a>核心定义与架构</h3><ul>
+<li>LM全称：Large Language Model（大语言模型），简称大模型</li>
+<li>底层架构：基于Transformer（2017年Google团队在论文《Attention is All You Need》中提出）</li>
+<li>工作原理：本质是文字接龙游戏，通过预测下一个概率最高的词生成连续文本</li>
+</ul>
+<h3 id="发展里程碑"><a href="#发展里程碑" class="headerlink" title="发展里程碑"></a>发展里程碑</h3><table>
+<thead>
+<tr>
+<th>时间</th>
+<th>事件</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2017年</td>
+<td>Transformer架构提出</td>
+<td>奠定大模型技术基础</td>
+</tr>
+<tr>
+<td>2022年底</td>
+<td>GPT-3.5发布</td>
+<td>首个达到可用级别的大模型</td>
+</tr>
+<tr>
+<td>2023年3月</td>
+<td>GPT-4发布</td>
+<td>大幅提升AI能力天花板</td>
+</tr>
+<tr>
+<td>2023年后</td>
+<td>Claude、Gemini等模型涌现</td>
+<td>AI赛道从OpenAI独角戏变为多强竞争</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="二、数据处理单元：Token"><a href="#二、数据处理单元：Token" class="headerlink" title="二、数据处理单元：Token"></a>二、数据处理单元：Token</h2><h3 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h3><ul>
+<li>定义：大模型处理文本的最小单位，通过Tokenizer（分词器）将文本切分为片段</li>
+<li>编码过程：分两步——①文本切分为Token ②映射为Token ID（数字）</li>
+<li>解码过程：将Token ID还原为文本（无需切分步骤）</li>
+</ul>
+<h3 id="Token与自然语言单位的关系"><a href="#Token与自然语言单位的关系" class="headerlink" title="Token与自然语言单位的关系"></a>Token与自然语言单位的关系</h3><table>
+<thead>
+<tr>
+<th>语言单位</th>
+<th>与Token的关系</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中文词语</td>
+<td>非一一对应，可能被拆分</td>
+<td>“工作坊”→“工作”+“坊”</td>
+</tr>
+<tr>
+<td>英文单词</td>
+<td>常见词通常对应1个Token</td>
+<td>“hello”→1个Token</td>
+</tr>
+<tr>
+<td>复杂单词</td>
+<td>可能被拆分</td>
+<td>“helpful”→“help”+“ful”</td>
+</tr>
+<tr>
+<td>特殊字符</td>
+<td>可能需多个Token表示</td>
+<td>“✅”→3个Token</td>
+</tr>
+</tbody></table>
+<h3 id="量化参考"><a href="#量化参考" class="headerlink" title="量化参考"></a>量化参考</h3><ul>
+<li>1个Token ≈ 0.75个英文单词</li>
+<li>1个Token ≈ 1.5-2个汉字</li>
+<li>40万Token ≈ 60-80万汉字 或 30万英文单词</li>
+<li>openai 的文字转换token可视化网站：<a href="https://platform.openai.com/tokenizer?utm_source=copilot.com">https://platform.openai.com/tokenizer?utm_source=copilot.com</a></li>
+</ul>
+<hr>
+<h2 id="三、临时记忆体：Context"><a href="#三、临时记忆体：Context" class="headerlink" title="三、临时记忆体：Context"></a>三、临时记忆体：Context</h2><h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><ul>
+<li>定义：大模型每次处理任务时接收的信息总和，相当于模型的“临时记忆”</li>
+<li>组成部分：用户问题、对话历史、当前输出Token、工具列表、System Prompt等</li>
+<li>容量限制：由Context Window（上下文窗口）定义，即最大可处理的Token数量</li>
+</ul>
+<h3 id="主流模型Context-Window对比"><a href="#主流模型Context-Window对比" class="headerlink" title="主流模型Context Window对比"></a>主流模型Context Window对比</h3><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>Context Window（Token）</th>
+<th>约合汉字数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GPT-5.4</td>
+<td>105万</td>
+<td>约157.5万</td>
+</tr>
+<tr>
+<td>Gemini 3.1 Pro</td>
+<td>100万</td>
+<td>约150万</td>
+</tr>
+<tr>
+<td>Claude Opus 4.6</td>
+<td>100万</td>
+<td>约150万</td>
+</tr>
+</tbody></table>
+<h3 id="突破Context-Window限制的方案"><a href="#突破Context-Window限制的方案" class="headerlink" title="突破Context Window限制的方案"></a>突破Context Window限制的方案</h3><ul>
+<li>RAG技术（检索增强生成）：从知识库中抽取与问题最相关的片段，仅将关键信息送入模型，降低Token消耗</li>
+</ul>
+<hr>
+<h2 id="四、指令交互：Prompt"><a href="#四、指令交互：Prompt" class="headerlink" title="四、指令交互：Prompt"></a>四、指令交互：Prompt</h2><h3 id="定义与分类"><a href="#定义与分类" class="headerlink" title="定义与分类"></a>定义与分类</h3><ul>
+<li>Prompt：给大模型的问题或指令，决定模型输出质量</li>
+<li>Prompt分类：<ul>
+<li>User Prompt：用户输入的具体任务（如“帮我写一首诗”）</li>
+<li>System Prompt：开发者后台配置的人设与做事规则（如“你是一个耐心的数学老师，当学生问你数学问题时，不要直接给答案，而是要一步步引导学生思考，帮助他们理解解题的思路”）</li>
+</ul>
+</li>
+</ul>
+<h3 id="Prompt-Engineering提示词工程"><a href="#Prompt-Engineering提示词工程" class="headerlink" title="Prompt Engineering提示词工程"></a>Prompt Engineering提示词工程</h3><ul>
+<li>核心原则：清晰、具体、明确</li>
+<li>现状：曾经重要，但现在重要性下降，原因①门槛低（本质是“把话说清楚”）②大模型能力提升，可推测模糊意图</li>
+</ul>
+<hr>
+<h2 id="五、外部能力扩展：Tool"><a href="#五、外部能力扩展：Tool" class="headerlink" title="五、外部能力扩展：Tool"></a>五、外部能力扩展：Tool</h2><h3 id="核心作用"><a href="#核心作用" class="headerlink" title="核心作用"></a>核心作用</h3><ul>
+<li>定义：大模型调用的外部函数，使其能够感知和影响外部环境</li>
+<li>解决痛点：弥补大模型无法获取实时信息（如天气）、计算能力有限等弱点</li>
+</ul>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><ol>
+<li>用户提问→平台转发（含工具列表）</li>
+<li>大模型分析→生成工具调用指令</li>
+<li>平台执行调用→获取结果</li>
+<li>大模型整理结果→自然语言输出</li>
+</ol>
+<h3 id="角色分工"><a href="#角色分工" class="headerlink" title="角色分工"></a>角色分工</h3><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>大模型</td>
+<td>选择工具、生成参数、归纳结果</td>
+</tr>
+<tr>
+<td>工具</td>
+<td>执行具体功能（如查询天气）</td>
+</tr>
+<tr>
+<td>平台</td>
+<td>转发信息、执行工具调用</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="六、工具标准化：MCP"><a href="#六、工具标准化：MCP" class="headerlink" title="六、工具标准化：MCP"></a>六、工具标准化：MCP</h2><ul>
+<li>全称：Model Context Protocol（模型上下文协议）</li>
+<li>本质：统一的工具接入标准，解决不同平台工具接入规范不统一的问题<br>举例：OpenAI、Anthropic、Google三个平台各自独立接入规范，重复开发成本高；MCP如同手机Type-C充电口，做通用统一标准</li>
+<li>价值：工具开发者只需按MCP规范开发一次，即可在所有支持MCP的平台复用</li>
+</ul>
+<hr>
+<h2 id="七、自主决策系统：Agent"><a href="#七、自主决策系统：Agent" class="headerlink" title="七、自主决策系统：Agent"></a>七、自主决策系统：Agent</h2><ul>
+<li>Agent定义：能够自主规划、自主调用工具，持续拆解步骤直至完成用户复杂任务的系统</li>
+<li>核心能力：多步骤推理、工具自主选择、复杂流程闭环控制</li>
+<li>代表产品：Claude Code、Codex、Gemini CLI等</li>
+<li>典型构建模式：ReAct、Plan and Execute等</li>
+</ul>
+<hr>
+<h2 id="八、任务定制：Agent-Skill"><a href="#八、任务定制：Agent-Skill" class="headerlink" title="八、任务定制：Agent Skill"></a>八、任务定制：Agent Skill</h2><h3 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h3><ul>
+<li>定义：给Agent配置的任务说明文档，包含任务规则、执行步骤、输出格式、约束条件等</li>
+</ul>
+<h3 id="文档结构"><a href="#文档结构" class="headerlink" title="文档结构"></a>文档结构</h3><ol>
+<li>元数据层：名称（name）、描述（description）、使用示例</li>
+<li>指令层：执行目标、分步操作、判断规则、固定输出格式、案例演示</li>
+</ol>
+<h3 id="技术实现规则"><a href="#技术实现规则" class="headerlink" title="技术实现规则"></a>技术实现规则</h3><ul>
+<li>存储形式：独立Markdown文档（强制文件名：<code>SKILL.md</code>）</li>
+<li>存放路径：指定项目目录（例：Claude Code 默认读取 <code>claude/skills</code> 文件夹）</li>
+<li>加载机制：仅当用户提问匹配技能名称&#x2F;描述关键词时，才加载完整指令执行</li>
+</ul>
+<hr>
+<h2 id="九、概念体系总关联"><a href="#九、概念体系总关联" class="headerlink" title="九、概念体系总关联"></a>九、概念体系总关联</h2><h3 id="完整层级链路"><a href="#完整层级链路" class="headerlink" title="完整层级链路"></a>完整层级链路</h3><p><strong>LM（核心引擎）→ Token（数据最小处理单元）→ Context（上下文记忆空间）→ Prompt（人机交互指令层）→ Tool（外部能力拓展）→ MCP（工具统一接入标准）→ Agent（自主智能决策系统）→ Agent Skill（Agent专项任务定制）</strong></p>
+<h3 id="补充关键细节"><a href="#补充关键细节" class="headerlink" title="补充关键细节"></a>补充关键细节</h3><ol>
+<li>Transformer架构：Google提出理论框架，OpenAI通过GPT系列大规模落地引爆行业应用</li>
+<li>Token分词底层：基于BPE字节对编码算法，由模型无监督学习生成切分规则</li>
+<li>Agent Skill优化点：支持内嵌代码执行、外部资源引用，采用渐进式内容披露减少Token占用</li>
+<li>RAG核心价值：只检索知识库关联片段而非全文投喂，从根源解决上下文窗口长度限制</li>
+</ol>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
       </tags>
   </entry>
 </search>
