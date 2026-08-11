@@ -57,11 +57,11 @@
     <title>Echarts的demo实现</title>
     <url>/2019/01/15/0003_Echarts%E7%9A%84demo%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了</p>
-<div id="echarts3528" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<div id="echarts6117" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts3528'));
+        var myChart = echarts.init(document.getElementById('echarts6117'));
         // 指定图表的配置项和数据
         var option = {
 	 tooltip : {
@@ -262,10 +262,10 @@
 
 <p>效果如下：</p>
 
-        <div id="aplayer-WuRLDbvC" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"></div>
+        <div id="aplayer-ExgOuPUN" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;"></div>
 			  <script>
 				  var options = {"narrow":false,"autoplay":true,"showlrc":3,"mode":"random","music":[{"title":"岩石里的花","author":"邓紫棋","url":"http://192.168.127.151/cache/3/05/streamoc.music.tc.qq.com/f16436618361cfecc79153b3ba1db01a/M800101A9o5D1EWzyd.mp3?vkey=22981DFD3050B42FAB4296D2E56960739E671E4B24A1F2247633AF232692011F5FC6F16E87CF59F9A26E6DBD50592C9FCE4C15A033F29612&guid=MS&fromtag=8&uin=0","pic":"http://lc-vslfihiq.cn-n1.lcfile.com/9facbadc02822c7cf86c.png","lrc":""},{"title":"睡皇后","author":"邓紫棋","url":"http://lc-vslfihiq.cn-n1.lcfile.com/38e7079c52024b425a12.mp3","pic":"http://lc-vslfihiq.cn-n1.lcfile.com/5910fa54d1d1eb90c1cf.png","lrc":""},{"title":"倒数","author":"邓紫棋","url":"http://lc-vslfihiq.cn-n1.lcfile.com/ee98d8bf7cf6311dc37d.mp3","pic":"http://lc-vslfihiq.cn-n1.lcfile.com/f48f7bc8811115acce16.jpg","lrc":""}]};
-				  options.element = document.getElementById("aplayer-WuRLDbvC");
+				  options.element = document.getElementById("aplayer-ExgOuPUN");
 				  var ap = new APlayer(options);
 			    window.aplayers || (window.aplayers = []);
 				  window.aplayers.push(ap);
@@ -1166,6 +1166,25 @@
       </tags>
   </entry>
   <entry>
+    <title>Codex使用遇到问题_保持更新</title>
+    <url>/2026/08/04/0026-Codex%E4%BD%BF%E7%94%A8%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98-%E4%BF%9D%E6%8C%81%E6%9B%B4%E6%96%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="01-需要使用电话短信验证"><a href="#01-需要使用电话短信验证" class="headerlink" title="01-需要使用电话短信验证"></a>01-需要使用电话短信验证</h2><p>  网页端正常使用codex，但是下载好的客户端弹出需要电话短信验证。</p>
+<p>  经过了解是codex黑产账号过多做的限制，限制目前只做到首次验证，暂时没有二次验证，可考虑接码平台或者买个外网固定电话，本人穷 + 接码平台很大概率后续毁号，所以直接救助各位大佬。</p>
+<p>  解决方法如下：</p>
+<p>1.在github上搜索<a href="https://github.com/zhishile/codex-auth-helper">codex-auth-helper</a>并下载zip。</p>
+<p>2.在chrome中的扩展程序中导入刚下载并解压后的zip，找到extension文件夹。导入成功后记得在网页端点击固定。</p>
+<p>3.点击chrome中的codex-auth-helper扩展程序，导出身份信息会下载一份auth.json文件。</p>
+<p>4.找到“C:\Users\chuang1chuang.codex”中，将auth.json文件复制（覆盖）到文件夹。</p>
+<p>5.如上述还不行的话，在任务管理器结束codex程序，并把.codex文件夹退出，重新进入即可。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数据库和数据仓库</title>
     <url>/2025/02/26/0024_%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="数据仓库"><a href="#数据仓库" class="headerlink" title="数据仓库"></a>数据仓库</h1><ul>
@@ -1323,25 +1342,6 @@
       </categories>
       <tags>
         <tag>ML</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Codex使用遇到问题_保持更新</title>
-    <url>/2026/08/04/0026-Codex%E4%BD%BF%E7%94%A8%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98-%E4%BF%9D%E6%8C%81%E6%9B%B4%E6%96%B0/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="01-需要使用电话短信验证"><a href="#01-需要使用电话短信验证" class="headerlink" title="01-需要使用电话短信验证"></a>01-需要使用电话短信验证</h2><p>  网页端正常使用codex，但是下载好的客户端弹出需要电话短信验证。</p>
-<p>  经过了解是codex黑产账号过多做的限制，限制目前只做到首次验证，暂时没有二次验证，可考虑接码平台或者买个外网固定电话，本人穷 + 接码平台很大概率后续毁号，所以直接救助各位大佬。</p>
-<p>  解决方法如下：</p>
-<p>1.在github上搜索<a href="https://github.com/zhishile/codex-auth-helper">codex-auth-helper</a>并下载zip。</p>
-<p>2.在chrome中的扩展程序中导入刚下载并解压后的zip，找到extension文件夹。导入成功后记得在网页端点击固定。</p>
-<p>3.点击chrome中的codex-auth-helper扩展程序，导出身份信息会下载一份auth.json文件。</p>
-<p>4.找到“C:\Users\chuang1chuang.codex”中，将auth.json文件复制（覆盖）到文件夹。</p>
-<p>5.如上述还不行的话，在任务管理器结束codex程序，并把.codex文件夹退出，重新进入即可。</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>AI</tag>
       </tags>
   </entry>
   <entry>
