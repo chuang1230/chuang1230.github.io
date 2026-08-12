@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="Chinese">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="安装Docker一步到位去官网安装https:&#x2F;&#x2F;www.docker.com&#x2F;products&#x2F;docker-desktop&#x2F; Docker报错 Virtualization support not detectedDocker 显示该错误是因为系统底层虚拟化组件未激活。 按照以下顺序排查： 确认硬件与系统环境1.开启 CPU 虚拟化：按 Ctrl + Shift + Esc 打开任务管理器，切">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker部署BiliNote">
+<meta property="og:url" content="http://yoursite.com/2026/05/14/260514-ai%E5%AD%A6%E4%B9%A0-docker%E9%83%A8%E7%BD%B2bilinote/index.html">
+<meta property="og:site_name" content="chuang1230 &#39;s blog">
+<meta property="og:description" content="安装Docker一步到位去官网安装https:&#x2F;&#x2F;www.docker.com&#x2F;products&#x2F;docker-desktop&#x2F; Docker报错 Virtualization support not detectedDocker 显示该错误是因为系统底层虚拟化组件未激活。 按照以下顺序排查： 确认硬件与系统环境1.开启 CPU 虚拟化：按 Ctrl + Shift + Esc 打开任务管理器，切">
+<meta property="og:locale">
+<meta property="article:published_time" content="2026-05-14T03:40:00.000Z">
+<meta property="article:modified_time" content="2026-08-12T04:31:38.774Z">
+<meta property="article:author" content="chuang1230">
+<meta property="article:tag" content="AI应用">
+<meta name="twitter:card" content="summary">
+
+
+<title >Docker部署BiliNote</title>
+
+<!-- Favicon -->
+
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"yoursite.com","author":"chuang1230","root":"/","typed_text":null,"theme_version":"2.2.7","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2019 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner"},"covers":["https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/ba61-bfb8a60ec14ed76d34726896fb54757a.jpg","https://n.sinaimg.cn/sinakd20116/214/w2048h1366/20240512/f5d6-f665a2e6963d4c43db9c5f23729d54c6.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/1c67-5b602d68c986bb517be9054edc7a357a.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/4bce-3649b31b7f757f0cdc9f2fec59c93666.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/b5f9-599865ca3fe095fcb1f27df3cca48e1e.jpg","https://n.sinaimg.cn/sinakd20116/125/w2048h2077/20240512/b55b-fe315d48cdd215c58f867bfa49634d5e.jpg","https://n.sinaimg.cn/sinakd20116/96/w2048h2048/20240512/ceff-fc4a862b068fd7cc2a1749a188a03ee3.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0b9a-39ad42895574b30d0ea55593ae023721.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/dc01-8caacc0d788b4eb94f78876aaa50016c.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/f509-74c59f9a1a91057c603a1bd75bbb4e99.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0dbd-e4b5b3602b9d2a8ddd4fa4d3b40b23f5.jpg","https://n.sinaimg.cn/sinakd20116/672/w2048h1024/20240512/747e-957b40c2a68be3e244b94861c877ec80.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/82cc-cd9923e94dc4e4a1be8ec31366823cc2.jpg","http://k.sinaimg.cn/n/sinakd20116/384/w2048h1536/20240512/2c70-8d6e2d36445c123b3705e5716a02f7d3.jpg/w700d1q75cms.jpg?by=cms_fixed_width"],"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.json"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-08-12 12:31:38"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.7" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+    
+        <div class="trm-logo-text">
+            Kenzo<span>‘s blog</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    archives
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/categories/" target="">
+                    分类
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/tags/" target="">
+                    标签
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner video cover -->
+    <video autoplay="autoplay" loop muted playsinline webkit-playinginline class="trm-banner-cover">
+        <source src="https://cdn.moji.com/websrc/video/summer20190515.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+        Your browser does not support HTML5 video.
+    </video>
+    <!-- banner video cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            Docker部署BiliNote
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2026
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar-20260811-210134.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        Kenzo
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/chuang1230" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="/chuang1chuang@163.com" title="email" rel="nofollow" target="_blank">
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    
+        <a href="https://www.instagram.com/chuang1chuang" title="ins" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-instagram"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                地址:
+            </div>
+            <div class="trm-label trm-label-light">
+                星辰大海
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                年龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                90后
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                学校:
+            </div>
+            <div class="trm-label trm-label-light">
+                地外行星爆破学院
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                爱好:
+            </div>
+            <div class="trm-label trm-label-light">
+                粤语歌爱好者
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:chuang1chuang@163.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            05/14
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            11:40
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            chuang1230
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h2 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h2><p>一步到位去官网安装<a href="https://www.docker.com/products/docker-desktop/">https://www.docker.com/products/docker-desktop/</a></p>
+<h3 id="Docker报错-Virtualization-support-not-detected"><a href="#Docker报错-Virtualization-support-not-detected" class="headerlink" title="Docker报错 Virtualization support not detected"></a>Docker报错 Virtualization support not detected</h3><p>Docker 显示该错误是因为系统底层虚拟化组件未激活。</p>
+<p>按照以下顺序排查：</p>
+<h4 id="确认硬件与系统环境"><a href="#确认硬件与系统环境" class="headerlink" title="确认硬件与系统环境"></a>确认硬件与系统环境</h4><p>1.开启 CPU 虚拟化：按 Ctrl + Shift + Esc 打开任务管理器，切换至性能 &gt; CPU，查看右下角是否显示虚拟化：已启用。若显示“已禁用”，需重启电脑进入 BIOS 开启 Intel VT-x 或 AMD-V。</p>
+<p>2.开启 Windows 功能：按下 Win + R 键，输入 optionalfeatures 打开“启用或关闭Windows功能”，勾选以下选项：</p>
+<p>虚拟机平台</p>
+<p>适用于Linux的Windows子系统 </p>
+<p>(WSL)Hyper-V (若有，可勾选)</p>
+<p>3.点击确定后，必须重启电脑。</p>
+<h4 id="强制开启虚拟化引导"><a href="#强制开启虚拟化引导" class="headerlink" title="强制开启虚拟化引导"></a>强制开启虚拟化引导</h4><p>即使 BIOS 和系统功能都开启了，Windows 的 Hypervisor 有时仍不会自动加载。</p>
+<p>1.在任务栏搜索框中输入 PowerShell，右键选择以管理员身份运行。</p>
+<p>2.输入以下命令并按回车：bcdedit &#x2F;set hypervisorlaunchtype auto（提示“操作成功完成”即代表生效。）</p>
+<p>3.执行 wsl –update 更新内核</p>
+<p>4.随后再次重启电脑</p>
+<h2 id="下载BiliNote"><a href="#下载BiliNote" class="headerlink" title="下载BiliNote"></a>下载BiliNote</h2><p>一步到位去github下载<a href="https://github.com/JefferyHcool/BiliNote">https://github.com/JefferyHcool/BiliNote</a></p>
+<h2 id="开始部署（直接使用他人写好无踩坑bat，谢谢B站up主AI茶谈）"><a href="#开始部署（直接使用他人写好无踩坑bat，谢谢B站up主AI茶谈）" class="headerlink" title="开始部署（直接使用他人写好无踩坑bat，谢谢B站up主AI茶谈）"></a>开始部署（直接使用他人写好无踩坑bat，谢谢B站up主AI茶谈）</h2><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">chcp</span> <span class="number">936</span></span><br><span class="line"><span class="built_in">title</span> Bilinote 控制台</span><br><span class="line"><span class="built_in">setlocal</span> enabledelayedexpansion</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> NAME=bilinote</span><br><span class="line"><span class="built_in">set</span> IMAGE=ghcr.io/jefferyhcool/bilinote:latest</span><br><span class="line"><span class="built_in">set</span> TARFILE=bilinote.tar.gz</span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">REM ============ 第1步：检查 Docker 是否可用 ============</span></span><br><span class="line"><span class="built_in">echo</span> ============================================================</span><br><span class="line"><span class="built_in">echo</span>                     Bilinote 启动脚本</span><br><span class="line"><span class="built_in">echo</span>                      作者:b站 AI茶谈</span><br><span class="line"><span class="built_in">echo</span> ============================================================</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> [<span class="number">1</span>/<span class="number">5</span>] 检查 Docker ...</span><br><span class="line">docker version --<span class="built_in">format</span> &quot;ok&quot; <span class="number">2</span>&gt;&amp;<span class="number">1</span> | <span class="built_in">findstr</span> ok</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">1</span> (</span><br><span class="line">    <span class="built_in">echo</span>.</span><br><span class="line">    <span class="built_in">echo</span> [错误] 未检测到正在运行的 Docker，请先启动 Docker Desktop。</span><br><span class="line">    <span class="built_in">pause</span></span><br><span class="line">    <span class="keyword">exit</span> /b <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">echo</span>       Docker 正常。</span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">REM ============ 第2步：检查本地是否已有镜像，没有则导入 ============</span></span><br><span class="line"><span class="built_in">echo</span> [<span class="number">2</span>/<span class="number">5</span>] 检查本地镜像 ...</span><br><span class="line"><span class="built_in">set</span> HASIMG=</span><br><span class="line"><span class="keyword">for</span> /f &quot;delims=&quot; <span class="variable">%%i</span> <span class="keyword">in</span> (&#x27;docker images -q <span class="variable">%IMAGE%</span>&#x27;) <span class="keyword">do</span> <span class="built_in">set</span> HASIMG=<span class="variable">%%i</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> &quot;<span class="variable">!HASIMG!</span>&quot;==&quot;&quot; (</span><br><span class="line">    <span class="built_in">echo</span>       镜像已存在，跳过导入。</span><br><span class="line">    <span class="keyword">goto</span> check_container</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span>       本地未找到镜像 <span class="variable">%IMAGE%</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exist</span> &quot;<span class="variable">%~dp0%</span>TARFILE%&quot; (</span><br><span class="line">    <span class="built_in">echo</span>.</span><br><span class="line">    <span class="built_in">echo</span> [错误] 未找到镜像文件 <span class="variable">%TARFILE%</span></span><br><span class="line">    <span class="built_in">echo</span> 请把 <span class="variable">%TARFILE%</span> 放到本脚本同目录：%~dp0</span><br><span class="line">    <span class="built_in">echo</span> 然后重新双击运行本脚本。</span><br><span class="line">    <span class="built_in">pause</span></span><br><span class="line">    <span class="keyword">exit</span> /b <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">echo</span>       正在从 <span class="variable">%TARFILE%</span> 导入镜像（约<span class="number">1</span>-<span class="number">3</span>分钟，请耐心等待）...</span><br><span class="line">docker load -i &quot;<span class="variable">%~dp0%</span>TARFILE%&quot;</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">1</span> (</span><br><span class="line">    <span class="built_in">echo</span>.</span><br><span class="line">    <span class="built_in">echo</span> [错误] 镜像导入失败，请检查 tar.gz 文件是否完整。</span><br><span class="line">    <span class="built_in">pause</span></span><br><span class="line">    <span class="keyword">exit</span> /b <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">echo</span>       镜像导入完成。</span><br><span class="line"></span><br><span class="line">:check_container</span><br><span class="line"><span class="comment">REM ============ 第3步：根据容器状态分流（适配重复点击）============</span></span><br><span class="line"><span class="built_in">echo</span> [<span class="number">3</span>/<span class="number">5</span>] 检查容器状态 ...</span><br><span class="line"><span class="built_in">set</span> EXISTS=</span><br><span class="line"><span class="keyword">for</span> /f &quot;delims=&quot; <span class="variable">%%i</span> <span class="keyword">in</span> (&#x27;docker ps -a -q -f name^=^/<span class="variable">%NAME%</span>&#x27;) <span class="keyword">do</span> <span class="built_in">set</span> EXISTS=<span class="variable">%%i</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> &quot;<span class="variable">!EXISTS!</span>&quot;==&quot;&quot; (</span><br><span class="line"><span class="comment">    REM ---- 容器不存在：首次创建 ----</span></span><br><span class="line">    <span class="built_in">echo</span>       未发现容器，首次创建并运行 ...</span><br><span class="line">    docker run -d -p <span class="number">80</span>:<span class="number">80</span> -v bilinote-data:/app/backend/data -v bilinote-config:/app/backend/config -v bilinote-static:/app/backend/static -v bilinote-models:/app/backend/models --name <span class="variable">%NAME%</span> <span class="variable">%IMAGE%</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">1</span> (</span><br><span class="line">        <span class="built_in">echo</span>.</span><br><span class="line">        <span class="built_in">echo</span> [错误] 创建容器失败。</span><br><span class="line">        <span class="keyword">call</span> :diagnose</span><br><span class="line">        <span class="built_in">pause</span></span><br><span class="line">        <span class="keyword">exit</span> /b <span class="number">1</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">goto</span> verify_running</span><br><span class="line">)</span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">REM ---- 容器已存在：判断状态 ----</span></span><br><span class="line"><span class="built_in">set</span> RUNNING=</span><br><span class="line"><span class="keyword">for</span> /f &quot;delims=&quot; <span class="variable">%%i</span> <span class="keyword">in</span> (&#x27;docker inspect -f &quot;&#123;&#123;.State.Running&#125;&#125;&quot; <span class="variable">%NAME%</span>&#x27;) <span class="keyword">do</span> <span class="built_in">set</span> RUNNING=<span class="variable">%%i</span></span><br><span class="line"><span class="keyword">if</span> &quot;<span class="variable">!RUNNING!</span>&quot;==&quot;true&quot; (</span><br><span class="line">    <span class="built_in">echo</span>       容器已在运行中，无需重复启动。</span><br><span class="line">    <span class="keyword">goto</span> show_access</span><br><span class="line">)</span><br><span class="line"><span class="comment">REM 容器存在但没在跑 —— 可能正常停止，也可能卡在 Created 或反复崩溃</span></span><br><span class="line"><span class="built_in">set</span> STATUS=</span><br><span class="line"><span class="keyword">for</span> /f &quot;delims=&quot; <span class="variable">%%i</span> <span class="keyword">in</span> (&#x27;docker inspect -f &quot;&#123;&#123;.State.Status&#125;&#125;&quot; <span class="variable">%NAME%</span>&#x27;) <span class="keyword">do</span> <span class="built_in">set</span> STATUS=<span class="variable">%%i</span></span><br><span class="line"><span class="keyword">if</span> &quot;<span class="variable">!STATUS!</span>&quot;==&quot;created&quot; (</span><br><span class="line">    <span class="built_in">echo</span>       容器处于异常的 Created 状态，删除后重新创建 ...</span><br><span class="line">    docker rm -f <span class="variable">%NAME%</span></span><br><span class="line">    docker run -d -p <span class="number">80</span>:<span class="number">80</span> -v bilinote-data:/app/backend/data -v bilinote-config:/app/backend/config -v bilinote-static:/app/backend/static -v bilinote-models:/app/backend/models --name <span class="variable">%NAME%</span> <span class="variable">%IMAGE%</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">1</span> (</span><br><span class="line">        <span class="built_in">echo</span>.</span><br><span class="line">        <span class="built_in">echo</span> [错误] 重新创建容器失败。</span><br><span class="line">        <span class="keyword">call</span> :diagnose</span><br><span class="line">        <span class="built_in">pause</span></span><br><span class="line">        <span class="keyword">exit</span> /b <span class="number">1</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">goto</span> verify_running</span><br><span class="line">)</span><br><span class="line"><span class="built_in">echo</span>       容器已存在但处于停止状态，重新启动 ...</span><br><span class="line">docker <span class="built_in">start</span> <span class="variable">%NAME%</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">1</span> (</span><br><span class="line">    <span class="built_in">echo</span>.</span><br><span class="line">    <span class="built_in">echo</span> [错误] 启动容器失败。</span><br><span class="line">    <span class="keyword">call</span> :diagnose</span><br><span class="line">    <span class="built_in">pause</span></span><br><span class="line">    <span class="keyword">exit</span> /b <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">:verify_running</span><br><span class="line"><span class="comment">REM ============ 第4步：轮询确认容器稳定运行 ============</span></span><br><span class="line"><span class="built_in">echo</span> [<span class="number">4</span>/<span class="number">5</span>] 确认容器运行 ...</span><br><span class="line"><span class="built_in">set</span> OK=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> /L <span class="variable">%%n</span> <span class="keyword">in</span> (<span class="number">1</span>,<span class="number">1</span>,<span class="number">3</span>) <span class="keyword">do</span> (</span><br><span class="line">    <span class="built_in">set</span> RUNNING=</span><br><span class="line">    <span class="keyword">for</span> /f &quot;delims=&quot; <span class="variable">%%i</span> <span class="keyword">in</span> (&#x27;docker inspect -f &quot;&#123;&#123;.State.Running&#125;&#125;&quot; <span class="variable">%NAME%</span>&#x27;) <span class="keyword">do</span> <span class="built_in">set</span> RUNNING=<span class="variable">%%i</span></span><br><span class="line">    <span class="keyword">if</span> &quot;<span class="variable">!RUNNING!</span>&quot;==&quot;true&quot; (</span><br><span class="line">        <span class="built_in">set</span> OK=<span class="number">1</span></span><br><span class="line">    ) <span class="keyword">else</span> (</span><br><span class="line">        <span class="built_in">set</span> OK=<span class="number">0</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">if</span> &quot;<span class="variable">!OK!</span>&quot;==&quot;<span class="number">1</span>&quot; (</span><br><span class="line"><span class="comment">        REM 还在跑就等待1秒再确认没立刻崩</span></span><br><span class="line">        <span class="built_in">ping</span> -n <span class="number">2</span> <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span> | <span class="built_in">findstr</span> &quot;__nomatch_zzz__&quot;</span><br><span class="line">    ) <span class="keyword">else</span> (</span><br><span class="line">        <span class="keyword">goto</span> check_result</span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line">:check_result</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> &quot;<span class="variable">!OK!</span>&quot;==&quot;<span class="number">1</span>&quot; (</span><br><span class="line">    <span class="built_in">echo</span>.</span><br><span class="line">    <span class="built_in">echo</span> [错误] 容器未能稳定运行。</span><br><span class="line">    <span class="keyword">call</span> :diagnose</span><br><span class="line">    <span class="built_in">echo</span>.</span><br><span class="line">    <span class="built_in">echo</span> 提示：若提示端口被占用，请关闭占用 <span class="number">80</span> 端口的程序后重试。</span><br><span class="line">    <span class="built_in">pause</span></span><br><span class="line">    <span class="keyword">exit</span> /b <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">:show_access</span><br><span class="line"><span class="built_in">echo</span> [<span class="number">5</span>/<span class="number">5</span>] 完成。</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> ============================================================</span><br><span class="line"><span class="built_in">echo</span>   启动成功！浏览器访问： http://localhost</span><br><span class="line"><span class="built_in">echo</span> ============================================================</span><br><span class="line"><span class="built_in">echo</span>   提示：服务稳态运行时 docker logs 通常无新输出，属正常现象。</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"></span><br><span class="line">:menu</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> --------------------------------------------------</span><br><span class="line"><span class="built_in">echo</span>   <span class="number">1</span>  查看实时日志（在新窗口打开）</span><br><span class="line"><span class="built_in">echo</span>   <span class="number">2</span>  重启容器（保留数据）</span><br><span class="line"><span class="built_in">echo</span>   <span class="number">3</span>  停止容器并退出</span><br><span class="line"><span class="built_in">echo</span>   <span class="number">4</span>  保持运行，退出窗口</span><br><span class="line"><span class="built_in">echo</span> --------------------------------------------------</span><br><span class="line">choice /c <span class="number">1234</span> /n /m &quot;请选择 [<span class="number">1</span>=日志 <span class="number">2</span>=重启 <span class="number">3</span>=停止 <span class="number">4</span>=退出]: &quot;</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">4</span> <span class="keyword">goto</span> keepexit</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">3</span> <span class="keyword">goto</span> stop</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">2</span> <span class="keyword">goto</span> restart</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">1</span> <span class="keyword">goto</span> logs</span><br><span class="line"></span><br><span class="line">:logs</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> [正在打开独立的日志窗口]</span><br><span class="line"><span class="built_in">echo</span> [说明] 服务稳态运行时日志不会有新内容，看到启动日志后安静是正常的。</span><br><span class="line"><span class="built_in">echo</span>        只有容器重启或服务异常时才会出现新日志。</span><br><span class="line"><span class="built_in">echo</span> [操作] 在日志窗口里按 Ctrl+C 或关闭该窗口即可退出日志查看。</span><br><span class="line"><span class="built_in">echo</span>        本窗口保持在下方，按任意键可返回菜单。</span><br><span class="line"><span class="built_in">echo</span> --------------------------------------------------</span><br><span class="line"><span class="built_in">start</span> &quot;Bilinote 实时日志&quot; <span class="built_in">cmd</span> /k &quot;<span class="built_in">chcp</span> <span class="number">65001</span> &amp; <span class="built_in">echo</span> 日志实时跟随中（稳态下可能长时间无输出，属正常）&amp; <span class="built_in">echo</span> 按 Ctrl+C 或关闭本窗口退出 &amp; docker logs -f --tail=<span class="number">50</span> <span class="variable">%NAME%</span>&quot;</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> 日志窗口已打开。回到本窗口按任意键返回菜单...</span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line"><span class="keyword">goto</span> menu</span><br><span class="line"></span><br><span class="line">:restart</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> 正在重启容器（保留数据卷，不会丢失配置和历史）...</span><br><span class="line">docker restart <span class="variable">%NAME%</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">1</span> (</span><br><span class="line">    <span class="built_in">echo</span> [错误] 重启失败。</span><br><span class="line">    <span class="keyword">call</span> :diagnose</span><br><span class="line">    <span class="built_in">pause</span></span><br><span class="line">) <span class="keyword">else</span> (</span><br><span class="line">    <span class="built_in">echo</span> 已重启。等待服务就绪 ...</span><br><span class="line">    <span class="built_in">ping</span> -n <span class="number">4</span> <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span> | <span class="built_in">findstr</span> &quot;__nomatch_zzz__&quot;</span><br><span class="line">    <span class="built_in">echo</span> 重启完成。</span><br><span class="line">)</span><br><span class="line"><span class="keyword">goto</span> menu</span><br><span class="line"></span><br><span class="line">:stop</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> 确认要停止容器吗？（数据卷会保留，下次双击脚本自动重启）</span><br><span class="line">choice /c YN /n /m &quot;[Y=停止 N=返回菜单]: &quot;</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">errorlevel</span> <span class="number">2</span> <span class="keyword">goto</span> menu</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> 正在停止容器 ...</span><br><span class="line">docker stop <span class="variable">%NAME%</span></span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> 已停止。容器与数据卷保留，下次运行本脚本会自动重新启动。</span><br><span class="line"><span class="built_in">pause</span></span><br><span class="line"><span class="keyword">exit</span> /b <span class="number">0</span></span><br><span class="line"></span><br><span class="line">:keepexit</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> 容器继续在后台运行，窗口即将关闭。</span><br><span class="line"><span class="built_in">ping</span> -n <span class="number">2</span> <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span> | <span class="built_in">findstr</span> &quot;__nomatch_zzz__&quot;</span><br><span class="line"><span class="keyword">exit</span> /b <span class="number">0</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">REM ============ 子程序：诊断容器失败原因 ============</span></span><br><span class="line">:diagnose</span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> ---- 诊断信息 ----</span><br><span class="line"><span class="built_in">set</span> DSTATUS=</span><br><span class="line"><span class="keyword">for</span> /f &quot;delims=&quot; <span class="variable">%%i</span> <span class="keyword">in</span> (&#x27;docker inspect -f &quot;&#123;&#123;.State.Status&#125;&#125;&quot; <span class="variable">%NAME%</span>&#x27;) <span class="keyword">do</span> <span class="built_in">set</span> DSTATUS=<span class="variable">%%i</span></span><br><span class="line"><span class="built_in">set</span> DEXIT=</span><br><span class="line"><span class="keyword">for</span> /f &quot;delims=&quot; <span class="variable">%%i</span> <span class="keyword">in</span> (&#x27;docker inspect -f &quot;&#123;&#123;.State.ExitCode&#125;&#125;&quot; <span class="variable">%NAME%</span>&#x27;) <span class="keyword">do</span> <span class="built_in">set</span> DEXIT=<span class="variable">%%i</span></span><br><span class="line"><span class="built_in">set</span> DERR=</span><br><span class="line"><span class="keyword">for</span> /f &quot;delims=&quot; <span class="variable">%%i</span> <span class="keyword">in</span> (&#x27;docker inspect -f &quot;&#123;&#123;.State.Error&#125;&#125;&quot; <span class="variable">%NAME%</span>&#x27;) <span class="keyword">do</span> <span class="built_in">set</span> DERR=<span class="variable">%%i</span></span><br><span class="line"><span class="built_in">echo</span> 容器状态: <span class="variable">!DSTATUS!</span>  退出码: <span class="variable">!DEXIT!</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> &quot;<span class="variable">!DERR!</span>&quot;==&quot;&quot; <span class="built_in">echo</span> 错误信息: <span class="variable">!DERR!</span></span><br><span class="line"><span class="built_in">echo</span>.</span><br><span class="line"><span class="built_in">echo</span> 最后的容器日志:</span><br><span class="line">docker logs --tail=<span class="number">10</span> <span class="variable">%NAME%</span> <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br><span class="line"><span class="built_in">echo</span> ------------------</span><br><span class="line"><span class="keyword">goto</span> :eof</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="网页BiliNote设置"><a href="#网页BiliNote设置" class="headerlink" title="网页BiliNote设置"></a>网页BiliNote设置</h2><p>1、网页打开localhost后，点击全局设置，加入第三方中转站的模型供应商配置对应API_KEY 和 地址。</p>
+<p>本人使用硅基流动![<a href="https://www.siliconflow.cn/]%EF%BC%8C%E6%AC%A2%E8%BF%8E%E5%A4%A7%E5%AE%B6%E4%BD%BF%E7%94%A8%E6%88%91%E7%9A%84%E9%82%80%E8%AF%B7%E7%A0%81%EF%BC%9AKaFfh47l%EF%BC%9B%E9%82%80%E8%AF%B7%E9%93%BE%E6%8E%A5%EF%BC%9Ahttps://cloud.siliconflow.cn/i/KaFfh47l">https://www.siliconflow.cn/]，欢迎大家使用我的邀请码：KaFfh47l；邀请链接：https://cloud.siliconflow.cn/i/KaFfh47l</a>;</p>
+<p>2、模型选择多模态模型，在中转转选择视觉类的差不多。</p>
+<p>3、音频转写设置选择必剪（在线）。</p>
+<p>4、下载配置输入对应视频平台的cookie。打开对应视频网站，F12刷新后复制cookie即可。</p>
+<p>5、部署监控设置，需要保证后端FAST API、Whisper 模型和FFmpeg这三个已安装且正常运行即可。</p>
+<h2 id="BiliNote正常使用"><a href="#BiliNote正常使用" class="headerlink" title="BiliNote正常使用"></a>BiliNote正常使用</h2><p>1、记得点视频理解，模型选择和模型风格等其他按需选择。如还有其他问题参考b站BV1RmTq6nEhE。</p>
+<p>2、个人使用体验，有点小贵，本地10分钟<br>视频需要1.2元，我哭死，可能我选择的模型有点贵。</p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2026/08/11/260811-ai%E5%AD%A6%E4%B9%A0-codex%E4%BD%BF%E7%94%A8%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98-%E4%BF%9D%E6%8C%81%E6%9B%B4%E6%96%B0/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/AI%E5%AD%A6%E4%B9%A0/">
+                    AI学习
+                </a>
+            </div>
+            <h5>
+                <a href="/2026/08/11/260811-ai%E5%AD%A6%E4%B9%A0-codex%E4%BD%BF%E7%94%A8%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98-%E4%BF%9D%E6%8C%81%E6%9B%B4%E6%96%B0/" class="trm-anima-link">
+                    codex使用遇到问题-保持更新
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>26/08/11</li>
+                <li>19:24</li>
+                
+                    <li>760</li>
+                
+                
+                    <li>3</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2026/05/07/260527-ai%E5%AD%A6%E4%B9%A0-test-ai-markdown-%E8%AF%AD%E6%B3%95%E9%80%9F%E6%9F%A5/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/AI%E5%AD%A6%E4%B9%A0/">
+                    AI学习
+                </a>
+            </div>
+            <h5>
+                <a href="/2026/05/07/260527-ai%E5%AD%A6%E4%B9%A0-test-ai-markdown-%E8%AF%AD%E6%B3%95%E9%80%9F%E6%9F%A5/" class="trm-anima-link">
+                    Test-AI-Markdown 语法速查
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>26/05/07</li>
+                <li>21:30</li>
+                
+                    <li>138</li>
+                
+                
+                    <li>1</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.7
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="安装Docker"><a rel="nofollow" class="trm-toc-link" href="#安装Docker"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">安装Docker</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="Docker报错 Virtualization support not detected"><a rel="nofollow" class="trm-toc-link" href="#Docker报错-Virtualization-support-not-detected"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">Docker报错 Virtualization support not detected</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="下载BiliNote"><a rel="nofollow" class="trm-toc-link" href="#下载BiliNote"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">下载BiliNote</span></a></li><li class="trm-toc-item trm-toc-level-2" title="开始部署（直接使用他人写好无踩坑bat，谢谢B站up主AI茶谈）"><a rel="nofollow" class="trm-toc-link" href="#开始部署（直接使用他人写好无踩坑bat，谢谢B站up主AI茶谈）"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">开始部署（直接使用他人写好无踩坑bat，谢谢B站up主AI茶谈）</span></a></li><li class="trm-toc-item trm-toc-level-2" title="网页BiliNote设置"><a rel="nofollow" class="trm-toc-link" href="#网页BiliNote设置"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">网页BiliNote设置</span></a></li><li class="trm-toc-item trm-toc-level-2" title="BiliNote正常使用"><a rel="nofollow" class="trm-toc-link" href="#BiliNote正常使用"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">BiliNote正常使用</span></a></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.7"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+			<script src="/js/plugins/danmu.js?v=2.2.7"></script>
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.7"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>

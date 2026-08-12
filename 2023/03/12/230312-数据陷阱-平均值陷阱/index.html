@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="Chinese">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="日常默认的平均值：算术平均数大众口中的 “平均” 全部指代算术平均值：总和 ÷ 样本数量。 核心缺陷：对极端异常值极度敏感，少量超大 &#x2F; 极小值会大幅偏移整体数值，无法代表大多数人的真实情况。 适用前提：仅数据呈正态均匀分布时，算术平均才有参考价值；偏态分布（薪资、房价、用户时长、客单价）极易失真。 经典具象案例案例 1：公司薪资误导10 人团队：8 名普通员工月薪 3–4.5 万，主管">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据陷阱：平均值陷阱">
+<meta property="og:url" content="http://yoursite.com/2023/03/12/230312-%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1-%E5%B9%B3%E5%9D%87%E5%80%BC%E9%99%B7%E9%98%B1/index.html">
+<meta property="og:site_name" content="chuang1230 &#39;s blog">
+<meta property="og:description" content="日常默认的平均值：算术平均数大众口中的 “平均” 全部指代算术平均值：总和 ÷ 样本数量。 核心缺陷：对极端异常值极度敏感，少量超大 &#x2F; 极小值会大幅偏移整体数值，无法代表大多数人的真实情况。 适用前提：仅数据呈正态均匀分布时，算术平均才有参考价值；偏态分布（薪资、房价、用户时长、客单价）极易失真。 经典具象案例案例 1：公司薪资误导10 人团队：8 名普通员工月薪 3–4.5 万，主管">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-03-12T15:21:00.000Z">
+<meta property="article:modified_time" content="2026-08-12T01:44:58.424Z">
+<meta property="article:author" content="chuang1230">
+<meta property="article:tag" content="data">
+<meta name="twitter:card" content="summary">
+
+
+<title >数据陷阱：平均值陷阱</title>
+
+<!-- Favicon -->
+
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"yoursite.com","author":"chuang1230","root":"/","typed_text":null,"theme_version":"2.2.7","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2019 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner"},"covers":["https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/ba61-bfb8a60ec14ed76d34726896fb54757a.jpg","https://n.sinaimg.cn/sinakd20116/214/w2048h1366/20240512/f5d6-f665a2e6963d4c43db9c5f23729d54c6.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/1c67-5b602d68c986bb517be9054edc7a357a.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/4bce-3649b31b7f757f0cdc9f2fec59c93666.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/b5f9-599865ca3fe095fcb1f27df3cca48e1e.jpg","https://n.sinaimg.cn/sinakd20116/125/w2048h2077/20240512/b55b-fe315d48cdd215c58f867bfa49634d5e.jpg","https://n.sinaimg.cn/sinakd20116/96/w2048h2048/20240512/ceff-fc4a862b068fd7cc2a1749a188a03ee3.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0b9a-39ad42895574b30d0ea55593ae023721.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/dc01-8caacc0d788b4eb94f78876aaa50016c.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/f509-74c59f9a1a91057c603a1bd75bbb4e99.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0dbd-e4b5b3602b9d2a8ddd4fa4d3b40b23f5.jpg","https://n.sinaimg.cn/sinakd20116/672/w2048h1024/20240512/747e-957b40c2a68be3e244b94861c877ec80.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/82cc-cd9923e94dc4e4a1be8ec31366823cc2.jpg","http://k.sinaimg.cn/n/sinakd20116/384/w2048h1536/20240512/2c70-8d6e2d36445c123b3705e5716a02f7d3.jpg/w700d1q75cms.jpg?by=cms_fixed_width"],"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.json"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-08-12 09:44:58"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.7" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+    
+        <div class="trm-logo-text">
+            Kenzo<span>‘s blog</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    archives
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/categories/" target="">
+                    分类
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/tags/" target="">
+                    标签
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner video cover -->
+    <video autoplay="autoplay" loop muted playsinline webkit-playinginline class="trm-banner-cover">
+        <source src="https://cdn.moji.com/websrc/video/summer20190515.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+        Your browser does not support HTML5 video.
+    </video>
+    <!-- banner video cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            数据陷阱：平均值陷阱
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2023
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar-20260811-210134.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        Kenzo
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/chuang1230" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="/chuang1chuang@163.com" title="email" rel="nofollow" target="_blank">
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    
+        <a href="https://www.instagram.com/chuang1chuang" title="ins" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-instagram"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                地址:
+            </div>
+            <div class="trm-label trm-label-light">
+                星辰大海
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                年龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                90后
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                学校:
+            </div>
+            <div class="trm-label trm-label-light">
+                地外行星爆破学院
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                爱好:
+            </div>
+            <div class="trm-label trm-label-light">
+                粤语歌爱好者
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:chuang1chuang@163.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            03/12
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            23:21
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            chuang1230
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h3 id="日常默认的平均值：算术平均数"><a href="#日常默认的平均值：算术平均数" class="headerlink" title="日常默认的平均值：算术平均数"></a>日常默认的平均值：算术平均数</h3><p>大众口中的 “平均” 全部指代<strong>算术平均值</strong>：总和 ÷ 样本数量。</p>
+<p>核心缺陷：<strong>对极端异常值极度敏感</strong>，少量超大 &#x2F; 极小值会大幅偏移整体数值，无法代表大多数人的真实情况。</p>
+<p>适用前提：仅数据呈<strong>正态均匀分布</strong>时，算术平均才有参考价值；偏态分布（薪资、房价、用户时长、客单价）极易失真。</p>
+<h3 id="经典具象案例"><a href="#经典具象案例" class="headerlink" title="经典具象案例"></a>经典具象案例</h3><h4 id="案例-1：公司薪资误导"><a href="#案例-1：公司薪资误导" class="headerlink" title="案例 1：公司薪资误导"></a>案例 1：公司薪资误导</h4><p>10 人团队：8 名普通员工月薪 3–4.5 万，主管 15 万，老板 50 万</p>
+<ul>
+<li>算术平均薪资：9.5 万</li>
+<li>中位数薪资：4 万<br>结论：80% 员工薪资远低于平均值，仅看平均会误判团队整体收入水平。</li>
+</ul>
+<h4 id="案例-2：大众生活误导场景"><a href="#案例-2：大众生活误导场景" class="headerlink" title="案例 2：大众生活误导场景"></a>案例 2：大众生活误导场景</h4><p>1）人均住房面积、人均年收入：富豪超大资产拉高整体均值，普通人体感完全不符；</p>
+<p>2）APP 平均加载时长：少数弱网用户超长加载拉高均值，掩盖绝大多数用户流畅体验；</p>
+<p>3）平均客单价：头部大额订单拉高均值，误以为普通客户消费能力更高。</p>
+<h3 id="三类衡量数据中心趋势的指标对比"><a href="#三类衡量数据中心趋势的指标对比" class="headerlink" title="三类衡量数据中心趋势的指标对比"></a>三类衡量数据中心趋势的指标对比</h3><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>算术平均值（均值 Mean）</td>
+<td>受极端值干扰，反映数据 “总体量重心”</td>
+<td>数据均匀分布、无异常值场景（基础统计汇总）</td>
+</tr>
+<tr>
+<td>中位数（Median）</td>
+<td>排序后中间值，完全不受极端值影响，代表<strong>典型人群水平</strong></td>
+<td>薪资、房价、用户时长、消费、等待时长等偏态数据</td>
+</tr>
+<tr>
+<td>众数（Mode）</td>
+<td>出现频次最高的数值，代表最普遍情况</td>
+<td>分析用户高频行为、主流消费档位</td>
+</tr>
+</tbody></table>
+<h3 id="延伸衍生陷阱"><a href="#延伸衍生陷阱" class="headerlink" title="延伸衍生陷阱"></a>延伸衍生陷阱</h3><p><strong>分层数据掩盖问题（辛普森悖论前置铺垫）</strong></p>
+<p>全局平均值会抹平分组差异：如新算法全局完播率更低，但一线、二线城市分组数据全部优于旧版本，根源是低流量基线的下沉用户占比更高，拉低整体均值。只看全局平均会直接否定有效方案。</p>
+<p><strong>均值回归误区</strong><br>仅用单次峰值样本均值下结论：对头部付费用户发福利后付费均值下跌，并非福利无效，只是高付费属于随机峰值，自然回落，缺少对照组会误判策略效果。</p>
+<h2 id="数据分析实操避坑方法论"><a href="#数据分析实操避坑方法论" class="headerlink" title="数据分析实操避坑方法论"></a>数据分析实操避坑方法论</h2><p><strong>拒绝单一指标，三指标联合校验</strong></p>
+<p>输出报告必须同时展示：均值 + 中位数 + 众数，三者差值越大，说明数据分布越扭曲，平均值可信度越低。</p>
+<p> <strong>分层拆解，杜绝只看全局均值</strong></p>
+<p>按地域、用户分层、版本、渠道拆分数据，查看分组表现，避免整体平均掩盖分层机会 &#x2F; 风险。</p>
+<p> <strong>用分位数替代纯均值做业务指标</strong></p>
+<p>互联网产品标准方案：监控 P50（中位数）、P90、P99 分位数，用于加载速度、等待时长、售后时长等体验指标，覆盖长尾用户痛点，而不是仅看平均。</p>
+<p> <strong>识别偏态数据，优先采信中位数</strong></p>
+<p>收入、房价、订单金额、用户使用时长天然右偏，汇报结论以中位数为主，均值仅作辅助参考。</p>
+<p> <strong>剔除极端值做辅助对比</strong></p>
+<p>类似打分 “去最高最低分”，剔除 Top1%&#x2F;Bottom1% 异常样本后重新计算均值，对照原始均值，判断极端值对整体结论的干扰程度。</p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2023/03/22/230322-%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1-%E8%BE%9B%E6%99%AE%E6%A3%AE%E6%82%96%E8%AE%BA/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1/">
+                    数据陷阱
+                </a>
+            </div>
+            <h5>
+                <a href="/2023/03/22/230322-%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1-%E8%BE%9B%E6%99%AE%E6%A3%AE%E6%82%96%E8%AE%BA/" class="trm-anima-link">
+                    数据陷阱：辛普森悖论
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>23/03/22</li>
+                <li>22:31</li>
+                
+                    <li>1.1k</li>
+                
+                
+                    <li>3</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2023/02/10/230210-%E6%96%B9%E6%B3%95%E8%AE%BA-%E7%AB%9E%E5%93%81%E5%88%86%E6%9E%90/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%96%B9%E6%B3%95%E8%AE%BA/">
+                    方法论
+                </a>
+            </div>
+            <h5>
+                <a href="/2023/02/10/230210-%E6%96%B9%E6%B3%95%E8%AE%BA-%E7%AB%9E%E5%93%81%E5%88%86%E6%9E%90/" class="trm-anima-link">
+                    方法论：竞品分析
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>23/02/10</li>
+                <li>01:02</li>
+                
+                    <li>939</li>
+                
+                
+                    <li>3</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.7
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-3" title="日常默认的平均值：算术平均数"><a rel="nofollow" class="trm-toc-link" href="#日常默认的平均值：算术平均数"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">日常默认的平均值：算术平均数</span></a></li><li class="trm-toc-item trm-toc-level-3" title="经典具象案例"><a rel="nofollow" class="trm-toc-link" href="#经典具象案例"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">经典具象案例</span></a></li><li class="trm-toc-item trm-toc-level-3" title="三类衡量数据中心趋势的指标对比"><a rel="nofollow" class="trm-toc-link" href="#三类衡量数据中心趋势的指标对比"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">三类衡量数据中心趋势的指标对比</span></a></li><li class="trm-toc-item trm-toc-level-3" title="延伸衍生陷阱"><a rel="nofollow" class="trm-toc-link" href="#延伸衍生陷阱"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">延伸衍生陷阱</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="数据分析实操避坑方法论"><a rel="nofollow" class="trm-toc-link" href="#数据分析实操避坑方法论"><span class="trm-toc-number"></span> <span class="trm-toc-text">数据分析实操避坑方法论</span></a>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.7"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+			<script src="/js/plugins/danmu.js?v=2.2.7"></script>
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.7"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>

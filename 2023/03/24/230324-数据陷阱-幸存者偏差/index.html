@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="Chinese">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="幸存者偏差核心定义 别名：沉默的数据、死人不会说话 核心逻辑：分析时仅采集幸存、可见、留存的样本，完全忽略失败、淘汰、消失的沉默样本，仅依靠片面可见样本推导整体规律，最终得出完全失真的结论。 底层根源：天然样本筛选偏误 —— 失败样本无法产生反馈、无曝光、无数据留存，造成 “看得见的案例才是全部事实” 的认知错觉。  核心经典案例（分历史、职场、生活三类）1. 起源经典案例：二战战机装甲问题军方统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据陷阱：幸存者偏差">
+<meta property="og:url" content="http://yoursite.com/2023/03/24/230324-%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1-%E5%B9%B8%E5%AD%98%E8%80%85%E5%81%8F%E5%B7%AE/index.html">
+<meta property="og:site_name" content="chuang1230 &#39;s blog">
+<meta property="og:description" content="幸存者偏差核心定义 别名：沉默的数据、死人不会说话 核心逻辑：分析时仅采集幸存、可见、留存的样本，完全忽略失败、淘汰、消失的沉默样本，仅依靠片面可见样本推导整体规律，最终得出完全失真的结论。 底层根源：天然样本筛选偏误 —— 失败样本无法产生反馈、无曝光、无数据留存，造成 “看得见的案例才是全部事实” 的认知错觉。  核心经典案例（分历史、职场、生活三类）1. 起源经典案例：二战战机装甲问题军方统">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-03-24T04:03:00.000Z">
+<meta property="article:modified_time" content="2026-08-12T01:45:17.995Z">
+<meta property="article:author" content="chuang1230">
+<meta property="article:tag" content="data">
+<meta name="twitter:card" content="summary">
+
+
+<title >数据陷阱：幸存者偏差</title>
+
+<!-- Favicon -->
+
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"yoursite.com","author":"chuang1230","root":"/","typed_text":null,"theme_version":"2.2.7","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2019 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner"},"covers":["https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/ba61-bfb8a60ec14ed76d34726896fb54757a.jpg","https://n.sinaimg.cn/sinakd20116/214/w2048h1366/20240512/f5d6-f665a2e6963d4c43db9c5f23729d54c6.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/1c67-5b602d68c986bb517be9054edc7a357a.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/4bce-3649b31b7f757f0cdc9f2fec59c93666.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/b5f9-599865ca3fe095fcb1f27df3cca48e1e.jpg","https://n.sinaimg.cn/sinakd20116/125/w2048h2077/20240512/b55b-fe315d48cdd215c58f867bfa49634d5e.jpg","https://n.sinaimg.cn/sinakd20116/96/w2048h2048/20240512/ceff-fc4a862b068fd7cc2a1749a188a03ee3.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0b9a-39ad42895574b30d0ea55593ae023721.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/dc01-8caacc0d788b4eb94f78876aaa50016c.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/f509-74c59f9a1a91057c603a1bd75bbb4e99.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0dbd-e4b5b3602b9d2a8ddd4fa4d3b40b23f5.jpg","https://n.sinaimg.cn/sinakd20116/672/w2048h1024/20240512/747e-957b40c2a68be3e244b94861c877ec80.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/82cc-cd9923e94dc4e4a1be8ec31366823cc2.jpg","http://k.sinaimg.cn/n/sinakd20116/384/w2048h1536/20240512/2c70-8d6e2d36445c123b3705e5716a02f7d3.jpg/w700d1q75cms.jpg?by=cms_fixed_width"],"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.json"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-08-12 09:45:17"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.7" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+    
+        <div class="trm-logo-text">
+            Kenzo<span>‘s blog</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    archives
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/categories/" target="">
+                    分类
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/tags/" target="">
+                    标签
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner video cover -->
+    <video autoplay="autoplay" loop muted playsinline webkit-playinginline class="trm-banner-cover">
+        <source src="https://cdn.moji.com/websrc/video/summer20190515.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+        Your browser does not support HTML5 video.
+    </video>
+    <!-- banner video cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            数据陷阱：幸存者偏差
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2023
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar-20260811-210134.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        Kenzo
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/chuang1230" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="/chuang1chuang@163.com" title="email" rel="nofollow" target="_blank">
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    
+        <a href="https://www.instagram.com/chuang1chuang" title="ins" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-instagram"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                地址:
+            </div>
+            <div class="trm-label trm-label-light">
+                星辰大海
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                年龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                90后
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                学校:
+            </div>
+            <div class="trm-label trm-label-light">
+                地外行星爆破学院
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                爱好:
+            </div>
+            <div class="trm-label trm-label-light">
+                粤语歌爱好者
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:chuang1chuang@163.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            03/24
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            12:03
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            chuang1230
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h2 id="幸存者偏差核心定义"><a href="#幸存者偏差核心定义" class="headerlink" title="幸存者偏差核心定义"></a>幸存者偏差核心定义</h2><ol>
+<li><strong>别名</strong>：沉默的数据、死人不会说话</li>
+<li><strong>核心逻辑</strong>：分析时仅采集<strong>幸存、可见、留存</strong>的样本，完全忽略<strong>失败、淘汰、消失</strong>的沉默样本，仅依靠片面可见样本推导整体规律，最终得出完全失真的结论。</li>
+<li><strong>底层根源</strong>：天然样本筛选偏误 —— 失败样本无法产生反馈、无曝光、无数据留存，造成 “看得见的案例才是全部事实” 的认知错觉。</li>
+</ol>
+<h2 id="核心经典案例（分历史、职场、生活三类）"><a href="#核心经典案例（分历史、职场、生活三类）" class="headerlink" title="核心经典案例（分历史、职场、生活三类）"></a>核心经典案例（分历史、职场、生活三类）</h2><h3 id="1-起源经典案例：二战战机装甲问题"><a href="#1-起源经典案例：二战战机装甲问题" class="headerlink" title="1. 起源经典案例：二战战机装甲问题"></a>1. 起源经典案例：二战战机装甲问题</h3><p>军方统计<strong>成功返航</strong>的轰炸机弹孔分布：机翼、机身布满弹孔，驾驶舱、发动机、机尾几乎无弹孔。</p>
+<ul>
+<li>直观错误结论：机翼中弹概率高，加厚机翼装甲；</li>
+<li>统计学家沃德真实逻辑：驾驶舱 &#x2F; 发动机中弹的飞机直接坠毁，无法返航，不在统计样本内；无弹孔区域才是致命薄弱点；</li>
+<li>落地结果：加固座舱与引擎后，战机坠毁率大幅下降。</li>
+</ul>
+<h3 id="2-互联网职场高频业务案例"><a href="#2-互联网职场高频业务案例" class="headerlink" title="2. 互联网职场高频业务案例"></a>2. 互联网职场高频业务案例</h3><h4 id="案例-1：产品好评调研"><a href="#案例-1：产品好评调研" class="headerlink" title="案例 1：产品好评调研"></a>案例 1：产品好评调研</h4><p>只收集 APP 活跃、留存老用户问卷，全员反馈产品好用；流失卸载用户无反馈，误以为产品无短板，忽略流失核心痛点。</p>
+<h4 id="案例-2：创业-成功学认知误区"><a href="#案例-2：创业-成功学认知误区" class="headerlink" title="案例 2：创业 &#x2F; 成功学认知误区"></a>案例 2：创业 &#x2F; 成功学认知误区</h4><p>媒体只报道辍学创业暴富、裸辞逆袭的幸存者；海量创业倒闭、裸辞亏损人群无曝光，得出 “辍学更容易成功” 的错误结论。</p>
+<h4 id="案例-3：活动效果复盘"><a href="#案例-3：活动效果复盘" class="headerlink" title="案例 3：活动效果复盘"></a>案例 3：活动效果复盘</h4><p>仅统计参与活动并复购的用户，未统计参与后直接流失的人群，高估活动转化价值。</p>
+<h4 id="案例-4：竞品用户口碑分析"><a href="#案例-4：竞品用户口碑分析" class="headerlink" title="案例 4：竞品用户口碑分析"></a>案例 4：竞品用户口碑分析</h4><p>只看竞品好评区，忽略差评、卸载吐槽、沉默流失用户，误判竞品体验全面优于我方。</p>
+<h3 id="3-日常生活常见误区"><a href="#3-日常生活常见误区" class="headerlink" title="3. 日常生活常见误区"></a>3. 日常生活常见误区</h3><ol>
+<li>长寿烟民案例：只看见抽烟活到 90 岁的老人，忽略大量因肺病早逝、无法发声的烟民，认为吸烟无害；</li>
+<li>健身房身材认知：健身房能见到的都是坚持锻炼、体态良好的人，大量办卡后放弃、从未坚持的人不会出现在场馆，误以为健身人人都能瘦；</li>
+<li>网红副业神话：短视频只展示副业月入十万博主，绝大多数副业亏损、无收益的普通人无曝光。</li>
+</ol>
+<h2 id="三大数据陷阱递进逻辑"><a href="#三大数据陷阱递进逻辑" class="headerlink" title="三大数据陷阱递进逻辑"></a>三大数据陷阱递进逻辑</h2><ol>
+<li><strong>平均值陷阱（指标缺陷）</strong>：数据分布偏态，单一均值被极端值干扰；</li>
+<li><strong>辛普森悖论（分层权重缺陷）</strong>：分组与全局趋势冲突，合并数据掩盖细分真相；</li>
+<li><strong>幸存者偏差（样本来源缺陷）</strong>：样本池天然残缺，只采集幸存者，丢失沉默失败样本；</li>
+</ol>
+<p>三者层层递进，覆盖<strong>指标计算、数据分层、样本选取</strong>三大数据分析核心漏洞，完整覆盖职场 90% 数据误判场景。</p>
+<h2 id="数据分析落地避坑实操方案"><a href="#数据分析落地避坑实操方案" class="headerlink" title="数据分析落地避坑实操方案"></a>数据分析落地避坑实操方案</h2><h3 id="1-强制寻找「沉默样本」，补齐残缺数据池"><a href="#1-强制寻找「沉默样本」，补齐残缺数据池" class="headerlink" title="1. 强制寻找「沉默样本」，补齐残缺数据池"></a>1. 强制寻找「沉默样本」，补齐残缺数据池</h3><p>做调研、复盘、用户分析时，同步采集两类样本：</p>
+<ul>
+<li>幸存者：留存、复购、好评、活跃用户；</li>
+<li>流失者：卸载、退订、差评、未完成转化、淘汰人群；<br>禁止仅依靠单一幸存者样本下业务结论。</li>
+</ul>
+<h3 id="2-区分-“可见数据”-与-“不可见损失”"><a href="#2-区分-“可见数据”-与-“不可见损失”" class="headerlink" title="2. 区分 “可见数据” 与 “不可见损失”"></a>2. 区分 “可见数据” 与 “不可见损失”</h3><p>评估策略、产品、营销效果时，单独统计流失率、淘汰率、放弃率，不只用留存、转化等正向指标衡量效果。</p>
+<h3 id="3-修正样本权重，降低幸存者数据干扰"><a href="#3-修正样本权重，降低幸存者数据干扰" class="headerlink" title="3. 修正样本权重，降低幸存者数据干扰"></a>3. 修正样本权重，降低幸存者数据干扰</h3><p>若流失样本难以采集，可通过加权调整：给少量沉默样本更高统计权重，削弱幸存者群体对整体结论的主导作用。</p>
+<h3 id="4-建立反向提问自查流程"><a href="#4-建立反向提问自查流程" class="headerlink" title="4. 建立反向提问自查流程"></a>4. 建立反向提问自查流程</h3><p>分析前固定自问 3 个问题：</p>
+<p>1）我现在看到的样本，是不是全部人群？</p>
+<p>2）哪些人消失了、没有留下数据？</p>
+<p>3）消失人群的特征，会不会完全推翻现有结论？</p>
+<h3 id="5-拓展信息渠道，减少单一来源依赖"><a href="#5-拓展信息渠道，减少单一来源依赖" class="headerlink" title="5. 拓展信息渠道，减少单一来源依赖"></a>5. 拓展信息渠道，减少单一来源依赖</h3><p>不只用 APP 内问卷、好评区做用户分析；叠加卸载弹窗调研、客服投诉记录、第三方差评平台、流失用户回访，补全沉默数据。</p>
+<h2 id="高频踩坑场景汇总"><a href="#高频踩坑场景汇总" class="headerlink" title="高频踩坑场景汇总"></a>高频踩坑场景汇总</h2><ol>
+<li>用户调研：只回访活跃用户，忽视流失卸载用户；</li>
+<li>活动复盘：仅统计参与后复购人群，不统计参与即流失人群；</li>
+<li>竞品分析：只看竞品好评与头部活跃用户，忽略差评与流失客群；</li>
+<li>招聘 &#x2F; 人才评估：只看成功晋升员工，忽略大量离职、淘汰员工；</li>
+<li>策略效果评估：只看正向收益，无视隐性流失、长期损耗。</li>
+</ol>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/09/10/240910-%E9%87%91%E8%9E%8D%E9%A3%8E%E6%8E%A7-%E9%87%8F%E5%8C%96%E9%A3%8E%E6%8E%A7%E5%85%A8%E6%B5%81%E7%A8%8B/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E9%87%91%E8%9E%8D%E9%A3%8E%E6%8E%A7/">
+                    金融风控
+                </a>
+            </div>
+            <h5>
+                <a href="/2024/09/10/240910-%E9%87%91%E8%9E%8D%E9%A3%8E%E6%8E%A7-%E9%87%8F%E5%8C%96%E9%A3%8E%E6%8E%A7%E5%85%A8%E6%B5%81%E7%A8%8B/" class="trm-anima-link">
+                    量化风控全流程
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/09/10</li>
+                <li>14:55</li>
+                
+                    <li>3.7k</li>
+                
+                
+                    <li>12</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2023/03/22/230322-%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1-%E8%BE%9B%E6%99%AE%E6%A3%AE%E6%82%96%E8%AE%BA/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1/">
+                    数据陷阱
+                </a>
+            </div>
+            <h5>
+                <a href="/2023/03/22/230322-%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1-%E8%BE%9B%E6%99%AE%E6%A3%AE%E6%82%96%E8%AE%BA/" class="trm-anima-link">
+                    数据陷阱：辛普森悖论
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>23/03/22</li>
+                <li>22:31</li>
+                
+                    <li>1.1k</li>
+                
+                
+                    <li>3</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.7
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="幸存者偏差核心定义"><a rel="nofollow" class="trm-toc-link" href="#幸存者偏差核心定义"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">幸存者偏差核心定义</span></a></li><li class="trm-toc-item trm-toc-level-2" title="核心经典案例（分历史、职场、生活三类）"><a rel="nofollow" class="trm-toc-link" href="#核心经典案例（分历史、职场、生活三类）"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">核心经典案例（分历史、职场、生活三类）</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="1. 起源经典案例：二战战机装甲问题"><a rel="nofollow" class="trm-toc-link" href="#1-起源经典案例：二战战机装甲问题"><span class="trm-toc-number">2.1.</span> <span class="trm-toc-text">1. 起源经典案例：二战战机装甲问题</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2. 互联网职场高频业务案例"><a rel="nofollow" class="trm-toc-link" href="#2-互联网职场高频业务案例"><span class="trm-toc-number">2.2.</span> <span class="trm-toc-text">2. 互联网职场高频业务案例</span></a></li><li class="trm-toc-item trm-toc-level-3" title="3. 日常生活常见误区"><a rel="nofollow" class="trm-toc-link" href="#3-日常生活常见误区"><span class="trm-toc-number">2.3.</span> <span class="trm-toc-text">3. 日常生活常见误区</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="三大数据陷阱递进逻辑"><a rel="nofollow" class="trm-toc-link" href="#三大数据陷阱递进逻辑"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">三大数据陷阱递进逻辑</span></a></li><li class="trm-toc-item trm-toc-level-2" title="数据分析落地避坑实操方案"><a rel="nofollow" class="trm-toc-link" href="#数据分析落地避坑实操方案"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">数据分析落地避坑实操方案</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="1. 强制寻找「沉默样本」，补齐残缺数据池"><a rel="nofollow" class="trm-toc-link" href="#1-强制寻找「沉默样本」，补齐残缺数据池"><span class="trm-toc-number">4.1.</span> <span class="trm-toc-text">1. 强制寻找「沉默样本」，补齐残缺数据池</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2. 区分 “可见数据” 与 “不可见损失”"><a rel="nofollow" class="trm-toc-link" href="#2-区分-“可见数据”-与-“不可见损失”"><span class="trm-toc-number">4.2.</span> <span class="trm-toc-text">2. 区分 “可见数据” 与 “不可见损失”</span></a></li><li class="trm-toc-item trm-toc-level-3" title="3. 修正样本权重，降低幸存者数据干扰"><a rel="nofollow" class="trm-toc-link" href="#3-修正样本权重，降低幸存者数据干扰"><span class="trm-toc-number">4.3.</span> <span class="trm-toc-text">3. 修正样本权重，降低幸存者数据干扰</span></a></li><li class="trm-toc-item trm-toc-level-3" title="4. 建立反向提问自查流程"><a rel="nofollow" class="trm-toc-link" href="#4-建立反向提问自查流程"><span class="trm-toc-number">4.4.</span> <span class="trm-toc-text">4. 建立反向提问自查流程</span></a></li><li class="trm-toc-item trm-toc-level-3" title="5. 拓展信息渠道，减少单一来源依赖"><a rel="nofollow" class="trm-toc-link" href="#5-拓展信息渠道，减少单一来源依赖"><span class="trm-toc-number">4.5.</span> <span class="trm-toc-text">5. 拓展信息渠道，减少单一来源依赖</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="高频踩坑场景汇总"><a rel="nofollow" class="trm-toc-link" href="#高频踩坑场景汇总"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">高频踩坑场景汇总</span></a></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.7"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+			<script src="/js/plugins/danmu.js?v=2.2.7"></script>
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.7"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>

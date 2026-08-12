@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="Chinese">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="辛普森悖论核心定义 起源：1951 年由统计学家 E.H. 辛普森提出，属于天然数据结构带来的统计陷阱，并非计算错误、数据造假。 核心概念：所有分组内 A 指标全面优于 B，但合并汇总全局数据后，B 反而优于 A，分组与整体趋势完全相反。 本质成因：存在混杂隐藏变量，两组样本在分层维度的样本权重分布严重失衡，加权平均扭曲真实分组规律。  核心通俗案例（职场 &#x2F; 生活双场景）案例 1：互联">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据陷阱：辛普森悖论">
+<meta property="og:url" content="http://yoursite.com/2023/03/22/230322-%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1-%E8%BE%9B%E6%99%AE%E6%A3%AE%E6%82%96%E8%AE%BA/index.html">
+<meta property="og:site_name" content="chuang1230 &#39;s blog">
+<meta property="og:description" content="辛普森悖论核心定义 起源：1951 年由统计学家 E.H. 辛普森提出，属于天然数据结构带来的统计陷阱，并非计算错误、数据造假。 核心概念：所有分组内 A 指标全面优于 B，但合并汇总全局数据后，B 反而优于 A，分组与整体趋势完全相反。 本质成因：存在混杂隐藏变量，两组样本在分层维度的样本权重分布严重失衡，加权平均扭曲真实分组规律。  核心通俗案例（职场 &#x2F; 生活双场景）案例 1：互联">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-03-22T14:31:00.000Z">
+<meta property="article:modified_time" content="2026-08-12T01:45:45.670Z">
+<meta property="article:author" content="chuang1230">
+<meta property="article:tag" content="data">
+<meta name="twitter:card" content="summary">
+
+
+<title >数据陷阱：辛普森悖论</title>
+
+<!-- Favicon -->
+
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"yoursite.com","author":"chuang1230","root":"/","typed_text":null,"theme_version":"2.2.7","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","show_text":"(/≧▽≦/)咦！又好了！","hide_text":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2019 17:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":true,"el":".trm-banner"},"covers":["https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/ba61-bfb8a60ec14ed76d34726896fb54757a.jpg","https://n.sinaimg.cn/sinakd20116/214/w2048h1366/20240512/f5d6-f665a2e6963d4c43db9c5f23729d54c6.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/1c67-5b602d68c986bb517be9054edc7a357a.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/4bce-3649b31b7f757f0cdc9f2fec59c93666.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/b5f9-599865ca3fe095fcb1f27df3cca48e1e.jpg","https://n.sinaimg.cn/sinakd20116/125/w2048h2077/20240512/b55b-fe315d48cdd215c58f867bfa49634d5e.jpg","https://n.sinaimg.cn/sinakd20116/96/w2048h2048/20240512/ceff-fc4a862b068fd7cc2a1749a188a03ee3.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0b9a-39ad42895574b30d0ea55593ae023721.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/dc01-8caacc0d788b4eb94f78876aaa50016c.jpg","https://n.sinaimg.cn/sinakd20116/594/w2048h946/20240512/f509-74c59f9a1a91057c603a1bd75bbb4e99.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/0dbd-e4b5b3602b9d2a8ddd4fa4d3b40b23f5.jpg","https://n.sinaimg.cn/sinakd20116/672/w2048h1024/20240512/747e-957b40c2a68be3e244b94861c877ec80.jpg","https://n.sinaimg.cn/sinakd20116/0/w2048h1152/20240512/82cc-cd9923e94dc4e4a1be8ec31366823cc2.jpg","http://k.sinaimg.cn/n/sinakd20116/384/w2048h1536/20240512/2c70-8d6e2d36445c123b3705e5716a02f7d3.jpg/w700d1q75cms.jpg?by=cms_fixed_width"],"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"path":"search.json"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2026-08-12 09:45:45"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.7" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+    
+        <div class="trm-logo-text">
+            Kenzo<span>‘s blog</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    archives
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/categories/" target="">
+                    分类
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/tags/" target="">
+                    标签
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner video cover -->
+    <video autoplay="autoplay" loop muted playsinline webkit-playinginline class="trm-banner-cover">
+        <source src="https://cdn.moji.com/websrc/video/summer20190515.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+        Your browser does not support HTML5 video.
+    </video>
+    <!-- banner video cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            数据陷阱：辛普森悖论
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2023
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar-20260811-210134.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        Kenzo
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/chuang1230" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="/chuang1chuang@163.com" title="email" rel="nofollow" target="_blank">
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    
+        <a href="https://www.instagram.com/chuang1chuang" title="ins" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-instagram"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                地址:
+            </div>
+            <div class="trm-label trm-label-light">
+                星辰大海
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                年龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                90后
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                学校:
+            </div>
+            <div class="trm-label trm-label-light">
+                地外行星爆破学院
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                爱好:
+            </div>
+            <div class="trm-label trm-label-light">
+                粤语歌爱好者
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:chuang1chuang@163.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            03/22
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            22:31
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            chuang1230
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h2 id="辛普森悖论核心定义"><a href="#辛普森悖论核心定义" class="headerlink" title="辛普森悖论核心定义"></a>辛普森悖论核心定义</h2><ol>
+<li><strong>起源</strong>：1951 年由统计学家 E.H. 辛普森提出，属于天然数据结构带来的统计陷阱，并非计算错误、数据造假。</li>
+<li><strong>核心概念</strong>：<strong>所有分组内 A 指标全面优于 B，但合并汇总全局数据后，B 反而优于 A，分组与整体趋势完全相反</strong>。</li>
+<li><strong>本质成因</strong>：存在<strong>混杂隐藏变量</strong>，两组样本在分层维度的样本权重分布严重失衡，加权平均扭曲真实分组规律。</li>
+</ol>
+<h2 id="核心通俗案例（职场-生活双场景）"><a href="#核心通俗案例（职场-生活双场景）" class="headerlink" title="核心通俗案例（职场 &#x2F; 生活双场景）"></a>核心通俗案例（职场 &#x2F; 生活双场景）</h2><h3 id="案例-1：互联网产品版本对比（业务高频场景）"><a href="#案例-1：互联网产品版本对比（业务高频场景）" class="headerlink" title="案例 1：互联网产品版本对比（业务高频场景）"></a>案例 1：互联网产品版本对比（业务高频场景）</h3><p>新旧两个版本 APP 对比完播率，分层按一线 &#x2F; 下沉渠道拆分：</p>
+<ul>
+<li>一线渠道：新版完播率 62% &gt; 旧版 55%</li>
+<li>下沉渠道：新版完播率 31% &gt; 旧版 24%<br>分组结论：新版效果全面优于旧版。<br>全局汇总数据：新版大量流量集中在低转化下沉渠道，旧版流量集中高转化一线渠道；全局新版完播率 40%，旧版 48%。</li>
+</ul>
+<p><strong>陷阱结果</strong>：只看全局数据会误判新版迭代失败，直接砍掉新版本。</p>
+<h3 id="案例-2：经典医疗肾结石治疗（行业通用案例）"><a href="#案例-2：经典医疗肾结石治疗（行业通用案例）" class="headerlink" title="案例 2：经典医疗肾结石治疗（行业通用案例）"></a>案例 2：经典医疗肾结石治疗（行业通用案例）</h3><p>两种手术方案，按结石大小分层统计治愈率：</p>
+<ul>
+<li>小结石：方案 A 治愈率 93% &gt; 方案 B 87%</li>
+<li>大结石：方案 A 治愈率 73% &gt; 方案 B 69%</li>
+</ul>
+<p>分组结论：方案 A 疗效更好。</p>
+<p>全局汇总：医生倾向重症大结石患者用 A 方案、轻症小结石用 B 方案；轻症样本基数极大拉高 B 全局数据，整体 A 治愈率 78%，B 83%。</p>
+<p><strong>陷阱结果</strong>：只看整体会优先选择疗效更差的微创方案 B。</p>
+<h3 id="案例-3：伯克利大学招生（经典现实案例）"><a href="#案例-3：伯克利大学招生（经典现实案例）" class="headerlink" title="案例 3：伯克利大学招生（经典现实案例）"></a>案例 3：伯克利大学招生（经典现实案例）</h3><p>全局数据：男生录取率 44%，女生 35%，舆论判定学校性别歧视；</p>
+<p>按院系分层拆解：几乎全部院系女生录取率高于男生；</p>
+<p>隐藏混杂变量：女性集中报考录取率极低的人文院系，男性集中报考高录取率工程院系，权重差异制造歧视假象。</p>
+<h2 id="悖论产生两大核心条件"><a href="#悖论产生两大核心条件" class="headerlink" title="悖论产生两大核心条件"></a>悖论产生两大核心条件</h2><p> <strong>1.存在未纳入分析的混杂变量</strong></p>
+<p>如渠道、用户分层、病情轻重、产品价格、院系等，该变量会直接影响核心指标。</p>
+<p> <strong>2.两组样本在混杂变量上权重分布极度不均衡</strong></p>
+<p>优势分组样本占比少、劣势分组样本占比高，合并加权后趋势反转。</p>
+<h2 id="数据分析落地避坑操作方法"><a href="#数据分析落地避坑操作方法" class="headerlink" title="数据分析落地避坑操作方法"></a>数据分析落地避坑操作方法</h2><h3 id="1-强制分层拆解，禁止仅看全局汇总指标"><a href="#1-强制分层拆解，禁止仅看全局汇总指标" class="headerlink" title="1. 强制分层拆解，禁止仅看全局汇总指标"></a>1. 强制分层拆解，禁止仅看全局汇总指标</h3><p>做对比实验、版本迭代、活动复盘时，必须按渠道、用户分层、时段、人群拆分，同步展示分组数据 + 全局数据，不单独依靠整体数据下结论。</p>
+<h3 id="2-识别并锁定混杂变量"><a href="#2-识别并锁定混杂变量" class="headerlink" title="2. 识别并锁定混杂变量"></a>2. 识别并锁定混杂变量</h3><p>分析前梳理可能干扰结果的隐藏维度：用户城市层级、客单价、用户活跃度、病情严重程度、产品品类。</p>
+<h3 id="3-统一样本基线，均衡权重对比"><a href="#3-统一样本基线，均衡权重对比" class="headerlink" title="3. 统一样本基线，均衡权重对比"></a>3. 统一样本基线，均衡权重对比</h3><p>做 AB 测试时保证两组分层样本占比一致；历史复盘时，可通过加权修正，消除权重差异带来的偏差。</p>
+<h3 id="4-搭配可视化图表辅助判断"><a href="#4-搭配可视化图表辅助判断" class="headerlink" title="4. 搭配可视化图表辅助判断"></a>4. 搭配可视化图表辅助判断</h3><p>使用分组条形图、交叉透视表直观展示分层差异，快速识别全局与分组趋势冲突。</p>
+<h3 id="5-多变量回归控制混杂因素"><a href="#5-多变量回归控制混杂因素" class="headerlink" title="5. 多变量回归控制混杂因素"></a>5. 多变量回归控制混杂因素</h3><p>深度分析时将分层变量纳入回归模型，剔除权重分布带来的干扰，得到客观真实结论。</p>
+<h2 id="高频踩坑场景总结"><a href="#高频踩坑场景总结" class="headerlink" title="高频踩坑场景总结"></a>高频踩坑场景总结</h2><ol>
+<li><strong>产品迭代复盘</strong>：新版本分渠道数据全部提升，全局数据下跌，误判迭代无效；</li>
+<li><strong>营销活动对比</strong>：活动在高低客单用户分层转化均提升，全局均值下滑；</li>
+<li><strong>人员绩效对比</strong>：员工分新老客户成交率更高，但总业绩落后；</li>
+<li><strong>医疗 &#x2F; 教育评估</strong>：疗法、教学方案分层效果更好，整体数据垫底；</li>
+<li><strong>竞品分析对比</strong>：竞品各细分品类表现弱于我方，整体大盘数据领先。</li>
+</ol>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2023/03/24/230324-%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1-%E5%B9%B8%E5%AD%98%E8%80%85%E5%81%8F%E5%B7%AE/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1/">
+                    数据陷阱
+                </a>
+            </div>
+            <h5>
+                <a href="/2023/03/24/230324-%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1-%E5%B9%B8%E5%AD%98%E8%80%85%E5%81%8F%E5%B7%AE/" class="trm-anima-link">
+                    数据陷阱：幸存者偏差
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>23/03/24</li>
+                <li>12:03</li>
+                
+                    <li>1.3k</li>
+                
+                
+                    <li>4</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2023/03/12/230312-%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1-%E5%B9%B3%E5%9D%87%E5%80%BC%E9%99%B7%E9%98%B1/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <div class="trm-cover-img" data-random-img></div>
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1/">
+                    数据陷阱
+                </a>
+            </div>
+            <h5>
+                <a href="/2023/03/12/230312-%E6%95%B0%E6%8D%AE%E9%99%B7%E9%98%B1-%E5%B9%B3%E5%9D%87%E5%80%BC%E9%99%B7%E9%98%B1/" class="trm-anima-link">
+                    数据陷阱：平均值陷阱
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>23/03/12</li>
+                <li>23:21</li>
+                
+                    <li>913</li>
+                
+                
+                    <li>3</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.3.0
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.7
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="辛普森悖论核心定义"><a rel="nofollow" class="trm-toc-link" href="#辛普森悖论核心定义"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">辛普森悖论核心定义</span></a></li><li class="trm-toc-item trm-toc-level-2" title="核心通俗案例（职场 &#x2F; 生活双场景）"><a rel="nofollow" class="trm-toc-link" href="#核心通俗案例（职场-生活双场景）"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">核心通俗案例（职场 &#x2F; 生活双场景）</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="案例 1：互联网产品版本对比（业务高频场景）"><a rel="nofollow" class="trm-toc-link" href="#案例-1：互联网产品版本对比（业务高频场景）"><span class="trm-toc-number">2.1.</span> <span class="trm-toc-text">案例 1：互联网产品版本对比（业务高频场景）</span></a></li><li class="trm-toc-item trm-toc-level-3" title="案例 2：经典医疗肾结石治疗（行业通用案例）"><a rel="nofollow" class="trm-toc-link" href="#案例-2：经典医疗肾结石治疗（行业通用案例）"><span class="trm-toc-number">2.2.</span> <span class="trm-toc-text">案例 2：经典医疗肾结石治疗（行业通用案例）</span></a></li><li class="trm-toc-item trm-toc-level-3" title="案例 3：伯克利大学招生（经典现实案例）"><a rel="nofollow" class="trm-toc-link" href="#案例-3：伯克利大学招生（经典现实案例）"><span class="trm-toc-number">2.3.</span> <span class="trm-toc-text">案例 3：伯克利大学招生（经典现实案例）</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="悖论产生两大核心条件"><a rel="nofollow" class="trm-toc-link" href="#悖论产生两大核心条件"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">悖论产生两大核心条件</span></a></li><li class="trm-toc-item trm-toc-level-2" title="数据分析落地避坑操作方法"><a rel="nofollow" class="trm-toc-link" href="#数据分析落地避坑操作方法"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">数据分析落地避坑操作方法</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="1. 强制分层拆解，禁止仅看全局汇总指标"><a rel="nofollow" class="trm-toc-link" href="#1-强制分层拆解，禁止仅看全局汇总指标"><span class="trm-toc-number">4.1.</span> <span class="trm-toc-text">1. 强制分层拆解，禁止仅看全局汇总指标</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2. 识别并锁定混杂变量"><a rel="nofollow" class="trm-toc-link" href="#2-识别并锁定混杂变量"><span class="trm-toc-number">4.2.</span> <span class="trm-toc-text">2. 识别并锁定混杂变量</span></a></li><li class="trm-toc-item trm-toc-level-3" title="3. 统一样本基线，均衡权重对比"><a rel="nofollow" class="trm-toc-link" href="#3-统一样本基线，均衡权重对比"><span class="trm-toc-number">4.3.</span> <span class="trm-toc-text">3. 统一样本基线，均衡权重对比</span></a></li><li class="trm-toc-item trm-toc-level-3" title="4. 搭配可视化图表辅助判断"><a rel="nofollow" class="trm-toc-link" href="#4-搭配可视化图表辅助判断"><span class="trm-toc-number">4.4.</span> <span class="trm-toc-text">4. 搭配可视化图表辅助判断</span></a></li><li class="trm-toc-item trm-toc-level-3" title="5. 多变量回归控制混杂因素"><a rel="nofollow" class="trm-toc-link" href="#5-多变量回归控制混杂因素"><span class="trm-toc-number">4.5.</span> <span class="trm-toc-text">5. 多变量回归控制混杂因素</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="高频踩坑场景总结"><a rel="nofollow" class="trm-toc-link" href="#高频踩坑场景总结"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">高频踩坑场景总结</span></a></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.7"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+			<script src="/js/plugins/danmu.js?v=2.2.7"></script>
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.7"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>
