@@ -1073,10 +1073,14 @@ body .navbar.top nav a {
   color: var(--text-a85, #555) !important; /* 跟之前 sidebar-talk-content 颜色一致 */
   font-size: 13px;
   line-height: 1.55;
+  /* v2 起说说可带缩略图：整块 line-clamp 会把图片裁掉，
+     改为只钳正文（见下面 .body p），.body 自身放开 */
+  /*
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  */
   text-decoration: none;
   cursor: pointer;
   transition: none; /* body 不做任何过渡，hover 只让圆点变 */
@@ -1085,6 +1089,45 @@ body .navbar.top nav a {
   margin: 0;
   color: inherit;
   background: none !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* v2 缩略图：正文下方一行小方图，最多 3 张，末张叠 +N 角标 */
+.sidebar-talks-container .talk-thumbs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+.sidebar-talks-container .talk-thumb {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-a100, rgba(0, 0, 0, 0.05));
+}
+.sidebar-talks-container .talk-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  margin: 0;
+}
+.sidebar-talks-container .talk-thumb-more {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
 }
 /* hover 整个 timenode：整行青色淡底（B方案 单一强调色） */
 .sidebar-talks-container .timenode:hover {

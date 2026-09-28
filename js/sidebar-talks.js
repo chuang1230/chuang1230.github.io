@@ -1,8 +1,10 @@
 /**
- * sidebar-talks.js（本站适配版）
- * 主页右栏「近期说说」widget：数据源改为站内静态 /talks.json
+ * sidebar-talks.js（本站适配版 v2）
+ * 主页右栏「近期说说」widget：数据源为站内静态 /talks.json
  * （nightfall 原版拉取其私有 ech0 API，本站未部署说说后端）。
- * 条目格式：[{ id, content, created_at }]；空数组时显示空状态。
+ * 条目格式 v2：[{ id, content, created_at, updated_at?, images? }]，
+ * images 为站内路径数组（形如 /img/talks/xxx.webp，由桌面客户端压缩落盘）；
+ * 旧条目没有 images 字段仍合法，只是不显示缩略图。空数组时显示空状态。
  * 点击条目跳到 /shuoshuo/#talk-xxx 锚点。
  */
 (function() {
@@ -10,6 +12,10 @@
   const AVATAR = '/img/avatar-20260927-203311.jpg';
   const NICKNAME = 'Kenzo';
   const LIMIT = 6;
+  // 缩略图最多 3 张，多出的显示 +N
+  const MAX_THUMBS = 3;
+  // 只认客户端图片管线产出的站内路径，防止 talks.json 被写坏后带出外部/越界 URL
+  const TALK_IMG_RE = /^\/img\/talks\/[\w.\-]+$/;
 
   function escapeHtml(s) {
     return String(s || '').replace(/[&<>"']/g, c => ({
@@ -43,6 +49,20 @@
     return s;
   }
 
+  /** 缩略图区：路径先过白名单，非法路径整条丢弃；超出 3 张折叠成 +N */
+  function renderThumbs(item) {
+    const raw = Array.isArray(item.images) ? item.images : [];
+    const urls = raw.filter(u => typeof u === 'string' && TALK_IMG_RE.test(u));
+    if (!urls.length) return '';
+    const shown = urls.slice(0, MAX_THUMBS);
+    const more = urls.length - shown.length;
+    const cells = shown.map((u, i) => {
+      const label = i === shown.length - 1 && more > 0 ? `<span class="talk-thumb-more">+${more}</span>` : '';
+      return `<span class="talk-thumb"><img src="${escapeHtml(u)}" alt="说说图片" loading="lazy">${label}</span>`;
+    });
+    return `<div class="talk-thumbs">${cells.join('')}</div>`;
+  }
+
   function renderItem(item) {
     const content = truncate(item.content, 80);
     const time = formatTime(item.created_at);
@@ -60,6 +80,7 @@
         </div>
         <a class="body" href="/shuoshuo/#talk-${id}">
           <p>${escapeHtml(content)}</p>
+          ${renderThumbs(item)}
         </a>
       </div>
     `;

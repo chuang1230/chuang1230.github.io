@@ -10,7 +10,23 @@
   <rights>All rights reserved 2026, Kenzo</rights>
   <subtitle>愿所求皆如愿 | 愿所行皆坦途</subtitle>
   <title>Kenzo</title>
-  <updated>2026-09-28T02:25:02.572Z</updated>
+  <updated>2026-09-28T14:23:46.033Z</updated>
+  <entry>
+    <author>
+      <name>Kenzo</name>
+    </author>
+    <content>
+      <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Qoder最近新增了一个功能叫 Sites ，这个功能非常不错。</p><p>就拿我日常跑测试、做 Demo、出方案、写报告来说，现在从有想法 —&gt; 落地已经不是问题了。但是当我有一个产品或者提案想发给其他人快速 view 的时候，我就感觉有些抓麻了。</p><p>如果是单文件或者小工具倒还好，那如果是一个项目呢，我是直接把文件打包一下发给对方，还是上传到 GitHub 再让对方看？那如果是一个产品交互原型呢？不管用哪种方式，这也都太不方便了。</p><p>Qoder Sites，就是为了解决这个痛点的。它能够一键发布你的产品并生成一个别人能打开体验的链接，这样你给别人分享的时候，直接把 URL 甩过去即可，非常方便了也是。</p><h2 id="Case1-AI日报档案台"><a href="#Case1-AI日报档案台" class="headerlink" title="Case1-AI日报档案台"></a>Case1-AI日报档案台</h2><p>📄 <a href="https://ai-daily-archive-pien687xqup.qoder.website/#reader" target="_blank" rel="noopener">AI日报档案台</a> 点击直接跳转</p><h3 id="🖥-实时预览（内嵌完整日报）"><a href="#🖥-实时预览（内嵌完整日报）" class="headerlink" title="🖥 实时预览（内嵌完整日报）"></a>🖥 实时预览（内嵌完整日报）</h3><iframe src="https://ai-daily-archive-pien687xqup.qoder.website/#reader" width="100%" height="960" style="border:1px solid #e6eaf1;border-radius:14px" title="AI日报档案台"></iframe>]]>
+    </content>
+    <id>https://chuang1230.github.io/2026/09/28/260928_ai%E5%AD%A6%E4%B9%A0_qoder%E7%9A%84sites%E5%8A%9F%E8%83%BD%E5%B0%9D%E9%B2%9C%E4%B9%8Bai%E6%97%A5%E6%8A%A5%E6%A1%A3%E6%A1%88%E5%8F%B0%E6%9E%84%E5%BB%BA/</id>
+    <link href="https://chuang1230.github.io/2026/09/28/260928_ai%E5%AD%A6%E4%B9%A0_qoder%E7%9A%84sites%E5%8A%9F%E8%83%BD%E5%B0%9D%E9%B2%9C%E4%B9%8Bai%E6%97%A5%E6%8A%A5%E6%A1%A3%E6%A1%88%E5%8F%B0%E6%9E%84%E5%BB%BA/"/>
+    <published>2026-09-28T13:42:00.000Z</published>
+    <summary>
+      <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" cla]]>
+    </summary>
+    <title>Qoder的Sites功能尝鲜——AI日报档案台构建</title>
+    <updated>2026-09-28T14:23:46.033Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Kenzo</name>
@@ -238,7 +254,7 @@
       <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" cla]]>
     </summary>
     <title>风控流程小记</title>
-    <updated>2026-09-28T03:02:20.609Z</updated>
+    <updated>2026-09-28T14:23:48.396Z</updated>
   </entry>
   <entry>
     <author>
@@ -348,22 +364,5 @@
     </summary>
     <title>数据陷阱：平均值陷阱</title>
     <updated>2026-09-28T00:46:39.645Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Kenzo</name>
-    </author>
-    <category term="方法论" scheme="https://chuang1230.github.io/categories/%E6%96%B9%E6%B3%95%E8%AE%BA/"/>
-    <content>
-      <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="步骤-1：明确报告目的与汇报对象（定方向）"><a href="#步骤-1：明确报告目的与汇报对象（定方向）" class="headerlink" title="步骤 1：明确报告目的与汇报对象（定方向）"></a>步骤 1：明确报告目的与汇报对象（定方向）</h3><p>核心逻辑：<strong>受众不同，报告侧重点、呈现形式完全区分</strong>，先对齐目标再开展分析，避免无效堆砌数据。</p><p> <strong>对内同事（周 &#x2F; 月度产品洞察）</strong><br>侧重：功能细节、体验差异、迭代优化小点，轻量化数据对比。</p><p><strong>面试官（求职面试场景）</strong><br>侧重：完整产品体验拆解，覆盖硬件、软件、功能架构、定价、销量、真实用户差评 &#x2F; 好评反馈。</p><p><strong>老板 &#x2F; 管理层（公司战略规划）</strong><br>侧重：行业格局、竞品战略、市场机会，推荐使用「五看三定」战略分析模型，出自中信出版社《好战略，坏战略》。</p><p>核心前置问题：本次报告要解决什么业务问题？交付后要落地什么动作？</p><h3 id="步骤-2：精准筛选对标竞品（选对分析对象）"><a href="#步骤-2：精准筛选对标竞品（选对分析对象）" class="headerlink" title="步骤 2：精准筛选对标竞品（选对分析对象）"></a>步骤 2：精准筛选对标竞品（选对分析对象）</h3><p>打破 “只看同品类产品” 的传统思维，两大选品逻辑：</p><ol><li><strong>局部模块对标</strong>：无需对标完整产品，单一功能模块即可对标（例：产品游戏化激励模块对标各类游戏）</li><li><strong>需求链路对标（跨品类竞品）</strong>：从用户原始需求出发寻找竞品（例：除甲醛仪器的竞品不只是净化器，茶叶也满足 “净化异味” 需求）<br>避坑要点：不盲目罗列全行业产品，只选取和本次分析目标匹配的对标对象。</li></ol><h3 id="步骤-3：分层收集有效信息（一手信息优先）"><a href="#步骤-3：分层收集有效信息（一手信息优先）" class="headerlink" title="步骤 3：分层收集有效信息（一手信息优先）"></a>步骤 3：分层收集有效信息（一手信息优先）</h3><p>核心准则：<strong>一手信息价值＞二手公开信息</strong>，区分 C 端、B 端产品不同信息获取渠道。</p><h4 id="（1）C-端产品信息获取"><a href="#（1）C-端产品信息获取" class="headerlink" title="（1）C 端产品信息获取"></a>（1）C 端产品信息获取</h4><ul><li>一手：亲自作为普通用户完整体验产品，记录操作、交互、痛点；电商评论、社区真实用户反馈</li><li>短板：用户意见分散、主观性强，需批量汇总提炼共性问题</li></ul><h4 id="（2）B-端产品信息获取（公开数据少，多渠道深挖）"><a href="#（2）B-端产品信息获取（公开数据少，多渠道深挖）" class="headerlink" title="（2）B 端产品信息获取（公开数据少，多渠道深挖）"></a>（2）B 端产品信息获取（公开数据少，多渠道深挖）</h4><ol><li>内部协同：对接销售、商业化团队，调取海关销售数据、平台销量榜单</li><li>伪装调研：伪装客户致电竞品销售，询问方案、报价、服务政策</li><li>上下游访谈：对接供应商、方案商，获取竞品成本、技术路线、客户合作情况</li><li>行业访谈：通过行业人脉、面试交流侧面获取竞品业务策略</li></ol><h4 id="（3）二手辅助信息源"><a href="#（3）二手辅助信息源" class="headerlink" title="（3）二手辅助信息源"></a>（3）二手辅助信息源</h4><p>行业咨询报告（艾瑞 &#x2F; 亿欧）、海外科技媒体 The Verge、竞品官网、公开财报、新闻稿件。</p><h3 id="步骤-4：搭建逻辑线组装完整报告（落地输出）"><a href="#步骤-4：搭建逻辑线组装完整报告（落地输出）" class="headerlink" title="步骤 4：搭建逻辑线组装完整报告（落地输出）"></a>步骤 4：搭建逻辑线组装完整报告（落地输出）</h3><p>依托《金字塔原理》搭建总分总清晰逻辑，标准完整报告目录结构：</p><ol><li>分析背景与本次分析目标</li><li>竞品定位、目标客群拆解</li><li>市场规模、销量、份额数据对比</li><li>产品功能、页面交互、视觉设计拆解</li><li>竞品推广渠道、营销投放策略分析</li><li>综合优劣势总结 + 市场机会点</li><li><strong>落地行动项（报告核心价值）</strong><ul><li>我方产品短期 &#x2F; 长期优化目标</li><li>推进所需跨部门资源、协作需求</li><li>可量化落地执行方案</li></ul></li></ol><h2 id="总结提炼"><a href="#总结提炼" class="headerlink" title="总结提炼"></a>总结提炼</h2><p>这套四步竞品分析法是<strong>从目标→对标→调研→落地</strong>的全链路闭环方法论，核心不是单纯 “拆解竞品”，而是以业务落地为最终导向：先根据受众确定分析深度，拓宽竞品筛选边界，优先采集一手真实数据，最后输出带可执行动作的结构化报告，区别于市面上只讲拆解、不提落地的浅层竞品分析教程。</p>]]>
-    </content>
-    <id>https://chuang1230.github.io/2023/02/10/230210-%E6%96%B9%E6%B3%95%E8%AE%BA-%E7%AB%9E%E5%93%81%E5%88%86%E6%9E%90/</id>
-    <link href="https://chuang1230.github.io/2023/02/10/230210-%E6%96%B9%E6%B3%95%E8%AE%BA-%E7%AB%9E%E5%93%81%E5%88%86%E6%9E%90/"/>
-    <published>2023-02-09T17:02:00.000Z</published>
-    <summary>
-      <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" cla]]>
-    </summary>
-    <title>方法论：竞品分析</title>
-    <updated>2026-09-28T00:47:00.460Z</updated>
   </entry>
 </feed>
