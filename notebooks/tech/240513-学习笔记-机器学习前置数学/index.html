@@ -1,0 +1,2150 @@
+
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.44.0" theme-name="Stellar" theme-version="1.44.0">
+  
+  
+  <meta name="generator" content="Hexo 8.1.2">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin><link rel="preconnect" href="https://unpkg.com" crossorigin><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>机器学习前置数学 - Kenzo</title>
+
+  <meta name="description" content="导数导数的概念导数（derivative）是微积分中的一个概念。函数在某一点的导数是指这个函数在这一点附近的变化率（即函数在这一点的切线斜率）。导数的本质是通过极限的概念对函数进行局部的线性逼近。   当函数的自变量在一点上产生一个增量$ \Delta x $时，函数输出值的增量与自变量增量的比值在趋于0时的极限如果存在，即为在$ x $处的导数，记作$ f’(x) $、$ \frac{dy}{d">
+<meta property="og:type" content="website">
+<meta property="og:title" content="机器学习前置数学">
+<meta property="og:url" content="https://chuang1230.github.io/notebooks/tech/240513-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E6%95%B0%E5%AD%A6/">
+<meta property="og:site_name" content="Kenzo">
+<meta property="og:description" content="导数导数的概念导数（derivative）是微积分中的一个概念。函数在某一点的导数是指这个函数在这一点附近的变化率（即函数在这一点的切线斜率）。导数的本质是通过极限的概念对函数进行局部的线性逼近。   当函数的自变量在一点上产生一个增量$ \Delta x $时，函数输出值的增量与自变量增量的比值在趋于0时的极限如果存在，即为在$ x $处的导数，记作$ f’(x) $、$ \frac{dy}{d">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chuang1230.github.io/img/20260814094855-9.png">
+<meta property="article:published_time" content="2024-05-12T17:05:00.000Z">
+<meta property="article:modified_time" content="2026-09-27T13:56:22.272Z">
+<meta property="article:author" content="Kenzo">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chuang1230.github.io/img/20260814094855-9.png"><meta name="twitter:title" content="机器学习前置数学">
+  
+  
+  <meta name="keywords" content=",">
+
+  <!-- feed -->
+  
+    
+
+    
+      
+        <link rel="alternate" href="/atom.xml" title="Kenzo" type="application/atom+xml">
+      
+    
+  
+
+  <link rel="preload" href="/css/main.css?v=1.44.0" as="style">
+  <link rel="stylesheet" href="/css/main.css?v=1.44.0">
+
+
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://chuang1230.github.io/notebooks/tech/240513-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E6%95%B0%E5%AD%A6/","author":{"@type":"Person","name":"Kenzo","sameAs":[],"image":"https://chuang1230.github.io/img/avatar-20260928-002609.jpg"},"name":"机器学习前置数学","description":"导数导数的概念导数（derivative）是微积分中的一个概念。函数在某一点的导数是指这个函数在这一点附近的变化率（即函数在这一点的切线斜率）。导数的本质是通过极限的概念对函数进行局部的线性逼近。\n\n\n当函数的自变量在一点上产生一个增量$ \\Delta x $时，函数输出值的增量与自变量增量的比值在趋于0时的极限如果存在，即为在$ x $处的导数，记作$ f’(x) $、$ \\frac{dy...","url":"https://chuang1230.github.io/notebooks/tech/240513-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E6%95%B0%E5%AD%A6/","keywords":"数据分析,金融风控,机器学习,学习笔记"}</script>
+  <link rel="stylesheet" href="/css/code-enhance.css?v=20260927a"><link rel="stylesheet" href="/css/leftbar-extras.css?v=20260927a">
+
+  <!-- icons.yml 驱动的 CSS 装饰图标 -->
+  
+  
+  <style>:root {
+  --icon-h3-left: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2024%2024%22%3E%3C!--%20Icon%20from%20Solar%20by%20480%20Design%20-%20https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby%2F4.0%2F%20--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M17.75%2019a.75.75%200%200%201-1.32.488l-6-7a.75.75%200%200%201%200-.976l6-7A.75.75%200%200%201%2017.75%205z%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20fill-rule%3D%22evenodd%22%20d%3D%22M13.488%2019.57a.75.75%200%200%200%20.081-1.058L7.988%2012l5.581-6.512a.75.75%200%201%200-1.138-.976l-6%207a.75.75%200%200%200%200%20.976l6%207a.75.75%200%200%200%201.057.082%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E");
+  --icon-h3-right: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2024%2024%22%3E%3C!--%20Icon%20from%20Solar%20by%20480%20Design%20-%20https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby%2F4.0%2F%20--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M6.25%2019a.75.75%200%200%200%201.32.488l6-7a.75.75%200%200%200%200-.976l-6-7A.75.75%200%200%200%206.25%205z%22%20opacity%3D%22.5%22%2F%3E%3Cpath%20fill%3D%22currentColor%22%20fill-rule%3D%22evenodd%22%20d%3D%22M10.512%2019.57a.75.75%200%200%201-.081-1.058L16.012%2012l-5.581-6.512a.75.75%200%201%201%201.139-.976l6%207a.75.75%200%200%201%200%20.976l-6%207a.75.75%200%200%201-1.058.082%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E");
+  --icon-quote-left: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2024%2024%22%3E%3C!--%20Icon%20from%20BoxIcons%20Solid%20by%20Atisa%20-%20https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby%2F4.0%2F%20--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M3.691%206.292C5.094%204.771%207.217%204%2010%204h1v2.819l-.804.161c-1.37.274-2.323.813-2.833%201.604A2.9%202.9%200%200%200%206.925%2010H10a1%201%200%200%201%201%201v7c0%201.103-.897%202-2%202H3a1%201%200%200%201-1-1v-5l.003-2.919c-.009-.111-.199-2.741%201.688-4.789M20%2020h-6a1%201%200%200%201-1-1v-5l.003-2.919c-.009-.111-.199-2.741%201.688-4.789C16.094%204.771%2018.217%204%2021%204h1v2.819l-.804.161c-1.37.274-2.323.813-2.833%201.604A2.9%202.9%200%200%200%2017.925%2010H21a1%201%200%200%201%201%201v7c0%201.103-.897%202-2%202%22%2F%3E%3C%2Fsvg%3E");
+  --icon-quote-right: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2024%2024%22%3E%3C!--%20Icon%20from%20BoxIcons%20Solid%20by%20Atisa%20-%20https%3A%2F%2Fcreativecommons.org%2Flicenses%2Fby%2F4.0%2F%20--%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M20.309%2017.708C22.196%2015.66%2022.006%2013.03%2022%2013V5a1%201%200%200%200-1-1h-6c-1.103%200-2%20.897-2%202v7a1%201%200%200%200%201%201h3.078a2.9%202.9%200%200%201-.429%201.396c-.508.801-1.465%201.348-2.846%201.624l-.803.16V20h1c2.783%200%204.906-.771%206.309-2.292m-11.007%200C11.19%2015.66%2010.999%2013.03%2010.993%2013V5a1%201%200%200%200-1-1h-6c-1.103%200-2%20.897-2%202v7a1%201%200%200%200%201%201h3.078a2.9%202.9%200%200%201-.429%201.396c-.508.801-1.465%201.348-2.846%201.624l-.803.16V20h1c2.783%200%204.906-.771%206.309-2.292%22%2F%3E%3C%2Fsvg%3E");
+  --icon-loading: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221em%22%20height%3D%221em%22%20viewBox%3D%220%200%2024%2024%22%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%2212%22%20r%3D%220%22%20fill%3D%22currentColor%22%3E%3Canimate%20attributeName%3D%22r%22%20begin%3D%22.67%22%20calcMode%3D%22spline%22%20dur%3D%221.5s%22%20keySplines%3D%220.2%200.2%200.4%200.8%3B0.2%200.2%200.4%200.8%3B0.2%200.2%200.4%200.8%22%20repeatCount%3D%22indefinite%22%20values%3D%220%3B2%3B0%3B0%22%2F%3E%3C%2Fcircle%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%220%22%20fill%3D%22currentColor%22%3E%3Canimate%20attributeName%3D%22r%22%20begin%3D%22.33%22%20calcMode%3D%22spline%22%20dur%3D%221.5s%22%20keySplines%3D%220.2%200.2%200.4%200.8%3B0.2%200.2%200.4%200.8%3B0.2%200.2%200.4%200.8%22%20repeatCount%3D%22indefinite%22%20values%3D%220%3B2%3B0%3B0%22%2F%3E%3C%2Fcircle%3E%3Ccircle%20cx%3D%226%22%20cy%3D%2212%22%20r%3D%220%22%20fill%3D%22currentColor%22%3E%3Canimate%20attributeName%3D%22r%22%20begin%3D%220%22%20calcMode%3D%22spline%22%20dur%3D%221.5s%22%20keySplines%3D%220.2%200.2%200.4%200.8%3B0.2%200.2%200.4%200.8%3B0.2%200.2%200.4%200.8%22%20repeatCount%3D%22indefinite%22%20values%3D%220%3B2%3B0%3B0%22%2F%3E%3C%2Fcircle%3E%3C%2Fsvg%3E");
+}</style>
+  
+</head>
+<body><div id="l_cover"></div><div class="l_body content" id="start" layout="page" type="tech" ><aside class="l_left leftbar-card" data-ui-surface="card"><div class="sidebg"></div><div class="leftbar-container">
+
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg"></div><img no-lazy class="avatar" src="/img/avatar-20260928-002609.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">Kenzo</div><div class="sub normal cap">岂能尽如人意</div><div class="sub hover cap" style="opacity:0"> 但求无愧我心</div></a></div></header>
+
+
+<div class="search-wrapper" id="search-wrapper"><div class="search-form" role="search"><label class="search-button" for="search-input" aria-hidden="true"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></label><input type="search" class="search-input" id="search-input" aria-label="在 技术知识库 中搜索" data-filter="&#x2F;notebooks&#x2F;tech" placeholder="在 技术知识库 中搜索"></div><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+<div class="widgets">
+<svg class="grad-def" width="0" height="0" aria-hidden="true" focusable="false"><defs><linearGradient id="leftbar-active-icon-grad" x1="75%" y1="6.7%" x2="6.7%" y2="125%"><stop offset="20%" style="stop-color:var(--item-theme-light)"/><stop offset="60%" style="stop-color:var(--item-theme)"/></linearGradient></defs></svg>
+<div class="nav-area">
+
+<nav class="menu dis-select">
+<div class="ui-collection" data-layout="list" data-variant="nav" data-density="auto">
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight is-themed" href="/" title="博客" style="--item-theme:#E91E63;--item-grad:url(#menu-grad-post);">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M13.6288 20.4718L13.0867 21.3877C12.6035 22.204 11.3965 22.204 10.9133 21.3877L10.3712 20.4718C9.95073 19.7614 9.74049 19.4063 9.40279 19.2098C9.06509 19.0134 8.63992 19.0061 7.78958 18.9915C6.53422 18.9698 5.74689 18.8929 5.08658 18.6194C3.86144 18.1119 2.88807 17.1386 2.3806 15.9134C2 14.9946 2 13.8297 2 11.5V10.5C2 7.22657 2 5.58985 2.7368 4.38751C3.14908 3.71473 3.71473 3.14908 4.38751 2.7368C5.58985 2 7.22657 2 10.5 2H13.5C16.7734 2 18.4101 2 19.6125 2.7368C20.2853 3.14908 20.8509 3.71473 21.2632 4.38751C22 5.58985 22 7.22657 22 10.5V11.5C22 13.8297 22 14.9946 21.6194 15.9134C21.1119 17.1386 20.1386 18.1119 18.9134 18.6194C18.2531 18.8929 17.4658 18.9698 16.2104 18.9915C15.36 19.0061 14.9349 19.0134 14.5972 19.2098C14.2595 19.4062 14.0492 19.7614 13.6288 20.4718Z" opacity=".5"/><path d="M10.9901 14.3082C9.6633 13.3304 7.5 11.4674 7.5 9.71476C7.5 7.03759 9.97507 6.03807 12 8.10615C14.0249 6.03807 16.5 7.03759 16.5 9.71475C16.5 11.4674 14.3367 13.3304 13.0099 14.3082C12.5558 14.643 12.3287 14.8103 12 14.8103C11.6713 14.8103 11.4442 14.643 10.9901 14.3082Z"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">博客</span>
+      
+      
+    </span>
+  
+  
+  
+  
+<svg class="grad-def" width="0" height="0" aria-hidden="true" focusable="false"><defs><linearGradient id="menu-grad-post" x1="75%" y1="6.7%" x2="6.7%" y2="125%"><stop offset="20%" style="stop-color:var(--item-theme-light)"/><stop offset="60%" style="stop-color:var(--item-theme)"/></linearGradient></defs></svg>
+
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight is-themed" href="/life/" title="生活" style="--item-theme:#FFC107;--item-grad:url(#menu-grad-life);">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M9.77778 21H14.2222C17.3433 21 18.9038 21 20.0248 20.2646C20.51 19.9462 20.9267 19.5371 21.251 19.0607C22 17.9601 22 16.4279 22 13.3636C22 10.2994 22 8.76721 21.251 7.6666C20.9267 7.19014 20.51 6.78104 20.0248 6.46268C19.3044 5.99013 18.4027 5.82123 17.022 5.76086C16.3631 5.76086 15.7959 5.27068 15.6667 4.63636C15.4728 3.68489 14.6219 3 13.6337 3H10.3663C9.37805 3 8.52715 3.68489 8.33333 4.63636C8.20412 5.27068 7.63685 5.76086 6.978 5.76086C5.59733 5.82123 4.69555 5.99013 3.97524 6.46268C3.48995 6.78104 3.07328 7.19014 2.74902 7.6666C2 8.76721 2 10.2994 2 13.3636C2 16.4279 2 17.9601 2.74902 19.0607C3.07328 19.5371 3.48995 19.9462 3.97524 20.2646C5.09624 21 6.65675 21 9.77778 21Z" opacity=".5"/><path d="M17.5562 9.27246C17.096 9.27246 16.7229 9.63877 16.7229 10.0906C16.7229 10.5425 17.096 10.9088 17.5562 10.9088H18.6673C19.1276 10.9088 19.5007 10.5425 19.5007 10.0906C19.5007 9.63877 19.1276 9.27246 18.6673 9.27246H17.5562Z"/><path fill-rule="evenodd" d="M12.0007 9.27246C9.69946 9.27246 7.83398 11.104 7.83398 13.3634C7.83398 15.6227 9.69946 17.4543 12.0007 17.4543C14.3018 17.4543 16.1673 15.6227 16.1673 13.3634C16.1673 11.104 14.3018 9.27246 12.0007 9.27246ZM12.0007 10.9088C10.6199 10.9088 9.50065 12.0078 9.50065 13.3634C9.50065 14.719 10.6199 15.8179 12.0007 15.8179C13.3814 15.8179 14.5007 14.719 14.5007 13.3634C14.5007 12.0078 13.3814 10.9088 12.0007 10.9088Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">生活</span>
+      
+      
+    </span>
+  
+  
+  
+  
+<svg class="grad-def" width="0" height="0" aria-hidden="true" focusable="false"><defs><linearGradient id="menu-grad-life" x1="75%" y1="6.7%" x2="6.7%" y2="125%"><stop offset="20%" style="stop-color:var(--item-theme-light)"/><stop offset="60%" style="stop-color:var(--item-theme)"/></linearGradient></defs></svg>
+
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight is-themed" href="/shuoshuo/" title="说说" style="--item-theme:#00BFA5;--item-grad:url(#menu-grad-shuoshuo);">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><g opacity=".5"><path d="M12.7502 21.2498C12.7502 21.664 12.4145 21.9998 12.0002 21.9998C11.586 21.9998 11.2502 21.664 11.2502 21.2498V19.7859C11.3005 19.8032 11.3526 19.8173 11.4065 19.8279C11.518 19.8498 11.6791 19.8504 12.0002 19.8504C12.3214 19.8504 12.4825 19.8498 12.594 19.8279C12.6479 19.8173 12.7 19.8032 12.7502 19.7859V21.2498Z"/><path d="M12.0002 1.99977C16.1422 2.03427 19.5274 5.52891 19.5608 9.80446C19.594 14.0799 16.1421 18.0343 12.0002 17.9998C7.85837 17.9652 4.59439 13.9549 4.5608 9.67946C4.52737 5.40392 7.85826 1.96529 12.0002 1.99977Z"/></g><path d="M10.8281 17.8828C11.2091 17.9568 11.6006 17.9967 12 18C12.4005 18.0034 12.7946 17.9693 13.1797 17.9014L13.1894 17.9229C13.3417 18.1963 13.4182 18.3331 13.4512 18.4385C13.6439 19.0556 13.2467 19.6996 12.5937 19.8281C12.4822 19.8501 12.3211 19.8496 12 19.8496C11.6788 19.8496 11.5178 19.8501 11.4062 19.8281C10.7533 19.6996 10.356 19.0556 10.5488 18.4385C10.5818 18.3331 10.6583 18.1962 10.8105 17.9229L10.8281 17.8828Z"/><path d="M12.5058 5.25002C14.5589 5.26659 16.2334 6.94109 16.25 8.99416C16.2532 9.40828 15.92 9.74668 15.5058 9.75002C15.0917 9.75326 14.7533 9.42002 14.75 9.00588C14.7399 7.77192 13.7281 6.76009 12.4941 6.75002C12.08 6.74668 11.7467 6.40828 11.75 5.99416C11.7533 5.58003 12.0917 5.24679 12.5058 5.25002Z"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">说说</span>
+      
+      
+    </span>
+  
+  
+  
+  
+<svg class="grad-def" width="0" height="0" aria-hidden="true" focusable="false"><defs><linearGradient id="menu-grad-shuoshuo" x1="75%" y1="6.7%" x2="6.7%" y2="125%"><stop offset="20%" style="stop-color:var(--item-theme-light)"/><stop offset="60%" style="stop-color:var(--item-theme)"/></linearGradient></defs></svg>
+
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight is-themed" href="/about/" title="关于" style="--item-theme:#6D28D9;--item-grad:url(#menu-grad-about);">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="6" r="4"/><path d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z" opacity=".5"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">关于</span>
+      
+      
+    </span>
+  
+  
+  
+  
+<svg class="grad-def" width="0" height="0" aria-hidden="true" focusable="false"><defs><linearGradient id="menu-grad-about" x1="75%" y1="6.7%" x2="6.7%" y2="125%"><stop offset="20%" style="stop-color:var(--item-theme-light)"/><stop offset="60%" style="stop-color:var(--item-theme)"/></linearGradient></defs></svg>
+
+</a>
+
+  
+</div>
+
+</nav>
+</div>
+<widget class="widget-wrapper slide-up markdown"><div class="widget-header dis-select"><span class="name">你好 👋 我是Kenzo</span></div><div class="widget-body fs14"><p>愿山河锦绣，国泰民安；所求皆如愿，所行皆坦途。<br>这里记录 <strong>数据分析、经营分析、金融风控</strong> 的学习笔记与生活随笔。</p>
+
+
+<div class="ui-collection" data-layout="list" data-variant="nav" data-density="auto">
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/archives/" title="归档" style="--item-grad:url(#leftbar-active-icon-grad);">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="currentColor"><path d="M6.94028 2C7.35614 2 7.69326 2.32421 7.69326 2.72414V4.18487C8.36117 4.17241 9.10983 4.17241 9.95219 4.17241H13.9681C14.8104 4.17241 15.5591 4.17241 16.227 4.18487V2.72414C16.227 2.32421 16.5641 2 16.98 2C17.3958 2 17.733 2.32421 17.733 2.72414V4.24894C19.178 4.36022 20.1267 4.63333 20.8236 5.30359C21.5206 5.97385 21.8046 6.88616 21.9203 8.27586L22 9H2.92456H2V8.27586C2.11571 6.88616 2.3997 5.97385 3.09665 5.30359C3.79361 4.63333 4.74226 4.36022 6.1873 4.24894V2.72414C6.1873 2.32421 6.52442 2 6.94028 2Z"/><path d="M21.9995 14.0001V12.0001C21.9995 11.161 21.9963 9.66527 21.9834 9H2.00917C1.99626 9.66527 1.99953 11.161 1.99953 12.0001V14.0001C1.99953 17.7713 1.99953 19.6569 3.1711 20.8285C4.34267 22.0001 6.22829 22.0001 9.99953 22.0001H13.9995C17.7708 22.0001 19.6564 22.0001 20.828 20.8285C21.9995 19.6569 21.9995 17.7713 21.9995 14.0001Z" opacity=".5"/><path d="M18 17C18 17.5523 17.5523 18 17 18C16.4477 18 16 17.5523 16 17C16 16.4477 16.4477 16 17 16C17.5523 16 18 16.4477 18 17Z"/><path d="M18 13C18 13.5523 17.5523 14 17 14C16.4477 14 16 13.5523 16 13C16 12.4477 16.4477 12 17 12C17.5523 12 18 12.4477 18 13Z"/><path d="M13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17C11 16.4477 11.4477 16 12 16C12.5523 16 13 16.4477 13 17Z"/><path d="M13 13C13 13.5523 12.5523 14 12 14C11.4477 14 11 13.5523 11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13Z"/><path d="M8 17C8 17.5523 7.55228 18 7 18C6.44772 18 6 17.5523 6 17C6 16.4477 6.44772 16 7 16C7.55228 16 8 16.4477 8 17Z"/><path d="M8 13C8 13.5523 7.55228 14 7 14C6.44772 14 6 13.5523 6 13C6 12.4477 6.44772 12 7 12C7.55228 12 8 12.4477 8 13Z"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">归档</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/tags/" title="标签" style="--item-grad:url(#leftbar-active-icon-grad);">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" fill-rule="evenodd" d="M10.7226 3.20068C10.8335 2.80158 10.5998 2.38817 10.2007 2.27731C9.80163 2.16645 9.38822 2.40011 9.27736 2.79921L7.76327 8.24995H4C3.58579 8.24995 3.25 8.58573 3.25 8.99995C3.25 9.41416 3.58579 9.74995 4 9.74995H7.3466L5.81882 15.2499H2C1.58579 15.2499 1.25 15.5857 1.25 15.9999C1.25 16.4142 1.58579 16.7499 2 16.7499H5.40216L4.27736 20.7992C4.1665 21.1983 4.40016 21.6117 4.79927 21.7226C5.19837 21.8334 5.61178 21.5998 5.72264 21.2007L6.95895 16.7499H14.4022L13.2774 20.7992C13.1665 21.1983 13.4002 21.6117 13.7993 21.7226C14.1984 21.8334 14.6118 21.5998 14.7226 21.2007L15.959 16.7499H20C20.4142 16.7499 20.75 16.4142 20.75 15.9999C20.75 15.5857 20.4142 15.2499 20 15.2499H16.3756L17.9034 9.74995H22C22.4142 9.74995 22.75 9.41416 22.75 8.99995C22.75 8.58573 22.4142 8.24995 22 8.24995H18.3201L19.7226 3.20068C19.8335 2.80158 19.5998 2.38817 19.2007 2.27731C18.8016 2.16645 18.3882 2.40011 18.2774 2.79921L16.7633 8.24995H9.32006L10.7226 3.20068ZM14.8188 15.2499L16.3466 9.74995H8.9034L7.37562 15.2499H14.8188Z" clip-rule="evenodd"/></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">标签</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/topic/" title="专栏" style="--item-grad:url(#leftbar-active-icon-grad);">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">专栏</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+</div>
+
+
+</div></widget>
+
+
+
+<widget class="widget-wrapper slide-up tag-tree-widget" data-notebook="tech">
+  
+    <div class="widget-header dis-select">
+      <span class="name">标签</span>
+      
+    </div>
+  
+  <div class="widget-body"><div class="ui-collection tag-tree" data-layout="list" data-variant="nav" data-density="compact"><div class="tag-subtree is-leaf" data-tag="">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/" title="所有笔记">
+  
+  
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">所有笔记</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="gaussdb">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/gaussdb/" title="GaussDB">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">GaussDB</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="hexo">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/hexo/" title="hexo">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">hexo</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="hive">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/hive/" title="hive">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">hive</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="ml">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/ml/" title="ML">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">ML</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="mysql">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/mysql/" title="MySQL">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">MySQL</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="ocr">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/ocr/" title="OCR">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">OCR</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="python">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/python/" title="python">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">python</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="sklearn">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/sklearn/" title="sklearn">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">sklearn</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="sql">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/sql/" title="sql">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">sql</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="teradata">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/teradata/" title="Teradata">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">Teradata</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="vpn">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/vpn/" title="vpn">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">vpn</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="博客">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/%E5%8D%9A%E5%AE%A2/" title="博客">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">博客</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="可视化">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/" title="可视化">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">可视化</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="数学">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/%E6%95%B0%E5%AD%A6/" title="数学">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">数学</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="数据仓库">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" title="数据仓库">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">数据仓库</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="机器学习">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="机器学习">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">机器学习</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="经纬度">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/%E7%BB%8F%E7%BA%AC%E5%BA%A6/" title="经纬度">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">经纬度</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="统计学">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/" title="统计学">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">统计学</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div><div class="tag-subtree is-leaf" data-tag="高德api">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/%E9%AB%98%E5%BE%B7api/" title="高德API">
+  
+  <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">高德API</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+</div></div></div>
+  
+</widget>
+
+
+
+
+<widget class="widget-wrapper slide-up recent-widget">
+  
+    <div class="widget-header dis-select">
+      <span class="name">最近更新</span>
+      
+    </div>
+  
+  <div class="widget-body"><div class="ui-collection" data-layout="list" data-variant="nav" data-density="compact">
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/notebooks/tech/250226-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" title="数据库和数据仓库">
+  
+  
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">数据库和数据仓库</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/notebooks/tech/250226-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-sklearn%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/" title="使用sklearn进行特征工程">
+  
+  
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">使用sklearn进行特征工程</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/notebooks/tech/250222-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-ml%E5%92%8C%E7%BB%9F%E8%AE%A1%E5%AD%A6basic/" title="ML和统计学basic">
+  
+  
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">ML和统计学basic</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/notebooks/tech/200322-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-vps%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="VPS服务器">
+  
+  
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">VPS服务器</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/notebooks/tech/190826-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-soundex%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="soundex算法的实现">
+  
+  
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">soundex算法的实现</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/notebooks/tech/190714-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%87%8D%E5%A4%8D%E5%BA%A6%E8%AE%A1%E7%AE%97/" title="重复度计算">
+  
+  
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">重复度计算</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/notebooks/tech/190714-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-python%E8%B0%83%E7%94%A8%E9%AB%98%E5%BE%B7api%E6%89%B9%E9%87%8F%E8%8E%B7%E5%BE%97%E7%BB%8F%E7%BA%AC%E5%BA%A6/" title="Python调用高德API批量获得经纬度">
+  
+  
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">Python调用高德API批量获得经纬度</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/notebooks/tech/190714-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-python%E8%B0%83%E7%94%A8%E7%99%BE%E5%BA%A6ocr/" title="Python调用百度OCR">
+  
+  
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">Python调用百度OCR</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/notebooks/tech/190714-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-python%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AA%E7%BB%8F%E7%BA%AC%E5%BA%A6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB/" title="Python计算两个经纬度之间的距离">
+  
+  
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">Python计算两个经纬度之间的距离</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+    
+<a class="ui-collection__item card-hover card-hover--spotlight" href="/notebooks/tech/190222-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9C%A8hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90/" title="在Hexo博客中添加音乐">
+  
+  
+  
+    <span class="ui-collection__content">
+      
+      <span class="ui-collection__title">在Hexo博客中添加音乐</span>
+      
+      
+    </span>
+  
+  
+  
+  
+</a>
+
+  
+</div></div>
+  
+</widget>
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap" style="--item-grad:url(#footer-social-icon-grad)">
+<svg class="grad-def" width="0" height="0" aria-hidden="true" focusable="false"><defs><linearGradient id="footer-social-icon-grad" x1="75%" y1="6.7%" x2="6.7%" y2="125%"><stop offset="20%" style="stop-color:var(--item-theme-light)"/><stop offset="60%" style="stop-color:var(--item-theme)"/></linearGradient></defs></svg>
+<a class="social" href="https:&#x2F;&#x2F;github.com&#x2F;chuang1230" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/08a41b181ce68.svg"/></a><a class="social" href="&#x2F;atom.xml" rel="noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.iconify.design/fa6-solid:rss.svg?color=%23ff7a00"/></a></div></footer>
+</div></aside><div class="l_main" id="main" data-ui-surface="content">
+
+
+
+
+
+
+<div class="article-banner-wrap slide-up"><div class="article banner top">
+  <div class="content">
+    
+    <div class="top bread-nav footnote"><div class="top-row"><div class="left" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span>
+<a class="cap breadcrumb" href="/notebooks/">笔记本</a>
+
+
+  <span class="sep"></span>
+  <a class="cap breadcrumb" href="/notebooks/tech/">技术知识库</a>
+
+</div></div><div class="meta-row">
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2026-09-27T13:56:22.272Z">2026-09-27</time></span><span class="sep updated"></span><span class="text updated">发布于：<time datetime="2024-05-12T17:05:00.000Z">2024-05-13</time></span></div>
+</div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>机器学习前置数学</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div></div>
+<article class="md-text content slide-up"><h3 id="导数"><a href="#导数" class="headerlink" title="导数"></a>导数</h3><h4 id="导数的概念"><a href="#导数的概念" class="headerlink" title="导数的概念"></a>导数的概念</h4><p><strong>导数</strong>（derivative）是微积分中的一个概念。函数在某一点的导数是指这个函数在这一点附近的变化率（即函数在这一点的切线斜率）。导数的本质是通过极限的概念对函数进行局部的线性逼近。</p>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/img/20260814094855-9.png" width="364.8000183105469" title="" crop="0,0,1,1" id="u9a434d2f" class="ne-image lazy">
+
+<p>当函数的自变量在一点上产生一个增量$ \Delta x $时，函数输出值的增量与自变量增量的比值在趋于0时的极限如果存在，即为在$ x $处的导数，记作$ f’(x) $、$ \frac{dy}{dx} $或$ y’ $。</p>
+<p>$ f’(x) = \lim_{\Delta x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x} $</p>
+<p>例如在运动学中，物体的位移对于时间的导数就是物体的瞬时速度：$ v = \frac{ds}{dt} $。</p>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/img/20260814094855-20.png" width="343.8000183105469" title="" crop="0,0,1,1" id="u6e9a7292" class="ne-image lazy">
+
+
+
+<h4 id="基本函数的导数"><a href="#基本函数的导数" class="headerlink" title="基本函数的导数"></a>基本函数的导数</h4><div class="md-table-scroll"><table>
+<thead>
+<tr>
+<th><strong>说明</strong></th>
+<th><strong>公式</strong></th>
+<th><strong>例子</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>常数的导数</strong></td>
+<td>$ (c)’ = 0 $</td>
+<td>$ (5)’ = 0 $</td>
+</tr>
+<tr>
+<td><strong>幂函数的导数</strong></td>
+<td>$ (x^n)’ = nx^{n-1} $</td>
+<td>$ (x^3)’ = 3x^2 $</td>
+</tr>
+<tr>
+<td><strong>指数函数的导数</strong></td>
+<td>$ (a^x)’ = a^x \ln a $</td>
+<td>$ (2^x)’ = 2^x \ln 2 $</td>
+</tr>
+<tr>
+<td><strong>指数函数的导数</strong></td>
+<td>$ (e^x)’ = e^x $</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>对数函数的导数</strong></td>
+<td>$ (\log_a x)’ = \frac{1}{x \ln a} $</td>
+<td>$ (\log_2 x)’ = \frac{1}{x \ln 2} $</td>
+</tr>
+<tr>
+<td><strong>对数函数的导数</strong></td>
+<td>$ (\ln x)’ = \frac{1}{x} $</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>三角函数的导数</strong></td>
+<td>$ (\sin x)’ = \cos x $</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>三角函数的导数</strong></td>
+<td>$ (\cos x)’ = -\sin x $</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>三角函数的导数</strong></td>
+<td>$ (\tan x)’ = \sec^2 x $</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>三角函数的导数</strong></td>
+<td>$ (\cot x)’ = -\csc^2 x $</td>
+<td>—</td>
+</tr>
+</tbody></table></div>
+<h4 id="导数的求导法则"><a href="#导数的求导法则" class="headerlink" title="导数的求导法则"></a>导数的求导法则</h4><div class="md-table-scroll"><table>
+<thead>
+<tr>
+<th><strong>说明</strong></th>
+<th><strong>公式</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>两函数之和求导</strong></td>
+<td>$ (f + g)’ = f’ + g’ $</td>
+</tr>
+<tr>
+<td><strong>两函数之积求导</strong></td>
+<td>$ (fg)’ = f’g + fg’ $</td>
+</tr>
+<tr>
+<td><strong>两函数之商求导</strong></td>
+<td>$ (f/g)’ = \frac{f’g - fg’}{g^2} $</td>
+</tr>
+<tr>
+<td><strong>复合函数的导数</strong></td>
+<td>若$ f(x) = h[g(x)] $，则$ f’(x) = h’[g(x)] \cdot g’(x) $</td>
+</tr>
+</tbody></table></div>
+<p>例如：求函数$ f(x) = x^3 $在$ x = 2 $处的导数。</p>
+<p>$ f’(x) = 3x^2 $</p>
+<p>$ f’(2) = 3 \times 2^2 = 12 $</p>
+<h4 id="利用导数求极值"><a href="#利用导数求极值" class="headerlink" title="利用导数求极值"></a>利用导数求极值</h4><p>导数等于零的点称为函数的<strong>驻点</strong>（或极值可疑点），在这类点上函数可能会取得<strong>极大值</strong>或<strong>极小值</strong>。进一步判断则需要知道导数在$ x_0 $附近的符号。</p>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/img/20260814094855-31.png" width="396.8000183105469" title="" crop="0,0,1,1" id="u58fd3a42" class="ne-image lazy">  
+例如，$ f(x) = x^3 $在$ x = 0 $处导数为0，但并不会取得极大值或者极小值。
+
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/img/20260814094855-42.png" width="261" title="" crop="0,0,1,1" id="JtGsm" class="ne-image lazy">
+
+
+
+<h3 id="二阶导数"><a href="#二阶导数" class="headerlink" title="二阶导数"></a>二阶导数</h3><h4 id="二阶导数的概念"><a href="#二阶导数的概念" class="headerlink" title="二阶导数的概念"></a>二阶导数的概念</h4><p>在微积分中，函数的二阶导数是函数导数的导数。粗略来说，某个量的二阶导数描述该量变化率变化的快慢。例如物体位置对时间的二阶导数是物体的瞬时加速度，即该物体速度随时间的变化率：$ a = \frac{d^2s}{dt^2} $。<br>函数的二阶导数通常记作$ f’’(x) $、$ \frac{d^2y}{dx^2} $或$ y’’ $。</p>
+<h4 id="二阶导数与函数凹凸的关系"><a href="#二阶导数与函数凹凸的关系" class="headerlink" title="二阶导数与函数凹凸的关系"></a>二阶导数与函数凹凸的关系</h4><p>函数的二阶导数描述了函数图像的凹凸方向和程度。若二阶导数在某区间恒为正，则函数在该区间向上弯（也称<strong>下凸函数</strong>）。反之，若二阶导数在某区间恒为负，则函数在该区间向下弯（也称<strong>上凸函数</strong>）。</p>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/img/20260814094855-53.png" width="554.4" title="" crop="0,0,1,1" id="u93d0f076" class="ne-image lazy">
+
+<p>若函数的二阶导数在某点左右异号，则图像由向上弯转为向下弯，或反之。这种点称之为<strong>拐点</strong>。若二阶导数连续，则在该点处二阶导数为0。但反之二阶导数为0的点不一定是拐点。如$ f(x) = x^4 $，在$ x = 0 $处有$ f’’(0) = 0 $，但在实数系上无拐点。</p>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/img/20260814094855-57.png" width="436.8" title="" crop="0,0,1,1" id="ub7061506" class="ne-image lazy">
+
+<p>二阶导数与凹凸性的关系有助于判断函数的驻点是否为极大值点或极小值点：<br>若$ f’(x_0) = 0 $，$ f’’(x_0) &lt; 0 $，则在$ x_0 $取得极大值。<br>若$ f’(x_0) = 0 $，$ f’’(x_0) &gt; 0 $，则在$ x_0 $取得极小值。<br>若$ f’(x_0) = 0 $，$ f’’(x_0) = 0 $，则该点可能是拐点，也可能是极大值点或极小值点。</p>
+<h3 id="偏导与梯度"><a href="#偏导与梯度" class="headerlink" title="偏导与梯度"></a>偏导与梯度</h3><h4 id="偏导数"><a href="#偏导数" class="headerlink" title="偏导数"></a>偏导数</h4><p>如果函数的自变量并非单个元素，而是多个元素，例如：</p>
+<p>$ f(x, y) = x^2 + xy + y^2 $</p>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/img/20260814094855-58.png" width="361.6" title="" crop="0,0,1,1" id="uc22f8977" class="ne-image lazy">
+
+<p>可将其中一个元素看作常数，此时可看作关于另一元素的函数。</p>
+<p>例如，将$ x $看作常数，此时$ f $可看作关于$ y $的函数：$ f_x(y) = x^2 + xy + y^2 $。</p>
+<p>在$ x = a $固定的情况下，可计算$ f_x $关于$ y $的导数：</p>
+<p>$ f’_{x=a}(y) = a + 2y $</p>
+<p>这种导数称为<strong>偏导数</strong>，一般记作：</p>
+<p>$ \frac{\partial f}{\partial y}(x, y) = x + 2y $</p>
+<p>更一般地来说，一个多元函数$ f(x_1, x_2, \ldots, x_n) $在点$ (a_1, a_2, \ldots, a_n) $处对$ x_i $的偏导数定义为：</p>
+<p>$ \frac{\partial f}{\partial x_i}(a_1, a_2, \ldots, a_n) = \lim_{\Delta x_i \to 0} \frac{f(a_1, \ldots, a_i + \Delta x_i, \ldots, a_n) - f(a_1, \ldots, a_i, \ldots, a_n)}{\Delta x_i} $</p>
+<h4 id="方向导数"><a href="#方向导数" class="headerlink" title="方向导数"></a>方向导数</h4><p>偏导数可以看作是<strong>多元函数沿某个自变量轴方向的变化率</strong>。</p>
+<p>如果我们任意选取一个方向$ l $，那么在某个点$ (x_0, y_0) $处，二元函数$ f(x, y) $沿着这个方向的变化率可以用极限定义为：</p>
+<p>$ \frac{\partial f}{\partial l}(x_0, y_0) = \lim_{\Delta l \to 0} \frac{f(x_0 + \Delta x, y_0 + \Delta y) - f(x_0, y_0)}{\Delta l} $</p>
+<p>这里，$ \Delta l $就是沿方向$ l $的微小改变量，$ \Delta x $和$ \Delta y $与$ \Delta l $的关系为：</p>
+<p>$ \Delta x = \Delta l \cdot \cos \alpha, \quad \Delta y = \Delta l \cdot \cos \beta $</p>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/img/20260814094855-59.png" width="400.8" title="" crop="0,0,1,1" id="u01490134" class="ne-image lazy">
+
+<p>根据全微分公式，上式可以表示为：</p>
+<p>$ \frac{\partial f}{\partial l}(x_0, y_0) = f_x(x_0, y_0) \cos \alpha + f_y(x_0, y_0) \cos \beta $</p>
+<p>其中$ f_x(x_0, y_0) $、$ f_y(x_0, y_0) $表示点$ (x_0, y_0) $处$ f $对$ x $、$ y $的偏导数；$ \cos \alpha $、$ \cos \beta $是方向$ l $的方向余弦，即$ l $方向的单位方向向量可以表示为$ \mathbf{l}_0 = (\cos \alpha, \cos \beta) $。</p>
+<p>这个”沿某个方向的变化率”，就被称为沿方向$ l $的<strong>方向导数</strong>。</p>
+<h4 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h4><p>对于多元函数$ f(x_1, x_2, \ldots, x_n) $，如果它在点$ \mathbf{a} = (a_1, a_2, \ldots, a_n) $处关于每个变量$ x_i $都有偏导数$ \frac{\partial f}{\partial x_i}(\mathbf{a}) $，那么这些偏导数定义出一个向量：</p>
+<p>$ \nabla f(\mathbf{a}) = \left[\frac{\partial f}{\partial x_1}(\mathbf{a}), \frac{\partial f}{\partial x_2}(\mathbf{a}), \ldots, \frac{\partial f}{\partial x_n}(\mathbf{a})\right] $</p>
+<p>这个向量称为在点$ \mathbf{a} $的<strong>梯度</strong>，记作$ \nabla f(\mathbf{a}) $或者$ \text{grad } f(\mathbf{a}) $。</p>
+<p>例如：$ f(x, y) = x^2 + xy + y^2 $在$ (1, 1) $处的梯度为$ \nabla f(1, 1) = [3, 3] $。</p>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/img/20260814094855-65.png" width="405.6" title="" crop="0,0,1,1" id="uaeb5db1d" class="ne-image lazy">
+
+<p>梯度向量表示的方向，就是函数在这一点处，方向导数取最大值的方向。换句话说，梯度的方向，就是函数值变化最快的方向。</p>
+<h2 id="线性代数"><a href="#线性代数" class="headerlink" title="线性代数"></a>线性代数</h2><h3 id="标量与向量"><a href="#标量与向量" class="headerlink" title="标量与向量"></a>标量与向量</h3><h4 id="标量与向量的概念"><a href="#标量与向量的概念" class="headerlink" title="标量与向量的概念"></a>标量与向量的概念</h4><p><strong>标量（scalar）</strong>：标量是一个单独的数，只有大小。<br><strong>向量</strong>（vector）：向量由标量组成，有大小有方向。</p>
+<ul>
+<li><strong>行向量</strong>：</li>
+</ul>
+<p>$ \mathbf{x}^T = [x_1, x_2, \ldots, x_n] $</p>
+<ul>
+<li><strong>列向量</strong>：</li>
+</ul>
+<p>$ \mathbf{x} = \begin{bmatrix} x_1 \ x_2 \ \vdots \ x_n \end{bmatrix} $</p>
+<h4 id="向量运算"><a href="#向量运算" class="headerlink" title="向量运算"></a>向量运算</h4><ol>
+<li>向量转置：列向量转置结果为行向量</li>
+</ol>
+<p>$ \mathbf{x} = \begin{bmatrix} x_1 \ x_2 \ \vdots \ x_n \end{bmatrix}, \quad \mathbf{x}^T = [x_1, x_2, \ldots, x_n] $</p>
+<ol start="2">
+<li>向量相加：对应元素相加</li>
+</ol>
+<p>$ \mathbf{x} + \mathbf{y} = [x_1 + y_1, x_2 + y_2, \ldots, x_n + y_n] $</p>
+<ol start="3">
+<li>向量与标量相乘：标量与向量每个元素相乘</li>
+</ol>
+<p>$ c\mathbf{x} = [cx_1, cx_2, \ldots, cx_n] $</p>
+<ol start="4">
+<li>向量内积：又称向量点乘，两向量对应元素乘积之和，结果为标量</li>
+</ol>
+<p>$ \mathbf{x} \cdot \mathbf{y} = \sum_{i=1}^{n} x_i y_i $</p>
+<ul>
+<li>两向量之间夹角表示为</li>
+</ul>
+<p>$ \cos \theta = \frac{\mathbf{x} \cdot \mathbf{y}}{|\mathbf{x}||\mathbf{y}|} $</p>
+<h4 id="向量范数"><a href="#向量范数" class="headerlink" title="向量范数"></a>向量范数</h4><p>范数（norm）是具有“长度”概念的函数。</p>
+<ol>
+<li><strong>L0范数</strong>（也称0范数）</li>
+</ol>
+<p>$ |\mathbf{x}|_0 = \text{非零元素的个数} $</p>
+<ul>
+<li>例如：$ \mathbf{x} = [2, 0, 5, 0, 8] $，则$ |\mathbf{x}|_0 = 3 $。</li>
+</ul>
+<ol start="2">
+<li><strong>L1范数</strong>（也称和范数或1范数）</li>
+</ol>
+<p>$ |\mathbf{x}|<em>1 = \sum</em>{i=1}^{n} |x_i| $</p>
+<ul>
+<li>例如：$ \mathbf{x} = [2, -5, 8] $，则$ |\mathbf{x}|_1 = 2 + 5 + 8 = 15 $。</li>
+</ul>
+<ol start="3">
+<li><strong>L2范数</strong>（也称欧几里得范数或2范数）</li>
+</ol>
+<p>$ |\mathbf{x}|<em>2 = \sqrt{\sum</em>{i=1}^{n} x_i^2} $</p>
+<ul>
+<li>例如：$ \mathbf{x} = [2, 5, 8] $，则$ |\mathbf{x}|_2 = \sqrt{4 + 25 + 64} = \sqrt{93} $。</li>
+</ul>
+<ol start="4">
+<li><strong>Lp范数</strong></li>
+</ol>
+<p>$ |\mathbf{x}|<em>p = \left(\sum</em>{i=1}^{n} |x_i|^p\right)^{1/p} $</p>
+<ul>
+<li>在numpy中，可以利用linalg.norm 函数方便地计算向量的范数。</li>
+</ul>
+<h3 id="矩阵与张量"><a href="#矩阵与张量" class="headerlink" title="矩阵与张量"></a>矩阵与张量</h3><h4 id="矩阵的概念"><a href="#矩阵的概念" class="headerlink" title="矩阵的概念"></a>矩阵的概念</h4><p>一个$ m \times n $的矩阵（matrix）是一个有m行n列元素的矩形阵列。用$ \mathbb{R}^{m \times n} $表示所有实数矩阵的向量空间。</p>
+<ol>
+<li><strong>方阵</strong>：行数等于列数的矩阵</li>
+</ol>
+<p>$ A = \begin{bmatrix} a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \ a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \ a_{n1} &amp; a_{n2} &amp; \cdots &amp; a_{nn} \end{bmatrix} $</p>
+<ol start="2">
+<li><strong>对角矩阵</strong>：主对角线以外元素全为0的方阵</li>
+</ol>
+<p>$ \text{diag}(d_1, d_2, \ldots, d_n) = \begin{bmatrix} d_1 &amp; 0 &amp; \cdots &amp; 0 \ 0 &amp; d_2 &amp; \cdots &amp; 0 \ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \ 0 &amp; 0 &amp; \cdots &amp; d_n \end{bmatrix} $</p>
+<ol start="3">
+<li><strong>单位矩阵</strong>：主对角线元素全为1的对角矩阵</li>
+</ol>
+<p>$ I = \begin{bmatrix} 1 &amp; 0 &amp; \cdots &amp; 0 \ 0 &amp; 1 &amp; \cdots &amp; 0 \ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \ 0 &amp; 0 &amp; \cdots &amp; 1 \end{bmatrix} $</p>
+<h4 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h4><p><strong>矩阵乘法运算</strong><br>两个矩阵的乘法仅当矩阵$ A $的列数和矩阵$ B $的行数相等时才能定义。如$ A \in \mathbb{R}^{m \times n} $，$ B \in \mathbb{R}^{n \times p} $，它们的乘积$ C = AB \in \mathbb{R}^{m \times p} $，其中：</p>
+<p>$ c_{ij} = \sum_{k=1}^{n} a_{ik} b_{kj} $</p>
+<p>例如：</p>
+<p>$ A = \begin{bmatrix} 1 &amp; 0 &amp; 2 \ -1 &amp; 3 &amp; 1 \end{bmatrix} \in \mathbb{R}^{2 \times 3}, \quad B = \begin{bmatrix} 3 &amp; 1 \ 2 &amp; 1 \ 1 &amp; 0 \end{bmatrix} \in \mathbb{R}^{3 \times 2} $</p>
+<p>$ AB = \begin{bmatrix} 1 \times 3 + 0 \times 2 + 2 \times 1 &amp; 1 \times 1 + 0 \times 1 + 2 \times 0 \ (-1) \times 3 + 3 \times 2 + 1 \times 1 &amp; (-1) \times 1 + 3 \times 1 + 1 \times 0 \end{bmatrix} = \begin{bmatrix} 5 &amp; 1 \ 4 &amp; 2 \end{bmatrix} $</p>
+<p>特别地，矩阵与单位矩阵相乘等于矩阵本身：</p>
+<p>$ AI = A \quad (A \in \mathbb{R}^{m \times n}, I \in \mathbb{R}^{n \times n}) $或$ IA = A \quad (I \in \mathbb{R}^{n \times n}, A \in \mathbb{R}^{n \times m}) $</p>
+<p>例如：</p>
+<p>$ A = \begin{bmatrix} 1 &amp; 2 \ 3 &amp; 5 \ 4 &amp; 8 \end{bmatrix} \in \mathbb{R}^{3 \times 2}, \quad I = \begin{bmatrix} 1 &amp; 0 \ 0 &amp; 1 \end{bmatrix} \in \mathbb{R}^{2 \times 2} $</p>
+<p>$ AI = \begin{bmatrix} 1 \times 1 + 2 \times 0 &amp; 1 \times 0 + 2 \times 1 \ 3 \times 1 + 5 \times 0 &amp; 3 \times 0 + 5 \times 1 \ 4 \times 1 + 8 \times 0 &amp; 4 \times 0 + 8 \times 1 \end{bmatrix} = \begin{bmatrix} 1 &amp; 2 \ 3 &amp; 5 \ 4 &amp; 8 \end{bmatrix} = A $</p>
+<hr>
+<p><strong>矩阵乘法的性质</strong><br>矩阵乘法满足结合律、左分配律和右分配律。不满足交换律即$ AB \neq BA $。</p>
+<ul>
+<li>结合律：若$ A \in \mathbb{R}^{m \times n} $，$ B \in \mathbb{R}^{n \times p} $，$ C \in \mathbb{R}^{p \times q} $，则$ (AB)C = A(BC) $</li>
+<li>左分配律：若$ A \in \mathbb{R}^{m \times n} $，$ B, C \in \mathbb{R}^{n \times p} $，则$ A(B + C) = AB + AC $</li>
+<li>右分配律：若$ A, B \in \mathbb{R}^{m \times n} $，$ C \in \mathbb{R}^{n \times p} $，则$ (A + B)C = AC + BC $</li>
+</ul>
+<h4 id="矩阵转置"><a href="#矩阵转置" class="headerlink" title="矩阵转置"></a>矩阵转置</h4><p><strong>矩阵转置运算</strong></p>
+<p>矩阵$ A \in \mathbb{R}^{m \times n} $的转置是一个$ n \times m $的矩阵，记为$ A^T $。其中$ A^T $的第$ i $个行向量是原矩阵$ A $的第$ i $个列向量；或者说，转置矩阵$ A^T $第$ i $行第$ j $列的元素是原矩阵$ A $第$ j $行第$ i $列的元素。</p>
+<p>数学上可以表示为：</p>
+<p>$ [A^T]<em>{ij} = a</em>{ji} $</p>
+<p>例如：</p>
+<p>$ A = \begin{bmatrix} 1 &amp; 2 \ 3 &amp; 5 \ 4 &amp; 8 \end{bmatrix} \in \mathbb{R}^{3 \times 2}, \quad A^T = \begin{bmatrix} 1 &amp; 3 &amp; 4 \ 2 &amp; 5 &amp; 8 \end{bmatrix} \in \mathbb{R}^{2 \times 3} $</p>
+<hr>
+<p><strong>矩阵转置的性质</strong></p>
+<p>$ (A^T)^T = A $</p>
+<p>$ (A + B)^T = A^T + B^T $</p>
+<p>$ (kA)^T = kA^T $</p>
+<p>$ (AB)^T = B^T A^T $</p>
+<h4 id="矩阵的逆"><a href="#矩阵的逆" class="headerlink" title="矩阵的逆"></a>矩阵的逆</h4><p>对于方阵$ A $，如果存在另一个方阵$ A^{-1} $，使得$ AA^{-1} = I $成立，此时$ A^{-1}A = I $也同样成立。称$ A^{-1} $为$ A $的逆矩阵。</p>
+<p>例如：</p>
+<p>$ A = \begin{bmatrix} 1 &amp; 2 \ 3 &amp; 5 \end{bmatrix}, \quad A^{-1} = \begin{bmatrix} -5 &amp; 2 \ 3 &amp; -1 \end{bmatrix} $</p>
+<p>$ AA^{-1} = \begin{bmatrix} 1 &amp; 2 \ 3 &amp; 5 \end{bmatrix} \times \begin{bmatrix} -5 &amp; 2 \ 3 &amp; -1 \end{bmatrix} = \begin{bmatrix} 1 \times (-5) + 2 \times 3 &amp; 1 \times 2 + 2 \times (-1) \ 3 \times (-5) + 5 \times 3 &amp; 3 \times 2 + 5 \times (-1) \end{bmatrix} = \begin{bmatrix} 1 &amp; 0 \ 0 &amp; 1 \end{bmatrix} = I $</p>
+<h4 id="其他矩阵运算"><a href="#其他矩阵运算" class="headerlink" title="其他矩阵运算"></a>其他矩阵运算</h4><ol>
+<li><strong>矩阵的向量化</strong></li>
+</ol>
+<p>矩阵$ A \in \mathbb{R}^{m \times n} $的向量化$ \text{vec}(A) $将矩阵$ A $的元素按列排列成一个$ mn \times 1 $的向量。</p>
+<p>$ \text{vec}(A) = [a_{11}, \ldots, a_{m1}, a_{12}, \ldots, a_{m2}, \ldots, a_{1n}, \ldots, a_{mn}]^T $</p>
+<p>矩阵也可以转化为行向量，称为矩阵的行向量化$ \text{rvec}(A) $。</p>
+<p>$ \text{rvec}(A) = [a_{11}, \ldots, a_{1n}, a_{21}, \ldots, a_{2n}, \ldots, a_{m1}, \ldots, a_{mn}] $</p>
+<p>例如：</p>
+<p>$ A = \begin{bmatrix} 1 &amp; 2 \ 3 &amp; 4 \end{bmatrix} $</p>
+<ul>
+<li>列向量化：</li>
+</ul>
+<p>$ \text{vec}(A) = \begin{bmatrix} 1 \ 3 \ 2 \ 4 \end{bmatrix} $</p>
+<ul>
+<li>行向量化：</li>
+</ul>
+<p>$ \text{rvec}(A) = (1, 2, 3, 4) $</p>
+<hr>
+<ol start="2">
+<li><strong>矩阵的内积</strong></li>
+</ol>
+<p>矩阵$ A \in \mathbb{R}^{m \times n} $和矩阵$ B \in \mathbb{R}^{m \times n} $的内积记作$ (A, B) $，它是两个矩阵对应元素乘积之和，是一个标量。</p>
+<p>$ (A, B) = (\text{vec}(A), \text{vec}(B)) = \sum_{i=1}^{m} \sum_{j=1}^{n} a_{ij} b_{ij} $</p>
+<hr>
+<ol start="3">
+<li><strong>矩阵的Hadamard积</strong></li>
+</ol>
+<p>矩阵$ A \in \mathbb{R}^{m \times n} $和矩阵$ B \in \mathbb{R}^{m \times n} $的Hadamard积记作$ A \odot B $，它是两个矩阵对应元素的乘积，是一个$ m \times n $的矩阵。</p>
+<p>$ (A \odot B)<em>{ij} = a</em>{ij} b_{ij} $</p>
+<ol start="4">
+<li><strong>矩阵的Kronecker积</strong></li>
+</ol>
+<p>矩阵$ A \in \mathbb{R}^{m \times n} $和矩阵$ B \in \mathbb{R}^{p \times q} $的Kronecker积记作$ A \otimes B $，它是矩阵$ A $中每个元素与矩阵$ B $的乘积，是一个$ mp \times nq $的矩阵。</p>
+<p>$ (A \otimes B)<em>{ij} = [a</em>{ij} B]_{i=1,j=1}^{m,n} $</p>
+<p>$ A \otimes B = \begin{bmatrix} a_{11}B &amp; a_{12}B &amp; \cdots &amp; a_{1n}B \ a_{21}B &amp; a_{22}B &amp; \cdots &amp; a_{2n}B \ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \ a_{m1}B &amp; a_{m2}B &amp; \cdots &amp; a_{mn}B \end{bmatrix} $</p>
+<p>Kronecker积也称为<strong>直积或张量积。</strong></p>
+<h4 id="张量"><a href="#张量" class="headerlink" title="张量"></a>张量</h4><p>张量（tensor）可视为多维数组，是标量，1维向量和2维矩阵的n维推广。</p>
+<p>例如：3维张量</p>
+<p>$ \mathcal{T} \in \mathbb{R}^{d_1 \times d_2 \times d_3} $</p>
+<h3 id="矩阵求导"><a href="#矩阵求导" class="headerlink" title="矩阵求导"></a>矩阵求导</h3><p>矩阵求导的本质是：函数对变元的每个元素分别求导后，将结果按向量/矩阵的结构重新组织呈现（而非简单的”数值导数”，而是保留向量/矩阵的维度形式）。</p>
+<p>为精准理解，先对「变元（自变量）」和「函数」做统一的符号与定义规范：</p>
+<ol>
+<li>变元的符号规则</li>
+</ol>
+<ul>
+<li><strong>实向量变元</strong></li>
+</ul>
+<p>设 $ \mathbf{x} = [x_1, x_2, \dots, x_m]^T \in \mathbb{R}^m $。</p>
+<p>解释：$ [x_1, x_2, \dots, x_m] $ 是行形式的元素列表，上标 $ T $ 表示转置，转置后将行向量转化为 $ m $ 维列向量（线性代数中向量默认以”列优先”形式参与运算，保证矩阵乘法等操作的维度一致性）。</p>
+<ul>
+<li><strong>实矩阵变元</strong></li>
+</ul>
+<p>设 $ \mathbf{X} \in \mathbb{R}^{m \times n} $（原文符号表述存在小瑕疵，修正后逻辑为：$ \mathbf{X} $ 是 $ m $ 行 $ n $ 列的实矩阵，可理解为”由 $ n $ 个 $ m $ 维列向量 $ \mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_n $ 按列拼接而成”，即 $ \mathbf{X} = [\mathbf{x}_1 \ \mathbf{x}_2 \ \dots \ \mathbf{x}_n] $，其中每个 $ \mathbf{x}_i \in \mathbb{R}^m $ 是列向量）。</p>
+<ol start="2">
+<li>函数的分类与符号规则</li>
+</ol>
+<p>依据函数输出维度和变元类型（向量/矩阵），函数可分为以下4类：</p>
+<div class="md-table-scroll"><table>
+<thead>
+<tr>
+<th align="left">函数类型</th>
+<th align="left">输出维度</th>
+<th align="left">变元类型</th>
+<th align="left">核心含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">实标量函数（向量变元）</td>
+<td align="left">$ f(\mathbf{x}) \in \mathbb{R} $</td>
+<td align="left">实向量 $ \mathbf{x} $</td>
+<td align="left">输入是 $ m $ 维列向量，输出是单个实数</td>
+</tr>
+<tr>
+<td align="left">实标量函数（矩阵变元）</td>
+<td align="left">$ f(\mathbf{X}) \in \mathbb{R} $</td>
+<td align="left">实矩阵 $ \mathbf{X} $</td>
+<td align="left">输入是 $ m \times n $ 实矩阵，输出是单个实数</td>
+</tr>
+<tr>
+<td align="left">实向量函数（向量变元）</td>
+<td align="left">$ f(\mathbf{x}) \in \mathbb{R}^p $</td>
+<td align="left">实向量 $ \mathbf{x} $</td>
+<td align="left">输入是 $ m $ 维列向量，输出是 $ p $ 维列向量</td>
+</tr>
+<tr>
+<td align="left">实向量函数（矩阵变元）</td>
+<td align="left">$ f(\mathbf{X}) \in \mathbb{R}^p $</td>
+<td align="left">实矩阵 $ \mathbf{X} $</td>
+<td align="left">输入是 $ m \times n $ 实矩阵，输出是 $ p $ 维列向量</td>
+</tr>
+</tbody></table></div>
+<p>此外，函数还可直接以矩阵形式 $ \mathbf{F} $ 存在（即输出为矩阵）——此时可将其视为”实向量函数的高维扩展”（若把向量理解为”单列矩阵”，则矩阵函数是”多列向量的堆叠”）。</p>
+<h4 id="典型计算场景"><a href="#典型计算场景" class="headerlink" title="典型计算场景"></a>典型计算场景</h4><ol>
+<li><strong>标量对向量求导</strong></li>
+</ol>
+<p>数学上，一般定义向量为列向量形式。由于$ f(\mathbf{x}) = f(x_1, x_2, \ldots, x_n) $，所以</p>
+<p>它对向量变元$ \mathbf{x} $求导，本质就是对$ \mathbf{x} $的每个元素求偏导：</p>
+<p>$ \frac{\partial f}{\partial \mathbf{x}} = \begin{bmatrix} \frac{\partial f}{\partial x_1} \ \frac{\partial f}{\partial x_2} \ \vdots \ \frac{\partial f}{\partial x_n} \end{bmatrix} $</p>
+<p>例如：<br>函数$ f(\mathbf{x}) = x_1^2 + 2x_1x_2 + x_2^2 $，令$ \mathbf{x} = [x_1, x_2]^T $，则</p>
+<p>$ \frac{\partial f}{\partial \mathbf{x}} = \begin{bmatrix} 2x_1 + 2x_2 \ 2x_1 + 2x_2 \end{bmatrix} $</p>
+<ol start="2">
+<li><strong>标量对矩阵求导</strong></li>
+</ol>
+<p>变元$ X $是一个$ m \times n $的矩阵，可以看成是$ m $个行向量的组合，每个向量维度为$ n $。</p>
+<p>那么$ f $对$ X $求导，同样也是对其中的每个元素求导，结果形状与$ X $相同：</p>
+<p>$ \frac{\partial f}{\partial X} = \begin{bmatrix} \frac{\partial f}{\partial x_{11}} &amp; \frac{\partial f}{\partial x_{12}} &amp; \cdots &amp; \frac{\partial f}{\partial x_{1n}} \ \frac{\partial f}{\partial x_{21}} &amp; \frac{\partial f}{\partial x_{22}} &amp; \cdots &amp; \frac{\partial f}{\partial x_{2n}} \ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \ \frac{\partial f}{\partial x_{m1}} &amp; \frac{\partial f}{\partial x_{m2}} &amp; \cdots &amp; \frac{\partial f}{\partial x_{mn}} \end{bmatrix} $</p>
+<ol start="3">
+<li><strong>向量对标量求导</strong></li>
+</ol>
+<p>对于向量函数$ \mathbf{f}(x) $，可以写为：</p>
+<p>$ \mathbf{f}(x) = \begin{bmatrix} f_1(x) \ f_2(x) \ \vdots \ f_m(x) \end{bmatrix} $</p>
+<p>显然，此时的$ \mathbf{f} $可以看作多个函数的组合，对$ x $求导时，只要让其中的每个元素分别对$ x $求导即可：</p>
+<p>$ \frac{d\mathbf{f}}{dx} = \begin{bmatrix} \frac{df_1}{dx} \ \frac{df_2}{dx} \ \vdots \ \frac{df_m}{dx} \end{bmatrix} $</p>
+<p>例如：<br>函数$ \mathbf{f}(x) = \begin{bmatrix} x^2 \ 2x \ 3 \end{bmatrix} $，则</p>
+<p>$ \frac{d\mathbf{f}}{dx} = \begin{bmatrix} 2x \ 2 \ 0 \end{bmatrix} $</p>
+<ol start="4">
+<li><strong>向量对向量求导（了解）</strong></li>
+</ol>
+<p>类似（3）中的分析，向量函数$ \mathbf{f}(\mathbf{x}) $可以写为：</p>
+<p>$ \mathbf{f}(\mathbf{x}) = \begin{bmatrix} f_1(\mathbf{x}) \ f_2(\mathbf{x}) \ \vdots \ f_m(\mathbf{x}) \end{bmatrix} $</p>
+<p>这里$ \mathbf{f} $的每一个元素$ f_i $，都是变元$ \mathbf{x} $为向量的实标量函数。<br>接下来只要应用（1）中的结论，将$ \mathbf{f} $中的每个标量函数对$ \mathbf{x} $求导即可：</p>
+<p>$ \frac{\partial \mathbf{f}}{\partial \mathbf{x}} = \begin{bmatrix} \frac{\partial f_1}{\partial x_1} &amp; \frac{\partial f_1}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_1}{\partial x_n} \ \frac{\partial f_2}{\partial x_1} &amp; \frac{\partial f_2}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_2}{\partial x_n} \ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \ \frac{\partial f_m}{\partial x_1} &amp; \frac{\partial f_m}{\partial x_2} &amp; \cdots &amp; \frac{\partial f_m}{\partial x_n} \end{bmatrix} $</p>
+<h4 id="常用求导结果"><a href="#常用求导结果" class="headerlink" title="常用求导结果"></a>常用求导结果</h4><div class="md-table-scroll"><table>
+<thead>
+<tr>
+<th><strong>函数类型</strong></th>
+<th><strong>求导结果</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>标量对向量</strong></td>
+<td>$ \frac{\partial (\mathbf{x}^T \mathbf{a})}{\partial \mathbf{x}} = \frac{\partial (\mathbf{a}^T \mathbf{x})}{\partial \mathbf{x}} = \mathbf{a} $</td>
+</tr>
+<tr>
+<td><strong>标量对向量</strong></td>
+<td>$ \frac{\partial (\mathbf{x}^T \mathbf{x})}{\partial \mathbf{x}} = 2\mathbf{x} $</td>
+</tr>
+<tr>
+<td><strong>标量对向量</strong></td>
+<td>$ \frac{\partial (A\mathbf{x})}{\partial \mathbf{x}} = A^T $</td>
+</tr>
+<tr>
+<td><strong>标量对向量</strong></td>
+<td>$ \frac{\partial (\mathbf{x}^T A)}{\partial \mathbf{x}} = A $</td>
+</tr>
+<tr>
+<td><strong>标量对向量</strong></td>
+<td>$ \frac{\partial (\mathbf{x}^T A \mathbf{x})}{\partial \mathbf{x}} = (A^T + A)\mathbf{x} $</td>
+</tr>
+<tr>
+<td><strong>标量对矩阵</strong></td>
+<td>$ \frac{\partial (\mathbf{a}^T X \mathbf{b})}{\partial X} = \mathbf{a}\mathbf{b}^T $</td>
+</tr>
+<tr>
+<td><strong>标量对矩阵</strong></td>
+<td>$ \frac{\partial (\mathbf{a}^T X^T \mathbf{b})}{\partial X} = \frac{\partial (\mathbf{b}^T X \mathbf{a})}{\partial X} = \mathbf{b}\mathbf{a}^T $</td>
+</tr>
+<tr>
+<td><strong>标量对矩阵</strong></td>
+<td>$ \frac{\partial (\mathbf{a}^T X X^T \mathbf{b})}{\partial X} = \mathbf{a}\mathbf{b}^T X + \mathbf{b}\mathbf{a}^T X $</td>
+</tr>
+<tr>
+<td><strong>标量对矩阵</strong></td>
+<td>$ \frac{\partial (\mathbf{a}^T X^T X \mathbf{b})}{\partial X} = X\mathbf{b}\mathbf{a}^T + X\mathbf{a}\mathbf{b}^T $</td>
+</tr>
+</tbody></table></div>
+<h4 id="梯度矩阵"><a href="#梯度矩阵" class="headerlink" title="梯度矩阵"></a>梯度矩阵</h4><p> 梯度是<strong>各个维度上偏导矢量构成的向量和，方向就是该点最大的变化方向。</strong></p>
+<p>对于实向量变元$ \mathbf{x} $，实标量函数$ f(\mathbf{x}) $的梯度向量，为$ \mathbf{x} $的列向量（与$ \mathbf{x} $形状相同）：</p>
+<p>$ \nabla f(\mathbf{x}) = \frac{\partial f}{\partial \mathbf{x}} = \begin{bmatrix} \frac{\partial f}{\partial x_1} \ \frac{\partial f}{\partial x_2} \ \vdots \ \frac{\partial f}{\partial x_n} \end{bmatrix} $</p>
+<p>对于矩阵变元$ X $，可以类似地得到$ f(X) $的梯度矩阵：</p>
+<p>$ \nabla f(X) = \frac{\partial f}{\partial X} = \begin{bmatrix} \frac{\partial f}{\partial x_{11}} &amp; \frac{\partial f}{\partial x_{12}} &amp; \cdots &amp; \frac{\partial f}{\partial x_{1n}} \ \frac{\partial f}{\partial x_{21}} &amp; \frac{\partial f}{\partial x_{22}} &amp; \cdots &amp; \frac{\partial f}{\partial x_{2n}} \ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \ \frac{\partial f}{\partial x_{m1}} &amp; \frac{\partial f}{\partial x_{m2}} &amp; \cdots &amp; \frac{\partial f}{\partial x_{mn}} \end{bmatrix} $</p>
+<p>类似地，$ f(\mathbf{x}) $的二阶偏导构成的矩阵被称为”黑塞矩阵”（Hessian Matrix）：</p>
+<p>$ H(f) = \nabla^2 f(\mathbf{x}) = \begin{bmatrix} \frac{\partial^2 f}{\partial x_1^2} &amp; \frac{\partial^2 f}{\partial x_1 \partial x_2} &amp; \cdots &amp; \frac{\partial^2 f}{\partial x_1 \partial x_n} \ \frac{\partial^2 f}{\partial x_2 \partial x_1} &amp; \frac{\partial^2 f}{\partial x_2^2} &amp; \cdots &amp; \frac{\partial^2 f}{\partial x_2 \partial x_n} \ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \ \frac{\partial^2 f}{\partial x_n \partial x_1} &amp; \frac{\partial^2 f}{\partial x_n \partial x_2} &amp; \cdots &amp; \frac{\partial^2 f}{\partial x_n^2} \end{bmatrix} $</p>
+<h2 id="概率论"><a href="#概率论" class="headerlink" title="概率论"></a>概率论</h2><h3 id="概率"><a href="#概率" class="headerlink" title="概率"></a>概率</h3><h4 id="概率的概念"><a href="#概率的概念" class="headerlink" title="概率的概念"></a>概率的概念</h4><p>概率是对事件发生的可能性的度量。通常将事件A的概率写作$ P(A) $，且$ P(A) \in [0, 1] $。</p>
+<h4 id="概率的计算"><a href="#概率的计算" class="headerlink" title="概率的计算"></a>概率的计算</h4><div class="md-table-scroll"><table>
+<thead>
+<tr>
+<th><strong>事件</strong></th>
+<th><strong>概率</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>A</strong></td>
+<td>$ P(A) \in [0, 1] $</td>
+</tr>
+<tr>
+<td><strong>非A</strong></td>
+<td>$ P(\bar{A}) = 1 - P(A) $</td>
+</tr>
+<tr>
+<td><strong>A和B</strong>（联合概率）</td>
+<td>$ P(A \cap B) = P(A</td>
+</tr>
+<tr>
+<td><strong>A或B</strong></td>
+<td>$ P(A \cup B) = P(A) + P(B) - P(A \cap B) $；当$ A $、$ B $互斥时：$ P(A \cup B) = P(A) + P(B) $</td>
+</tr>
+<tr>
+<td><strong>B的情况下A的概率</strong>（条件概率）</td>
+<td>$ P(A</td>
+</tr>
+</tbody></table></div>
+<p>例如：现有一个装有10个球的袋子，其中有6个红球和4个蓝球。从中随机抽取两个球。我们定义以下事件：</p>
+<ul>
+<li>事件A：第一个抽到的是红球。</li>
+<li>事件B：两个抽到的球都是红球。</li>
+</ul>
+<ol>
+<li><strong>计算联合概率</strong></li>
+</ol>
+<p>第一个球是红球的概率：$ P(A) = \frac{6}{10} = \frac{3}{5} $</p>
+<p>在第一个球是红球的情况下，两个球都是红球的概率：$ P(B|A) = \frac{5}{9} $</p>
+<p>联合概率：$ P(A \cap B) = P(A) \cdot P(B|A) = \frac{6}{10} \cdot \frac{5}{9} = \frac{1}{3} $</p>
+<ol start="2">
+<li><strong>计算条件概率</strong></li>
+</ol>
+<p>条件概率$ P(A|B) $表示在已知两个球都是红球的情况下，第一个球是红球的概率。</p>
+<p>两个球都是红球的概率：</p>
+<p>$ P(B) = \frac{C_6^2}{C_{10}^2} = \frac{6 \times 5 \div 2}{10 \times 9 \div 2} = \frac{1}{3} $</p>
+<p>在两个球都是红球的情况下，第一个球是红球的概率：</p>
+<p>$ P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{1/3}{1/3} = 1 $</p>
+<p>:::warning<br><strong>条件概率公式 <strong>$ P(A|B) = P(A \cap B) / P(B) $</strong> 为什么需要除以 <strong>$ P(B) $</strong>？</strong></p>
+<p>我们可以从以下几个角度逐步拆解：</p>
+<ol>
+<li>明确条件概率的场景</li>
+</ol>
+<p>条件概率 $ P(A|B) $ 描述的是「在事件 $ B $ 已经发生的条件下，事件 $ A $ 发生的概率」。关键在于「$ B $ 发生」这个条件，它把原来的样本空间 $ \Omega $ 缩小到了只包含事件 $ B $ 中的结果。</p>
+<ol start="2">
+<li>从频率近似概率的角度理解</li>
+</ol>
+<p>假设进行了 $ n $ 次重复试验：</p>
+<ul>
+<li>如果事件 $ B $ 发生了 $ m $ 次，那么 $ P(B) \approx m/n $。</li>
+<li>如果事件 $ A $ 和 $ B $ 同时发生了 $ k $ 次，那么 $ P(A \cap B) \approx k/n $。</li>
+</ul>
+<p>问题是：「在这 $ m $ 次 $ B $ 发生的试验中，$ A $ 也发生了多少次？」这个比例就是 $ k/m $。</p>
+<p>进一步推导：$ k/m = (k/n) / (m/n) = P(A \cap B) / P(B) $。</p>
+<p>结论：$ P(A|B) $ 本质上是在「<strong>缩小后的样本空间</strong>」（即 $ B $ 发生的情况）中，$ A $ 所占的比例。除以 $ P(B) $ 是为了进行「样本空间的缩放」，因为 $ P(B) $ 衡量了 $ B $ 在原始空间中的「权重」。</p>
+<ol start="3">
+<li>从古典概率模型的角度验证</li>
+</ol>
+<p>假设样本空间 $ \Omega $ 有 $ N $ 个等可能的基本事件：</p>
+<ul>
+<li>如果事件 $ B $ 包含 $ M $ 个基本事件，那么 $ P(B) = M/N $。</li>
+<li>如果事件 $ A \cap B $ 包含 $ K $ 个基本事件，那么 $ P(A \cap B) = K/N $。</li>
+</ul>
+<p>当「$ B $ 发生」时，样本空间缩小到 $ B $ 的 $ M $ 个基本事件。在这 $ M $ 个事件中，$ A $ 发生了 $ K $ 次，所以 $ P(A|B) = K/M $。</p>
+<p>进一步推导：$ K/M = (K/N) / (M/N) = P(A \cap B) / P(B) $，这与频率角度的理解是一致的。</p>
+<ol start="4">
+<li>反例：为什么 $ P(A|B) $ 不能直接等于 $ P(A \cap B) $？</li>
+</ol>
+<p>用一个具体例子说明：</p>
+<p>假设袋子里有 5 个球（编号 1-5），其中 3 个红球（1, 2, 4），2 个蓝球（3, 5）。</p>
+<ul>
+<li>事件 $ A $：「抽到红球」。</li>
+<li>事件 $ B $：「抽到的球编号 &gt; 3」。</li>
+<li>$ A \cap B $：「抽到编号 &gt; 3 的红球」（只有球 4），所以 $ P(A \cap B) = 1/5 $。</li>
+<li>$ P(B) $：「抽到编号 &gt; 3 的球」（球 4, 5），所以 $ P(B) = 2/5 $。</li>
+</ul>
+<p>如果 $ P(A|B) $ 直接等于 $ P(A \cap B) $，那么 $ P(A|B) = 1/5 $。</p>
+<p>但实际上，如果我们已知「球编号 &gt; 3」（即 $ B $ 发生），样本空间就缩小到了球 4 和球 5。在这个缩小后的空间中，只有球 4 是红球，所以实际概率应该是 $ 1/2 $。</p>
+<p>使用公式 $ P(A|B) = P(A \cap B) / P(B) = (1/5) / (2/5) = 1/2 $，这与缩小样本空间后的实际概率一致。</p>
+<p>总结：为什么要除以 $ P(B) $？</p>
+<ul>
+<li>$ P(A|B) $ 的核心在于「$ B $ 发生后，样本空间缩小到了 $ B $ 对应的结果集合」。</li>
+<li>$ P(B) $ 衡量了 $ B $ 在原始样本空间中的「比例」。除以 $ P(B) $ 就是把「原始样本空间的度量」缩放到「$ B $ 的度量」，从而得到「$ B $ 发生时 $ A $ 的相对比例」。</li>
+<li>直接使用 $ P(A \cap B) $ 忽略了「$ B $ 发生」对样本空间的限制，给出的是「$ A $ 和 $ B $ 同时发生」的绝对概率，而不是条件概率。</li>
+<li>简单来说：条件概率求的是「$ A $ 在 $ B $ 中的比例」，所以要用「$ A \cap B $ 在 $ B $ 中的比例」，而 $ P(B) $ 作为 $ B $ 在原始空间中的「权重」，实现了这种「比例缩放」。</li>
+</ul>
+<p>:::</p>
+<h4 id="概率分布"><a href="#概率分布" class="headerlink" title="概率分布"></a>概率分布</h4><p>概率分布，是指用于表述随机变量取值的概率规律。事件的概率表示了一次试验中某一个结果发生的可能性大小。如果试验结果用变量X的取值来表示，则随机试验的概率分布就是随机变量的概率分布，即随机变量的可能取值及取得对应值的概率。</p>
+<hr>
+<h5 id="均匀分布"><a href="#均匀分布" class="headerlink" title="均匀分布"></a><strong>均匀分布</strong></h5><p>均匀分布也叫矩形分布，它表示在相同长度间隔的分布概率是等可能的。均匀分布由两个参数$ a $和$ b $定义，它们是数轴上的最小值和最大值，通常缩写为$ U(a, b) $。</p>
+<p>均匀分布的概率密度函数可写为：</p>
+<p>$ f(x) = \begin{cases} \frac{1}{b-a} &amp; a &lt; x &lt; b \ 0 &amp; \text{其他} \end{cases} $</p>
+<hr>
+<h5 id="正态分布"><a href="#正态分布" class="headerlink" title="正态分布"></a><strong>正态分布</strong></h5><p>正态分布（Normal Distribution）也称高斯分布，是常见的连续概率分布。正态分布在统计学上十分重要，经常用在自然和社会科学来代表一个不明的随机变量。</p>
+<p>若随机变量$ X $服从一个平均数为$ \mu $、标准差为$ \sigma $（方差为$ \sigma^2 $）的正态分布，则记为$ X \sim N(\mu, \sigma^2) $。</p>
+<p>标准差$ \sigma $的计算公式为：</p>
+<p>$ \sigma = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2} $</p>
+<p>其概率密度函数为：</p>
+<p>$ f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} $</p>
+<p>正态分布的期望$ \mu $可解释为<strong>位置参数</strong>，决定了分布的位置；其方差$ \sigma^2 $可解释为<strong>尺度参数</strong>，决定了分布的幅度。</p>
+<p>正态分布概率密度函数图：</p>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/img/20260814094855-66.png" width="556" title="" crop="0,0,1,1" id="ua3432937" class="ne-image lazy">
+
+<p>正态分布的概率密度函数曲线呈钟形，因此人们又经常称之为钟形曲线。我们通常所说的标准正态分布是位置参数$ \mu = 0 $，尺度参数$ \sigma = 1 $的正态分布$ N(0, 1) $。</p>
+<p>中心极限定理指出，在特定条件下，一个具有有限均值和方差的随机变量的多个样本的平均值本身就是一个随机变量，其分布随着样本数量的增加而收敛于正态分布。因此，许多与独立过程总和有关的物理量，例如测量误差，通常可被近似为正态分布。</p>
+<p>在numpy中，提供了各种随机函数，可以用来生成服从特定分布的数据。</p>
+<h3 id="贝叶斯定理"><a href="#贝叶斯定理" class="headerlink" title="贝叶斯定理"></a>贝叶斯定理</h3><p>贝叶斯定理（Bayes’ Theorem）是概率论中的一个核心定理，用于描述在已有条件概率信息的基础上，如何更新或计算事件的概率。它以英国数学家托马斯·贝叶斯的名字命名。贝叶斯定理特别适合处理”逆向概率”问题，即从结果反推原因的概率。</p>
+<h4 id="全概率公式"><a href="#全概率公式" class="headerlink" title="全概率公式"></a>全概率公式</h4><p>对于复杂事件B，它可能有很多种具体情况，发生概率不容易直接求得。</p>
+<p>这些不同的具体情况可以是一组简单事件，记作A1、A2、…、An，发生的概率P(Ai) 已知；如果它们满足两两<strong>互不相容</strong>、且发生概率之和为 1，就称它们是一个<strong>完备事件组</strong>。<br>这样，如果知道了在每个简单事件发生的前提下、复杂事件发生的概率（条件概率 P(B| Ai) ），就可以将它们全部合并起来，求出复杂事件的概率了。</p>
+<p>这个公式就被称为”全概率公式”。</p>
+<p>$ P(B) = P(B|A_1) \cdot P(A_1) + P(B|A_2) \cdot P(A_2) + \cdots + P(B|A_n) \cdot P(A_n) = \sum_{i=1}^{n} P(B|A_i) \cdot P(A_i) $</p>
+<h4 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h4><p>贝叶斯定理建立在条件概率的基础上，假设有两事件$ A $和$ B $，贝叶斯定理描述了在<strong>已知</strong>$ B $<strong>发生的情况下，</strong>$ A $<strong>发生的概率（通常 B 是果，A 是因）：</strong></p>
+<p>$ P(A|B) = \frac{P(B|A) P(A)}{P(B)} $</p>
+<p>$ P(A|B) $：后验概率，$ B $发生的情况下$ A $发生的概率。<br>$ P(B|A) $：似然概率，$ A $发生的情况下$ B $发生的概率。<br>$ P(A) $：先验概率，$ A $发生的概率。<br>$ P(B) $：$ B $发生的概率，通常通过全概率公式计算。</p>
+<p>在实际问题中通常$ P(B) $不是直接给出，而是需要通过全概率公式计算。假设样本空间被一组互斥且完备的事件$ A_1, A_2, \ldots, A_n $划分，则：</p>
+<p>$ P(A_i|B) = \frac{P(B|A_i) P(A_i)}{\sum_{j=1}^{n} P(B|A_j) P(A_j)} $</p>
+<p>例如：某疾病发病率为1%，如果一个人有疾病，检测呈阳性的概率为95%；如果一个人没有疾病，检测呈阳性的概率为5%，现有一人检测结果呈阳性，问他真正患病的概率是多少？</p>
+<p>$ P(\text{患病}|\text{阳性}) = \frac{P(\text{阳性}|\text{患病}) P(\text{患病})}{P(\text{阳性})} $</p>
+<p>首先计算$ P(\text{阳性}) $：</p>
+<p>$ P(\text{阳性}) = P(\text{阳性}|\text{患病}) \cdot P(\text{患病}) + P(\text{阳性}|\text{无疾病}) \cdot P(\text{无疾病}) $</p>
+<p>$ = 0.95 \times 0.01 + 0.05 \times 0.99 $</p>
+<p>$ = 0.0095 + 0.0495 = 0.059 $</p>
+<p>然后计算$ P(\text{患病}|\text{阳性}) $：</p>
+<p>$ P(\text{患病}|\text{阳性}) = \frac{0.0095}{0.059} \approx 0.161 $</p>
+<p>检测呈阳性的人真正患病的概率为 16.1%。</p>
+<h3 id="似然函数"><a href="#似然函数" class="headerlink" title="似然函数"></a>似然函数</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>概率用于在已知一些参数的情况下，预测接下来在观测上所得到的结果。而似然性则是用于在已知某些观测所得到的结果时，对有关事物之性质的参数进行估值。</p>
+<p>似然函数是对参数的函数，其定义为在给定参数值的条件下，观察到某个特定数据的概率。换句话说，似然函数是一个关于参数的函数，而不是关于数据的函数。</p>
+<p>如果我们有一个参数化的概率模型，其中$ X $是观测数据，$ \theta $是模型参数，似然函数定义为：</p>
+<p>$ L(\theta|X) = P(X|\theta) $</p>
+<p>这里，$ P(X|\theta) $<strong>表示在参数为</strong>$ \theta $<strong>的情况下，观察到数据</strong>$ X $<strong>的概率。</strong></p>
+<p>设有一组独立同分布的观测数据$ \mathbf{X} = (x_1, x_2, \ldots, x_n) $，并且这些数据服从某个分布（例如正态分布、二项分布等），比如服从参数为$ \theta $的某个分布，那么似然函数可以写作：</p>
+<p>$ L(\theta|\mathbf{X}) = P(\mathbf{X}|\theta) = \prod_{i=1}^{n} P(x_i|\theta) $</p>
+<p>针对其中存在的乘法，可以使用对数函数将其<strong>转化为加法</strong>：</p>
+<p>$ \ell(\theta|\mathbf{X}) = \log L(\theta|X) = \log \left( \prod_{i=1}^{n} P(x_i|\theta) \right) = \sum_{i=1}^{n} \log P(x_i|\theta) $</p>
+<p>:::warning<br>要理解似然函数及其公式推导，可以从概率与似然的区别、独立同分布的联合概率、对数转换的意义这三个层面逐步拆解：</p>
+<p>一、概率与似然：视角的转换</p>
+<p>先明确两个核心概念的区别：</p>
+<ul>
+<li>**概率 (Probability)：**已知模型的参数（比如抛硬币正面概率 $ p $），预测”观测数据出现的结果”。公式表示为 $ P(X|\theta) $，其中 $ X $ 是观测数据，$ \theta $ 是模型参数。</li>
+<li>**似然 (Likelihood)：**已知观测数据的结果（比如抛了3次硬币都是正面），反推”模型参数的可能性”。公式表示为 $ L(\theta|X) $，它本质上是把”概率 $ P(X|\theta) $”当作关于参数 $ \theta $ 的函数，重点关注”参数 $ \theta $ 如何影响已知数据 $ X $ 出现的概率”。</li>
+</ul>
+<p>二、似然函数的定义（以独立同分布为例）</p>
+<p>假设我们有一组独立同分布 (i.i.d.) 的观测数据 $ X = (x_1, x_2, \dots, x_n) $，且每个数据都服从由参数 $ \theta $ 决定的概率分布（比如正态分布、二项分布等）。</p>
+<ol>
+<li><strong>独立事件的联合概率</strong></li>
+</ol>
+<p>根据概率论中”独立事件”的性质：若多个事件相互独立，它们的联合概率等于各自概率的乘积。</p>
+<p>对于独立同分布的数据 $ x_1, x_2, \dots, x_n $，每个 $ x_i $ 出现的概率由参数 $ \theta $ 决定（即 $ P(x_i|\theta) $）。因此，所有数据同时出现的联合概率为：</p>
+<p>$ P(X|\theta) = P(x_1, x_2, \dots, x_n|\theta) = P(x_1|\theta) \cdot P(x_2|\theta) \dots P(x_n|\theta) $</p>
+<p>用连乘符号简化后：</p>
+<p>$ P(X|\theta) = \prod_{i=1}^{n} P(x_i|\theta) $</p>
+<ol start="2">
+<li><strong>似然函数的引入</strong></li>
+</ol>
+<p>似然函数 $ L(\theta|X) $ 的定义是：在”观测到数据 $ X $”的条件下，参数 $ \theta $ 对应的”可能性”。而这种”可能性”恰好可以用”已知 $ \theta $ 时 $ X $ 出现的概率 $ P(X|\theta) $”来衡量。因此，似然函数直接定义为：</p>
+<p>$ L(\theta|X) = P(X|\theta) = \prod_{i=1}^{n} P(x_i|\theta) $</p>
+<p>三、对数转换：从”连乘”到”求和”</p>
+<p>似然函数是连乘形式 ($ \prod $)，但连乘在实际计算中存在两个问题：</p>
+<ul>
+<li>**数值下溢：**若数据量 $ n $ 很大，或多个 $ P(x_i|\theta) $ 是小于1的小数，连乘结果会趋近于0，导致计算误差。</li>
+<li>**求导复杂：**若要对似然函数求最大值（如”最大似然估计”），连乘的导数需用”乘积法则”，计算繁琐。</li>
+</ul>
+<p>因此，我们利用对数的性质 ($ \log(ab) = \log a + \log b $)，将”连乘”转换为”求和”，简化计算：</p>
+<p>$ \log L(\theta|X) = \log \left( \prod_{i=1}^{n} P(x_i|\theta) \right) = \sum_{i=1}^{n} \log P(x_i|\theta) $</p>
+<p>:::</p>
+<h4 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h4><p>似然函数常用于极大似然估计。我们希望找到使似然函数最大化的参数。这意味着在给定观测数据的情况下，选择最可能生成这些数据的参数值。</p>
+<p>例如，掷硬币3次，2次正面1次背面，能否依据此结果逆推出正面的概率；正面概率为0.5的概率为多少、正面概率为0.6的概率为多少；最有可能的正面概率是多少？</p>
+<p>我们用$ \theta $代表硬币正面朝上的概率，用$ X $代表2次正面1次背面的结果。</p>
+<p>似然函数为：</p>
+<p>$ L(\theta|X) = P(X|\theta) = C_3^2 \theta^2 (1-\theta) $</p>
+<p>当正面概率为0.5时：</p>
+<p>$ P(X|\theta=0.5) = C_3^2 \times 0.5^2 \times (1-0.5) = 0.375 $</p>
+<p>当正面概率为0.6时：</p>
+<p>$ P(X|\theta=0.6) = C_3^2 \times 0.6^2 \times (1-0.6) = 0.432 $</p>
+<p>为了找出极大似然估计，对似然函数取对数并求导，使其等于0：</p>
+<p>$ \ell(\theta|X) = \ln L(\theta|X) = \ln(C_3^2 \cdot \theta^2 (1-\theta)) = \ln 3 + 2\ln\theta + \ln(1-\theta) $</p>
+<p>$ \frac{d\ell(\theta|X)}{d\theta} = \frac{2}{\theta} - \frac{1}{1-\theta} = 0 $</p>
+<p>解得$ \theta = \frac{2}{3} $，意味着当掷硬币3次，出现2次正面1次背面的结果时，硬币正面朝上的概率最有可能为$ \frac{2}{3} $。</p>
+<p>:::warning<br>推断「硬币正面朝上的概率 $ \theta $」具体流程步骤如下：</p>
+<p>(1) 确定概率模型：二项分布</p>
+<ul>
+<li>每次掷硬币是独立的伯努利试验（只有”正面”或”背面”两种结果），且”正面”的概率固定为 $ \theta $，”背面”概率为 $ 1-\theta $。</li>
+<li>若进行 $ n $ 次独立试验，”成功（比如正面）$ k $ 次”的概率服从二项分布，公式为：</li>
+</ul>
+<p>$ P(X = k|n, \theta) = C_n^k \cdot \theta^k \cdot (1-\theta)^{n-k} $</p>
+<ul>
+<li>其中 $ C_n^k = \frac{n!}{k!(n-k)!} $ 是”从 $ n $ 次中选 $ k $ 次成功”的组合数。</li>
+<li>在例子中：$ n=3 $（掷3次），$ k=2 $（2次正面），因此”观测到2正1反”的概率为：</li>
+</ul>
+<p>$ P(X = 2|3, \theta) = C_3^2 \cdot \theta^2 \cdot (1-\theta)^{3-2} = 3\theta^2 (1-\theta) $</p>
+<p>(2) 似然函数的定义</p>
+<ul>
+<li>似然函数 $ L(\theta|X) $ 的本质是「给定观测数据 $ X $ 时，参数 $ \theta $ 对应概率的大小」。</li>
+<li>在例子中，观测数据 $ X $ 是”2次正面1次背面”，因此似然函数就是上述二项分布的概率（因为我们假设”观测到 $ X $”时，参数 $ \theta $ 对应的概率就是似然值）：</li>
+</ul>
+<p>$ L(\theta|X) = P(X|\theta) = 3\theta^2 (1-\theta) $</p>
+<p>(3) 回答例子中的问题</p>
+<p>“正面概率为0.5的概率为多少、正面概率为0.6的概率为多少？”</p>
+<ul>
+<li>这里的”概率”其实是「当 $ \theta=0.5 $ 或 $ \theta=0.6 $ 时，观测到”2正1反”的似然值」（即”如果真实 $ \theta $ 是0.5，观测到2正1反的可能性多大？”）。</li>
+<li>计算得：<ul>
+<li>当 $ \theta=0.5 $ 时，$ L(0.5|X) = 3 \times (0.5)^2 \times (1-0.5) = 0.375 $</li>
+<li>当 $ \theta=0.6 $ 时，$ L(0.6|X) = 3 \times (0.6)^2 \times (1-0.6) = 0.432 $</li>
+</ul>
+</li>
+</ul>
+<p>“最有可能的正面概率是多少？”（即极大似然估计）</p>
+<ul>
+<li>我们需要找到 $ \theta \in [0,1] $，使得似然函数 $ L(\theta|X) = 3\theta^2(1-\theta) $ 最大。</li>
+<li>方法：对 $ L(\theta) $ 求导，找极值点。</li>
+<li>展开 $ L(\theta) = 3\theta^2 - 3\theta^3 $</li>
+<li>求导：$ L’(\theta) = 6\theta - 9\theta^2 $</li>
+<li>令导数为0，解方程 $ 6\theta - 9\theta^2 = 0 $，得 $ \theta=0 $ 或 $ \theta=\frac{2}{3} \approx 0.6667 $。</li>
+<li>验证极大值：当 $ \theta=0 $ 或 $ \theta=1 $ 时，$ L(\theta)=0 $；当 $ \theta=\frac{2}{3} $ 时，$ L(\frac{2}{3}) = 3 \times (\frac{2}{3})^2 \times (1-\frac{2}{3}) = \frac{4}{9} \approx 0.4444 $，是最大值。</li>
+<li>因此，最有可能的正面概率是 $ \frac{2}{3} $，这就是极大似然估计的结果。</li>
+</ul>
+<p>:::</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">似然函数与极大似然估计可视化</span></span><br><span class="line"><span class="string">演示：掷硬币3次，2次正面1次背面</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"><span class="keyword">import</span> platform</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">'ignore'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入 scipy.special.comb，如果不可用则使用替代方案</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">from</span> scipy.special <span class="keyword">import</span> comb</span><br><span class="line"><span class="keyword">except</span> ImportError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"警告: scipy 未安装，将使用替代的组合数计算方法"</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">comb</span>(<span class="params">n, k</span>):</span><br><span class="line">        <span class="string">"""计算组合数 C(n,k) = n!/(k!(n-k)!)"""</span></span><br><span class="line">        <span class="keyword">if</span> k &gt; n <span class="keyword">or</span> k &lt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> k == <span class="number">0</span> <span class="keyword">or</span> k == n:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="comment"># 使用递推公式避免大数计算</span></span><br><span class="line">        result = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">min</span>(k, n-k)):</span><br><span class="line">            result = result * (n - i) // (i + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置中文字体（改进版）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">setup_chinese_font</span>():</span><br><span class="line">    <span class="string">"""设置中文字体，支持多平台"""</span></span><br><span class="line">    system = platform.system()</span><br><span class="line">    <span class="keyword">if</span> system == <span class="string">'Windows'</span>:</span><br><span class="line">        fonts = [<span class="string">'SimHei'</span>, <span class="string">'Microsoft YaHei'</span>, <span class="string">'KaiTi'</span>, <span class="string">'FangSong'</span>]</span><br><span class="line">    <span class="keyword">elif</span> system == <span class="string">'Darwin'</span>:  <span class="comment"># macOS</span></span><br><span class="line">        fonts = [<span class="string">'Arial Unicode MS'</span>, <span class="string">'PingFang SC'</span>, <span class="string">'STHeiti'</span>, <span class="string">'Heiti SC'</span>]</span><br><span class="line">    <span class="keyword">else</span>:  <span class="comment"># Linux</span></span><br><span class="line">        fonts = [<span class="string">'WenQuanYi Micro Hei'</span>, <span class="string">'WenQuanYi Zen Hei'</span>, <span class="string">'Noto Sans CJK SC'</span>, <span class="string">'DejaVu Sans'</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 尝试设置字体</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        plt.rcParams[<span class="string">'font.sans-serif'</span>] = fonts + [<span class="string">'DejaVu Sans'</span>]</span><br><span class="line">        plt.rcParams[<span class="string">'axes.unicode_minus'</span>] = <span class="literal">False</span></span><br><span class="line">        <span class="comment"># 测试字体是否可用</span></span><br><span class="line">        fig_test = plt.figure(figsize=(<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">        ax_test = fig_test.add_subplot(<span class="number">111</span>)</span><br><span class="line">        ax_test.text(<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="string">'测试'</span>, fontsize=<span class="number">10</span>)</span><br><span class="line">        plt.close(fig_test)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"字体设置警告: <span class="subst">{e}</span>"</span>)</span><br><span class="line">        plt.rcParams[<span class="string">'font.sans-serif'</span>] = [<span class="string">'DejaVu Sans'</span>]</span><br><span class="line">        plt.rcParams[<span class="string">'axes.unicode_minus'</span>] = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">setup_chinese_font()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义似然函数 L(θ|X) = 3θ²(1-θ)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">likelihood</span>(<span class="params">theta</span>):</span><br><span class="line">    <span class="string">"""似然函数：L(θ|X) = 3θ²(1-θ)"""</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">3</span> * theta**<span class="number">2</span> * (<span class="number">1</span> - theta)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义似然函数的导数 L'(θ) = 6θ - 9θ²</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">likelihood_derivative</span>(<span class="params">theta</span>):</span><br><span class="line">    <span class="string">"""似然函数的导数：L'(θ) = 6θ - 9θ²"""</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">6</span> * theta - <span class="number">9</span> * theta**<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建图形</span></span><br><span class="line">fig = plt.figure(figsize=(<span class="number">16</span>, <span class="number">10</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 子图1：似然函数曲线 ==========</span></span><br><span class="line">ax1 = plt.subplot(<span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">theta = np.linspace(<span class="number">0</span>, <span class="number">1</span>, <span class="number">1000</span>)</span><br><span class="line">L_theta = likelihood(theta)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制似然函数曲线</span></span><br><span class="line">ax1.plot(theta, L_theta, <span class="string">'b-'</span>, linewidth=<span class="number">2.5</span>, label=<span class="string">r'似然函数 $L(\theta|X) = 3\theta^2(1-\theta)$'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 标注关键点</span></span><br><span class="line">theta_points = [<span class="number">0.5</span>, <span class="number">0.6</span>, <span class="number">2</span>/<span class="number">3</span>]</span><br><span class="line">colors = [<span class="string">'green'</span>, <span class="string">'orange'</span>, <span class="string">'red'</span>]</span><br><span class="line">labels = [<span class="string">r'$\theta=0.5$'</span>, <span class="string">r'$\theta=0.6$'</span>, <span class="string">r'$\hat{\theta}=2/3$ (MLE)'</span>]</span><br><span class="line">markers = [<span class="string">'o'</span>, <span class="string">'s'</span>, <span class="string">'D'</span>]</span><br><span class="line">annotations = [</span><br><span class="line">    (<span class="number">15</span>, <span class="number">25</span>),   <span class="comment"># theta=0.5 的标注位置</span></span><br><span class="line">    (<span class="number">15</span>, <span class="number">25</span>),   <span class="comment"># theta=0.6 的标注位置</span></span><br><span class="line">    (<span class="number">15</span>, -<span class="number">50</span>)   <span class="comment"># MLE 的标注位置</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, (t, color, label, marker, (xoff, yoff)) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(theta_points, colors, labels, markers, annotations)):</span><br><span class="line">    L_val = likelihood(t)</span><br><span class="line">    ax1.plot(t, L_val, marker, color=color, markersize=<span class="number">12</span>, </span><br><span class="line">             markeredgecolor=<span class="string">'black'</span>, markeredgewidth=<span class="number">1.5</span>, zorder=<span class="number">5</span>)</span><br><span class="line">    <span class="comment"># 简化标注文本，避免显示问题</span></span><br><span class="line">    <span class="keyword">if</span> i &lt; <span class="number">2</span>:</span><br><span class="line">        annot_text = <span class="string">f'<span class="subst">{label}</span>\nL(<span class="subst">{t:<span class="number">.2</span>f}</span>|X)=<span class="subst">{L_val:<span class="number">.4</span>f}</span>'</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        annot_text = <span class="string">f'<span class="subst">{label}</span>\nL(0.67|X)=<span class="subst">{L_val:<span class="number">.4</span>f}</span>'</span></span><br><span class="line">    </span><br><span class="line">    ax1.annotate(annot_text,</span><br><span class="line">                xy=(t, L_val), xytext=(xoff, yoff),</span><br><span class="line">                textcoords=<span class="string">'offset points'</span>, fontsize=<span class="number">9</span>,</span><br><span class="line">                bbox=<span class="built_in">dict</span>(boxstyle=<span class="string">'round,pad=0.4'</span>, facecolor=<span class="string">'yellow'</span>, alpha=<span class="number">0.8</span>, edgecolor=<span class="string">'black'</span>, linewidth=<span class="number">1</span>),</span><br><span class="line">                arrowprops=<span class="built_in">dict</span>(arrowstyle=<span class="string">'-&gt;'</span>, connectionstyle=<span class="string">'arc3,rad=0.2'</span>, color=<span class="string">'black'</span>, lw=<span class="number">1.2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加最大值线</span></span><br><span class="line">mle_theta = <span class="number">2</span>/<span class="number">3</span></span><br><span class="line">mle_value = likelihood(mle_theta)</span><br><span class="line">ax1.axvline(x=mle_theta, color=<span class="string">'red'</span>, linestyle=<span class="string">'--'</span>, linewidth=<span class="number">1.5</span>, alpha=<span class="number">0.5</span>, label=<span class="string">'MLE位置'</span>)</span><br><span class="line">ax1.axhline(y=mle_value, color=<span class="string">'red'</span>, linestyle=<span class="string">'--'</span>, linewidth=<span class="number">1.5</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">ax1.set_xlabel(<span class="string">r'参数 $\theta$ (正面概率)'</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax1.set_ylabel(<span class="string">r'似然值 $L(\theta|X)$'</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax1.set_title(<span class="string">'似然函数曲线（观测数据：3次掷币，2正1反）'</span>, fontsize=<span class="number">13</span>, fontweight=<span class="string">'bold'</span>)</span><br><span class="line">ax1.grid(<span class="literal">True</span>, alpha=<span class="number">0.3</span>, linestyle=<span class="string">'--'</span>, linewidth=<span class="number">0.8</span>)</span><br><span class="line">ax1.legend(loc=<span class="string">'upper right'</span>, fontsize=<span class="number">10</span>, framealpha=<span class="number">0.9</span>)</span><br><span class="line">ax1.set_xlim([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">ax1.set_ylim([<span class="number">0</span>, <span class="number">0.5</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 子图2：似然函数的导数 ==========</span></span><br><span class="line">ax2 = plt.subplot(<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">L_prime = likelihood_derivative(theta)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制导数曲线</span></span><br><span class="line">ax2.plot(theta, L_prime, <span class="string">'r-'</span>, linewidth=<span class="number">2.5</span>, label=<span class="string">r"导数 $L'(\theta) = 6\theta - 9\theta^2$"</span>)</span><br><span class="line">ax2.axhline(y=<span class="number">0</span>, color=<span class="string">'black'</span>, linestyle=<span class="string">'-'</span>, linewidth=<span class="number">1.2</span>, alpha=<span class="number">0.6</span>)</span><br><span class="line">ax2.axvline(x=<span class="number">0</span>, color=<span class="string">'black'</span>, linestyle=<span class="string">'-'</span>, linewidth=<span class="number">1.2</span>, alpha=<span class="number">0.6</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 标注导数为0的点</span></span><br><span class="line">zero_points = [<span class="number">0</span>, <span class="number">2</span>/<span class="number">3</span>]</span><br><span class="line">zero_labels = [<span class="string">r'$\theta=0$'</span>, <span class="string">r'$\theta=2/3$'</span>]</span><br><span class="line">zero_yoffsets = [<span class="number">25</span>, <span class="number">25</span>]</span><br><span class="line"><span class="keyword">for</span> t, label, yoff <span class="keyword">in</span> <span class="built_in">zip</span>(zero_points, zero_labels, zero_yoffsets):</span><br><span class="line">    ax2.plot(t, <span class="number">0</span>, <span class="string">'ro'</span>, markersize=<span class="number">10</span>, markeredgecolor=<span class="string">'black'</span>, markeredgewidth=<span class="number">1.5</span>, zorder=<span class="number">5</span>)</span><br><span class="line">    ax2.annotate(label,</span><br><span class="line">                xy=(t, <span class="number">0</span>), xytext=(<span class="number">0</span>, yoff),</span><br><span class="line">                textcoords=<span class="string">'offset points'</span>, fontsize=<span class="number">10</span>,</span><br><span class="line">                bbox=<span class="built_in">dict</span>(boxstyle=<span class="string">'round,pad=0.4'</span>, facecolor=<span class="string">'lightblue'</span>, alpha=<span class="number">0.8</span>, edgecolor=<span class="string">'black'</span>, linewidth=<span class="number">1</span>),</span><br><span class="line">                ha=<span class="string">'center'</span>)</span><br><span class="line"></span><br><span class="line">ax2.set_xlabel(<span class="string">r'参数 $\theta$'</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax2.set_ylabel(<span class="string">r"导数 $L'(\theta)$"</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax2.set_title(<span class="string">'似然函数的导数（用于找极值点）'</span>, fontsize=<span class="number">13</span>, fontweight=<span class="string">'bold'</span>)</span><br><span class="line">ax2.grid(<span class="literal">True</span>, alpha=<span class="number">0.3</span>, linestyle=<span class="string">'--'</span>, linewidth=<span class="number">0.8</span>)</span><br><span class="line">ax2.legend(loc=<span class="string">'upper right'</span>, fontsize=<span class="number">10</span>, framealpha=<span class="number">0.9</span>)</span><br><span class="line">ax2.set_xlim([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 子图3：不同θ值下的似然值对比 ==========</span></span><br><span class="line">ax3 = plt.subplot(<span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">theta_values = [<span class="number">0.3</span>, <span class="number">0.4</span>, <span class="number">0.5</span>, <span class="number">0.6</span>, <span class="number">2</span>/<span class="number">3</span>, <span class="number">0.7</span>, <span class="number">0.8</span>]</span><br><span class="line">likelihood_values = [likelihood(t) <span class="keyword">for</span> t <span class="keyword">in</span> theta_values]</span><br><span class="line">colors_bar = [<span class="string">'blue'</span> <span class="keyword">if</span> t != <span class="number">2</span>/<span class="number">3</span> <span class="keyword">else</span> <span class="string">'red'</span> <span class="keyword">for</span> t <span class="keyword">in</span> theta_values]</span><br><span class="line"></span><br><span class="line">bars = ax3.bar(<span class="built_in">range</span>(<span class="built_in">len</span>(theta_values)), likelihood_values, color=colors_bar, alpha=<span class="number">0.7</span>, edgecolor=<span class="string">'black'</span>, linewidth=<span class="number">1.2</span>)</span><br><span class="line">ax3.set_xticks(<span class="built_in">range</span>(<span class="built_in">len</span>(theta_values)))</span><br><span class="line"><span class="comment"># 简化标签显示</span></span><br><span class="line">xtick_labels = []</span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> theta_values:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">abs</span>(t - <span class="number">2</span>/<span class="number">3</span>) &lt; <span class="number">1e-6</span>:</span><br><span class="line">        xtick_labels.append(<span class="string">r'$2/3$'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        xtick_labels.append(<span class="string">f'$<span class="subst">{t:<span class="number">.2</span>f}</span>$'</span>)</span><br><span class="line">ax3.set_xticklabels(xtick_labels, fontsize=<span class="number">10</span>)</span><br><span class="line">ax3.set_ylabel(<span class="string">r'似然值 $L(\theta|X)$'</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax3.set_xlabel(<span class="string">r'参数 $\theta$'</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax3.set_title(<span class="string">'不同θ值下的似然值对比'</span>, fontsize=<span class="number">13</span>, fontweight=<span class="string">'bold'</span>)</span><br><span class="line">ax3.grid(<span class="literal">True</span>, alpha=<span class="number">0.3</span>, axis=<span class="string">'y'</span>, linestyle=<span class="string">'--'</span>, linewidth=<span class="number">0.8</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在柱状图上标注数值</span></span><br><span class="line"><span class="keyword">for</span> i, (bar, val) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(bars, likelihood_values)):</span><br><span class="line">    height = bar.get_height()</span><br><span class="line">    ax3.text(bar.get_x() + bar.get_width()/<span class="number">2.</span>, height,</span><br><span class="line">            <span class="string">f'<span class="subst">{val:<span class="number">.3</span>f}</span>'</span>, ha=<span class="string">'center'</span>, va=<span class="string">'bottom'</span>, fontsize=<span class="number">9</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 子图4：二项分布概率分布（辅助理解） ==========</span></span><br><span class="line">ax4 = plt.subplot(<span class="number">2</span>, <span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line">n = <span class="number">3</span>  <span class="comment"># 掷硬币次数</span></span><br><span class="line">k = <span class="number">2</span>  <span class="comment"># 正面次数</span></span><br><span class="line">theta_range = np.linspace(<span class="number">0</span>, <span class="number">1</span>, <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算不同θ值下，观测到k次正面的概率（即似然值）</span></span><br><span class="line">prob_k_heads = [comb(n, k) * (t**k) * ((<span class="number">1</span>-t)**(n-k)) <span class="keyword">for</span> t <span class="keyword">in</span> theta_range]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 简化标签，避免显示问题</span></span><br><span class="line">label_text = <span class="string">rf'$P(X=<span class="subst">{k}</span>|n=<span class="subst">{n}</span>, \theta) = C_{{<span class="subst">{n}</span>}}^{{<span class="subst">{k}</span>}} \theta^{{<span class="subst">{k}</span>}} (1-\theta)^{{<span class="subst">{n-k}</span>}}$'</span></span><br><span class="line">ax4.plot(theta_range, prob_k_heads, <span class="string">'purple'</span>, linewidth=<span class="number">2.5</span>, label=label_text)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 标注MLE点</span></span><br><span class="line">ax4.plot(mle_theta, likelihood(mle_theta), <span class="string">'ro'</span>, markersize=<span class="number">12</span>, </span><br><span class="line">         markeredgecolor=<span class="string">'black'</span>, markeredgewidth=<span class="number">1.5</span>, zorder=<span class="number">5</span>,</span><br><span class="line">         label=<span class="string">rf'MLE: $\hat{{\theta}}=<span class="subst">{mle_theta:<span class="number">.3</span>f}</span>$'</span>)</span><br><span class="line"></span><br><span class="line">ax4.set_xlabel(<span class="string">r'参数 $\theta$ (正面概率)'</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax4.set_ylabel(<span class="string">r'概率 $P(X=k|n, \theta)$'</span>, fontsize=<span class="number">12</span>)</span><br><span class="line">ax4.set_title(<span class="string">f'二项分布：$n=<span class="subst">{n}</span>$次试验，$k=<span class="subst">{k}</span>$次成功'</span>, fontsize=<span class="number">13</span>, fontweight=<span class="string">'bold'</span>)</span><br><span class="line">ax4.grid(<span class="literal">True</span>, alpha=<span class="number">0.3</span>, linestyle=<span class="string">'--'</span>, linewidth=<span class="number">0.8</span>)</span><br><span class="line">ax4.legend(loc=<span class="string">'upper right'</span>, fontsize=<span class="number">9</span>, framealpha=<span class="number">0.9</span>)</span><br><span class="line">ax4.set_xlim([<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">plt.tight_layout(pad=<span class="number">2.0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存图形</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    plt.savefig(<span class="string">'似然函数可视化.png'</span>, dpi=<span class="number">300</span>, bbox_inches=<span class="string">'tight'</span>, facecolor=<span class="string">'white'</span>, edgecolor=<span class="string">'none'</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"✓ 图形已保存为 '似然函数可视化.png'"</span>)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"保存图形时出错: <span class="subst">{e}</span>"</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        plt.savefig(<span class="string">'似然函数可视化.png'</span>, dpi=<span class="number">200</span>, bbox_inches=<span class="string">'tight'</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"✓ 已使用较低分辨率保存"</span>)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"✗ 无法保存图形文件"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图形</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    plt.show()</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"显示图形时出错: <span class="subst">{e}</span>"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"提示：如果无法显示图形窗口，请检查是否在支持图形界面的环境中运行"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ========== 打印数值结果 ==========</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\n"</span> + <span class="string">"="</span>*<span class="number">60</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"数值计算结果"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"="</span>*<span class="number">60</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"观测数据：3次掷币，2次正面，1次背面"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"似然函数：L(θ|X) = 3θ²(1-θ)"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"\n关键点的似然值："</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"  θ = 0.5 时，L(0.5|X) = <span class="subst">{likelihood(<span class="number">0.5</span>):<span class="number">.4</span>f}</span>"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"  θ = 0.6 时，L(0.6|X) = <span class="subst">{likelihood(<span class="number">0.6</span>):<span class="number">.4</span>f}</span>"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"  θ = 2/3 时，L(2/3|X) = <span class="subst">{likelihood(<span class="number">2</span>/<span class="number">3</span>):<span class="number">.4</span>f}</span> (最大值，MLE)"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"\n极大似然估计：θ̂ = <span class="subst">{mle_theta:<span class="number">.4</span>f}</span> ≈ <span class="subst">{mle_theta:<span class="number">.2</span>%}</span>"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+
+  <div class="article-tags slide-up">
+    
+      
+      <a class="tag" href="/notebooks/tech/tags/%E6%95%B0%E5%AD%A6/"><svg class="icon" data-icon="default:hashtag" aria-hidden="true"></svg>数学</a>
+    
+      
+      <a class="tag" href="/notebooks/tech/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"><svg class="icon" data-icon="default:hashtag" aria-hidden="true"></svg>机器学习</a>
+    
+  </div>
+
+</article>
+<div class="article-footer slide-up">
+
+</div>
+
+
+
+
+<footer class="page-footer slide-up footnote"><hr><div class="sitemap" style="column-count:2;"><div class="sitemap-group"><span class="fs15">博客</span><a href="/">近期发布</a><a href="/topic/">专栏</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div><div class="sitemap-group"><span class="fs15">导航</span><a href="/life/">生活</a><a href="/shuoshuo/">说说</a><a href="/about/">关于</a></div></div><div class="text"><div class="footer-info">
+  <div class="footer-row">
+    <img class="footer-ico lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.iconify.design/solar:notebook-bold-duotone.svg?color=%23738070" alt=""/>
+    <span>本站由 <a href="/">Kenzo</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.44.0">Stellar 1.44.0</a> 主题创建</span>
+  </div>
+  <div class="footer-row">
+    <img class="footer-ico lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.iconify.design/solar:shield-user-bold-duotone.svg?color=%23738070" alt=""/>
+    <span>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener"><img class="footer-ico cc-license lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="CC BY-NC-SA 4.0"/></a> 许可协议，转载请注明出处</span>
+  </div>
+  <div class="footer-row">
+    <img class="footer-ico lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.iconify.design/solar:clock-circle-bold-duotone.svg?color=%23738070" alt=""/>
+    <span>本站已运行 <span id="uptime-counter">加载中...</span></span>
+    <!-- 2026-09-28 停用不蒜子统计：新站无历史数据，其返回的总访问量数值（8000万+）明显异常。
+         如需恢复：取消下面 span 与页脚 script 两处的注释即可。
+    <span class="beian-sep">·</span>
+    <img class="footer-ico" src="https://api.iconify.design/solar:eye-bold-duotone.svg?color=%23738070" alt=""/>
+    <span id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv">0</span> 次</span>
+    -->
+  </div>
+</div>
+<!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+<script src="/js/footer-uptime.js?v=20260927a" defer></script>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right" data-ui-surface="sidebar"><div class="widgets">
+
+
+<widget class="widget-wrapper slide-up toc" id="data-toc" collapse="false">
+  
+    <div class="widget-header dis-select">
+      <span class="name">本文目录</span>
+      <a class="cap-action" onclick="sidebar.toggleTOC()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a>
+    </div>
+  
+  <div class="widget-body"><ol class="toc ui-collection-adapter"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E6%95%B0"><span class="toc-text">导数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">导数的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0%E7%9A%84%E5%AF%BC%E6%95%B0"><span class="toc-text">基本函数的导数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E6%95%B0%E7%9A%84%E6%B1%82%E5%AF%BC%E6%B3%95%E5%88%99"><span class="toc-text">导数的求导法则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%AF%BC%E6%95%B0%E6%B1%82%E6%9E%81%E5%80%BC"><span class="toc-text">利用导数求极值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E5%AF%BC%E6%95%B0"><span class="toc-text">二阶导数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E5%AF%BC%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">二阶导数的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E5%AF%BC%E6%95%B0%E4%B8%8E%E5%87%BD%E6%95%B0%E5%87%B9%E5%87%B8%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">二阶导数与函数凹凸的关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%8F%E5%AF%BC%E4%B8%8E%E6%A2%AF%E5%BA%A6"><span class="toc-text">偏导与梯度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%81%8F%E5%AF%BC%E6%95%B0"><span class="toc-text">偏导数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%90%91%E5%AF%BC%E6%95%B0"><span class="toc-text">方向导数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6"><span class="toc-text">梯度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0"><span class="toc-text">线性代数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E9%87%8F%E4%B8%8E%E5%90%91%E9%87%8F"><span class="toc-text">标量与向量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E9%87%8F%E4%B8%8E%E5%90%91%E9%87%8F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">标量与向量的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E8%BF%90%E7%AE%97"><span class="toc-text">向量运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E8%8C%83%E6%95%B0"><span class="toc-text">向量范数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E4%B8%8E%E5%BC%A0%E9%87%8F"><span class="toc-text">矩阵与张量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">矩阵的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95"><span class="toc-text">矩阵乘法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E8%BD%AC%E7%BD%AE"><span class="toc-text">矩阵转置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E9%80%86"><span class="toc-text">矩阵的逆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97"><span class="toc-text">其他矩阵运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%A0%E9%87%8F"><span class="toc-text">张量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC"><span class="toc-text">矩阵求导</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E8%AE%A1%E7%AE%97%E5%9C%BA%E6%99%AF"><span class="toc-text">典型计算场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%B1%82%E5%AF%BC%E7%BB%93%E6%9E%9C"><span class="toc-text">常用求导结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E7%9F%A9%E9%98%B5"><span class="toc-text">梯度矩阵</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%E8%AE%BA"><span class="toc-text">概率论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E7%8E%87"><span class="toc-text">概率</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">概率的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-text">概率的计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83"><span class="toc-text">概率分布</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9D%87%E5%8C%80%E5%88%86%E5%B8%83"><span class="toc-text">均匀分布</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83"><span class="toc-text">正态分布</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AE%9A%E7%90%86"><span class="toc-text">贝叶斯定理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E6%A6%82%E7%8E%87%E5%85%AC%E5%BC%8F"><span class="toc-text">全概率公式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%85%AC%E5%BC%8F"><span class="toc-text">贝叶斯公式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0"><span class="toc-text">似然函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1"><span class="toc-text">极大似然估计</span></a></li></ol></li></ol></li></ol></div>
+  <div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="currentColor" fill-rule="evenodd" d="M11.9426 1.25H12.0574C14.3658 1.24999 16.1748 1.24998 17.5863 1.43975C19.031 1.63399 20.1711 2.03933 21.0659 2.93414C21.9607 3.82895 22.366 4.96897 22.5603 6.41371C22.75 7.82519 22.75 9.63423 22.75 11.9426V12.0574C22.75 14.3658 22.75 16.1748 22.5603 17.5863C22.366 19.031 21.9607 20.1711 21.0659 21.0659C20.1711 21.9607 19.031 22.366 17.5863 22.5603C16.1748 22.75 14.3658 22.75 12.0574 22.75H11.9426C9.63423 22.75 7.82519 22.75 6.41371 22.5603C4.96897 22.366 3.82895 21.9607 2.93414 21.0659C2.03933 20.1711 1.63399 19.031 1.43975 17.5863C1.24998 16.1748 1.24999 14.3658 1.25 12.0574V11.9426C1.24999 9.63423 1.24998 7.82519 1.43975 6.41371C1.63399 4.96897 2.03933 3.82895 2.93414 2.93414C3.82895 2.03933 4.96897 1.63399 6.41371 1.43975C7.82519 1.24998 9.63423 1.24999 11.9426 1.25ZM6.61358 2.92637C5.33517 3.09825 4.56445 3.42514 3.9948 3.9948C3.42514 4.56445 3.09825 5.33517 2.92637 6.61358C2.75159 7.91356 2.75 9.62177 2.75 12C2.75 14.3782 2.75159 16.0864 2.92637 17.3864C3.09825 18.6648 3.42514 19.4355 3.9948 20.0052C4.56445 20.5749 5.33517 20.9018 6.61358 21.0736C7.91356 21.2484 9.62177 21.25 12 21.25C14.3782 21.25 16.0864 21.2484 17.3864 21.0736C18.6648 20.9018 19.4355 20.5749 20.0052 20.0052C20.5749 19.4355 20.9018 18.6648 21.0736 17.3864C21.2484 16.0864 21.25 14.3782 21.25 12C21.25 9.62177 21.2484 7.91356 21.0736 6.61358C20.9018 5.33517 20.5749 4.56445 20.0052 3.9948C19.4355 3.42514 18.6648 3.09825 17.3864 2.92637C16.0864 2.75159 14.3782 2.75 12 2.75C9.62177 2.75 7.91356 2.75159 6.61358 2.92637ZM12 9.56066L9.53033 12.0303C9.23744 12.3232 8.76256 12.3232 8.46967 12.0303C8.17678 11.7374 8.17678 11.2626 8.46967 10.9697L11.4697 7.96967C11.7626 7.67678 12.2374 7.67678 12.5303 7.96967L15.5303 10.9697C15.8232 11.2626 15.8232 11.7374 15.5303 12.0303C15.2374 12.3232 14.7626 12.3232 14.4697 12.0303L12 9.56066ZM12 13.5607L9.53033 16.0303C9.23744 16.3232 8.76256 16.3232 8.46967 16.0303C8.17678 15.7374 8.17678 15.2626 8.46967 14.9697L11.4697 11.9697C11.7626 11.6768 12.2374 11.6768 12.5303 11.9697L15.5303 14.9697C15.8232 15.2626 15.8232 15.7374 15.5303 16.0303C15.2374 16.3232 14.7626 16.3232 14.4697 16.0303L12 13.5607Z" clip-rule="evenodd"/></svg><span>回到顶部</span></a></div>
+</widget>
+
+
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  window.canonical["param"] = {"permalink":"https://chuang1230.github.io/notebooks/tech/240513-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%89%8D%E7%BD%AE%E6%95%B0%E5%AD%A6/","checklink":"/js/plugins/video.js"};
+  // Fix: Ensure page is at the correct top position on data load
+  if (history.scrollRestoration) {
+    history.scrollRestoration = 'auto';
+  }
+  (function() {
+    const scrollHandler = () => {
+      // 存在有效锚点时，等待布局稳定后滚动到目标
+      // （浏览器原生锚点滚动发生在布局完成前，长文章的懒加载图片/异步组件会把目标顶偏）
+      const hash = window.location.hash;
+      if (hash.length > 1) {
+        let anchorId = hash.slice(1);
+        try {
+          anchorId = decodeURIComponent(anchorId);
+        } catch (e) {
+          // 片段含非法编码时按原样查找
+        }
+        const anchor = document.getElementById(anchorId);
+        if (anchor) {
+          // #start 锚点贴顶，不预留 offset；其余锚点与 TOC 点击滚动保持一致
+          const offset = anchorId === 'start' ? 0 : 32;
+          const targetY = () => anchor.getBoundingClientRect().top + window.scrollY - offset;
+          let timer = null;
+          let lastY = null;
+          let quiet = 0;
+          let attempts = 0;
+          // 记录最近一次资源加载完成时间，判断异步数据/图片是否仍在改变布局
+          let lastResourceTime = performance.now();
+          let observer = null;
+          try {
+            observer = new PerformanceObserver(function (list) {
+              lastResourceTime = performance.now();
+            });
+            observer.observe({ entryTypes: ['resource'] });
+          } catch (e) {}
+          // 统计进行中的 fetch/XHR 请求，异步组件（timeline 等）未完成前不判定布局稳定
+          let pendingRequests = 0;
+          const trackRequest = (fn) => {
+            pendingRequests++;
+            try {
+              const result = fn();
+              if (result && typeof result.finally === 'function') {
+                result.finally(function () {
+                  pendingRequests = Math.max(0, pendingRequests - 1);
+                });
+              } else {
+                pendingRequests = Math.max(0, pendingRequests - 1);
+              }
+              return result;
+            } catch (e) {
+              pendingRequests = Math.max(0, pendingRequests - 1);
+              throw e;
+            }
+          };
+          if (typeof window.fetch === 'function') {
+            const origFetch = window.fetch.bind(window);
+            window.fetch = function () {
+              const args = arguments;
+              return trackRequest(function () {
+                return origFetch.apply(window, args);
+              });
+            };
+          }
+          if (window.XMLHttpRequest) {
+            const origOpen = window.XMLHttpRequest.prototype.open;
+            const origSend = window.XMLHttpRequest.prototype.send;
+            window.XMLHttpRequest.prototype.open = function () {
+              this.__anchorTracked = true;
+              return origOpen.apply(this, arguments);
+            };
+            window.XMLHttpRequest.prototype.send = function () {
+              if (this.__anchorTracked) {
+                pendingRequests++;
+                const done = () => {
+                  if (this.__anchorTracked) {
+                    this.__anchorTracked = false;
+                    pendingRequests = Math.max(0, pendingRequests - 1);
+                  }
+                };
+                this.addEventListener('loadend', done);
+              }
+              return origSend.apply(this, arguments);
+            };
+          }
+          const cancel = () => {
+            if (timer !== null) {
+              clearInterval(timer);
+              timer = null;
+            }
+            if (observer !== null) {
+              try {
+                observer.disconnect();
+              } catch (e) {}
+            }
+          };
+          const adjust = () => {
+            const y = targetY();
+            const atTarget = Math.abs(window.scrollY - y) <= 2;
+            if (!atTarget || lastY === null || Math.abs(y - lastY) > 2) {
+              window.scrollTo({ top: y, behavior: 'instant' });
+              lastY = y;
+              quiet = 0;
+            } else {
+              quiet++;
+            }
+            attempts++;
+            const resourceQuiet = performance.now() - lastResourceTime > 3000;
+            // 位置连续 1.8 秒无变化、无进行中的请求且最近 3 秒无资源加载才视为稳定；最长等待 30 秒
+            if ((quiet >= 3 && pendingRequests === 0 && resourceQuiet) || attempts >= 50) {
+              cancel();
+            }
+          };
+          requestAnimationFrame(() => {
+            // 锚点链接打开时直接定位，不做动画；用户主动点击（如 TOC）仍走平滑滚动
+            window.scrollTo({ top: targetY(), behavior: 'instant' });
+            timer = setInterval(adjust, 600);
+          });
+          // 用户主动滚动时停止自动校正
+          window.addEventListener('wheel', cancel, { passive: true });
+          window.addEventListener('touchstart', cancel, { passive: true });
+          window.addEventListener('mousedown', cancel, { passive: true });
+          window.addEventListener('keydown', cancel, { passive: true });
+          return;
+        }
+      }
+      // 没有锚点时始终保持页面顶部；Wiki Hero 只在用户显式访问 #start 时定位正文。
+      window.scrollTo(0, 0);
+    };
+    if (document.readyState !== 'loading') scrollHandler();
+    else document.addEventListener('DOMContentLoaded', scrollHandler);
+  })();
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    },
+    // 图标由构建期生成的 /js/stellar-icons.js 填充（defer，早于 DOMContentLoaded 就绪）
+    icons: {},
+    services: {"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"},"rss":{"js":"/js/services/rss.js"}},
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"lazy_load":true,"cache_ttl":86400,"skip_search":[],"codeblock":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    data_cache: {"enable":true,"default_ttl":3600,"ttl":{"giscus":600,"waline":600,"artalk":600,"memos":600,"memos-user":86400,"sites":86400,"friends":86400,"friends_and_posts":86400,"siteinfo":86400},"max_entries":200},
+  };
+  const deps = {
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js`
+  }
+
+  // 主题切换提示文案（供 /js/theme.js 使用）
+  window.__STELLAR_I18N__ = {
+    light: `切换到浅色模式`,
+    dark: `切换到深色模式`,
+    auto: `切换到跟随系统配色`,
+  };
+
+  // 搜索跳转高亮：URL 带 ?kw= 时按需加载，定位正文中的匹配词
+  (function () {
+    try {
+      if (!window.location.search) return;
+      if (!new URLSearchParams(window.location.search).has('kw')) return;
+      document.addEventListener('DOMContentLoaded', function () {
+        // utils 由 /js/utils.js 定义（同时暴露 window.utils）；
+        // 未就绪时由 bootstrap 队列兜底，此处按就绪状态判断
+        if (typeof utils === 'object' && typeof utils.js === 'function') {
+          utils.js('/js/search/highlight.js', { defer: true }).catch(function () {});
+        }
+      });
+    } catch (e) {}
+  })();
+</script>
+
+
+<script>
+  // 插件注册队列：utils.js 尚未就绪时先缓存注册请求，就绪后统一补跑，
+  // 保证解析期注册的插件不因加载时序丢失。
+  window.stellar = window.stellar || {};
+  window.stellar._pluginQueue = window.stellar._pluginQueue || [];
+  window.stellar.initPlugin = function (fn, name, options) {
+    if (typeof utils === 'object' && typeof utils.initPlugin === 'function') {
+      return utils.initPlugin(fn, name, options);
+    }
+    window.stellar._pluginQueue.push({ fn: fn, name: name, options: options || {} });
+  };
+  window.stellar._flushPlugins = function () {
+    var pending = window.stellar._pluginQueue.splice(0);
+    if (typeof utils !== 'object' || typeof utils.initPlugin !== 'function') return;
+    for (var i = 0; i < pending.length; i++) {
+      try {
+        utils.initPlugin(pending[i].fn, pending[i].name, pending[i].options);
+      } catch (e) {
+        console.error('[Stellar] 插件补注册失败:', e);
+      }
+    }
+  };
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof utils === 'object') return;
+    // utils 未就绪时补载；加载成功后由 utils.js 内部补跑插件队列
+    var s = document.createElement('script');
+    // 用 setAttribute 赋值 src，避免被基于 `s.src = "..."` 的正则
+    // （图片懒加载 / 脚本延迟优化器）误改写
+    s.setAttribute('src', '/js/utils.js?v=1.44.0');
+    s.async = false;
+    s.onerror = function () {
+      console.error('[Stellar] 无法加载 /js/utils.js，已启用内容兜底显示（sr-fallback）');
+      document.documentElement.classList.add('sr-fallback');
+    };
+    document.head.appendChild(s);
+  });
+</script>
+
+
+<!-- core: utils 必须同步加载（页尾内联插件片段在解析期即调用 utils.initPlugin） -->
+<script src="/js/utils.js?v=1.44.0"></script>
+<script>
+  // 解析期检测 utils 是否已就绪；未就绪时同步补载，
+  // 保证「utils 先于页尾插件片段定义」的不变量。
+  if (typeof utils === 'undefined') {
+    document.write('<script src="/js/utils.js?v=1.44.0"><\/script>');
+  }
+</script>
+<script defer src="/js/stellar-icons.js?v=1.44.0"></script>
+<!-- 非首屏图标异步加载：占位符替换依赖构建期生成的 js/icons/{ns}.json -->
+<script defer src="/js/icons.js?v=1.44.0" data-version="1.44.0"></script>
+<script defer src="/js/plugins/dropdown.js?v=1.44.0"></script>
+<script src="/js/main.js?v=1.44.0" defer></script>
+<script defer src="/js/theme.js?v=1.44.0"></script>
+
+
+  <script>window.__STELLAR_TAGTREE__ = { expand_active: true };</script>
+  <script defer src="/js/tagtree.js?v=1.44.0"></script>
+
+
+<script>
+  // 先声明配置与初始化监听，再异步加载库：
+  // 保证库执行时 lazyLoadOptions 已就绪，避免 async 脚本抢先执行导致自初始化失败
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      // {% image %} 没有 .lazy-box 包裹，回退到父元素查找加载图标
+      const wrapper = el.closest('.lazy-box') || el.parentElement;
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // 监听初始化事件，获取 LazyLoad 实例
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  // 兜底：动态插入的 .lazy 元素（如站点自定义脚本在 update() 之后追加的图片）
+  // 不会被 vanilla-lazyload 自动扫描，未注册的 img.lazy 会被 CSS opacity:0 永久隐藏。
+  // MutationObserver 检测到新增 .lazy 元素后自动调用 update() 重新注册。
+  if (window.MutationObserver) {
+    window.lazyMutationObserver = new MutationObserver((mutations) => {
+      if (window.lazyMutationObserver._pending) return;
+      const hasLazy = mutations.some((m) =>
+        Array.prototype.some.call(m.addedNodes, (node) =>
+          node.nodeType === 1 &&
+          (node.matches?.('.lazy') || !!node.querySelector?.('.lazy'))
+        )
+      );
+      if (!hasLazy) return;
+      window.lazyMutationObserver._pending = requestAnimationFrame(() => {
+        window.lazyMutationObserver._pending = null;
+        window.lazyLoadInstance?.update();
+      });
+    });
+    window.lazyMutationObserver.observe(document.documentElement, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+</script>
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+
+
+<!-- optional -->
+
+
+
+<script defer src="/js/services.js?v=1.44.0"></script>
+<script>
+  // 防御：bootstrap 被第三方优化器改写/移除导致 window.stellar.initPlugin 缺失时，
+  // 在此补一个等价注册点：utils 就绪时直接委托，未就绪时入队，utils 加载后自动补跑。
+  if (typeof window.stellar === 'undefined' || typeof window.stellar.initPlugin !== 'function') {
+    window.stellar = window.stellar || {};
+    window.stellar._pluginQueue = window.stellar._pluginQueue || [];
+    window.stellar.initPlugin = function (fn, name, options) {
+      if (typeof utils === 'object' && typeof utils.initPlugin === 'function') {
+        return utils.initPlugin(fn, name, options);
+      }
+      window.stellar._pluginQueue.push({ fn: fn, name: name, options: options || {} });
+    };
+    window.stellar._flushPlugins = function () {
+      var pending = window.stellar._pluginQueue.splice(0);
+      if (typeof utils !== 'object' || typeof utils.initPlugin !== 'function') return;
+      for (var i = 0; i < pending.length; i++) {
+        try {
+          utils.initPlugin(pending[i].fn, pending[i].name, pending[i].options);
+        } catch (e) {
+          console.error('[Stellar] 插件补注册失败:', e);
+        }
+      }
+    };
+  }
+</script>
+
+<script>window.addEventListener('DOMContentLoaded', function () { utils.js('/js/search/shortcut.js', { defer: true }); });</script><script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = Object.assign({}, ctx.search, {
+      path: `/search.json`,
+      local_search: {"field":"all","path":"/search.json","content":true,"lazy_load":true,"cache_ttl":86400,"skip_search":[],"codeblock":true,"sort":"-date"},
+    });
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script>
+<script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    mode: `auto`,
+    selector: `.timenode p>img, .tag-plugin.swiper .swiper-slide img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  // auto=按需：页面存在可弹窗图片才加载；global=全局：所有页面加载
+  const isGlobal = ctx.fancybox.mode === 'global';
+  // 评论区图片（artalk/twikoo/waline）显示较小，自动支持放大；
+  // 仅绑定各评论服务的评论内容区，编辑器、表情面板等非内容区图片不弹窗
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon]):not([class*="emo"]), .with-fancybox .tk-content img:not([atk-emoticon]):not([class*="emo"]), .with-fancybox .wl-content img:not([atk-emoticon]):not([class*="emo"])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = isGlobal;
+  if (!needFancybox) {
+    needFancybox = document.querySelectorAll(selector).length !== 0;
+    if (!needFancybox) {
+      // 图片型评论系统容器：评论区图片小图需要 fancybox
+      const withFancybox = document.getElementsByClassName('with-fancybox');
+      if (withFancybox != undefined && withFancybox.length > 0) {
+        needFancybox = true;
+      }
+    }
+    if (!needFancybox) {
+      // 动态数据服务：memos 渲染的图片需要 fancybox
+      const memos = document.getElementsByClassName('ds-memos');
+      if (memos != undefined && memos.length > 0) {
+        needFancybox = true;
+      }
+    }
+  }
+  if (needFancybox) {
+    utils.css(`/css/plugins/fancybox.css?v=1.44.0`);
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      if (isGlobal) {
+        // 全局模式：正文所有非内联图片均可弹窗
+        selector += ', .md-text img:not(.inline):not([atk-emoticon])';
+      }
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  stellar.initPlugin(() => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`/css/plugins/swiper.css?v=1.44.0`);
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  }, 'swiper');
+</script>
+<script>
+  (function () {
+    // 兜底看门狗独立于插件初始化：3 秒内未完成 reveal 时强制显示 .slide-up 内容
+    let fallbackApplied = false;
+    const revealFallback = () => {
+      if (fallbackApplied) return;
+      fallbackApplied = true;
+      document.documentElement.classList.add('sr-fallback');
+    };
+    const watchdog = setTimeout(() => revealFallback(), 3000);
+
+    stellar.initPlugin(() => {
+      const els = Array.prototype.slice.call(document.querySelectorAll('.slide-up'));
+      if (els.length === 0) {
+        clearTimeout(watchdog);
+        return;
+      }
+
+    // 吸顶/固定定位容器内的元素始终在视口内（或由容器控制显隐），
+    // 但 ScrollReveal 按文档坐标判断可见性，会误判这类元素为不可见，
+    // 导致带锚点/恢复滚动位置打开页面时组件一直不显示。
+    // 解决方式：以最近的吸顶/固定祖先作为该组元素的容器，
+    // 使可见性判断恒成立，入场动画保留且不再依赖主文档滚动。
+    const findPinnedContainer = (el) => {
+      let node = el;
+      while (node && node.nodeType === 1) {
+        const pos = window.getComputedStyle(node).position;
+        if (pos === 'sticky' || pos === 'fixed') return node;
+        node = node.parentElement;
+      }
+      return null;
+    };
+
+    // 最近的滚动容器（overflow-y: auto/scroll）
+    // 吸顶容器内可能存在内部滚动容器（如侧栏 .widgets），
+    // 若直接用吸顶容器做 reveal 容器，折叠区下方的元素永远不会进入视口，导致一直不显示。
+    const findScrollContainer = (el) => {
+      let node = el.parentElement;
+      while (node && node.nodeType === 1) {
+        const oy = window.getComputedStyle(node).overflowY;
+        if (oy === 'auto' || oy === 'scroll') return node;
+        node = node.parentElement;
+      }
+      return null;
+    };
+
+    const pinnedGroups = new Map(); // 容器 -> 元素列表
+    const targets = [];
+    els.forEach((el) => {
+      const pinned = findPinnedContainer(el);
+      if (pinned) {
+        // 优先使用最近的滚动容器，其次才用吸顶容器
+        const container = findScrollContainer(el) || pinned;
+        const group = pinnedGroups.get(container) || [];
+        group.push(el);
+        pinnedGroups.set(container, group);
+      } else {
+        targets.push(el);
+      }
+    });
+    if (pinnedGroups.size === 0 && targets.length === 0) {
+      clearTimeout(watchdog);
+      return;
+    }
+
+    const slideUp = {
+      distance: `8px`,
+      duration: `1000`,
+      interval: `100`,
+      scale: `1`,
+      opacity: 0,
+      easing: "ease-out"
+    };
+
+    utils.js(`https://gcore.jsdelivr.net/npm/scrollreveal@4.0/dist/scrollreveal.min.js`, { defer: true })
+      .then(() => {
+        if (fallbackApplied) return;
+        if (typeof ScrollReveal !== 'function') {
+          revealFallback();
+          return;
+        }
+        try {
+          const sr = ScrollReveal();
+          if (targets.length > 0) {
+            sr.reveal(targets, { ...slideUp });
+          }
+          pinnedGroups.forEach((group, container) => {
+            sr.reveal(group, { ...slideUp, container: container });
+          });
+          clearTimeout(watchdog);
+        } catch (err) {
+          console.error('[Plugin scrollreveal] 初始化失败:', err);
+          revealFallback();
+        }
+      })
+      .catch((err) => {
+        console.error('[Plugin scrollreveal] 加载失败:', err);
+        revealFallback();
+      });
+    }, 'scrollreveal');
+  })();
+</script>
+
+<script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+  MathJax.Hub.Config({
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script>
+  stellar.initPlugin(() => {
+    const codeElements = document.querySelectorAll('.code');
+    if (codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js', { defer: true }).then(() => {
+        if (typeof createCopyButtons === 'function') {
+          createCopyButtons(codeElements);
+        }
+      });
+    }
+  }, 'copycode');
+</script>
+<script>
+  stellar.initPlugin(() => {
+    const els = Array.prototype.slice.call(document.querySelectorAll('[data-text-adaptive]'));
+    if (els.length === 0) return;
+    utils.js('/js/color.js').then(() => utils.js('/js/plugins/adaptive-text.js')).then(() => {
+      if (typeof applyAdaptiveText === 'function') {
+        applyAdaptiveText(els);
+      }
+    });
+  }, 'adaptive-text');
+</script>
+
+
+
+<!-- inject -->
+<script src="/js/leftbar-order.js?v=20260927a" defer></script><script src="/js/leftbar-extras.js?v=20260927a" defer></script><script src="/js/theme-toggle.js?v=20260927a" defer></script><script src="/js/pin-badge.js?v=20260927a" defer></script><script src="/js/typewriter.js?v=20260927a" defer></script><script src="/js/topic-card-link.js?v=20260927a" defer></script><script src="/js/swiper-fancybox-group.js?v=20260927a" defer></script><script src="/js/lunar.js?v=20260928a" defer></script><script src="/js/sidebar-calendar.js?v=20260928a" defer></script><script src="/js/sidebar-talks.js?v=20260928a" defer></script>
+</div></body></html>

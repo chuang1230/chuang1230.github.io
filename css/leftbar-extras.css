@@ -1,0 +1,321 @@
+/* leftbar-extras.css
+ * 配套 leftbar-extras.js，把 Stellar 2.0 的两个功能移植到 1.44：
+ * 1) 侧边栏收起：收起后 64px 窄栏，只剩头像 + 五个页面图标 + 搜索 + 展开按钮；
+ * 2) 弹层搜索：搜索改成按钮（展开态保持原搜索栏样式），点击弹出居中大卡片搜索框。
+ * 布局原理：1.44 侧边栏宽度 = 64px 固定 + var(--side-content-width)，
+ * 收起时把 --side-content-width 归零即得 64px 窄栏。
+ */
+
+/* ========== 1. 搜索按钮：展开态是原搜索栏样式的横条 ========== */
+.l_left .search-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: auto;
+  height: 40px;
+  /* 第六轮：上边距归零对齐线上（菜单与搜索框间距 0），下边距 32px +
+     widget 自带 8px margin-top = 40px，对齐线上输入框底→便签顶的间距
+     （第四轮把 #search-wrapper 搬进弹层后，原 32px padding-bottom 规则失效，
+     间距塌成 8px） */
+  margin: 0 var(--gap-base) 32px;
+  padding: 0 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-p3);
+  font-family: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+.l_left .search-trigger svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--text-p2);
+}
+.l_left .search-trigger:hover {
+  color: var(--text-p1);
+}
+/* 底部细线：与主题 search-form 同源（ui-style:card 时用 --leftbar-search-line） */
+.l_left .search-trigger::before {
+  position: absolute;
+  content: '';
+  height: 1px;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  border-radius: 8px;
+  background: var(--leftbar-search-line, var(--bg-a100));
+}
+[data-theme="dark"] .l_left .search-trigger::before {
+  background: var(--leftbar-search-line, var(--bg-a20));
+}
+/* 彩虹渐变条：hover/键盘聚焦时亮起，数值取自主题默认 style.gradient.searchbar */
+.l_left .search-trigger::after {
+  position: absolute;
+  content: '';
+  height: 2px;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  border-radius: 8px;
+  background: linear-gradient(to right, #04f3ff, #08ffc6, #ddf730, #ffbd19, #ff1fe0, #c418ff, #3b5bff, #04f3ff);
+  background-size: 200%;
+  animation: search-glow 20s linear infinite;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.l_left .search-trigger:hover::after,
+.l_left .search-trigger:focus-visible::after {
+  opacity: 1;
+}
+
+/* ========== 收起/展开按钮：展开态作为页脚社交图标行的最后一个方块 ========== */
+.l_left .leftbar-collapse-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-p3);
+  cursor: pointer;
+  transition: background 0.2s ease-out, color 0.2s ease-out;
+}
+.l_left .leftbar-collapse-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.l_left .leftbar-collapse-btn:hover {
+  background: var(--block);
+  color: var(--text-p1);
+}
+
+@media screen and (min-width: 668px) {
+  /* ========== 2. 收起态：64px 窄栏，贴左收起 ==========
+   * 布局原理：把左列从 1fr 改成「窄栏 + 页边距」固定宽，窄栏 justify-self
+   * 改 left 贴到视口左缘；中列吃下让出来的空间（上限 = 原正文宽 + 侧栏宽）；
+   * 右列下限 = 展开态 1fr 的同款公式，保证右栏在任何页面都不被压缩。
+   * 注意 --side-content-width 只能作用在 .l_left 上：它挂在 html 上会连带
+   * 把右栏宽度变量一起归零（右栏宽度同源）。
+   */
+  html[data-leftbar-collapsed] .l_body {
+    grid-template-columns: calc(var(--gap-base) * 4 + var(--gap-page)) minmax(200px, calc(var(--width-main) + var(--gap-base) * 4 + 224px)) minmax(calc((100% - var(--width-main) - var(--gap-page) * 2) / 2), 1fr);
+  }
+  html[data-leftbar-collapsed] .l_body .l_left {
+    --side-content-width: 0px;
+    justify-self: left;
+    margin-left: var(--gap-base);
+  }
+  /* 标题隐藏，头像居中 */
+  html[data-leftbar-collapsed] .l_left .header {
+    margin: 16px 8px 0;
+  }
+  html[data-leftbar-collapsed] .l_left .logo-wrap {
+    justify-content: center;
+  }
+  html[data-leftbar-collapsed] .l_left .logo-wrap a.title {
+    display: none;
+  }
+  html[data-leftbar-collapsed] .l_left .logo-wrap a.avatar {
+    margin-right: 0;
+  }
+  /* 菜单改竖排，单列方块（方块底色沿用 code-enhance 的黑白半透明规则） */
+  html[data-leftbar-collapsed] .l_left .nav-area {
+    margin: 8px 8px 0;
+  }
+  html[data-leftbar-collapsed] .l_left nav.menu .ui-collection {
+    grid-template-columns: 1fr;
+  }
+  /* widgets 隐藏；社交行里的链接/主题切换按钮隐藏，但行本身保留——
+     收起按钮挂在行内，行若整体 display:none 会把按钮连带藏掉 */
+  html[data-leftbar-collapsed] .l_left .widgets,
+  html[data-leftbar-collapsed] .l_left footer.footer .social-wrap > a,
+  html[data-leftbar-collapsed] .l_left footer.footer .social-wrap > button.social {
+    display: none;
+  }
+  html[data-leftbar-collapsed] .l_left footer.footer .social-wrap {
+    margin: 0;
+    padding: 0;
+  }
+  html[data-leftbar-collapsed] .l_left footer.footer {
+    padding: 0;
+    margin: 0;
+  }
+  /* 搜索按钮变图标方块，样式对齐菜单方块 */
+  html[data-leftbar-collapsed] .l_left .search-trigger {
+    justify-content: center;
+    margin: 8px;
+    padding: 0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.5);
+  }
+  html[data-leftbar-collapsed][data-theme="dark"] .l_left .search-trigger {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  html[data-leftbar-collapsed] .l_left .search-trigger:hover {
+    background: #fff;
+  }
+  html[data-leftbar-collapsed][data-theme="dark"] .l_left .search-trigger:hover {
+    background: #000;
+  }
+  html[data-leftbar-collapsed] .l_left .search-trigger span {
+    display: none;
+  }
+  html[data-leftbar-collapsed] .l_left .search-trigger svg {
+    width: 28px;
+    height: 28px;
+    filter: grayscale(50%) brightness(0.8);
+  }
+  html[data-leftbar-collapsed] .l_left .search-trigger:hover svg {
+    filter: unset;
+  }
+  html[data-leftbar-collapsed] .l_left .search-trigger::before,
+  html[data-leftbar-collapsed] .l_left .search-trigger::after {
+    display: none;
+  }
+  /* 展开按钮移到窄栏底部居中，同样块样式（footer 已 display 清空，绝对定位贴 .l_left） */
+  html[data-leftbar-collapsed] .l_left .leftbar-collapse-btn {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 12px;
+    flex: none;
+    width: auto;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--text-p2);
+  }
+  html[data-leftbar-collapsed][data-theme="dark"] .l_left .leftbar-collapse-btn {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  html[data-leftbar-collapsed] .l_left .leftbar-collapse-btn:hover {
+    background: #fff;
+    color: var(--text-p1);
+  }
+  html[data-leftbar-collapsed][data-theme="dark"] .l_left .leftbar-collapse-btn:hover {
+    background: #000;
+  }
+}
+
+/* 收起后内容区放宽已并入上方 grid-template-columns 的中列上限，不再动 --width-main */
+
+/* ========== 3. 弹层搜索 ========== */
+.search-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 24px 24px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  /* visibility 只在关闭时延迟 .2s（等淡出播完再隐藏）；打开时立即 visible，
+     否则 Chromium 在 visibility 过渡中拒绝 focus 输入框 */
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+}
+.search-modal.open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease, visibility 0s linear 0s;
+}
+.search-modal-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 640px;
+  height: min(64vh, 560px);
+  min-height: 320px;
+  padding: 16px;
+  background: var(--card);
+  border-radius: 24px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  transform: translateY(8px) scale(0.985);
+  transition: transform 0.2s ease;
+}
+.search-modal.open .search-modal-card {
+  transform: none;
+}
+/* 被搬进来的 #search-wrapper 撑满卡片；原 .leftbar-container > .search-wrapper
+ * 的定位规则失效，这里重排：输入区在上，结果区弹性占满剩余高度 */
+.search-modal-card #search-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+.search-modal-card .search-form {
+  position: static;
+  height: 48px;
+  padding: 0 44px 0 16px; /* 右侧留白给关闭按钮 */
+}
+.search-modal-card .search-input {
+  font-size: 16px;
+}
+.search-modal-card #search-result {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+}
+.search-modal-close {
+  position: absolute;
+  top: 24px;
+  right: 20px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-p3);
+  cursor: pointer;
+  transition: background 0.2s ease-out, color 0.2s ease-out;
+}
+.search-modal-close svg {
+  width: 18px;
+  height: 18px;
+}
+.search-modal-close:hover {
+  background: var(--block);
+  color: var(--text-p1);
+}
+
+/* 移动端弹层：占高多一点、圆角收小 */
+@media screen and (max-width: 667px) {
+  .search-modal {
+    padding: 8vh 16px 16px;
+  }
+  .search-modal-card {
+    height: min(72vh, 560px);
+    border-radius: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .l_body aside.l_left,
+  .search-modal,
+  .search-modal-card {
+    transition: none;
+  }
+}

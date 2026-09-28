@@ -1,0 +1,1488 @@
+/* 代码块增强：3D 阴影 + copy 按钮图标化
+   覆盖 stellar 的 highlight/copycode 默认样式，不改动主题源码 */
+
+/* 引入霞鹜文楷（LXGW WenKai）—— 开源钢笔楷书，仅给 welcome 便签用，
+   其 unicode-range 分包加载，只下载便签里实际用到的字符范围 */
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont/lxgwwenkai-regular.css');
+
+/* 引入思源宋体（Noto Serif SC）—— 全站正文字体
+   字重 300（Light）做正文（瘦劲，类似瘦金体感），700（Bold）做标题/加粗对比
+   只加载 chinese-simplified 分包（含拉丁字母 + 简体中文），全字符集一次性加载
+   welcome 便签在下方显式覆盖为 LXGW WenKai，不受影响 */
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5.3.0/chinese-simplified-300.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5.3.0/chinese-simplified-700.css');
+
+/* === B方案：关掉 stellar 左栏默认彩虹背景图 === */
+/* .sidebg 是 layout.ejs 固定渲染的 div，背景图由主题包默认配置编译进 CSS；
+   站点配置注释掉只会回退主题默认值，所以这里用 CSS 直接掐掉 */
+.sidebg {
+  background: none !important;
+  background-image: none !important;
+}
+
+/* === 文章卡片 / 专栏卡片：B方案 实底+细边（去掉紫粉渐变毛玻璃）=== */
+/* 卡片是页面里最该安静的元素：实底 var(--card) + 1px 冷灰边，
+   hover 只动边框色（青）+ 顶部流光（已有），不再整卡渐变 */
+.post-card {
+  background: var(--card) !important;
+  border: 1px solid rgba(115, 128, 112, 0.16);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.post-card:hover {
+  background: var(--card) !important;
+  border-color: rgba(52, 120, 90, 0.35);
+}
+[data-theme="dark"] .post-card {
+  background: var(--card) !important;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+[data-theme="dark"] .post-card:hover {
+  background: var(--card) !important;
+  border-color: rgba(140, 205, 165, 0.40);
+}
+
+/* === 主页：无封面图的文章卡片 → 透明底 + 不透明实色边框（本地预览，与日历/说说同款处理） === */
+/* 有 .post-cover 的卡片保留实底（封面图需要不透明容器）。
+   第十轮曾用 :not(.topic) 排除专栏卡（误匹配会整卡透明），
+   第十一轮用户要求专栏卡也改透明底+边框圆角、参考主页文章卡，故去掉排除 */
+.post-list .post-card:not(:has(.post-cover)) {
+  background: transparent !important;
+  border: 1px solid #738070;
+}
+.post-list .post-card:not(:has(.post-cover)):hover {
+  border-color: #5d6b5a;
+}
+[data-theme="dark"] .post-list .post-card:not(:has(.post-cover)) {
+  border-color: #4a5a50;
+}
+[data-theme="dark"] .post-list .post-card:not(:has(.post-cover)):hover {
+  border-color: #6e8577;
+}
+
+/* === 首页文章卡片 hover：补回 1.33.1 hoverable-card()（明浮起阴影 / 暗主题色透光） ===
+   1.44 把 hoverable-card() 从 post 卡片上拿掉了（只留给 grid/link/ghrepo），
+   导致明色模式 hover 没有浮起阴影、暗色模式 hover 没有主题色透光。
+   数值取自 1.33.1 _defines/func.styl + _custom.styl（$boxshadow-card）：
+   - 明：常态 0 1px 2px rgba(0,0,0,.1)；hover 浮起阴影 + 上移 2px
+   - 暗：无常态阴影；hover 主题色透光，主题本身不设 transform，
+     3px 上浮由下方「卡片 hover 微动效」提供（与线上 1.33.1 实际效果一致，此处写明防顺序依赖） */
+.post-list .post-card {
+  transition: all 0.2s ease-out;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+.post-list .post-card:hover {
+  box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.15);
+  transform: translate3d(0, -2px, 0);
+}
+[data-theme="dark"] .post-list .post-card {
+  box-shadow: none;
+}
+[data-theme="dark"] .post-list .post-card:hover {
+  box-shadow: 0 0 4px -2px var(--theme), 0 0 24px -8px var(--theme);
+  transform: translateY(-3px);
+}
+
+/* === navbar-blur 在背景图上白底太突兀，直接干掉磨砂伪元素 + 白色文字光晕 === */
+/* stellar newblur() mixin 给 ::before/::after 做 8px+16px 模糊 + 0.3 白底，
+   还给 navbar-blur 和未选中 a 加了三层白色 text-shadow + drop-shadow 光晕，
+   在彩色背景图上每个文字周围都像有白底。全部干掉，让背景图原样透过来 */
+body .navbar-blur {
+  text-shadow: none !important;
+}
+/* 1.44 的 .navbar-blur 自身带实色底 + 圆角 + 阴影（导航项后面一条白/深色横条），
+   线上 1.33.1 导航容器全透明、只有选中项是绿色药丸。把条本身也干掉。
+   第八轮曾加常驻透光+流动高光环，第九轮用户要求撤掉、保持线上一致 */
+body .navbar-blur {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+body .navbar-blur nav a:not(.active) {
+  text-shadow: none !important;
+  filter: none !important;
+}
+/* ::before 是 newblur 的磨砂层，继续干掉 */
+body .navbar-blur::before {
+  display: none !important;
+}
+
+/* === navbar 选中项改松绿实底 + 白字（本地预览；默认是中性 var(--block) 底） === */
+body .navbar.top nav a.active {
+  background: var(--theme) !important;
+  color: #fff !important;
+  text-shadow: none !important;
+}
+
+/* === 3D 阴影：右下方向偏移，无模糊，营造层叠立体感 === */
+/* 同时叠同色系淡渐变背景，呼应侧边栏 hsl(160→120→80) 松绿渐变 */
+.md-text .highlight {
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
+  background-image: linear-gradient(135deg, hsla(160, 40%, 50%, 0.08), hsla(120, 30%, 48%, 0.08), hsla(80, 32%, 48%, 0.08));
+}
+
+/* 移动端阴影缩小，避免横向溢出 */
+@media (max-width: 768px) {
+  .md-text .highlight {
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* 暗色模式：阴影加深 + 渐变改成更深的同色系，避免浅色渐变在黑底上发灰 */
+[data-theme="dark"] .md-text .highlight {
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+  background-image: linear-gradient(135deg, hsla(160, 40%, 50%, 0.15), hsla(120, 30%, 48%, 0.15), hsla(80, 32%, 48%, 0.15));
+}
+
+/* === copy 按钮图标化：隐藏文字，用 SVG mask 显示图标 === */
+.highlight .code .copy-btn {
+  font-size: 0;          /* 隐藏 "Copy" / "Copied" 文字 */
+  color: transparent;
+  width: 28px;
+  height: 28px;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  overflow: hidden;
+}
+
+/* 默认态：剪贴板图标，颜色随主题文字色 */
+.highlight .code .copy-btn::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: var(--text-p3, #888);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z'/></svg>") center / contain no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z'/></svg>") center / contain no-repeat;
+}
+
+/* 成功态：绿色背景 + 白色对勾图标（覆盖 stellar 默认 success 样式） */
+.highlight .code .copy-btn.success::before {
+  background-color: white;
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/></svg>");
+}
+
+/* 警告态：橙色背景 + 白色感叹号图标（clipboard 权限被拒/非 HTTPS） */
+.highlight .code .copy-btn.warning::before {
+  background-color: white;
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z'/></svg>");
+          mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z'/></svg>");
+}
+
+/* === 含 banner 标签的页面：隐藏 stellar 自动生成的顶部「主页>标题>发布日期」横幅 === */
+/* stellar page/post layout 默认在 l_main 第一个子元素位置生成 .article.banner.top（面包屑+标题+发布日期），
+   高 169px，把用户写的 banner 标签往下挤。当文章正文里自己放了 banner 标签时，这个自动横幅就是冗余的，
+   用 :has() 检测到 .tag-plugin.banner 后隐藏之，让 banner 标签贴到 navbar 下方。 */
+/* 1.44.0 起自动横幅外面多包了一层 .article-banner-wrap，两条选择器都要覆盖 */
+.l_main:has(.tag-plugin.banner) > .article.banner.top,
+.l_main:has(.tag-plugin.banner) > .article-banner-wrap {
+  display: none !important;
+}
+/* 同时去掉 article 首元素 banner 的上 margin，让它真正贴顶 */
+.l_main:has(.tag-plugin.banner) > article.md-text > .tag-plugin.banner:first-child {
+  margin-top: 0 !important;
+}
+
+/* === /tech/ 列表页 JS 注入的 banner img：无 data-src，stellar lazyload 不接管 === */
+/* tech-listing-banner.js 动态创建的 img 没有 lazyload 需要的 data-src 属性，
+   stellar lazyload 不接管，img 卡在 loading 状态 opacity:0 看不到。
+   stellar 正常渲染的 banner img 走完 lazyload 流程后是 loaded 状态 opacity:1，
+   这里 !important 只对卡在 loading 的 img 生效，无副作用。 */
+.tag-plugin.banner > img.bg {
+  opacity: 1 !important;
+}
+
+/* === div_photo 卡片图片高度：与纯文字卡片保持一致 === */
+/* stellar 默认 div_photo 卡片图片用 cover_ratio=2（2:1），在 688px 宽度下高 344px，
+   比纯文字卡片（165px）高出一倍多，列表页看起来大小不一致。
+   改成固定 165px 高，让有封面图的 div_photo 卡片和纯文字卡片高度一致。
+   只影响 .post-card.photo（有 poster 字段的卡片），不影响普通 div_default 卡片。 */
+.post-list .post-card.post.photo .cover img {
+  aspect-ratio: auto !important;
+  height: 165px !important;
+}
+
+/* === swiper 轮播图片：cursor pointer 提示可点击放大 === */
+/* fancybox v5 用事件委托绑定，不会自动给图片加 cursor:pointer。
+   加上 cursor:pointer 让用户知道 swiper 里的图片可以点击放大查看。 */
+.tag-plugin.swiper .swiper-slide img {
+  cursor: pointer !important;
+}
+
+/* === welcome widget：仿真便签（透明底，B方案 冷墨色）===
+   保留便签形式（细边框+纸张阴影+胶带+钢笔体），
+   米黄/棕墨暖色系换成冷墨色系，融入冷纸底 */
+.widget-wrapper.markdown {
+  background: none !important;
+  background-color: transparent !important;
+  border: 1px solid rgba(115, 128, 112, 0.28) !important;
+  border-radius: 2px !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04), 2px 3px 6px rgba(0,0,0,0.14), 4px 6px 14px rgba(0,0,0,0.10), inset 0 0 0 1px rgba(255,255,255,0.5) !important;
+  transform: none !important;
+  margin: 8px 8px 20px 8px !important;
+  padding: 0 0 24px !important;
+  overflow: visible !important;
+  position: relative !important;
+}
+/* welcome 便签顶部胶带：半透明白色 + 虚线边模拟胶带齿纹，倾斜挂在便签上沿
+   用 .l_left 限定只对 welcome 生效（日历/近期说说在右栏，不应用胶带） */
+.l_left .widget-wrapper.markdown::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -8px !important;
+  left: 50% !important;
+  transform: translateX(-50%) rotate(-3deg) !important;
+  width: 86px !important;
+  height: 16px !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(245,240,220,0.4)) !important;
+  border-left: 1px dashed rgba(115, 128, 112, 0.35) !important;
+  border-right: 1px dashed rgba(115, 128, 112, 0.35) !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+[data-theme="dark"] .l_left .widget-wrapper.markdown::before {
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(220,235,245,0.06)) !important;
+  border-left-color: rgba(150, 190, 165, 0.35) !important;
+  border-right-color: rgba(150, 190, 165, 0.35) !important;
+}
+.widget-wrapper.markdown > * {
+  position: relative;
+  z-index: 1;
+}
+.widget-wrapper.markdown .widget-header .name {
+  font-weight: 600 !important;
+  color: #0a0a0a !important;
+  font-size: 15px !important;
+  font-family: 'Noto Serif SC', system-ui, sans-serif !important;
+}
+/* welcome 便签（左侧栏）标题加粗居中——只 l_left 的 markdown widget 是 welcome */
+.l_left .widget-wrapper.markdown .widget-header {
+  justify-content: center !important;
+}
+.l_left .widget-wrapper.markdown .widget-header .name {
+  font-weight: 700 !important;
+  text-align: center !important;
+  letter-spacing: 1px;
+}
+/* welcome 便签整体放大 + 文本下移：padding-top 20px + 标题/正文各 +2px */
+.l_left .widget-wrapper.markdown {
+  padding: 20px 0 24px !important;
+}
+.l_left .widget-wrapper.markdown .widget-header .name {
+  font-size: 17px !important;
+}
+.l_left .widget-wrapper.markdown .widget-body {
+  font-size: 16px !important;
+}
+.l_left .widget-wrapper.markdown .widget-body em {
+  font-weight: 700 !important;
+  font-style: italic !important;
+}
+.widget-wrapper.markdown .widget-body {
+  background: none !important;
+  font-size: 14px !important;
+  line-height: 1.75 !important;
+  color: rgba(35, 50, 65, 0.85) !important;
+  font-family: 'Noto Serif SC', system-ui, sans-serif !important;
+  padding: 4px 16px !important;
+  border-radius: 0 !important;
+}
+.widget-wrapper.markdown .widget-body p {
+  margin: 8px 0 !important;
+  line-height: 1.75 !important;
+}
+.widget-wrapper.markdown .widget-body ul {
+  margin: 6px 0 !important;
+  padding-left: 20px !important;}
+.widget-wrapper.markdown .widget-body li {
+  margin: 4px 0 !important;
+  line-height: 1.75 !important;
+}
+.widget-wrapper.markdown .widget-body strong {
+  color: rgba(20, 35, 50, 0.95) !important;
+  font-weight: 700 !important;
+}
+/* 暗色模式：背景依然透明，文字色改冷调浅色，边框/胶带色贴合深色背景 */
+[data-theme="dark"] .widget-wrapper.markdown {
+  background: none !important;
+  background-color: transparent !important;
+  border-color: rgba(150, 190, 165, 0.22) !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.20), 2px 3px 6px rgba(0,0,0,0.30), 4px 6px 14px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.08) !important;
+}
+[data-theme="dark"] .widget-wrapper.markdown .widget-header .name {
+  color: rgba(220, 238, 248, 0.92) !important;
+}
+[data-theme="dark"] .widget-wrapper.markdown .widget-body {
+  color: rgba(214, 232, 242, 0.88) !important;
+}
+[data-theme="dark"] .widget-wrapper.markdown .widget-body strong {
+  color: rgba(235, 248, 255, 0.98) !important;
+}
+
+
+/* === 左侧栏头像：hover 时 360° 旋转（点击仍跳 /about/）===
+   avatar 是 <a class="avatar"><img class="avatar"></a>，给 img 加 transition + hover rotate */
+.l_left .header .logo-wrap a.avatar {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.l_left .header .logo-wrap a.avatar:hover {
+  transform: rotate(360deg);
+}
+.l_left .header .logo-wrap a.avatar img.avatar {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+
+/* === 左侧栏底部：白天/夜间模式切换滑动 pill ===
+   放在 .footer.dis-select 末尾，社交图标下方
+   整个按钮就是 pill 轨道：左侧隐约的太阳、右侧隐约的月亮
+   圆形 knob 在轨道里左右滑动：light 模式 knob 停在左端（显示太阳）
+   点击后 knob 滑到右端、主题切到 dark、knob 上图标换成月亮 */
+/* sidebar 底部预留 margin 从 stellar 默认 96px → 36px，多出来的 60px 给 .widgets
+   滚动区让最近更新显示更多文章（welcome+recent 原本 overflow 67px，加 60px 后基本不滚） */
+.l_left {
+  max-height: calc(100vh - var(--gap-base) * 2 - 36px) !important;
+}
+.l_left .leftbar-container {
+  height: calc(100vh - var(--gap-base) * 2 - 36px) !important;
+}
+
+/* 主题默认 leftbar 仍带彩虹占位图（配置里注释掉的只是我们这层覆盖），导致
+   .leftbar-container::before 编译出「越往上越发白」的白色 overlay（深色模式尤其明显）。
+   B 方案本就是纯色底：这里移除图片与白色 overlay，sidebg 纯 var(--card) */
+.l_left .sidebg {
+  background-image: none !important;
+  filter: none !important;
+}
+.l_left .leftbar-container::before {
+  display: none !important;
+}
+
+/* === 1.44.0 对齐线上：leftbar 恢复透明 + 菜单恢复横排 5 图标 === */
+/* 1.44 默认 ui-style:card 给 .l_left.leftbar-card 和 leftbar-container 实色 var(--card) + 阴影，
+   线上 1.33.1 实测 .l_left / .leftbar-container / .sidebg 三层全透明，这里去掉实色与阴影 */
+.l_left.leftbar-card,
+.l_left .leftbar-container {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+/* === 第七轮：侧边栏静态边框移除，改常驻透光 + 沿边框流动的高光 ===
+   外发光 = 文章卡 hover 透光同款（var(--theme) 两层阴影），常驻不 hover 也有；
+   边框 = 1px 主题色半透明环（--theme-a20）+ 两条对向旋转的 conic 高亮弧，
+   mask-composite 掏空中心只留环。角度变量用 @property 注册才能被 keyframes
+   动画（老浏览器不转也不破，静态环仍在）。.l_left 本身 sticky，伪元素可绝对定位 */
+/* 第八轮起菜单栏/日历共用同一套角度变量与 keyframes：
+   conic-gradient 默认顺时针展开，角度 0→360 即高光顺时针流动，三处统一 */
+@property --flow-glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes flow-glow-rotate {
+  to { --flow-glow-angle: 360deg; }
+}
+.l_left.leftbar-card {
+  border: none !important;
+  /* 上方透明化规则带 !important，这里必须同权才能盖住 */
+  box-shadow: 0 0 4px -2px var(--theme), 0 0 24px -8px var(--theme) !important;
+}
+.l_left.leftbar-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background:
+    conic-gradient(from var(--flow-glow-angle),
+      transparent 0deg, transparent 30deg,
+      var(--theme) 90deg,
+      transparent 150deg, transparent 210deg,
+      var(--theme) 270deg,
+      transparent 330deg, transparent 360deg),
+    var(--theme-a20);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: flow-glow-rotate 6s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .l_left.leftbar-card::before,
+  .widget-wrapper.markdown:has(#sidebar-calendar)::after {
+    animation: none;
+  }
+}
+/* 1.44 把 menubar 改成竖排 ui-collection 列表；改回 1.33.1 menu.styl 的一行 5 个图标方块：
+   grid 5 列 gap 8px、item 40px 圆角 8px 半透明底、图标 28px 淡显、active/hover 实底全彩+底部短横 */
+.l_left nav.menu .ui-collection {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+.l_left nav.menu .ui-collection__item {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 40px;
+  border-radius: 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* 1.33.1 的 --bg-a50/a100 是黑白半透明；1.44 在 leftbar 作用域重定义了这两个变量
+     （蓝灰 8%/12%），不写死就对不上线上。数值取自 1.33.1 theme_base.styl x-set-bg-colors */
+  background: rgba(255, 255, 255, 0.5);
+  transition: background 0.2s ease-out;
+}
+[data-theme="dark"] .l_left nav.menu .ui-collection__item {
+  background: rgba(0, 0, 0, 0.5);
+}
+.l_left nav.menu .ui-collection__item img,
+.l_left nav.menu .ui-collection__item svg {
+  height: 28px;
+  object-fit: contain;
+  /* 1.33.1 原 filter 里的 opacity(0.5) 不搬：1.44 主题已给未选中图标加 opacity:.5
+     （hover/选中恢复 1），再叠一层会变 25% 过淡；灰度+亮度保留，透明度交给主题 */
+  filter: grayscale(50%) brightness(0.8);
+  transition: all 0.2s ease-out;
+}
+/* 1.44 给图标套了 .ui-collection__leading（1.5em=25.5px）并对 svg 设 max-height:100%，
+   会把 28px 图标压成 25.5px；撑回 28px 对齐 1.33.1 图标尺寸 */
+.l_left nav.menu .ui-collection__leading {
+  width: 28px;
+  height: 28px;
+}
+.l_left nav.menu .ui-collection__item.is-active,
+.l_left nav.menu .ui-collection__item:hover {
+  background: #fff;
+}
+[data-theme="dark"] .l_left nav.menu .ui-collection__item.is-active,
+[data-theme="dark"] .l_left nav.menu .ui-collection__item:hover {
+  background: #000;
+}
+.l_left nav.menu .ui-collection__item.is-active img,
+.l_left nav.menu .ui-collection__item.is-active svg,
+.l_left nav.menu .ui-collection__item:hover img,
+.l_left nav.menu .ui-collection__item:hover svg {
+  filter: unset;
+}
+.l_left nav.menu .ui-collection__item.is-active:after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  bottom: 2px;
+  background: currentColor;
+}
+.l_left nav.menu .ui-collection__content,
+.l_left nav.menu .ui-collection__indicator {
+  display: none !important;
+}
+/* nav-area 被 leftbar-order.js 移回搜索框上方；1.33.1 nav-area.styl 原文
+   margin: 1rem var(--gap-margin) 0（线上 root 16px → 1rem=16px，gap-margin=16px）。
+   左右各收 16px 后菜单宽 256，图标方块 44.8px，与线上逐像素一致 */
+.l_left .nav-area {
+  margin: 16px var(--gap-base) 0;
+}
+.l_left nav.menu {
+  margin: 8px 0;
+}
+/* 1.44 给 widgets 加了底部渐隐 mask，线上 1.33.1 没有，去掉 */
+.l_left .leftbar-container > .widgets {
+  mask: none;
+  -webkit-mask: none;
+}
+/* navbar 选项：线上 1.33.1 是 32px 圆角药丸，1.44 默认 8px 方角，改回 */
+body .navbar.top nav a {
+  border-radius: 32px;
+}
+/* 第四轮起 #search-wrapper 被 leftbar-extras.js 搬进 .search-modal-card，
+   原先作用在侧边栏内 .search-wrapper 的间距/输入框高度规则不再命中任何节点，
+   已删除；弹层内的样式见 leftbar-extras.css（.search-modal-card 各条）。 */
+
+/* === 左侧栏底部：白天/夜间切换（v2 融入社交图标行）===
+   旧版大 pill 与安静侧栏违和；v2 复用 .social 的视觉语言：
+   32px 网格圆格、默认 grayscale 单色、hover 显色+底色，和 github/rss 图标同款待遇
+   light 显示太阳、dark 显示月亮，点击旋转渐变切换 */
+.l_left .social-wrap .theme-toggle-btn {
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+.l_left .social-wrap .theme-toggle-btn img {
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+}
+.l_left .social-wrap .theme-toggle-btn.tt-spin img {
+  animation: tt-swap 0.45s ease;
+}
+@keyframes tt-swap {
+  0%   { transform: rotate(0deg) scale(1); opacity: 1; }
+  50%  { transform: rotate(180deg) scale(0.5); opacity: 0.2; }
+  100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .l_left .social-wrap .theme-toggle-btn.tt-spin img { animation: none; }
+}
+
+/* === footer 排版：每行图标+文字垂直居中对齐，备案号成对横排 === */
+/* stellar footer.content 渲染后包在 .footer-content 里，这里定制几行信息视觉 */
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.92;
+}
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.footer-ico {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  vertical-align: middle;
+  opacity: 0.85;
+}
+.footer-ico.beian-police {
+  width: 16px;
+  height: 16px;
+}
+.footer-ico.beian-moe {
+  width: 18px;
+  height: 18px;
+}
+.footer-ico.cc-license {
+  width: auto;
+  height: 22px;
+  vertical-align: middle;
+  margin-right: 4px;
+  opacity: 0.95;
+}
+.footer-beian {
+  gap: 4px;
+}
+.footer-beian .beian-sep {
+  opacity: 0.4;
+  margin: 0 4px;
+}
+.footer-info a {
+  text-decoration: none;
+  border-bottom: 1px dashed currentColor;
+  opacity: 0.88;
+  transition: opacity 0.2s;
+}
+.footer-info a:hover {
+  opacity: 1;
+}
+#uptime-counter {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+  color: var(--text-a85, #888);
+  margin-left: 2px;
+}
+/* 暗色模式下 footer 链接和图标稍微提亮，配 stellar footer 的深色背景 */
+[data-theme="dark"] .footer-info {
+  opacity: 0.88;
+}
+[data-theme="dark"] .footer-ico {
+  opacity: 0.75;
+}
+[data-theme="dark"] .footer-info a {
+  opacity: 0.92;
+}
+
+/* === footer sitemap 排版增强：每条链接前面加小图标，让两列不再空旷 ===
+   原本只有纯文字链接，看着空；给每条按 href 配一个 iconify 小图标，
+   链接改成 flex 行布局，hover 加底色，整组卡片化，视觉密度上去 */
+.sitemap {
+  margin: 12px 0 16px !important;
+}
+.sitemap-group {
+  break-inside: avoid;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: none !important;
+  border: none !important;
+}
+.sitemap-group > .fs15 {
+  font-size: 13px !important;
+  font-weight: 700;
+  color: var(--text-p3, #888);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sitemap-group > .fs15::before {
+  content: '';
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--theme);
+}
+.sitemap-group a {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  width: 100% !important;
+  color: var(--text-p1, inherit) !important;
+  text-decoration: none !important;
+  font-size: 14px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.sitemap-group a::before {
+  content: '';
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.4;
+  filter: grayscale(1);
+  /* 默认图标（未匹配到 href 时）*/
+  background-image: url('https://api.iconify.design/solar:arrow-right-up-linear.svg?color=%23888');
+}
+.sitemap-group a:hover {
+  background: rgba(52, 120, 90, 0.08) !important;
+  color: var(--text-link, hsl(155 40% 28%)) !important;
+}
+.sitemap-group a:hover::before {
+  opacity: 1;
+  filter: grayscale(0);
+}
+/* 按路径匹配专属图标，让每条链接视觉有差异 */
+.sitemap-group a[href="/"]::before             { background-image: url('https://api.iconify.design/solar:document-add-outline.svg?color=%231e90ff'); }
+/* 第十一轮：专栏、公益404 原先未匹配到专属图标，落回默认箭头；
+   专栏换书本书签图标（橙），公益404 换爱心图标（玫红），
+   公益404 目标同步换成腾讯「寻梦」公益页（原 yibo.iyiyun.com 无法访问） */
+.sitemap-group a[href="/topic/"]::before        { background-image: url('https://api.iconify.design/solar:notebook-bookmark-outline.svg?color=%23ff9800'); }
+.sitemap-group a[href="/tags/"]::before         { background-image: url('https://api.iconify.design/solar:hashtag-square-outline.svg?color=%23e91e63'); }
+.sitemap-group a[href="/archives/"]::before     { background-image: url('https://api.iconify.design/solar:archive-minimalistic-outline.svg?color=%239c27b0'); }
+.sitemap-group a[href="/life/"]::before        { background-image: url('https://api.iconify.design/solar:camera-outline.svg?color=%23ffc107'); }
+.sitemap-group a[href="/friends/"]::before     { background-image: url('https://api.iconify.design/solar:users-group-rounded-outline.svg?color=%236366f1'); }
+.sitemap-group a[href="/shuoshuo/"]::before     { background-image: url('https://api.iconify.design/solar:balloon-outline.svg?color=%2300bfa5'); }
+.sitemap-group a[href="/about/"]::before       { background-image: url('https://api.iconify.design/solar:user-circle-outline.svg?color=%236d28d9'); }
+.sitemap-group a[href="/privacy/"]::before     { background-image: url('https://api.iconify.design/solar:lock-keyhole-minimalistic-outline.svg?color=%2310b981'); }
+.sitemap-group a[href="/license/"]::before     { background-image: url('https://api.iconify.design/solar:shield-check-outline.svg?color=%238b5cf6'); }
+.sitemap-group a[href="/disclaimer/"]::before  { background-image: url('https://api.iconify.design/solar:danger-triangle-outline.svg?color=%23ef4444'); }
+[data-theme="dark"] .sitemap-group {
+  background: none !important;
+  border: none !important;
+}
+[data-theme="dark"] .sitemap-group a::before {
+  opacity: 0.5;
+}
+[data-theme="dark"] .sitemap-group a:hover {
+  background: rgba(140, 205, 165, 0.12) !important;
+}
+[data-theme="dark"] .sitemap-group a:hover::before {
+  opacity: 1;
+}
+
+/* === 主页右栏：日历 widget ===
+   日历容器沿用 markdown widget 的透明卡片风格（与近期说说一致），
+   只在内部排版网格 + 今天高亮 + 年剩余倒计时 */
+.sidebar-calendar-container,
+.sidebar-calendar-loading,
+.sidebar-calendar-empty,
+.sidebar-calendar-error {
+  padding: 4px 4px 0 !important;
+}
+.cal-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cal-title {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-p3, #555);
+  padding: 4px 0 2px;
+  letter-spacing: 0.5px;
+}
+.cal-cells {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+}
+.cal-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 2px 0;
+  font-size: 12px;
+  border-radius: 5px;
+  color: var(--text-p1, #444);
+  font-variant-numeric: tabular-nums;
+}
+.cal-head {
+  color: var(--text-p3, #888);
+  font-weight: 600;
+  font-size: 11px;
+  opacity: 0.7;
+  min-height: 18px;
+}
+.cal-empty {
+  visibility: hidden;
+}
+.cal-day-num {
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+.cal-day-lunar {
+  font-size: 9px;
+  line-height: 1.1;
+  color: var(--text-p3, #aaa);
+  font-weight: 400;
+  margin-top: 1px;
+  min-height: 10px;
+  text-align: center;
+}
+.cal-day {
+  transition: none;
+}
+/* 非今日格子 hover 时不变化（不再变白底） */
+.cal-day:hover {
+  background: none;
+  cursor: default;
+}
+/* .cal-today 样式统一在下方「今天：青圈标记」块定义（B方案） */
+/* 当天详情：农历日期 + 宜忌 */
+.cal-day-info {
+  margin-top: 8px;
+  padding: 8px 4px 0;
+  border-top: 1px dashed var(--bg-a60, rgba(0, 0, 0, 0.10));
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.cal-lunar-date {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-p2, #555);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.cal-yi,
+.cal-ji {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.cal-yi-label,
+.cal-ji-label {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: #fff;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 10px;
+  line-height: 1.3;
+  margin-top: 1px;
+}
+.cal-yi-label {
+  background: #4caf50;
+}
+.cal-ji-label {
+  background: #f44336;
+}
+.cal-yi-list,
+.cal-ji-list {
+  color: var(--text-p2, #555);
+  flex: 1;
+}
+[data-theme="dark"] .cal-yi-list,
+[data-theme="dark"] .cal-ji-list,
+[data-theme="dark"] .cal-lunar-date {
+  color: var(--text-p2, #ccc);
+}
+[data-theme="dark"] .cal-day-info {
+  border-top-color: var(--bg-a60, rgba(255, 255, 255, 0.10));
+}
+/* 倒计时块：透明（不卡片化，融入便签） */
+.cal-countdown {
+  margin-top: 10px;
+  padding: 8px 4px 0;
+  border-top: 1px dashed var(--bg-a60, rgba(0, 0, 0, 0.10));
+  border-radius: 0;
+  background: none !important;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cal-countdown-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-p3, #777);
+}
+.cal-countdown-ico {
+  width: 14px;
+  height: 14px;
+  opacity: 0.85;
+}
+.cal-countdown-numbers {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+}
+.cal-num {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+.cal-num-val {
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: hsl(155 40% 28%);
+  line-height: 1;
+}
+.cal-num-unit {
+  font-size: 11px;
+  color: var(--text-p3, #888);
+}
+.cal-sep {
+  color: var(--text-p3, #aaa);
+  font-size: 14px;
+  opacity: 0.6;
+}
+[data-theme="dark"] .cal-countdown {
+  background: none !important;
+  border-top: 1px dashed var(--bg-a60, rgba(255, 255, 255, 0.10));
+}
+[data-theme="dark"] .cal-num-val {
+  color: hsl(150 32% 62%);
+}
+
+/* === 近期说说 widget（主页右栏）：去掉 welcome 便签样式 === */
+/* .widget-wrapper.markdown 的便签样式（米黄底/旋转/胶带）只给 welcome 用，
+   含 #sidebar-talks 的 markdown widget 改回普通卡片样式 */
+.widget-wrapper.markdown:has(#sidebar-talks) {
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 0 32px !important; /* 底部 32px，对齐左侧 widget 间距 */
+  transform: none !important;
+  overflow: visible !important;
+  font-family: inherit !important;
+}
+.widget-wrapper.markdown:has(#sidebar-talks)::before {
+  display: none !important;
+}
+.widget-wrapper.markdown:has(#sidebar-talks) .widget-header .name {
+  font-weight: 600 !important;
+  color: var(--text-p3, inherit) !important;
+  font-size: 15px !important;
+  font-family: inherit !important;
+}
+/* header 做成按钮样式（仿 .widget-wrapper.post-list .item 的 6px 16px + 8px 圆角 + hover 变底色）
+   默认无底色（未选中），hover 时显示 bg-a100 底色，点击跳 /shuoshuo/ */
+.widget-wrapper.markdown:has(#sidebar-talks) .widget-header {
+  padding: 6px 16px !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: background 0.2s ease !important;
+}
+.widget-wrapper.markdown:has(#sidebar-talks) .widget-header:hover {
+  background: var(--bg-a100, rgba(0,0,0,0.04)) !important;
+}
+.widget-wrapper.markdown:has(#sidebar-talks) .widget-body {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  color: inherit !important;
+  font-family: inherit !important;
+  padding: 0 !important;
+}
+
+/* 暗色模式：同样去掉便签暗色版 */
+[data-theme="dark"] .widget-wrapper.markdown:has(#sidebar-talks),
+[data-theme="dark"] .widget-wrapper.markdown:has(#sidebar-talks) .widget-header .name,
+[data-theme="dark"] .widget-wrapper.markdown:has(#sidebar-talks) .widget-body {
+  background: none !important;
+  color: inherit !important;
+}
+
+/* === 日历 widget：继承 welcome 便签样式（旋转+胶带+边框+阴影），仅隐藏标题 ===
+   基类 .widget-wrapper.markdown 的便签样式（透明底+棕墨色+LXGW 钢笔体+旋转+胶带）
+   会自动生效，但日历是数据展示组件，需要：
+   1. 去掉「日历」标题文字
+   2. 数字用系统字体不用钢笔体
+   3. 文字色覆盖棕墨色，用主题 text 变量（明暗自适应）
+   4. 不倾斜（覆盖基类 rotate(-2.5deg)）
+   5. 顶部图钉已移除，改用顶部红色撕页条做实物日历感 */
+/* === 日历 widget：B方案 扁平化（去米黄纸+红撕页条，保留农历/宜忌内容个性）===
+   圆角对齐卡片体系 16px；透明底；第八轮起静态边框改常驻透光 + 顺时针流动高光环（与侧边栏同款） */
+.widget-wrapper.markdown:has(#sidebar-calendar) {
+  margin: 18px 8px 20px 8px !important;
+  padding: 0 0 16px !important;
+  transform: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+  background: transparent !important;
+  border: none !important;
+  /* 基类便签规则带 !important，这里同权覆盖 */
+  box-shadow: 0 0 4px -2px var(--theme), 0 0 24px -8px var(--theme) !important;
+}
+/* 基类胶带伪元素继续隐藏；::after 留给流动高光环 */
+.widget-wrapper.markdown:has(#sidebar-calendar)::before {
+  display: none !important;
+}
+.widget-wrapper.markdown:has(#sidebar-calendar)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background:
+    conic-gradient(from var(--flow-glow-angle),
+      transparent 0deg, transparent 30deg,
+      var(--theme) 90deg,
+      transparent 150deg, transparent 210deg,
+      var(--theme) 270deg,
+      transparent 330deg, transparent 360deg),
+    var(--theme-a20);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: flow-glow-rotate 6s linear infinite;
+}
+[data-theme="dark"] .widget-wrapper.markdown:has(#sidebar-calendar) {
+  background: transparent !important;
+  box-shadow: 0 0 4px -2px var(--theme), 0 0 24px -8px var(--theme) !important;
+}
+.widget-wrapper.markdown:has(#sidebar-calendar) .widget-header {
+  display: none !important; /* 去掉「日历」标题 */
+}
+.widget-wrapper.markdown:has(#sidebar-calendar) .widget-body {
+  padding: 14px 14px 4px !important;
+  color: var(--text-p1, inherit) !important; /* 覆盖棕墨色 */
+  font-family: inherit !important; /* 不用 LXGW 钢笔体，数字用系统字体 */
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+/* === 实物日历样式：月份标题 + 周末青字 + 今天青圈（B方案 红→青）=== */
+.cal-title {
+  position: relative !important;
+  font-family: 'Noto Serif SC', 'Source Han Serif', system-ui, serif !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: var(--text-p2, #555) !important;
+  padding: 4px 0 6px !important;
+  border-bottom: 1px solid rgba(115, 128, 112, 0.18) !important;
+  margin-bottom: 4px !important;
+  letter-spacing: 1px !important;
+}
+[data-theme="dark"] .cal-title {
+  color: var(--text-p2, #ccc) !important;
+  border-bottom-color: rgba(150, 190, 165, 0.18) !important;
+}
+/* 周末（周六周日）表头青色 */
+.cal-weekend-head {
+  color: hsl(155 38% 30%) !important;
+}
+[data-theme="dark"] .cal-weekend-head {
+  color: hsl(150 32% 62%) !important;
+}
+/* 周末日期数字青色（非今日） */
+.cal-day.cal-weekend:not(.cal-today) .cal-day-num {
+  color: hsl(155 38% 30%) !important;
+}
+[data-theme="dark"] .cal-day.cal-weekend:not(.cal-today) .cal-day-num {
+  color: hsl(150 32% 62%) !important;
+}
+/* 今天：青圈标记 */
+.cal-today {
+  background: transparent !important;
+  box-shadow: none !important;
+  position: relative !important;
+}
+.cal-today .cal-day-num {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  background: hsl(155 40% 28%) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 1px 3px rgba(52, 120, 90, 0.45) !important;
+}
+.cal-today .cal-day-lunar {
+  color: hsl(155 40% 28%) !important;
+  font-weight: 600 !important;
+}
+.cal-today:hover {
+  background: transparent !important;
+}
+
+/* === 近期说说：复用 stellar 的 .tag-plugin.timeline .timenode 样式 === */
+/* 容器加了 tag-plugin timeline 类后，stellar 自带的左侧竖线 + 圆点 + hover 变色生效。
+   这里做几处侧边栏专属调整：去掉 body 卡片框、缩小间距、保持 hover 只变圆点不变文字色 */
+.sidebar-talks-container .timenode + .timenode {
+  margin-top: 0.5rem !important; /* stellar 默认 1rem 太疏，且 specificity 更高，需 !important */
+}
+.sidebar-talks-container .body {
+  background: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 16px 0 4px !important; /* 左 4px 避让竖线，右 16px 对齐左侧 widget 文字到边框间距 */
+  margin-top: 2px !important; /* stellar 默认 4px，缩小让 header 和 body 贴近 */
+  color: var(--text-a85, #555) !important; /* 跟之前 sidebar-talk-content 颜色一致 */
+  font-size: 13px;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  transition: none; /* body 不做任何过渡，hover 只让圆点变 */
+}
+.sidebar-talks-container .body p {
+  margin: 0;
+  color: inherit;
+  background: none !important;
+}
+/* hover 整个 timenode：整行青色淡底（B方案 单一强调色） */
+.sidebar-talks-container .timenode:hover {
+  background: rgba(52, 120, 90, 0.08) !important;
+  border-radius: 6px;
+}
+/* body 文字色继承，链接也保持普通文字色（ stellar 默认 link 色） */
+.sidebar-talks-container .body,
+.sidebar-talks-container .body p,
+.sidebar-talks-container .body:hover,
+.sidebar-talks-container .body:hover p,
+.sidebar-talks-container .timenode:hover .body,
+.sidebar-talks-container .timenode:hover .body p {
+  color: var(--text-a85, #555) !important;
+  background: none !important;
+}
+/* 深色模式：说说内容文字改与主页其他内容一致的白色（亮色保持原样） */
+[data-theme="dark"] .sidebar-talks-container .body,
+[data-theme="dark"] .sidebar-talks-container .body p,
+[data-theme="dark"] .sidebar-talks-container .body:hover,
+[data-theme="dark"] .sidebar-talks-container .body:hover p,
+[data-theme="dark"] .sidebar-talks-container .timenode:hover .body,
+[data-theme="dark"] .sidebar-talks-container .timenode:hover .body p {
+  color: var(--text-p1, rgba(255, 255, 255, 0.92)) !important;
+}
+[data-theme="dark"] .sidebar-talks-container .timenode:hover {
+  background: rgba(140, 205, 165, 0.12) !important;
+}
+.sidebar-talks-loading, .sidebar-talks-empty, .sidebar-talks-error {
+  font-size: 13px;
+  color: var(--text-a60, #888);
+  padding: 8px 4px;
+  line-height: 1.6;
+}
+.sidebar-talks-empty a, .sidebar-talks-error a {
+  color: var(--text-p3, inherit);
+}
+
+/* === 文章卡片「置顶」徽章（B方案：纯色青，替代紫粉渐变）=== */
+.post-title .pin-badge {
+  display: inline-block;
+  vertical-align: middle;
+  background: var(--theme);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-right: 8px;
+  box-shadow: 0 2px 6px rgba(52, 120, 90, 0.35);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+[data-theme="dark"] .post-title .pin-badge {
+  box-shadow: 0 2px 8px rgba(52, 120, 90, 0.45);
+}
+
+/* === 置顶文章卡片：cover 由独立块改为整卡片叠加背景，文字浮于其上 ===
+   解决 stellar 默认 .post-cover position:static + aspect-ratio:2/1 导致
+   卡片高度从 ~165px 膨胀到 ~507px、图与文字上下分开的问题 */
+.post-list .post-card:has(.pin-badge) {
+  position: relative;
+  overflow: hidden;
+}
+.post-list .post-card:has(.pin-badge) .post-cover {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.post-list .post-card:has(.pin-badge) .post-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: auto;
+}
+.post-list .post-card:has(.pin-badge) .post-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.10), rgba(0,0,0,0.35));
+  z-index: 1;
+}
+.post-list .post-card:has(.pin-badge) .post-title,
+.post-list .post-card:has(.pin-badge) .excerpt,
+.post-list .post-card:has(.pin-badge) .meta {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+.post-list .post-card:has(.pin-badge) .post-title {
+  text-shadow: 0 2px 8px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.9);
+}
+.post-list .post-card:has(.pin-badge) .excerpt p,
+.post-list .post-card:has(.pin-badge) .meta,
+.post-list .post-card:has(.pin-badge) .meta time,
+.post-list .post-card:has(.pin-badge) .meta .cap {
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 1px 5px rgba(0,0,0,0.9), 0 1px 2px rgba(0,0,0,0.85);
+}
+.post-list .post-card:has(.pin-badge) .pin-badge {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+[data-theme="dark"] .post-list .post-card:has(.pin-badge) .post-cover::after {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.45));
+}
+
+/* === RSS social 图标：默认深灰透着黑（和其他 social 一致），hover 显示原本的橙色 ===
+   src 用橙色 SVG，filter grayscale+brightness 把彩色压成深灰，hover 时 filter:none 还原彩色 */
+a.social[href*="atom.xml"] img {
+  filter: grayscale(1) brightness(0.2);
+  transition: filter 0.3s ease;
+}
+a.social[href*="atom.xml"]:hover img {
+  filter: none;
+}
+[data-theme="dark"] a.social[href*="atom.xml"] img {
+  filter: grayscale(1) brightness(0.6);
+}
+[data-theme="dark"] a.social[href*="atom.xml"]:hover img {
+  filter: none;
+}
+
+/* ==========================================================================
+   科技感点睛 - 3 项（v1）：极淡点阵底纹 + 卡片 hover 微动效 + 打字机 slogan 光标
+   配套 source/js/typewriter.js（注入 _config.stellar.yml inject.script）
+   颜色统一用 Stellar 主题色 var(--theme)，不引入电青独立变量
+   尊重 prefers-reduced-motion：关闭位移/流光/打字光标动画
+   ========================================================================== */
+
+/* --- 1) B方案 v5 底色：整图背景 ---
+   风景照整幅铺满视口（fixed + cover），不做底部带状淡出——
+   淡出到点阵会有接缝感，整图更统一。点阵/星场取消，照片自身即纹理。
+   均匀半透明罩柔化保证可读性：白天纸色罩、夜间暗罩+降亮度 */
+body {
+  background-color: hsl(42 14% 97%) !important;
+}
+[data-theme="dark"] body {
+  background-color: hsl(160 12% 8%) !important;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to bottom, hsla(42 14% 97% / 0.22) 0%, hsla(42 14% 97% / 0.38) 50%, hsla(42 14% 97% / 0.75) 100%),
+    url(/img/site-bg-mountains.jpg);
+  background-size: cover;
+  background-position: center;
+  filter: saturate(0.85);
+}
+[data-theme="dark"] body::after {
+  background-image:
+    linear-gradient(to bottom, hsla(160 12% 8% / 0.35) 0%, hsla(160 12% 8% / 0.45) 50%, hsla(160 12% 8% / 0.65) 100%),
+    url(/img/site-bg-mountains.jpg);
+  filter: brightness(0.6) saturate(0.85);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body::after {
+    background-image:
+      linear-gradient(to bottom, hsla(160 12% 8% / 0.35) 0%, hsla(160 12% 8% / 0.45) 50%, hsla(160 12% 8% / 0.65) 100%),
+      url(/img/site-bg-mountains.jpg);
+    filter: brightness(0.6) saturate(0.85);
+  }
+}
+
+/* --- 4) 卡片 hover 微动效：轻微上浮 + 顶部主题色流光描边 --- */
+.post-card {
+  position: relative;
+  overflow: hidden;
+}
+.post-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--theme), transparent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+  transition: transform 0.45s ease, opacity 0.3s ease;
+  pointer-events: none;
+}
+.post-card:hover {
+  transform: translateY(-3px);
+}
+.post-card:hover::before {
+  transform: scaleX(1);
+  opacity: 0.9;
+}
+
+/* --- 6) 打字机 slogan 光标（配合 source/js/typewriter.js 使用） --- */
+/* welcome widget 里 markdown 加粗段落（**让消失的留下痕迹...**）会被 typewriter.js
+   逐字显示，并加上 .v0-typing 类触发下面的主题色光标 */
+.v0-typing::after {
+  content: "";
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--theme);
+  box-shadow: 0 0 8px var(--theme-a30);
+  animation: v0-caret 1s steps(1) infinite;
+}
+.v0-typing.v0-typing-done::after {
+  animation: v0-caret 1.1s steps(1) infinite;
+}
+@keyframes v0-caret {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* 尊重「减少动态效果」偏好：关闭卡片上浮/流光/打字光标动画 */
+@media (prefers-reduced-motion: reduce) {
+  .post-card:hover { transform: none; }
+  [data-theme="dark"] .post-list .post-card:hover { transform: none; }
+  .post-card::before { display: none; }
+  .v0-typing::after { animation: none; }
+}
+
+/* === 第八轮：专栏页卡片对齐线上 1.33.1 横向布局（左 96px 图标 + 右标题/描述） ===
+   1.44 默认上下布局（居中标题 → 2:1 全宽 cover → 文章列表），而专栏 cover 是
+   iconify 图标，拉满全宽后糊成巨大色块，卡片框比例异常。改 grid 横排：
+   图标 96px（对齐线上 .preview 尺寸），标题/描述靠左，文章列表保留在下方通栏。
+   选择器带 article 与主题 .post-card.topic article xxx 同权，靠后加载胜出 */
+.post-list.topic .post-card.topic article {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  grid-template-areas:
+    "icon title"
+    "icon desc"
+    "posts posts";
+  align-items: center;
+  column-gap: 16px;
+  row-gap: 2px;
+  /* 第十一轮：对齐文章卡 .post-list .md-text 的 padding（1rem；移动端 0.5rem 1rem） */
+  padding: 1rem;
+}
+@media screen and (max-width: 667px) {
+  .post-list.topic .post-card.topic article {
+    padding: 0.5rem 1rem;
+  }
+}
+.post-list.topic .post-card.topic article .topic-title {
+  grid-area: title;
+  align-self: end;
+  margin: 0;
+  text-align: left;
+  font-size: 21px;
+}
+/* 去掉 story 标题两侧的斜杠装饰，线上是纯标题 */
+.post-list.topic .post-card.topic article .topic-title::before,
+.post-list.topic .post-card.topic article .topic-title::after {
+  display: none;
+}
+.post-list.topic .post-card.topic article .topic-desc {
+  grid-area: desc;
+  align-self: start;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+.post-list.topic .post-card.topic article .cover {
+  grid-area: icon;
+  width: 96px;
+  height: 96px;
+  aspect-ratio: 1 / 1;
+}
+/* 96px 图标上叠最新文章标题太挤，隐藏（cover 本身仍可点进最新文章） */
+.post-list.topic .post-card.topic article .cover .cover-info {
+  display: none;
+}
+.post-list.topic .post-card.topic article .topic-posts {
+  grid-area: posts;
+  padding: 0;
+  margin-top: 8px;
+}
+@media screen and (max-width: 667px) {
+  .post-list.topic .post-card.topic article {
+    grid-template-columns: 64px 1fr;
+    column-gap: 12px;
+  }
+  .post-list.topic .post-card.topic article .cover {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* === 第九轮：专栏卡片恢复整卡点击跳总览页（对齐线上 1.33.1 整卡 <a> → /topic/<slug>/） ===
+   1.44 模板唯一链接是 cover 且跳最新文章；topic-card-link.js 把 cover 的 href
+   改写成总览页，这里再把 cover 的点击区扩到整卡：cover 改 position:static，
+   它的 ::after 借卡片（.post-card 已 position:relative）定位铺满整卡。
+   topic-posts 的文章链接抬 z-index 保持独立可点。cover-info 第八轮已隐藏，
+   cover 改 static 无副作用 */
+.post-list.topic .post-card.topic article .cover {
+  position: static;
+}
+/* cover-overlay mixin 还给 .cover::before 挂了同图模糊层（background-image: var(--cover-url)
+   + mask 只显示底部 128px）、给 ::after 挂了下半部黑色渐变。第九轮只覆盖了
+   pointer-events，没清视觉层，cover 改 static 后这两层跟着铺满整卡——
+   模糊层经 mask 裁剪，在卡片中下部露出一条光带（用户反馈的「中下位置发光」）。
+   第十轮：::before 整个干掉；::after 保留为纯点击层（背景/遮罩/滤镜全清） */
+.post-list.topic .post-card.topic article .cover::before {
+  content: none;
+}
+/* 主题 cover-overlay mixin 对 .cover::after 设了 pointer-events:none + z-index:1，
+   这里必须显式 pointer-events:auto 才能接住点击（pointer-events 不继承） */
+.post-list.topic .post-card.topic article .cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  background: none;
+  -webkit-mask: none;
+  mask: none;
+  filter: none;
+}
+.post-list.topic .post-card.topic article .topic-posts {
+  position: relative;
+  z-index: 1;
+}
+/* 主题对 .post-list.topic .post-card 写了 overflow:visible（服务 cover 模糊层合成），
+   模糊层已除，改回 hidden 与文章卡一致（顶部流光沿圆角裁剪） */
+.post-list.topic .post-card.topic {
+  overflow: hidden;
+}
+
+/* === 第十一轮：专栏卡间距/圆角/透明底对齐首页文章卡 ===
+   主题 list.styl 把 .post-list.topic 的卡片「拍平」成无间距列表：
+   wrap margin:0 + box-shadow:none + border-radius:0，相邻 wrap 用 border-top
+   细线分隔，卡片本身也 background:none + radius 0。第十一轮用户要求专栏卡
+   间距与文章卡一致、透明底+边框圆角（参考主页文章卡片框），这里逐条还原
+   文章卡 wrap 的编译值（1rem 0 / 24px / 0 1px 2px rgba(0,0,0,.1)）：
+   - wrap 恢复外边距+圆角+阴影，去掉 border-top 分隔线
+   - 卡片恢复 24px 圆角（配合上方 overflow:hidden 沿圆角裁剪流光）
+   - 透明底由上方「无封面文章卡」规则自动命中（本轮已去掉 :not(.topic) 排除） */
+.post-list.topic .post-card-wrap {
+  margin: 1rem 0;
+  border-radius: 24px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+.post-list.topic .post-card-wrap + .post-card-wrap {
+  border-top: none;
+}
+.post-list.topic .post-card.topic {
+  border-radius: 24px;
+}
+
+/* === 第十一轮：带背景图文章的顶部卡片补面包屑（配套 topic-card-link.js 注入） ===
+   背景图文章（正文自带 {% banner %} 标签）的自动横幅被上方 :has() 规则隐藏，
+   顶部只剩图片卡，没有「专栏/主页」返回入口；无背景图文章的横幅面包屑正常。
+   JS 把被隐藏横幅里的 #breadcrumb 克隆进 banner 的 .top 行（返回按钮旁），
+   样式对齐 banner 自带导航链接的语言：浅色字+文字阴影+hover 半透明白底 */
+.banner .content .top .banner-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  flex: 1;
+  margin-left: 4px;
+  line-height: 1.5;
+}
+.banner .content .top .banner-breadcrumb a {
+  color: var(--text-banner-theme, var(--text-banner));
+  font-size: calc(var(--fs-content-base) - 1px);
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+  opacity: 0.9;
+}
+.banner .content .top .banner-breadcrumb a:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.25);
+}
+.banner .content .top .banner-breadcrumb .sep {
+  opacity: 0.5;
+  color: var(--text-banner-theme, var(--text-banner));
+}
+
+/* === 评论框配色对齐右侧目录栏 ===
+   右栏 TOC widget 底色两个模式都是 var(--background)（亮 #f9fafb / 暗 #1c1f21），
+   但主题 artalk.css 把 --at-color-bg 映射到 var(--card)（亮 #fff / 暗 #373d43），
+   评论框因此比目录栏亮一个色阶。覆写为 var(--background) 对齐。
+   [data-theme] 前缀抬高特异性压过主题的 .cmt-body .artalk（0,2,0）
+   与 .cmt-body .artalk.atk-dark-mode（0,3,0），不动主题与 Artalk 源码 */
+[data-theme] .cmt-body .artalk,
+[data-theme] .cmt-body .atk-layer-wrap,
+[data-theme] .cmt-body .artalk.atk-dark-mode,
+[data-theme] .cmt-body .atk-layer-wrap.atk-dark-mode {
+  --at-color-bg: var(--background);
+  --at-color-bg-transl: var(--background);
+}
