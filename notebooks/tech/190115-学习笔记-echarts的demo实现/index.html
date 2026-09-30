@@ -19,12 +19,12 @@
   <meta name="theme-color" content="#f9fafb">
   <title>Echarts的demo实现 - Kenzo</title>
 
-  <meta name="description" content="【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了            &#x2F;&#x2F; 基于准备好的dom，初始化echarts实例         var myChart &#x3D; echarts.init(document.getElementById(&#39;echarts8546&#39;));         &#x2F;&#x2F; 指定图表的配置项和数据">
+  <meta name="description" content="【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了            &#x2F;&#x2F; 基于准备好的dom，初始化echarts实例         var myChart &#x3D; echarts.init(document.getElementById(&#39;echarts6660&#39;));         &#x2F;&#x2F; 指定图表的配置项和数据">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Echarts的demo实现">
 <meta property="og:url" content="https://chuang1230.github.io/notebooks/tech/190115-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-echarts%E7%9A%84demo%E5%AE%9E%E7%8E%B0/">
 <meta property="og:site_name" content="Kenzo">
-<meta property="og:description" content="【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了            &#x2F;&#x2F; 基于准备好的dom，初始化echarts实例         var myChart &#x3D; echarts.init(document.getElementById(&#39;echarts8546&#39;));         &#x2F;&#x2F; 指定图表的配置项和数据">
+<meta property="og:description" content="【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了            &#x2F;&#x2F; 基于准备好的dom，初始化echarts实例         var myChart &#x3D; echarts.init(document.getElementById(&#39;echarts6660&#39;));         &#x2F;&#x2F; 指定图表的配置项和数据">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://chuang1230.github.io/img/avatar-20260928-002609.jpg">
 <meta property="article:published_time" content="2019-01-15T07:07:00.000Z">
@@ -56,7 +56,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://chuang1230.github.io/notebooks/tech/190115-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-echarts%E7%9A%84demo%E5%AE%9E%E7%8E%B0/","author":{"@type":"Person","name":"Kenzo","sameAs":[],"image":"https://chuang1230.github.io/img/avatar-20260928-002609.jpg"},"name":"Echarts的demo实现","description":"【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了\n\n\n\n        // 基于准备好的dom，初始化echarts实例\n        var myChart = echarts.init(document.getElementById('echarts8546'));\n        // 指定图表的配置项和数据\n        var option = {\n\t tooltip : {\n        trigger: 'axis',\n        axisPointer : {            // 坐标轴指示器，坐标轴触发有效\n            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'\n        }\n    },\n    legend: {\n        data:['利润', '支出', '收入']\n    },\n    grid: {\n        left: '3%',\n        right: '4%',\n        bottom: '3%',\n        containLabel: true\n    },\n    xAxis : [\n        {\n            type : 'value'\n        }\n    ],\n    yAxis : [\n        {\n            type : 'category',\n            axisTick : {show: false},\n            data : ['周一','周二','周三','周四','周五','周六','周日']\n        }\n    ],\n    series : [\n        {\n            name:'利润',\n            type:'bar',\n            label: {\n                normal: {\n                    show: true,\n                    position: 'inside'\n                }\n            },\n            data:[200, 170, 240, 244, 200, 220, 210]\n        },\n        {\n            name:'收入',\n            type:'bar',\n            stack: '总量',\n            label: {\n                normal: {\n                    show: true\n                }\n            },\n            data:[320, 302, 341, 374, 390, 450, 420]\n        },\n        {\n            name:'支出',\n            type:'bar',\n            stack: '总量',\n            label: {\n                normal: {\n                    show: true,\n                    position: 'left'\n                }\n            },\n            data:[-120, -132, -101, -134, -190, -230, -210]\n        }\n    ]\n}\n        // 使用刚指定的配置项和数据显示图表。\n        myChart.setOption(option);\n\n此图表是echarts的demo【google chrome浏览器会把echarts的脚本识别为不安全脚本，点击url栏最后的拦截脚本的安全盾，然后加载不安全脚本就可以看到效果图】下面是echarts中的力导图的html实现","url":"https://chuang1230.github.io/notebooks/tech/190115-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-echarts%E7%9A%84demo%E5%AE%9E%E7%8E%B0/","keywords":"数据分析,金融风控,机器学习,学习笔记"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"https://chuang1230.github.io/notebooks/tech/190115-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-echarts%E7%9A%84demo%E5%AE%9E%E7%8E%B0/","author":{"@type":"Person","name":"Kenzo","sameAs":[],"image":"https://chuang1230.github.io/img/avatar-20260928-002609.jpg"},"name":"Echarts的demo实现","description":"【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了\n\n\n\n        // 基于准备好的dom，初始化echarts实例\n        var myChart = echarts.init(document.getElementById('echarts6660'));\n        // 指定图表的配置项和数据\n        var option = {\n\t tooltip : {\n        trigger: 'axis',\n        axisPointer : {            // 坐标轴指示器，坐标轴触发有效\n            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'\n        }\n    },\n    legend: {\n        data:['利润', '支出', '收入']\n    },\n    grid: {\n        left: '3%',\n        right: '4%',\n        bottom: '3%',\n        containLabel: true\n    },\n    xAxis : [\n        {\n            type : 'value'\n        }\n    ],\n    yAxis : [\n        {\n            type : 'category',\n            axisTick : {show: false},\n            data : ['周一','周二','周三','周四','周五','周六','周日']\n        }\n    ],\n    series : [\n        {\n            name:'利润',\n            type:'bar',\n            label: {\n                normal: {\n                    show: true,\n                    position: 'inside'\n                }\n            },\n            data:[200, 170, 240, 244, 200, 220, 210]\n        },\n        {\n            name:'收入',\n            type:'bar',\n            stack: '总量',\n            label: {\n                normal: {\n                    show: true\n                }\n            },\n            data:[320, 302, 341, 374, 390, 450, 420]\n        },\n        {\n            name:'支出',\n            type:'bar',\n            stack: '总量',\n            label: {\n                normal: {\n                    show: true,\n                    position: 'left'\n                }\n            },\n            data:[-120, -132, -101, -134, -190, -230, -210]\n        }\n    ]\n}\n        // 使用刚指定的配置项和数据显示图表。\n        myChart.setOption(option);\n\n此图表是echarts的demo【google chrome浏览器会把echarts的脚本识别为不安全脚本，点击url栏最后的拦截脚本的安全盾，然后加载不安全脚本就可以看到效果图】下面是echarts中的力导图的html实现","url":"https://chuang1230.github.io/notebooks/tech/190115-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-echarts%E7%9A%84demo%E5%AE%9E%E7%8E%B0/","keywords":"数据分析,金融风控,机器学习,学习笔记"}</script>
   <link rel="stylesheet" href="/css/code-enhance.css?v=20260928b"><link rel="stylesheet" href="/css/leftbar-extras.css?v=20260927a">
 
   <!-- icons.yml 驱动的 CSS 装饰图标 -->
@@ -293,13 +293,13 @@
   
 </a>
 </div><div class="tag-subtree is-leaf" data-tag="hive">
-<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/hive/" title="hive">
+<a class="ui-collection__item card-hover card-hover--spotlight tag-tree__link" href="/notebooks/tech/tags/hive/" title="Hive">
   
   <span class="ui-collection__leading"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="currentColor"><path d="M14.092 10.75L13.342 13.25H9.90802L10.658 10.75H14.092Z"/><path fill-rule="evenodd" d="M3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447ZM11.2155 6.28164C11.6123 6.40067 11.8374 6.81878 11.7184 7.21553L11.108 9.25001H14.542L15.2816 6.7845C15.4007 6.38776 15.8188 6.16262 16.2155 6.28164C16.6123 6.40067 16.8374 6.81878 16.7184 7.21553L16.108 9.25001H18C18.4142 9.25001 18.75 9.5858 18.75 10C18.75 10.4142 18.4142 10.75 18 10.75H15.658L14.908 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H14.458L13.7184 17.2155C13.5993 17.6123 13.1812 17.8374 12.7845 17.7184C12.3877 17.5994 12.1626 17.1812 12.2816 16.7845L12.892 14.75H9.45802L8.71837 17.2155C8.59935 17.6123 8.18123 17.8374 7.78449 17.7184C7.38774 17.5994 7.16261 17.1812 7.28163 16.7845L7.89198 14.75H6C5.58579 14.75 5.25 14.4142 5.25 14C5.25 13.5858 5.58579 13.25 6 13.25H8.34198L9.09198 10.75H7C6.58579 10.75 6.25 10.4142 6.25 10C6.25 9.5858 6.58579 9.25001 7 9.25001H9.54198L10.2816 6.7845C10.4007 6.38776 10.8188 6.16262 11.2155 6.28164Z" clip-rule="evenodd"/></g></svg></span>
   
     <span class="ui-collection__content">
       
-      <span class="ui-collection__title">hive</span>
+      <span class="ui-collection__title">Hive</span>
       
       
     </span>
@@ -802,11 +802,11 @@
   </div>
   </div></div>
 <article class="md-text content slide-up"><p>【一个简单的echarts-demo的实现】github pages 加载会有点慢,demo就不去cdn优化了</p>
-<div id="echarts8546" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<div id="echarts6660" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts8546'));
+        var myChart = echarts.init(document.getElementById('echarts6660'));
         // 指定图表的配置项和数据
         var option = {
 	 tooltip : {
