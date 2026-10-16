@@ -1,44 +1,33 @@
-/* leftbar-extras.css
- * 配套 leftbar-extras.js，把 Stellar 2.0 的两个功能移植到 1.44：
- * 1) 侧边栏收起：收起后 64px 窄栏，只剩头像 + 五个页面图标 + 搜索 + 展开按钮；
- * 2) 弹层搜索：搜索改成按钮（展开态保持原搜索栏样式），点击弹出居中大卡片搜索框。
- * 布局原理：1.44 侧边栏宽度 = 64px 固定 + var(--side-content-width)，
- * 收起时把 --side-content-width 归零即得 64px 窄栏。
+/* leftbar-extras.css —— Stellar 2.0.0 版（配套 leftbar-extras.js / leftbar-order.js）
+ *
+ * 这个文件在 1.44 时期承担「把 v2 才有的收起窄栏和弹层搜索移植过来」的全部视觉；
+ * 升到 2.0.0 之后那些都变成主题原生能力，对应规则整段作废：
+ *   · 64px 窄栏的 grid-template-columns / --side-content-width 归零
+ *     → 主题原生 html[data-leftbar-state='collapsed'] 一套（public/css/main.css 里 77 条规则，
+ *        --leftbar-rail-width 默认就是 64px，和我们当年手算的宽度一致）
+ *   · .search-modal / .search-modal-card / .search-modal-close 自研弹层
+ *     → 主题原生 dialog#site-search-dialog（.search-dialog__panel，radius 24px、
+ *        ::backdrop 已经带 blur(8px)、进出场动画和 prefers-reduced-motion 都有）
+ *   · 收起态里搜索按钮变 40px 方块、展开按钮贴窄栏底部
+ *     → 主题原生（.widget-instance[data-leftbar-rail] .ui-collection__item / .search-trigger /
+ *        .leftbar-state-toggle 在收起态的尺寸规则）
+ * 1.44 原文归档在 site/tools/v1-assets/leftbar-extras.css（不删，方便回看八轮调值的来路）。
+ *
+ * 现在只剩六类"本站自己的版式偏好"，其余一律让主题原生说话：
+ *   1 搜索入口细线/彩虹条 · 2 品牌区→菜单→搜索间距 · 3 收起态窄栏（含 3.4 贴左、3.5 中心线，
+ *   阶段 6 之后按用户反馈补） · 4 搜索弹层宽度 · 5 副标题两行翻字（用户反馈 2） · 6 减少动效。
  */
 
-/* ========== 1. 搜索按钮：展开态是原搜索栏样式的横条 ========== */
-.l_left .search-trigger {
+/* ========== 1. 搜索入口：底部细线 + hover/聚焦彩虹条 ==========
+ * 1.33.1 线上侧边栏搜索不是卡片而是一个"带下划线的按钮"，彩虹条数值取自主题旧配置
+ * style.gradient.searchbar。v2 原生 .search-trigger 是个普通 ui-collection__item（没有下划线），
+ * 所以这两条伪元素仍然是本站增量。
+ * 注：1.44 时代的细线颜色用 var(--leftbar-search-line)，v2 已经没有这个变量（实测
+ * public/css/main.css 命中 0 次），后面的 --bg-a100 / --bg-a20 兜底就是实际生效值。 */
+.site-region--leftbar .search-trigger {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  width: auto;
-  height: 40px;
-  /* 第六轮：上边距归零对齐线上（菜单与搜索框间距 0），下边距 32px +
-     widget 自带 8px margin-top = 40px，对齐线上输入框底→便签顶的间距
-     （第四轮把 #search-wrapper 搬进弹层后，原 32px padding-bottom 规则失效，
-     间距塌成 8px） */
-  margin: 0 var(--gap-base) 32px;
-  padding: 0 16px;
-  border: none;
-  background: transparent;
-  color: var(--text-p3);
-  font-family: inherit;
-  font-size: 14px;
-  text-align: left;
-  cursor: pointer;
 }
-.l_left .search-trigger svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  color: var(--text-p2);
-}
-.l_left .search-trigger:hover {
-  color: var(--text-p1);
-}
-/* 底部细线：与主题 search-form 同源（ui-style:card 时用 --leftbar-search-line） */
-.l_left .search-trigger::before {
+.site-region--leftbar .search-trigger::before {
   position: absolute;
   content: '';
   height: 1px;
@@ -48,11 +37,10 @@
   border-radius: 8px;
   background: var(--leftbar-search-line, var(--bg-a100));
 }
-[data-theme="dark"] .l_left .search-trigger::before {
+[data-theme="dark"] .site-region--leftbar .search-trigger::before {
   background: var(--leftbar-search-line, var(--bg-a20));
 }
-/* 彩虹渐变条：hover/键盘聚焦时亮起，数值取自主题默认 style.gradient.searchbar */
-.l_left .search-trigger::after {
+.site-region--leftbar .search-trigger::after {
   position: absolute;
   content: '';
   height: 2px;
@@ -67,255 +55,151 @@
   pointer-events: none;
   transition: opacity 0.3s;
 }
-.l_left .search-trigger:hover::after,
-.l_left .search-trigger:focus-visible::after {
+.site-region--leftbar .search-trigger:hover::after,
+.site-region--leftbar .search-trigger:focus-visible::after {
   opacity: 1;
 }
+/* @keyframes search-glow 直接复用主题定义（public/css/main.css：from 0% → to 1000%），
+ * 1.44 时期本站也只引用不定义；自己再写一份会覆盖掉主题弹层搜索框的同名动画。 */
 
-/* ========== 收起/展开按钮：展开态作为页脚社交图标行的最后一个方块 ========== */
-.l_left .leftbar-collapse-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  flex: 0 0 32px;
-  padding: 0;
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--text-p3);
-  cursor: pointer;
-  transition: background 0.2s ease-out, color 0.2s ease-out;
+/* ========== 2. 品牌区 → 菜单 → 搜索 → widgets 的间距 ==========
+ * leftbar-order.js 把 .brand-search 搬进 .widget-instance--menu 之后：
+ * 主题给 .site-region__zone--body .widget-instance--menu 加了 32px padding-top，
+ * 本站 v1 版式是「菜单上边距 16px」（code-enhance.css 里 .widget-instance--menu 的 margin），
+ * 两层叠加会变成 48px，这里归零交给 code-enhance 那条。
+ * 搜索行下方留 24px，再往下才是 widgets 栈——v1 是 32px + widget 自带 8px，
+ * 阶段 6 与 v1dryrun 截图逐像素比对后再微调。 */
+.site-region--leftbar .site-region__zone--body .widget-instance--menu {
+  padding-top: 0;
 }
-.l_left .leftbar-collapse-btn svg {
-  width: 20px;
-  height: 20px;
-}
-.l_left .leftbar-collapse-btn:hover {
-  background: var(--block);
-  color: var(--text-p1);
+.site-region--leftbar .brand-search {
+  margin: 8px 0 24px;
 }
 
-@media screen and (min-width: 668px) {
-  /* ========== 2. 收起态：64px 窄栏，贴左收起 ==========
-   * 布局原理：把左列从 1fr 改成「窄栏 + 页边距」固定宽，窄栏 justify-self
-   * 改 left 贴到视口左缘；中列吃下让出来的空间（上限 = 原正文宽 + 侧栏宽）；
-   * 右列下限 = 展开态 1fr 的同款公式，保证右栏在任何页面都不被压缩。
-   * 注意 --side-content-width 只能作用在 .l_left 上：它挂在 html 上会连带
-   * 把右栏宽度变量一起归零（右栏宽度同源）。
-   */
-  html[data-leftbar-collapsed] .l_body {
-    grid-template-columns: calc(var(--gap-base) * 4 + var(--gap-page)) minmax(200px, calc(var(--width-main) + var(--gap-base) * 4 + 224px)) minmax(calc((100% - var(--width-main) - var(--gap-page) * 2) / 2), 1fr);
-  }
-  html[data-leftbar-collapsed] .l_body .l_left {
-    --side-content-width: 0px;
-    justify-self: left;
+/* ========== 3. 收起态：窄栏底部只留收起按钮 + 菜单竖排 ==========
+ * 3.1 社交图标：v2 收起态把 .region-actions 收成 40px 居中且竖向堆叠，社交图标会跟着叠出一列；
+ *     本站 v1 版式是「窄栏里只剩头像 + 页面图标 + 搜索 + 展开按钮」，
+ *     所以 GitHub / RSS 两个 a.social 和这次新加的原生深浅色 button.social 都要藏。
+ *     展开/收起按钮（leftbar-extras.js 从 .site-region__system 搬进行内）是
+ *     button.leftbar-state-toggle，不带 .social，用 :not() 精确放行；
+ *     不能对 .region-actions 整体 display:none（会把按钮一起藏掉，v1 就踩过这个坑）。
+ * 3.2 菜单竖排：menu_columns: 4 是内联 style="--ui-columns:4"，主题的
+ *     .ui-collection[data-layout=grid] 按它算出 4 列（实测收起态 grid-template-columns
+ *     = 40px×4，容器只有 48px 宽），后三个图标溢出到正文上、只露出第一个。
+ *     v1 版式收起态本来就是竖排单列，这里覆盖回 1 列。
+ * 两条都必须像主题自己的 leftbar-rail() 那样排除移动端抽屉态
+ * （source/css/_components/layout.styl:406 用的是 .site-shell:not([data-drawer='leftbar'])）：
+ * 手机抽屉宽度 288px，收起态属性还挂在 html 上，不加这个限定会把抽屉里的社交行也藏掉、
+ * 菜单也压成单列（实测 390px 视口 + data-drawer='leftbar' 时 socials 全 display:none、
+ * grid-template-columns 变成 224px 单列）。 */
+html[data-leftbar-state='collapsed'] .site-shell:not([data-drawer='leftbar']) .site-region--leftbar .region-actions > :not(.leftbar-state-toggle) {
+  display: none;
+}
+html[data-leftbar-state='collapsed'] .site-shell:not([data-drawer='leftbar']) .site-region--leftbar nav.menu .ui-collection {
+  grid-template-columns: 1fr;
+}
+/* 3.3 收起态搜索按钮是 40px 圆形方块，本站的细线/彩虹条（左 16px 右 16px）会横穿圆圈，
+ *     v1 也是在收起态把两条伪元素 display:none 的，这里照搬。 */
+html[data-leftbar-state='collapsed'] .site-shell:not([data-drawer='leftbar']) .site-region--leftbar .search-trigger::before,
+html[data-leftbar-state='collapsed'] .site-shell:not([data-drawer='leftbar']) .site-region--leftbar .search-trigger::after {
+  display: none;
+}
+
+/* 3.4 【用户反馈 3 的前半：收起后整条跑到正文旁边，左边留大片空白】
+ * 主题把左栏设成「第 1 栅格列 + justify-self:end」（main.css:11032-11036），
+ * 而第 1 列是 minmax(var(--rightbar-width), 1fr)（main.css:10976），
+ * --rightbar-width = --leftbar-width + 2*gap = 264 + 32 = 296px，收起时这条下限并不会跟着降，
+ * 于是 64px 窄栏停在 296px 轨道的右端：1280 视口实测 x=232（贴正文），左边空出 232px。
+ * v1 版式（归档 tools/v1-assets/leftbar-extras.css:111-115）是 justify-self:left + margin-left:16px，
+ * 窄栏 x=16、图标中心 x=48。这里对齐 v1：贴左 + 一个 --gap-base 页边距。
+ * 必须包在 min-width:1181px 里：<1181px 时 .site-workspace 变 display:block（main.css:11440），
+ * 左栏是抽屉/固定面板，加 justify-self/margin 会把抽屉推离左缘。 */
+@media screen and (min-width: 1181px) {
+  html[data-leftbar-state='collapsed'] .site-shell:not([data-drawer='leftbar']) .site-region--leftbar {
+    justify-self: start;
     margin-left: var(--gap-base);
   }
-  /* 标题隐藏，头像居中 */
-  html[data-leftbar-collapsed] .l_left .header {
-    margin: 16px 8px 0;
-  }
-  html[data-leftbar-collapsed] .l_left .logo-wrap {
-    justify-content: center;
-  }
-  html[data-leftbar-collapsed] .l_left .logo-wrap a.title {
-    display: none;
-  }
-  html[data-leftbar-collapsed] .l_left .logo-wrap a.avatar {
-    margin-right: 0;
-  }
-  /* 菜单改竖排，单列方块（方块底色沿用 code-enhance 的黑白半透明规则） */
-  html[data-leftbar-collapsed] .l_left .nav-area {
-    margin: 8px 8px 0;
-  }
-  html[data-leftbar-collapsed] .l_left nav.menu .ui-collection {
-    grid-template-columns: 1fr;
-  }
-  /* widgets 隐藏；社交行里的链接/主题切换按钮隐藏，但行本身保留——
-     收起按钮挂在行内，行若整体 display:none 会把按钮连带藏掉 */
-  html[data-leftbar-collapsed] .l_left .widgets,
-  html[data-leftbar-collapsed] .l_left footer.footer .social-wrap > a,
-  html[data-leftbar-collapsed] .l_left footer.footer .social-wrap > button.social {
-    display: none;
-  }
-  html[data-leftbar-collapsed] .l_left footer.footer .social-wrap {
-    margin: 0;
-    padding: 0;
-  }
-  html[data-leftbar-collapsed] .l_left footer.footer {
-    padding: 0;
-    margin: 0;
-  }
-  /* 搜索按钮变图标方块，样式对齐菜单方块 */
-  html[data-leftbar-collapsed] .l_left .search-trigger {
-    justify-content: center;
-    margin: 8px;
-    padding: 0;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.5);
-  }
-  html[data-leftbar-collapsed][data-theme="dark"] .l_left .search-trigger {
-    background: rgba(0, 0, 0, 0.5);
-  }
-  html[data-leftbar-collapsed] .l_left .search-trigger:hover {
-    background: #fff;
-  }
-  html[data-leftbar-collapsed][data-theme="dark"] .l_left .search-trigger:hover {
-    background: #000;
-  }
-  html[data-leftbar-collapsed] .l_left .search-trigger span {
-    display: none;
-  }
-  html[data-leftbar-collapsed] .l_left .search-trigger svg {
-    width: 28px;
-    height: 28px;
-    filter: grayscale(50%) brightness(0.8);
-  }
-  html[data-leftbar-collapsed] .l_left .search-trigger:hover svg {
-    filter: unset;
-  }
-  html[data-leftbar-collapsed] .l_left .search-trigger::before,
-  html[data-leftbar-collapsed] .l_left .search-trigger::after {
-    display: none;
-  }
-  /* 展开按钮移到窄栏底部居中，同样块样式（footer 已 display 清空，绝对定位贴 .l_left） */
-  html[data-leftbar-collapsed] .l_left .leftbar-collapse-btn {
-    position: absolute;
-    left: 8px;
-    right: 8px;
-    bottom: 12px;
-    flex: none;
-    width: auto;
-    height: 40px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.5);
-    color: var(--text-p2);
-  }
-  html[data-leftbar-collapsed][data-theme="dark"] .l_left .leftbar-collapse-btn {
-    background: rgba(0, 0, 0, 0.5);
-  }
-  html[data-leftbar-collapsed] .l_left .leftbar-collapse-btn:hover {
-    background: #fff;
-    color: var(--text-p1);
-  }
-  html[data-leftbar-collapsed][data-theme="dark"] .l_left .leftbar-collapse-btn:hover {
-    background: #000;
+}
+
+/* 3.5 【用户反馈 3 的后半：收起后部分图标不在一条线上】
+ * 窄栏里主题给 .site-region__zone / .widget-instance 都是 width:48px 并靠 margin-inline:auto 居中
+ * （main.css:11256-11270），但本站 code-enhance.css 的 .widget-instance--menu 带
+ * margin:16px var(--gap-base) 0（展开态左右各收 16px 才和 v1 对齐），收起态没跟着清，
+ * 于是菜单块从 x=256 起、中心 280，而头像块/展开按钮中心 264，正好差 16px。
+ * 收起态把 widget 的左右外边距统一归零：48px 块铺满 64−8−8 的内容区，
+ * 头像 / 4 个菜单格 / 搜索 / 展开按钮中心全部落在窄栏中线上。
+ * 特异性 (0,5,1) 高于 code-enhance 那条 (0,2,0)，且只作用于收起态，展开版式不变。 */
+html[data-leftbar-state='collapsed'] .site-shell:not([data-drawer='leftbar']) .site-region--leftbar .widget-instance {
+  margin-inline: 0;
+}
+
+/* ========== 4. 搜索弹层宽度 ==========
+ * 主题原生 dialog 是 600px 宽、80dvh 高、24px 圆角、backdrop blur 8px，比我们 v1 自研的
+ * 640×min(64vh,560px) 更大更规范，高度和圆角都不再覆盖；只把宽度对齐本站的 640px。
+ * 必须包在 min-width:769px 里：主题在 _components/sidebar/search.styl 的
+ * @media (max-width: $device-tablet=768px) 下把 dialog 改成 100dvw×100dvh 无边框全屏，
+ * 而本站选择器 dialog.search-dialog(0,1,1) 比主题的 .search-dialog(0,1,0) 更具体，
+ * 不限定断点会把手机全屏浮层压回 326px（390px 视口实测）。 */
+@media screen and (min-width: 769px) {
+  dialog.search-dialog {
+    width: min(640px, calc(100dvw - 64px));
   }
 }
 
-/* 收起后内容区放宽已并入上方 grid-template-columns 的中列上限，不再动 --width-main */
-
-/* ========== 3. 弹层搜索 ========== */
-.search-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 12vh 24px 24px;
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  opacity: 0;
-  visibility: hidden;
-  /* visibility 只在关闭时延迟 .2s（等淡出播完再隐藏）；打开时立即 visible，
-     否则 Chromium 在 visibility 过渡中拒绝 focus 输入框 */
-  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
-}
-.search-modal.open {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.2s ease, visibility 0s linear 0s;
-}
-.search-modal-card {
+/* ========== 5. 副标题两行翻字（用户反馈 2：「岂能尽如人意」后面被吞了） ==========
+ * v1 的 logo.subtitle 写的是「岂能尽如人意 | 但求无愧我心」，主题按 | 拆成两行渲染
+ * （v1dryrun/public/index.html 实测：<div class="sub normal">岂能尽如人意</div>
+ *  + <div class="sub hover" style="opacity:0"> 但求无愧我心</div>），
+ * 悬停站名块时上行淡出上移 8px、下行淡入归位。这个动效是纯 CSS
+ * （v1 主题 source/css/_components/sidebar/logo.styl:63-87），不是 /js/typewriter.js 那个打字机。
+ * v2 的 .brand-tagline 只有单行，且主题给它挂了 nowrap + overflow:hidden + text-overflow:ellipsis
+ * （main.css:8227-8238），167px 宽装不下 13 个字 → 后半句被省略号吃掉，也没有翻字。
+ * 拆行属于改 DOM，放在 leftbar-extras.js（用户决策 1：照 v2 类名重写）；
+ * 这里补回动效，数值（translateY ±8px / opacity .2s ease-out）取自 v1 原文与 8012 实测：
+ * 悬停时 .sub.normal transform=matrix(1,0,0,1,0,-8) opacity=0，.sub.hover transform=none opacity=1。
+ * 选择器写成 .widget-instance--brand .brand-title .brand-tagline（0,4,0），
+ * 高于主题那两条 (0,3,0)，不依赖注入顺序。 */
+.site-region--leftbar .widget-instance--brand .brand-title .brand-tagline {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 640px;
-  height: min(64vh, 560px);
-  min-height: 320px;
-  padding: 16px;
-  background: var(--card);
-  border-radius: 24px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
-  transform: translateY(8px) scale(0.985);
-  transition: transform 0.2s ease;
+  overflow: visible;
+  text-overflow: clip;
 }
-.search-modal.open .search-modal-card {
-  transform: none;
+.site-region--leftbar .brand-tagline__line {
+  display: block;
+  white-space: nowrap;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
-/* 被搬进来的 #search-wrapper 撑满卡片；原 .leftbar-container > .search-wrapper
- * 的定位规则失效，这里重排：输入区在上，结果区弹性占满剩余高度 */
-.search-modal-card #search-wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  margin: 0;
-  padding: 0;
-}
-.search-modal-card .search-form {
-  position: static;
-  height: 48px;
-  padding: 0 44px 0 16px; /* 右侧留白给关闭按钮 */
-}
-.search-modal-card .search-input {
-  font-size: 16px;
-}
-.search-modal-card #search-result {
-  flex: 1;
-  min-height: 0;
-  max-height: none;
-}
-.search-modal-close {
+.site-region--leftbar .brand-tagline__hover {
   position: absolute;
-  top: 24px;
-  right: 20px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  border: none;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--text-p3);
-  cursor: pointer;
-  transition: background 0.2s ease-out, color 0.2s ease-out;
+  left: 0;
+  bottom: 0;
+  opacity: 0;
+  transform: translateY(8px);
 }
-.search-modal-close svg {
-  width: 18px;
-  height: 18px;
+/* 触发区和 v1 一样是整个站名块（v1 是 a.title，v2 对应 a.brand-title 含站名+副标题） */
+.site-region--leftbar .brand-title:hover .brand-tagline__normal,
+.site-region--leftbar .brand-title:focus-visible .brand-tagline__normal {
+  opacity: 0;
+  transform: translateY(-8px);
 }
-.search-modal-close:hover {
-  background: var(--block);
-  color: var(--text-p1);
+.site-region--leftbar .brand-title:hover .brand-tagline__hover,
+.site-region--leftbar .brand-title:focus-visible .brand-tagline__hover {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* 移动端弹层：占高多一点、圆角收小 */
-@media screen and (max-width: 667px) {
-  .search-modal {
-    padding: 8vh 16px 16px;
-  }
-  .search-modal-card {
-    height: min(72vh, 560px);
-    border-radius: 16px;
-  }
-}
-
+/* ========== 6. 减少动效 ==========
+ * 主题的 reveal / dialog 都读了 prefers-reduced-motion，本站的动画/过渡只有彩虹条和翻字。
+ * 翻字在减少动效下仍然换字（opacity 保留），只去掉位移。 */
 @media (prefers-reduced-motion: reduce) {
-  .l_body aside.l_left,
-  .search-modal,
-  .search-modal-card {
-    transition: none;
+  .site-region--leftbar .search-trigger::after {
+    animation: none;
+  }
+  .site-region--leftbar .brand-tagline__line {
+    transition: opacity 0.2s ease-out;
+  }
+  .site-region--leftbar .brand-tagline__hover,
+  .site-region--leftbar .brand-title:hover .brand-tagline__normal {
+    transform: none;
   }
 }

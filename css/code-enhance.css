@@ -13,9 +13,9 @@
 @import url('https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5.3.0/chinese-simplified-700.css');
 
 /* === B方案：关掉 stellar 左栏默认彩虹背景图 === */
-/* .sidebg 是 layout.ejs 固定渲染的 div，背景图由主题包默认配置编译进 CSS；
+/* .site-region__decoration 是 layout.ejs 固定渲染的 div，背景图由主题包默认配置编译进 CSS；
    站点配置注释掉只会回退主题默认值，所以这里用 CSS 直接掐掉 */
-.sidebg {
+.site-region__decoration {
   background: none !important;
   background-image: none !important;
 }
@@ -83,16 +83,21 @@
   transform: translateY(-3px);
 }
 
-/* === navbar-blur 在背景图上白底太突兀，直接干掉磨砂伪元素 + 白色文字光晕 === */
-/* stellar newblur() mixin 给 ::before/::after 做 8px+16px 模糊 + 0.3 白底，
-   还给 navbar-blur 和未选中 a 加了三层白色 text-shadow + drop-shadow 光晕，
-   在彩色背景图上每个文字周围都像有白底。全部干掉，让背景图原样透过来 */
+/* === 顶部横条导航：v1 的 .navbar-blur / .navbar.top 在 v2 换成了 .listing-nav === */
+/* 2.0.0 实测：public 全部 144 个 html 里 class 含 navbar 的节点 0 个，v2 把首页/列表页
+   那排「近期发布/分类/标签/专栏/归档」重做成了 div.listing-nav > .listing-nav__surface >
+   .listing-nav__viewport > nav.post > a（激活项 class="active"）。
+   下面 1.44 的三条老规则整段注释保留，等价改写挂在 .listing-nav 上。
+   —— v1 原文的诉求有两条：① 横条容器不要实色底/圆角/阴影/磨砂层（背景图上太突兀）；
+      ② 选项默认 8px 方角要改回线上 1.33.1 的 32px 药丸，选中项改松绿实底白字。
+   —— v2 里 ① 只有开启 topbar 时主题才自动做（.site-shell[data-regions~='topbar']
+      .listing-nav__surface.is-pinned 才 transparent），本站 shell 的 data-regions 只有
+      leftbar rightbar，所以要自己写；② 主题默认 .listing-nav nav a{border-radius:8px}、
+      a.active{background:var(--bg-a60)}，同样要覆盖。 */
+/*
 body .navbar-blur {
   text-shadow: none !important;
 }
-/* 1.44 的 .navbar-blur 自身带实色底 + 圆角 + 阴影（导航项后面一条白/深色横条），
-   线上 1.33.1 导航容器全透明、只有选中项是绿色药丸。把条本身也干掉。
-   第八轮曾加常驻透光+流动高光环，第九轮用户要求撤掉、保持线上一致 */
 body .navbar-blur {
   background: transparent !important;
   border: none !important;
@@ -102,13 +107,38 @@ body .navbar-blur nav a:not(.active) {
   text-shadow: none !important;
   filter: none !important;
 }
-/* ::before 是 newblur 的磨砂层，继续干掉 */
 body .navbar-blur::before {
   display: none !important;
 }
-
-/* === navbar 选中项改松绿实底 + 白字（本地预览；默认是中性 var(--block) 底） === */
+body .navbar.top nav a {
+  border-radius: 32px;
+}
 body .navbar.top nav a.active {
+  background: var(--theme) !important;
+  color: #fff !important;
+  text-shadow: none !important;
+}
+*/
+body .listing-nav nav a {
+  border-radius: 32px;
+}
+body .listing-nav nav a,
+body .listing-nav nav a:not(.active) {
+  text-shadow: none !important;
+  filter: none !important;
+}
+body .listing-nav .listing-nav__surface {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+body .listing-nav .listing-nav__surface::before,
+body .listing-nav .listing-nav__surface::after {
+  display: none !important;
+}
+body .listing-nav nav a.active {
   background: var(--theme) !important;
   color: #fff !important;
   text-shadow: none !important;
@@ -177,13 +207,15 @@ body .navbar.top nav a.active {
 /* stellar page/post layout 默认在 l_main 第一个子元素位置生成 .article.banner.top（面包屑+标题+发布日期），
    高 169px，把用户写的 banner 标签往下挤。当文章正文里自己放了 banner 标签时，这个自动横幅就是冗余的，
    用 :has() 检测到 .tag-plugin.banner 后隐藏之，让 banner 标签贴到 navbar 下方。 */
-/* 1.44.0 起自动横幅外面多包了一层 .article-banner-wrap，两条选择器都要覆盖 */
-.l_main:has(.tag-plugin.banner) > .article.banner.top,
-.l_main:has(.tag-plugin.banner) > .article-banner-wrap {
+/* 1.44.0 起自动横幅外面多包了一层 .article-banner-wrap，两条选择器都要覆盖。
+   2.0.0：v2 里 .article-banner-wrap 和 .article.banner.top 都还在（实测 public/about/index.html），
+   但父容器从 v1 的 .l_main 换成了 main.site-main，:has() 的主体必须跟着换，否则两条规则一起失效 */
+.site-main:has(.tag-plugin.banner) > .article.banner.top,
+.site-main:has(.tag-plugin.banner) > .article-banner-wrap {
   display: none !important;
 }
 /* 同时去掉 article 首元素 banner 的上 margin，让它真正贴顶 */
-.l_main:has(.tag-plugin.banner) > article.md-text > .tag-plugin.banner:first-child {
+.site-main:has(.tag-plugin.banner) > article.md-text > .tag-plugin.banner:first-child {
   margin-top: 0 !important;
 }
 
@@ -229,8 +261,8 @@ body .navbar.top nav a.active {
   position: relative !important;
 }
 /* welcome 便签顶部胶带：半透明白色 + 虚线边模拟胶带齿纹，倾斜挂在便签上沿
-   用 .l_left 限定只对 welcome 生效（日历/近期说说在右栏，不应用胶带） */
-.l_left .widget-wrapper.markdown::before {
+   用 .site-region--leftbar 限定只对 welcome 生效（日历/近期说说在右栏，不应用胶带） */
+.site-region--leftbar .widget-wrapper.markdown::before {
   content: '' !important;
   position: absolute !important;
   top: -8px !important;
@@ -245,7 +277,7 @@ body .navbar.top nav a.active {
   z-index: 1 !important;
   pointer-events: none !important;
 }
-[data-theme="dark"] .l_left .widget-wrapper.markdown::before {
+[data-theme="dark"] .site-region--leftbar .widget-wrapper.markdown::before {
   background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(220,235,245,0.06)) !important;
   border-left-color: rgba(150, 190, 165, 0.35) !important;
   border-right-color: rgba(150, 190, 165, 0.35) !important;
@@ -261,25 +293,25 @@ body .navbar.top nav a.active {
   font-family: 'Noto Serif SC', system-ui, sans-serif !important;
 }
 /* welcome 便签（左侧栏）标题加粗居中——只 l_left 的 markdown widget 是 welcome */
-.l_left .widget-wrapper.markdown .widget-header {
+.site-region--leftbar .widget-wrapper.markdown .widget-header {
   justify-content: center !important;
 }
-.l_left .widget-wrapper.markdown .widget-header .name {
+.site-region--leftbar .widget-wrapper.markdown .widget-header .name {
   font-weight: 700 !important;
   text-align: center !important;
   letter-spacing: 1px;
 }
 /* welcome 便签整体放大 + 文本下移：padding-top 20px + 标题/正文各 +2px */
-.l_left .widget-wrapper.markdown {
+.site-region--leftbar .widget-wrapper.markdown {
   padding: 20px 0 24px !important;
 }
-.l_left .widget-wrapper.markdown .widget-header .name {
+.site-region--leftbar .widget-wrapper.markdown .widget-header .name {
   font-size: 17px !important;
 }
-.l_left .widget-wrapper.markdown .widget-body {
+.site-region--leftbar .widget-wrapper.markdown .widget-body {
   font-size: 16px !important;
 }
-.l_left .widget-wrapper.markdown .widget-body em {
+.site-region--leftbar .widget-wrapper.markdown .widget-body em {
   font-weight: 700 !important;
   font-style: italic !important;
 }
@@ -327,13 +359,13 @@ body .navbar.top nav a.active {
 
 /* === 左侧栏头像：hover 时 360° 旋转（点击仍跳 /about/）===
    avatar 是 <a class="avatar"><img class="avatar"></a>，给 img 加 transition + hover rotate */
-.l_left .header .logo-wrap a.avatar {
+.site-region--leftbar .brand-header .brand-image {
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.l_left .header .logo-wrap a.avatar:hover {
+.site-region--leftbar .brand-header .brand-image:hover {
   transform: rotate(360deg);
 }
-.l_left .header .logo-wrap a.avatar img.avatar {
+.site-region--leftbar .brand-header .brand-image img {
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 }
@@ -346,29 +378,32 @@ body .navbar.top nav a.active {
    点击后 knob 滑到右端、主题切到 dark、knob 上图标换成月亮 */
 /* sidebar 底部预留 margin 从 stellar 默认 96px → 36px，多出来的 60px 给 .widgets
    滚动区让最近更新显示更多文章（welcome+recent 原本 overflow 67px，加 60px 后基本不滚） */
-.l_left {
+.site-region--leftbar {
   max-height: calc(100vh - var(--gap-base) * 2 - 36px) !important;
 }
-.l_left .leftbar-container {
+.site-region--leftbar .site-region__surface {
   height: calc(100vh - var(--gap-base) * 2 - 36px) !important;
 }
 
 /* 主题默认 leftbar 仍带彩虹占位图（配置里注释掉的只是我们这层覆盖），导致
-   .leftbar-container::before 编译出「越往上越发白」的白色 overlay（深色模式尤其明显）。
+   .site-region__surface::before 编译出「越往上越发白」的白色 overlay（深色模式尤其明显）。
    B 方案本就是纯色底：这里移除图片与白色 overlay，sidebg 纯 var(--card) */
-.l_left .sidebg {
+.site-region--leftbar .site-region__decoration {
   background-image: none !important;
   filter: none !important;
 }
-.l_left .leftbar-container::before {
+.site-region--leftbar .site-region__surface::before {
   display: none !important;
 }
 
 /* === 1.44.0 对齐线上：leftbar 恢复透明 + 菜单恢复横排 5 图标 === */
-/* 1.44 默认 ui-style:card 给 .l_left.leftbar-card 和 leftbar-container 实色 var(--card) + 阴影，
-   线上 1.33.1 实测 .l_left / .leftbar-container / .sidebg 三层全透明，这里去掉实色与阴影 */
-.l_left.leftbar-card,
-.l_left .leftbar-container {
+/* 1.44 默认 ui-style:card 给侧栏外壳和内部卡片层实色 var(--card) + 阴影，
+   线上 1.33.1 实测三层（外壳 / 卡片面 / 装饰层）全透明，这里去掉实色与阴影。
+   2.0.0 迁移注：这三层在 v2 对应 .site-region--leftbar / .site-region__surface /
+   .site-region__decoration，选择器已由 tools/codemod-v2-selectors.js 换成 v2 类名，
+   行为与 1.44 时期一致。 */
+.site-region--leftbar,
+.site-region--leftbar .site-region__surface {
   background: transparent !important;
   box-shadow: none !important;
 }
@@ -376,7 +411,7 @@ body .navbar.top nav a.active {
    外发光 = 文章卡 hover 透光同款（var(--theme) 两层阴影），常驻不 hover 也有；
    边框 = 1px 主题色半透明环（--theme-a20）+ 两条对向旋转的 conic 高亮弧，
    mask-composite 掏空中心只留环。角度变量用 @property 注册才能被 keyframes
-   动画（老浏览器不转也不破，静态环仍在）。.l_left 本身 sticky，伪元素可绝对定位 */
+   动画（老浏览器不转也不破，静态环仍在）。.site-region--leftbar 本身 sticky，伪元素可绝对定位 */
 /* 第八轮起菜单栏/日历共用同一套角度变量与 keyframes：
    conic-gradient 默认顺时针展开，角度 0→360 即高光顺时针流动，三处统一 */
 @property --flow-glow-angle {
@@ -387,12 +422,12 @@ body .navbar.top nav a.active {
 @keyframes flow-glow-rotate {
   to { --flow-glow-angle: 360deg; }
 }
-.l_left.leftbar-card {
+.site-region--leftbar {
   border: none !important;
   /* 上方透明化规则带 !important，这里必须同权才能盖住 */
   box-shadow: 0 0 4px -2px var(--theme), 0 0 24px -8px var(--theme) !important;
 }
-.l_left.leftbar-card::before {
+.site-region--leftbar::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -414,19 +449,19 @@ body .navbar.top nav a.active {
   animation: flow-glow-rotate 6s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .l_left.leftbar-card::before,
+  .site-region--leftbar::before,
   .widget-wrapper.markdown:has(#sidebar-calendar)::after {
     animation: none;
   }
 }
 /* 1.44 把 menubar 改成竖排 ui-collection 列表；改回 1.33.1 menu.styl 的一行 5 个图标方块：
    grid 5 列 gap 8px、item 40px 圆角 8px 半透明底、图标 28px 淡显、active/hover 实底全彩+底部短横 */
-.l_left nav.menu .ui-collection {
+.site-region--leftbar nav.menu .ui-collection {
   display: grid !important;
   grid-template-columns: repeat(5, 1fr);
   gap: 8px;
 }
-.l_left nav.menu .ui-collection__item {
+.site-region--leftbar nav.menu .ui-collection__item {
   position: relative;
   box-sizing: border-box;
   width: 100%;
@@ -442,11 +477,11 @@ body .navbar.top nav a.active {
   background: rgba(255, 255, 255, 0.5);
   transition: background 0.2s ease-out;
 }
-[data-theme="dark"] .l_left nav.menu .ui-collection__item {
+[data-theme="dark"] .site-region--leftbar nav.menu .ui-collection__item {
   background: rgba(0, 0, 0, 0.5);
 }
-.l_left nav.menu .ui-collection__item img,
-.l_left nav.menu .ui-collection__item svg {
+.site-region--leftbar nav.menu .ui-collection__item img,
+.site-region--leftbar nav.menu .ui-collection__item svg {
   height: 28px;
   object-fit: contain;
   /* 1.33.1 原 filter 里的 opacity(0.5) 不搬：1.44 主题已给未选中图标加 opacity:.5
@@ -455,26 +490,34 @@ body .navbar.top nav a.active {
   transition: all 0.2s ease-out;
 }
 /* 1.44 给图标套了 .ui-collection__leading（1.5em=25.5px）并对 svg 设 max-height:100%，
-   会把 28px 图标压成 25.5px；撑回 28px 对齐 1.33.1 图标尺寸 */
-.l_left nav.menu .ui-collection__leading {
+   会把 28px 图标压成 25.5px；撑回 28px 对齐 1.33.1 图标尺寸。
+   2.0.0：v2 菜单图标外层换成 span.ui-icon，且 .ui-collection__leading 在产物里命中 0 次；
+   v2 的 .ui-icon 尺寸走 var(--ui-icon-size, 1.5rem)，本站 root=17px → 默认 25.5px，
+   和 1.44 那层压迫一模一样，所以改写成设变量即可（原规则留着，注释掉不删）。 */
+/*
+.site-region--leftbar nav.menu .ui-collection__leading {
   width: 28px;
   height: 28px;
 }
-.l_left nav.menu .ui-collection__item.is-active,
-.l_left nav.menu .ui-collection__item:hover {
+*/
+.site-region--leftbar nav.menu .ui-icon {
+  --ui-icon-size: 28px;
+}
+.site-region--leftbar nav.menu .ui-collection__item.is-active,
+.site-region--leftbar nav.menu .ui-collection__item:hover {
   background: #fff;
 }
-[data-theme="dark"] .l_left nav.menu .ui-collection__item.is-active,
-[data-theme="dark"] .l_left nav.menu .ui-collection__item:hover {
+[data-theme="dark"] .site-region--leftbar nav.menu .ui-collection__item.is-active,
+[data-theme="dark"] .site-region--leftbar nav.menu .ui-collection__item:hover {
   background: #000;
 }
-.l_left nav.menu .ui-collection__item.is-active img,
-.l_left nav.menu .ui-collection__item.is-active svg,
-.l_left nav.menu .ui-collection__item:hover img,
-.l_left nav.menu .ui-collection__item:hover svg {
+.site-region--leftbar nav.menu .ui-collection__item.is-active img,
+.site-region--leftbar nav.menu .ui-collection__item.is-active svg,
+.site-region--leftbar nav.menu .ui-collection__item:hover img,
+.site-region--leftbar nav.menu .ui-collection__item:hover svg {
   filter: unset;
 }
-.l_left nav.menu .ui-collection__item.is-active:after {
+.site-region--leftbar nav.menu .ui-collection__item.is-active:after {
   content: '';
   position: absolute;
   width: 16px;
@@ -485,21 +528,37 @@ body .navbar.top nav a.active {
   bottom: 2px;
   background: currentColor;
 }
-.l_left nav.menu .ui-collection__content,
-.l_left nav.menu .ui-collection__indicator {
+.site-region--leftbar nav.menu .ui-collection__content,
+.site-region--leftbar nav.menu .ui-collection__indicator {
   display: none !important;
 }
-/* nav-area 被 leftbar-order.js 移回搜索框上方；1.33.1 nav-area.styl 原文
+/* 菜单栏与搜索框的上下顺序由 leftbar-order.js 调整（v2 里是把 brand 区的
+   .brand-search 移到 .widget-instance--menu 之下）；1.33.1 nav-area.styl 原文
    margin: 1rem var(--gap-margin) 0（线上 root 16px → 1rem=16px，gap-margin=16px）。
    左右各收 16px 后菜单宽 256，图标方块 44.8px，与线上逐像素一致 */
-.l_left .nav-area {
+.site-region--leftbar .widget-instance--menu {
   margin: 16px var(--gap-base) 0;
 }
-.l_left nav.menu {
+.site-region--leftbar nav.menu {
   margin: 8px 0;
 }
-/* 1.44 给 widgets 加了底部渐隐 mask，线上 1.33.1 没有，去掉 */
-.l_left .leftbar-container > .widgets {
+/* 【用户反馈 1：搜索框上方 4 个格子太窄】v2 的网格列宽不是按 --ui-columns 定轨，而是
+   main.css:2633 那条 repeat(auto-fit, minmax(min(100%, max(--ui-grid-min,
+   (100% - (cols-1)*gap)/cols)), 1fr)))。左栏的 --ui-grid-min 被主题归零（main.css:8412），
+   本站实测（1280 视口 / 展开态）：容器 200px、gap 8px、--ui-columns:4，浏览器却算出
+   5 条 33.59px 轨道，4 个菜单项只占前 4 条 → 格子 34×40，比 v1 线上的 45×40 明显偏窄。
+   这里绕开 auto-fit 的推导，直接按配置列数定轨：(200 - 3*8)/4 = 44px，回到 v1 观感，
+   且以后改 leftbar.menu_columns 会跟着变（写死 repeat(4,…) 就不跟了）。
+   收起态不受影响：leftbar-extras.css 第 3.2 段那条带 html[data-leftbar-state] 前缀，
+   特异性 (0,5,1) > 本条 (0,3,1)，窄栏仍是单列 48px。 */
+.site-region--leftbar .widget-instance--menu .ui-collection[data-layout='grid'] {
+  grid-template-columns: repeat(var(--ui-columns), 1fr);
+}
+/* 1.44 给 widgets 加了底部渐隐 mask，线上 1.33.1 没有，去掉。
+   2.0.0：v2 的渐隐挂在滚动容器 .site-region__zone--body 上（实测 main.css 里
+   mask: linear-gradient(transparent, #fff 5%, #fff 90%, transparent)），
+   旧的 .site-region__surface > .widgets 是父→孙关系，选择器命中不到，必须跟着换目标 */
+.site-region--leftbar .site-region__zone--body {
   mask: none;
   -webkit-mask: none;
 }
@@ -507,26 +566,32 @@ body .navbar.top nav a.active {
 body .navbar.top nav a {
   border-radius: 32px;
 }
-/* 第四轮起 #search-wrapper 被 leftbar-extras.js 搬进 .search-modal-card，
-   原先作用在侧边栏内 .search-wrapper 的间距/输入框高度规则不再命中任何节点，
-   已删除；弹层内的样式见 leftbar-extras.css（.search-modal-card 各条）。 */
+/* 第四轮起 v1 的 #search-wrapper 被 leftbar-extras.js 搬进自定义 .search-modal-card，
+   原先作用在侧边栏内搜索栏的间距/输入框高度规则不再命中任何节点，已删除；
+   弹层内的样式当时见 leftbar-extras.css。
+   2.0.0 迁移注：v2 原生就有搜索 <dialog>（#site-search-dialog）与 Cmd/Ctrl+K，
+   自定义弹层停用，见 leftbar-extras.js 顶部说明。 */
 
-/* === 左侧栏底部：白天/夜间切换（v2 融入社交图标行）===
+/* === 左侧栏底部：白天/夜间切换（v1 时期自研 theme-toggle.js 的样式）===
+   2.0.0 迁移：用户决策「用原生的」——深浅色切换改用 v2 features.color_scheme_switch，
+   theme-toggle.js 已在 _config.stellar.yml 的 inject 里注释停用，本块整段保留但不再命中
+   任何节点（.theme-toggle-btn 只有自研脚本会创建）。按「注释代码而不是删除代码」原样留着。
    旧版大 pill 与安静侧栏违和；v2 复用 .social 的视觉语言：
    32px 网格圆格、默认 grayscale 单色、hover 显色+底色，和 github/rss 图标同款待遇
    light 显示太阳、dark 显示月亮，点击旋转渐变切换 */
-.l_left .social-wrap .theme-toggle-btn {
+/*
+.site-region--leftbar .social-wrap .theme-toggle-btn {
   border: none;
   cursor: pointer;
   width: 32px;
   height: 32px;
 }
-.l_left .social-wrap .theme-toggle-btn img {
+.site-region--leftbar .social-wrap .theme-toggle-btn img {
   width: 20px;
   height: 20px;
   border-radius: 2px;
 }
-.l_left .social-wrap .theme-toggle-btn.tt-spin img {
+.site-region--leftbar .social-wrap .theme-toggle-btn.tt-spin img {
   animation: tt-swap 0.45s ease;
 }
 @keyframes tt-swap {
@@ -535,7 +600,42 @@ body .navbar.top nav a {
   100% { transform: rotate(360deg) scale(1); opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .l_left .social-wrap .theme-toggle-btn.tt-spin img { animation: none; }
+  .site-region--leftbar .social-wrap .theme-toggle-btn.tt-spin img { animation: none; }
+}
+*/
+/* v2 原生开关：深浅色切换按钮由 _config.stellar.yml 的 leftbar.footer.actions
+   （type: button + onclick 调 setColorScheme）渲染，落点是社交图标行
+   .region-actions.social-wrap 里的 button.social，图标是两张 <img class="cs-icon">。
+   主题给 .social 的待遇（32px、grayscale、hover 显色）这里原样享受，只需要按
+   data-theme 决定太阳/月亮谁在场。data-theme 缺失 = v2 的 auto（跟随系统），
+   所以再加一层媒体查询兜底。 */
+.site-region--leftbar .region-actions .social .cs-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+}
+.site-region--leftbar .region-actions .social .cs-icon--moon {
+  display: none;
+}
+html[data-theme='dark'] .site-region--leftbar .region-actions .social .cs-icon--sun {
+  display: none;
+}
+html[data-theme='dark'] .site-region--leftbar .region-actions .social .cs-icon--moon {
+  display: block;
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) .site-region--leftbar .region-actions .social .cs-icon--sun {
+    display: none;
+  }
+  html:not([data-theme='light']) .site-region--leftbar .region-actions .social .cs-icon--moon {
+    display: block;
+  }
+}
+/* 收起按钮被 leftbar-extras.js 搬进行内后，与社交图标同规格；主题原生已给 32px，
+   这里只补 cursor/border，避免 button 默认边框破坏一行五个方块的观感 */
+.site-region--leftbar .region-actions .leftbar-state-toggle {
+  border: none;
+  cursor: pointer;
 }
 
 /* === footer 排版：每行图标+文字垂直居中对齐，备案号成对横排 === */
@@ -1374,7 +1474,11 @@ body::after {
   /* 第十一轮：对齐文章卡 .post-list .md-text 的 padding（1rem；移动端 0.5rem 1rem） */
   padding: 1rem;
 }
-@media screen and (max-width: 667px) {
+/* 2.0.0 迁移：断点从 v1 的 667px 提到主题的 $device-tablet=768px。
+   主题自己的卡片/封面移动端规则都在 _components/partial/cover.styl 的
+   @media (max-width: $device-tablet) 里，本站再卡在 667px 会让 668–768px
+   这段出现「主题按平板收窄、本站还是桌面 96px 图标」的错位。 */
+@media screen and (max-width: 768px) {
   .post-list.topic .post-card.topic article {
     padding: 0.5rem 1rem;
   }
@@ -1413,7 +1517,7 @@ body::after {
   padding: 0;
   margin-top: 8px;
 }
-@media screen and (max-width: 667px) {
+@media screen and (max-width: 768px) {
   .post-list.topic .post-card.topic article {
     grid-template-columns: 64px 1fr;
     column-gap: 12px;
@@ -1528,4 +1632,74 @@ body::after {
 [data-theme] .cmt-body .atk-layer-wrap.atk-dark-mode {
   --at-color-bg: var(--background);
   --at-color-bg-transl: var(--background);
+}
+
+/* ============================================================
+ * === 2.0.0 迁移：v1 有、v2 没有配置键的 CSS 兜底（用户决策 4）
+ * 逐条实测过才写，能用 v2 配置表达的都不放在这里：
+ *   · style.header_prefix      → v2 无键，且原生只给 h2 硬编码了 ':'（实测 public/css/main.css
+ *                                里 body[data-article-style='tech'] article.content h2 >a:first-child:before
+ *                                { content: ':' }，h3~h5 完全没有）→ 下面整段兜底
+ *   · style.prefix.h2          → 1.44 时代就已经是死键（v1dryrun/public/css/main.css 里
+ *                                heading-h2 图标 URL 命中 0 次），不兜底
+ *   · style.gradient.avatar    → v2 头像没有光环层（.brand-wrap .brand-image--avatar 只有
+ *                                overflow:hidden + img 100%）→ 下面用 ::before 复刻 v1 的
+ *                                .logo-wrap a.avatar div.bg
+ *   · style.font-family.codeblock → 不需要：v2 把 code/codeblock 合成一个键，实测生成的
+ *                                pre 与 .md-text .highlight 都是 Menlo 栈，与本站 v1 两键
+ *                                同值，观感一致
+ *   · style.loading            → 不需要：v2 languages/zh-CN.yml 的 loading / loading_failed
+ *                                文案与 v1 style.loading 完全相同
+ *   · style.animated_avatar    → 1.39.0 起主题就不渲染光环了，光环外观一直由上面的
+ *                                gradient.avatar 兜底承担
+ * ============================================================ */
+
+/* 技术文章各级标题前的符号，值取自 _config.stellar.v1.snapshot.yml 的 style.header_prefix。
+   选择器与特异性对齐 v2 原生那条 h2 规则（body[data-article-style='tech'] article.content
+   h2 >a:first-child:before，0,3,2），这里同特异性、写在后加载的 code-enhance.css 里即可覆盖。
+   生效范围与 v1 一致：实测 v1dryrun 64 篇文章页 28 篇带 tech 标记，v2 public 同样 28 篇。 */
+body[data-article-style='tech'] article.content h2 >a:first-child:before {
+  content: '#';
+}
+body[data-article-style='tech'] article.content h3 >a:first-child:before {
+  content: '=';
+}
+body[data-article-style='tech'] article.content h4 >a:first-child:before {
+  content: '|';
+}
+body[data-article-style='tech'] article.content h5 >a:first-child:before {
+  content: ':';
+}
+
+/* 头像光环：v1 是 a.avatar > div.bg（conic-gradient，来自 style.gradient.avatar，
+   静止时 opacity 0，hover 显形并转圈）。v2 的 .brand-image--avatar 里没有 .bg 这个节点，
+   所以改用 ::before 铺一层同款 conic 底，图片内缩 2px 露出环——数值对齐 v1 的
+   margin:2px / width:calc(100% - 4px)。@keyframes spin 复用主题定义（main.css 命中 1 次）。 */
+.site-region--leftbar .brand-wrap .brand-image--avatar {
+  background: conic-gradient(from 0deg, #609f80, #609f80);
+}
+.site-region--leftbar .brand-wrap .brand-image--avatar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #609f80, #609f80);
+  opacity: 0 !important;
+  transition: opacity 0.2s ease-out;
+}
+.site-region--leftbar .brand-wrap .brand-image--avatar:hover::before {
+  opacity: 1 !important;
+  animation: spin infinite 4s;
+  animation-timing-function: linear;
+}
+.site-region--leftbar .brand-wrap .brand-image--avatar img {
+  position: relative;
+  margin: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-region--leftbar .brand-wrap .brand-image--avatar:hover::before {
+    animation: none;
+  }
 }
